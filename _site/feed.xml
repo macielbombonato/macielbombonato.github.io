@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maciel Escudero Bombonato</title>
+    <description>[&quot;Desenvolvedor de software desde 2005, com experiência em diversas áreas e principalmente nas linguagens Java, Javascript (AngularJS) e PHP;&quot;]</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 09 Jun 2017 02:16:29 -0300</pubDate>
+    <lastBuildDate>Fri, 09 Jun 2017 02:16:29 -0300</lastBuildDate>
+    <generator>Jekyll v3.4.3</generator>
+    
+      <item>
+        <title>Site em construção</title>
+        <description>&lt;p&gt;Olá, este site está em construção e aos poucos devo passar os posts que tenho em macielbombonato.blogspot.com para cá.
+Outra coisa que devo trazer para cá também aos poucos é minha experiência profissional do linkedIn, tentando nas mais novas, fazer algo mais detalhado em formato de post sempre que possível.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 09 Jun 2017 02:00:00 -0300</pubDate>
+        <link>http://localhost:4000/jekyll/2017/06/09/welcome-to-jekyll-Copy.html</link>
+        <guid isPermaLink="true">http://localhost:4000/jekyll/2017/06/09/welcome-to-jekyll-Copy.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+      </item>
+    
+  </channel>
+</rss>
