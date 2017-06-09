@@ -1,27 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title></title>
-    <description>Desenvolvedor de software</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 09 Jun 2017 02:41:51 -0300</pubDate>
-    <lastBuildDate>Fri, 09 Jun 2017 02:41:51 -0300</lastBuildDate>
-    <generator>Jekyll v3.4.3</generator>
-    
-      <item>
-        <title>Site em construção</title>
-        <description>&lt;p&gt;Olá, este site está em construção e aos poucos devo passar os posts que tenho em macielbombonato.blogspot.com para cá.
-Outra coisa que devo trazer para cá também aos poucos é minha experiência profissional do linkedIn, tentando nas mais novas, fazer algo mais detalhado em formato de post sempre que possível.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 09 Jun 2017 02:00:00 -0300</pubDate>
-        <link>http://localhost:4000/welcome-to-jekyll-Copy/</link>
-        <guid isPermaLink="true">http://localhost:4000/welcome-to-jekyll-Copy/</guid>
-        
-        
-        <category>jekyll</category>
-        
-      </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-09T02:46:49-03:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">The Eternal Lorem Ipsum Placeholder Text Here</title><link href="http://localhost:4000/Eternal-Lorem-Ipsum/" rel="alternate" type="text/html" title="The Eternal Lorem Ipsum Placeholder Text Here" /><published>2016-03-08T00:00:00-03:00</published><updated>2016-03-08T00:00:00-03:00</updated><id>http://localhost:4000/Eternal-Lorem-Ipsum</id><content type="html" xml:base="http://localhost:4000/Eternal-Lorem-Ipsum/">&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet urna eu dolor placerat varius. Vivamus eros augue, consequat id scelerisque nec, fringilla in est. Proin pellentesque malesuada mauris, quis aliquam augue vestibulum ac.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-eternal-lorem-ipsum&quot;&gt;The Eternal Lorem Ipsum?&lt;/h2&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet urna eu dolor placerat varius. Vivamus eros augue, consequat id scelerisque nec, fringilla in est. Proin pellentesque malesuada mauris, quis aliquam augue vestibulum ac. Vestibulum ut feugiat nibh. Sed faucibus felis purus, sed convallis leo dictum vehicula.&lt;/p&gt;
+
+&lt;p&gt;Nam maximus tempor feugiat. Mauris tristique imperdiet nulla id egestas. Proin eget lobortis magna. Duis consectetur nibh at elit viverra congue. Ut eu turpis enim. Suspendisse laoreet, diam sed consequat sodales, felis dolor accumsan justo, nec scelerisque mi sem quis dolor. Etiam ornare venenatis massa, a suscipit ex. Ut quis lectus id nibh mattis rutrum. Nunc vel cursus eros, at blandit mi. Vivamus ac posuere libero.&lt;/p&gt;</content><author><name>Author Name</name></author><summary type="html">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet urna eu dolor placerat varius. Vivamus eros augue, consequat id scelerisque nec, fringilla in est. Proin pellentesque malesuada mauris, quis aliquam augue vestibulum ac.</summary></entry><entry><title type="html">The Eternal Lorem Ipsum Placeholder Text Here</title><link href="http://localhost:4000/Eternal-Lorem-Ipsum/" rel="alternate" type="text/html" title="The Eternal Lorem Ipsum Placeholder Text Here" /><published>2016-03-06T00:00:00-03:00</published><updated>2016-03-06T00:00:00-03:00</updated><id>http://localhost:4000/Eternal-Lorem-Ipsum</id><content type="html" xml:base="http://localhost:4000/Eternal-Lorem-Ipsum/">&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet urna eu dolor placerat varius. Vivamus eros augue, consequat id scelerisque nec, fringilla in est. Proin pellentesque malesuada mauris, quis aliquam augue vestibulum ac.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-eternal-lorem-ipsum&quot;&gt;The Eternal Lorem Ipsum?&lt;/h2&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet urna eu dolor placerat varius. Vivamus eros augue, consequat id scelerisque nec, fringilla in est. Proin pellentesque malesuada mauris, quis aliquam augue vestibulum ac. Vestibulum ut feugiat nibh. Sed faucibus felis purus, sed convallis leo dictum vehicula.&lt;/p&gt;
+
+&lt;p&gt;Nam maximus tempor feugiat. Mauris tristique imperdiet nulla id egestas. Proin eget lobortis magna. Duis consectetur nibh at elit viverra congue. Ut eu turpis enim. Suspendisse laoreet, diam sed consequat sodales, felis dolor accumsan justo, nec scelerisque mi sem quis dolor. Etiam ornare venenatis massa, a suscipit ex. Ut quis lectus id nibh mattis rutrum. Nunc vel cursus eros, at blandit mi. Vivamus ac posuere libero.&lt;/p&gt;</content><author><name>Author Name</name></author><summary type="html">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet urna eu dolor placerat varius. Vivamus eros augue, consequat id scelerisque nec, fringilla in est. Proin pellentesque malesuada mauris, quis aliquam augue vestibulum ac.</summary></entry></feed>
