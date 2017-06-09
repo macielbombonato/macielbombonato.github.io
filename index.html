@@ -2,17 +2,17 @@
 layout: default
 ---
 
-<div class="home">
- <div class="top card">
-    <a class="email" href="mailto:{{site.email}}">{{site.email}}</a>
-    <p class="description">
-      {{ site.description }}
-    </p>
+<div class="posts">
+  {% for post in site.posts %}
+    <article class="post">
 
-    <a href="posts" class="btn">
-      Posts
-    </a>
+      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
 
-  </div>
+      <div class="entry">
+        {{ post.excerpt }}
+      </div>
 
+      <a href="{{ site.baseurl }}{{ post.url }}" class="button button-primary">Read More</a>
+    </article>
+  {% endfor %}
 </div>
