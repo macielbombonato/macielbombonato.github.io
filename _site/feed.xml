@@ -1,15 +1,110 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-09T02:46:49-03:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">The Eternal Lorem Ipsum Placeholder Text Here</title><link href="http://localhost:4000/Eternal-Lorem-Ipsum/" rel="alternate" type="text/html" title="The Eternal Lorem Ipsum Placeholder Text Here" /><published>2016-03-08T00:00:00-03:00</published><updated>2016-03-08T00:00:00-03:00</updated><id>http://localhost:4000/Eternal-Lorem-Ipsum</id><content type="html" xml:base="http://localhost:4000/Eternal-Lorem-Ipsum/">&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet urna eu dolor placerat varius. Vivamus eros augue, consequat id scelerisque nec, fringilla in est. Proin pellentesque malesuada mauris, quis aliquam augue vestibulum ac.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-18T19:29:48-03:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">Passo a passo para montar uma página com Jekyll</title><link href="http://localhost:4000/Criando-uma-pagina-com-Jektll/" rel="alternate" type="text/html" title="Passo a passo para montar uma página com Jekyll" /><published>2017-06-17T00:00:00-03:00</published><updated>2017-06-17T00:00:00-03:00</updated><id>http://localhost:4000/Criando-uma-pagina-com-Jektll</id><content type="html" xml:base="http://localhost:4000/Criando-uma-pagina-com-Jektll/">&lt;p&gt;Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.&lt;/p&gt;
 
-&lt;h2 id=&quot;the-eternal-lorem-ipsum&quot;&gt;The Eternal Lorem Ipsum?&lt;/h2&gt;
+&lt;h1 id=&quot;passo-a-passo-para-montar-uma-página-com-jekyll&quot;&gt;Passo a passo para montar uma página com Jekyll&lt;/h1&gt;
+
 &lt;hr /&gt;
 
-&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet urna eu dolor placerat varius. Vivamus eros augue, consequat id scelerisque nec, fringilla in est. Proin pellentesque malesuada mauris, quis aliquam augue vestibulum ac. Vestibulum ut feugiat nibh. Sed faucibus felis purus, sed convallis leo dictum vehicula.&lt;/p&gt;
+&lt;p&gt;Quase todo mundo que monta um blog/página pessoal no github pages faz um post dizendo como montou esse blog, para não ser diferente, vamos lá fazer a mesma coisa. :-)&lt;/p&gt;
 
-&lt;p&gt;Nam maximus tempor feugiat. Mauris tristique imperdiet nulla id egestas. Proin eget lobortis magna. Duis consectetur nibh at elit viverra congue. Ut eu turpis enim. Suspendisse laoreet, diam sed consequat sodales, felis dolor accumsan justo, nec scelerisque mi sem quis dolor. Etiam ornare venenatis massa, a suscipit ex. Ut quis lectus id nibh mattis rutrum. Nunc vel cursus eros, at blandit mi. Vivamus ac posuere libero.&lt;/p&gt;</content><author><name>Author Name</name></author><summary type="html">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet urna eu dolor placerat varius. Vivamus eros augue, consequat id scelerisque nec, fringilla in est. Proin pellentesque malesuada mauris, quis aliquam augue vestibulum ac.</summary></entry><entry><title type="html">The Eternal Lorem Ipsum Placeholder Text Here</title><link href="http://localhost:4000/Eternal-Lorem-Ipsum/" rel="alternate" type="text/html" title="The Eternal Lorem Ipsum Placeholder Text Here" /><published>2016-03-06T00:00:00-03:00</published><updated>2016-03-06T00:00:00-03:00</updated><id>http://localhost:4000/Eternal-Lorem-Ipsum</id><content type="html" xml:base="http://localhost:4000/Eternal-Lorem-Ipsum/">&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet urna eu dolor placerat varius. Vivamus eros augue, consequat id scelerisque nec, fringilla in est. Proin pellentesque malesuada mauris, quis aliquam augue vestibulum ac.&lt;/p&gt;
+&lt;p&gt;Eu comecei lendo posts do meu amigo &lt;a href=&quot;https://leonardorifeli.com&quot;&gt;Leonardo Rifeli&lt;/a&gt;. Daí, sai fazendo testes e olhando alguns outros pontos na internet e disso montei este site que ainda estou resolvendo qual será o formato, layout, estilo e por aí vai.&lt;/p&gt;
 
-&lt;h2 id=&quot;the-eternal-lorem-ipsum&quot;&gt;The Eternal Lorem Ipsum?&lt;/h2&gt;
+&lt;p&gt;De qualquer forma, a estrutura de posts será mantida, então, esse post deve ser atualizado de vez em quando com alguns complementos e melhorias.&lt;/p&gt;
+
+&lt;p&gt;Agora vamos ao que interessa.&lt;/p&gt;
+
 &lt;hr /&gt;
 
-&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet urna eu dolor placerat varius. Vivamus eros augue, consequat id scelerisque nec, fringilla in est. Proin pellentesque malesuada mauris, quis aliquam augue vestibulum ac. Vestibulum ut feugiat nibh. Sed faucibus felis purus, sed convallis leo dictum vehicula.&lt;/p&gt;
+&lt;h2 id=&quot;1-softwares-necessários&quot;&gt;&lt;strong&gt;1. Softwares necessários&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;Nam maximus tempor feugiat. Mauris tristique imperdiet nulla id egestas. Proin eget lobortis magna. Duis consectetur nibh at elit viverra congue. Ut eu turpis enim. Suspendisse laoreet, diam sed consequat sodales, felis dolor accumsan justo, nec scelerisque mi sem quis dolor. Etiam ornare venenatis massa, a suscipit ex. Ut quis lectus id nibh mattis rutrum. Nunc vel cursus eros, at blandit mi. Vivamus ac posuere libero.&lt;/p&gt;</content><author><name>Author Name</name></author><summary type="html">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam imperdiet urna eu dolor placerat varius. Vivamus eros augue, consequat id scelerisque nec, fringilla in est. Proin pellentesque malesuada mauris, quis aliquam augue vestibulum ac.</summary></entry></feed>
+&lt;h4 id=&quot;git&quot;&gt;&lt;strong&gt;Git&lt;/strong&gt;&lt;/h4&gt;
+&lt;h4 id=&quot;ruby&quot;&gt;&lt;strong&gt;Ruby&lt;/strong&gt;&lt;/h4&gt;
+&lt;h4 id=&quot;bundler&quot;&gt;&lt;strong&gt;bundler&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem install bundler
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;jekyll&quot;&gt;&lt;strong&gt;Jekyll&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem install jekyll
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;jekyll-sitemap&quot;&gt;&lt;strong&gt;jekyll-sitemap&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem install jekyll-sitemap
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;jekyll-feed&quot;&gt;&lt;strong&gt;jekyll-feed&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem install jekyll-feed
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;2-iniciando-seu-site&quot;&gt;&lt;strong&gt;2. Iniciando seu site&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Após instalar tudo, vamos criar o site.&lt;/p&gt;
+
+&lt;p&gt;Primeiro, execute o comando abaixo:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jekyll new nome_site
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Ou dentro da pasta onde quer guardar as coisas:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jekyll new .
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Isso vai criar uma estrutura de pastas e arquivos necessários para a coisa funcionar.&lt;/p&gt;
+
+&lt;p&gt;Agora para testar, execute:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jekyll server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Isso vai subir um servidor local que você pode testar acessando:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://localhost:4000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Quando você acessar esse endereço vai ver o site de exemplo que o jekyll cria. Agora, edite isso e monte seu site. ;-)&lt;/p&gt;
+
+&lt;p&gt;Durante o desenvolvimento do seu site, recomendo a abertura de uma nova janela de terminal com o comando:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jekyll build --watch
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Dessa forma, sempre que atualizar alguma coisa, isso será refletido &lt;em&gt;automágicamente&lt;/em&gt; no endereço local de testes. :-)&lt;/p&gt;
+
+&lt;h2 id=&quot;3-entendendo-a-estrutura-do-site-criado&quot;&gt;&lt;strong&gt;3. Entendendo a estrutura do site criado&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;O comando acima vai criar um arquivo &lt;strong&gt;_config.yml&lt;/strong&gt;, nele você pode simplesmente trocar os dados para os seus e de quebra criar algumas variáveis novas que podem ser utilizadas em seu site.&lt;/p&gt;
+
+&lt;p&gt;Outros pontos que acho bem bacana de criar:&lt;/p&gt;
+
+&lt;h4 id=&quot;_layouts&quot;&gt;&lt;strong&gt;_layouts&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;É bem útil ter um local com todos os possíveis layouts que você pretende ter em seu site, por exemplo, uma página simples, uma postagem e coisas do tipo.&lt;/p&gt;
+
+&lt;h4 id=&quot;_includes&quot;&gt;&lt;strong&gt;_includes&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;Os includes são blocos de página utilizados para compor seu layout, por exemplo, um cabeçalho, rodapé, fragmento para inclusão de google analytics e aí por diante.&lt;/p&gt;
+
+&lt;h4 id=&quot;arquivos-md&quot;&gt;&lt;strong&gt;Arquivos .md&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;O Jekyll usa arquivo markdown para oferecer páginas com formatação simples e sem a necessidade de conhecimento técnico para criá-las.&lt;/p&gt;
+
+&lt;p&gt;Para montar esses arquivos &lt;strong&gt;.md&lt;/strong&gt; você pode fazer tudo na unha e ver como está ficando realizando testes no navegador mesmo ou pode utilizar um editor online (por exemplo).&lt;/p&gt;
+
+&lt;p&gt;Quando estou trabalhando em um mac costumo utilizar o MacDown para escrever arquivos MD e quando estou em uma máquina linux ou windows costumo utilizar o &lt;a href=&quot;https://stackedit.io/editor&quot;&gt;Stack Edit&lt;/a&gt;. Bem útil mesmo. ;-)
+…&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Bom gente, é domingo e estou escrevendo isso aos poucos. hehehe. Então vou voltar para o netflix e durante a semana escrevo mais… :-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.</summary></entry></feed>

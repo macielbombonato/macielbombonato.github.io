@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Passo a passo para montar uma página com Jekyll – Maciel Bombonato – Desenvolvedor de software</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.
+
+" />
+    <meta property="og:description" content="Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.
+
+" />
+    
+    <meta name="author" content="Maciel Bombonato" />
+
+    
+    <meta property="og:title" content="Passo a passo para montar uma página com Jekyll" />
+    <meta property="twitter:title" content="Passo a passo para montar uma página com Jekyll" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="alternate" type="application/rss+xml" title="Maciel Bombonato - Desenvolvedor de software" href="/feed.xml" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+  </head>
+
+  <body>
+    
+    
+    <div class="intro-header">    
+      <div class="container">
+        <div class="post-heading">
+            <h1>Passo a passo para montar uma página com Jekyll</h1>
+            <span class="meta">Posted by <a href="/about"> Maciel Escudero Bombonato
+            </a> on June 17, 2017
+            <a href="/"> { Return to Blog }</a>
+            </span>
+        </div>
+            
+      </div>
+    </div>
+    
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+ <div class="space-extra-small">
+ </div>
+
+  <div class="entry">
+    <p>Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.</p>
+
+<h1 id="passo-a-passo-para-montar-uma-página-com-jekyll">Passo a passo para montar uma página com Jekyll</h1>
+
+<hr />
+
+<p>Quase todo mundo que monta um blog/página pessoal no github pages faz um post dizendo como montou esse blog, para não ser diferente, vamos lá fazer a mesma coisa. :-)</p>
+
+<p>Eu comecei lendo posts do meu amigo <a href="https://leonardorifeli.com">Leonardo Rifeli</a>. Daí, sai fazendo testes e olhando alguns outros pontos na internet e disso montei este site que ainda estou resolvendo qual será o formato, layout, estilo e por aí vai.</p>
+
+<p>De qualquer forma, a estrutura de posts será mantida, então, esse post deve ser atualizado de vez em quando com alguns complementos e melhorias.</p>
+
+<p>Agora vamos ao que interessa.</p>
+
+<hr />
+
+<h2 id="1-softwares-necessários"><strong>1. Softwares necessários</strong></h2>
+
+<h4 id="git"><strong>Git</strong></h4>
+<h4 id="ruby"><strong>Ruby</strong></h4>
+<h4 id="bundler"><strong>bundler</strong></h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>gem install bundler
+</code></pre>
+</div>
+
+<h4 id="jekyll"><strong>Jekyll</strong></h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>gem install jekyll
+</code></pre>
+</div>
+
+<h4 id="jekyll-sitemap"><strong>jekyll-sitemap</strong></h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>gem install jekyll-sitemap
+</code></pre>
+</div>
+
+<h4 id="jekyll-feed"><strong>jekyll-feed</strong></h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>gem install jekyll-feed
+</code></pre>
+</div>
+
+<h2 id="2-iniciando-seu-site"><strong>2. Iniciando seu site</strong></h2>
+
+<p>Após instalar tudo, vamos criar o site.</p>
+
+<p>Primeiro, execute o comando abaixo:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>jekyll new nome_site
+</code></pre>
+</div>
+
+<p>Ou dentro da pasta onde quer guardar as coisas:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>jekyll new .
+</code></pre>
+</div>
+
+<p>Isso vai criar uma estrutura de pastas e arquivos necessários para a coisa funcionar.</p>
+
+<p>Agora para testar, execute:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>jekyll server
+</code></pre>
+</div>
+
+<p>Isso vai subir um servidor local que você pode testar acessando:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://localhost:4000
+</code></pre>
+</div>
+
+<p>Quando você acessar esse endereço vai ver o site de exemplo que o jekyll cria. Agora, edite isso e monte seu site. ;-)</p>
+
+<p>Durante o desenvolvimento do seu site, recomendo a abertura de uma nova janela de terminal com o comando:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>jekyll build --watch
+</code></pre>
+</div>
+
+<p>Dessa forma, sempre que atualizar alguma coisa, isso será refletido <em>automágicamente</em> no endereço local de testes. :-)</p>
+
+<h2 id="3-entendendo-a-estrutura-do-site-criado"><strong>3. Entendendo a estrutura do site criado</strong></h2>
+
+<p>O comando acima vai criar um arquivo <strong>_config.yml</strong>, nele você pode simplesmente trocar os dados para os seus e de quebra criar algumas variáveis novas que podem ser utilizadas em seu site.</p>
+
+<p>Outros pontos que acho bem bacana de criar:</p>
+
+<h4 id="_layouts"><strong>_layouts</strong></h4>
+
+<p>É bem útil ter um local com todos os possíveis layouts que você pretende ter em seu site, por exemplo, uma página simples, uma postagem e coisas do tipo.</p>
+
+<h4 id="_includes"><strong>_includes</strong></h4>
+
+<p>Os includes são blocos de página utilizados para compor seu layout, por exemplo, um cabeçalho, rodapé, fragmento para inclusão de google analytics e aí por diante.</p>
+
+<h4 id="arquivos-md"><strong>Arquivos .md</strong></h4>
+
+<p>O Jekyll usa arquivo markdown para oferecer páginas com formatação simples e sem a necessidade de conhecimento técnico para criá-las.</p>
+
+<p>Para montar esses arquivos <strong>.md</strong> você pode fazer tudo na unha e ver como está ficando realizando testes no navegador mesmo ou pode utilizar um editor online (por exemplo).</p>
+
+<p>Quando estou trabalhando em um mac costumo utilizar o MacDown para escrever arquivos MD e quando estou em uma máquina linux ou windows costumo utilizar o <a href="https://stackedit.io/editor">Stack Edit</a>. Bem útil mesmo. ;-)
+…</p>
+
+<hr />
+
+<p>Bom gente, é domingo e estou escrevendo isso aos poucos. hehehe. Então vou voltar para o netflix e durante a semana escrevo mais… :-)</p>
+
+  </div>
+
+  
+</article>
+
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+            <div class="svg-icon">
+          
+<a href="mailto:maciel@bombonato.net"><i class="icon-envelope icon-2x"></i></a>
+
+
+<a href="https://github.com/macielbombonato"><i class="icon-github icon-2x"></i></a>
+
+<a href="https://www.linkedin.com/in/macielbombonato"><i class="icon-linkedin-sign icon-2x"></i></a>
+
+
+<a href="https://www.twitter.com/macielbombonato"><i class="icon-twitter icon-2x"></i></a>
+
+
+
+
+            </div>
+        </footer>
+      </div>
+    </div>
+
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-60177831-5', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/Criando-uma-pagina-com-Jektll/',
+		  'title': 'Passo a passo para montar uma página com Jekyll'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+  </body>
+</html>
