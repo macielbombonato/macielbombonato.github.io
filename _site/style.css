@@ -92,7 +92,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 30px;
-  color: #847676;
+  color: #686961;
 }
 h1 a {
   color: inherit;
@@ -100,7 +100,7 @@ h1 a {
 
 h2 {
   font-size: 24px;
-  color: #847676;
+  color: #686961;
 }
 
 h3 {
@@ -683,7 +683,7 @@ code {
 /****************************/
 /* JEKYLL-mono-color */
 /***************************/
-/* 
+/*
     *Title
 */
 .site-name a {
@@ -696,10 +696,10 @@ code {
 }
 
 .post a {
-  color: #847676;
+  color: #686961;
 }
 .post a:hover {
-  color: #4e4646;
+  color: #333430;
 }
 
 .post-heading a {
@@ -743,9 +743,9 @@ button:focus {
 
 .button.button-primary,
 button.button-primary {
-  color: #847676;
+  color: #686961;
   background-color: transparent;
-  border-color: #847676;
+  border-color: #686961;
 }
 
 .button.button-primary:hover,
@@ -753,8 +753,8 @@ button.button-primary:hover,
 .button.button-primary:focus,
 button.button-primary:focus {
   color: #FFF;
-  background-color: #847676;
-  border-color: #847676;
+  background-color: #686961;
+  border-color: #686961;
 }
 
 /*
@@ -762,7 +762,7 @@ button.button-primary:focus {
 */
 .intro-header {
   border-top: 5px solid white;
-  background-color: #847676;
+  background-color: #686961;
 }
 
 .intro-header .post-heading {
@@ -777,12 +777,30 @@ button.button-primary:focus {
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.page-header {
+  border-top: 5px solid white;
+  background-color: #686961;
+}
+
+.page-header .post-heading {
+  padding: 50px 0 50px;
+  color: #fff;
+  text-align: center;
+}
+
+.page-header .post-heading h1 {
+  color: #fff;
+  font-size: 30px;
+  line-height: 1.0;
+  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 @media only screen and (min-width: 768px) {
   .intro-header .post-heading {
     padding: 150px 0;
   }
 }
-/* 
+/*
     *empty spaces
 */
 .space-medium {
@@ -797,16 +815,16 @@ button.button-primary:focus {
   padding: 30px 0 15px;
 }
 
-/* 
+/*
     *svg-icons
-    
+
 */
 .svg-icon a {
-  color: #695e5e;
+  color: #4e4e49;
   cursor: pointer;
 }
 .svg-icon a:hover {
-  color: #4e4646;
+  color: #333430;
 }
 
 /*
@@ -925,7 +943,7 @@ button.button-primary:focus {
 
 .ch-info p a {
   display: block;
-  color: #847676;
+  color: #686961;
   font-style: normal;
   font-weight: 700;
   text-transform: uppercase;
@@ -936,7 +954,7 @@ button.button-primary:focus {
 }
 
 .ch-info p a:hover {
-  color: #695e5e;
+  color: #4e4e49;
 }
 
 .ch-item:hover .ch-info-front {
