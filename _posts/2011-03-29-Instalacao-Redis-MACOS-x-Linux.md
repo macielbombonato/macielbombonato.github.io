@@ -4,6 +4,8 @@ title: Instalação Redis MacOS X e Linux em 30s
 author: Maciel Escudero Bombonato
 ---
 
+Um daqueles posts relâmpago. :)
+
 # Instalação Redis MacOS X e Linux em 30s
 
 --------
