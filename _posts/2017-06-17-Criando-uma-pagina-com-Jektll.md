@@ -22,6 +22,13 @@ Agora vamos ao que interessa.
 
 ## **1. Softwares necessários**
 
+> **DICA** 
+> 
+> Para usuários **Linux** e **Mac**: A maioria dos comandos abaixo (relacionados a instalação de softwares) só funcionam com o **sudo** na frente, ou seja, **sudo gem install bundler**. 
+> 
+> Nos demais casos (executando como root ou usuários Windows), isso não será necessário. ;-)
+
+
 #### **Git**
 #### **Ruby**
 #### **bundler**
@@ -53,6 +60,10 @@ Ou dentro da pasta onde quer guardar as coisas:
 	jekyll new .
 
 Isso vai criar uma estrutura de pastas e arquivos necessários para a coisa funcionar.
+
+Caso não esteja na pasta, entre nela com o seguinte comando:
+
+	cd nome_site
 
 Agora para testar, execute:
 

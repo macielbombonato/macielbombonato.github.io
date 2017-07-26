@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-06-18T19:29:48-03:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">Passo a passo para montar uma página com Jekyll</title><link href="http://localhost:4000/Criando-uma-pagina-com-Jektll/" rel="alternate" type="text/html" title="Passo a passo para montar uma página com Jekyll" /><published>2017-06-17T00:00:00-03:00</published><updated>2017-06-17T00:00:00-03:00</updated><id>http://localhost:4000/Criando-uma-pagina-com-Jektll</id><content type="html" xml:base="http://localhost:4000/Criando-uma-pagina-com-Jektll/">&lt;p&gt;Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-07-25T22:13:49-03:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">Passo a passo para montar uma página com Jekyll</title><link href="http://localhost:4000/Criando-uma-pagina-com-Jektll/" rel="alternate" type="text/html" title="Passo a passo para montar uma página com Jekyll" /><published>2017-06-17T00:00:00-03:00</published><updated>2017-06-17T00:00:00-03:00</updated><id>http://localhost:4000/Criando-uma-pagina-com-Jektll</id><content type="html" xml:base="http://localhost:4000/Criando-uma-pagina-com-Jektll/">&lt;p&gt;Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.&lt;/p&gt;
 
 &lt;h1 id=&quot;passo-a-passo-para-montar-uma-página-com-jekyll&quot;&gt;Passo a passo para montar uma página com Jekyll&lt;/h1&gt;
 
@@ -15,6 +15,14 @@
 &lt;hr /&gt;
 
 &lt;h2 id=&quot;1-softwares-necessários&quot;&gt;&lt;strong&gt;1. Softwares necessários&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;DICA&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;Para usuários &lt;strong&gt;Linux&lt;/strong&gt; e &lt;strong&gt;Mac&lt;/strong&gt;: A maioria dos comandos abaixo (relacionados a instalação de softwares) só funcionam com o &lt;strong&gt;sudo&lt;/strong&gt; na frente, ou seja, &lt;strong&gt;sudo gem install bundler&lt;/strong&gt;.&lt;/p&gt;
+
+  &lt;p&gt;Nos demais casos (executando como root ou usuários Windows), isso não será necessário. ;-)&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h4 id=&quot;git&quot;&gt;&lt;strong&gt;Git&lt;/strong&gt;&lt;/h4&gt;
 &lt;h4 id=&quot;ruby&quot;&gt;&lt;strong&gt;Ruby&lt;/strong&gt;&lt;/h4&gt;
@@ -59,6 +67,12 @@
 &lt;/div&gt;
 
 &lt;p&gt;Isso vai criar uma estrutura de pastas e arquivos necessários para a coisa funcionar.&lt;/p&gt;
+
+&lt;p&gt;Caso não esteja na pasta, entre nela com o seguinte comando:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd nome_site
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Agora para testar, execute:&lt;/p&gt;
 
