@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-07-26T00:57:57-03:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">Passo a passo para montar uma página com Jekyll</title><link href="http://localhost:4000/Criando-uma-pagina-com-Jektll/" rel="alternate" type="text/html" title="Passo a passo para montar uma página com Jekyll" /><published>2017-06-17T00:00:00-03:00</published><updated>2017-06-17T00:00:00-03:00</updated><id>http://localhost:4000/Criando-uma-pagina-com-Jektll</id><content type="html" xml:base="http://localhost:4000/Criando-uma-pagina-com-Jektll/">&lt;p&gt;Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-07-26T01:17:12-03:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">Passo a passo para montar uma página com Jekyll</title><link href="http://localhost:4000/Criando-uma-pagina-com-Jektll/" rel="alternate" type="text/html" title="Passo a passo para montar uma página com Jekyll" /><published>2017-06-17T00:00:00-03:00</published><updated>2017-06-17T00:00:00-03:00</updated><id>http://localhost:4000/Criando-uma-pagina-com-Jektll</id><content type="html" xml:base="http://localhost:4000/Criando-uma-pagina-com-Jektll/">&lt;p&gt;Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.&lt;/p&gt;
 
 &lt;h1 id=&quot;passo-a-passo-para-montar-uma-página-com-jekyll&quot;&gt;Passo a passo para montar uma página com Jekyll&lt;/h1&gt;
 
@@ -469,13 +469,13 @@ git push origin master
 
 &lt;p&gt;Fazer com que o host remoto git do seu projeto passe a ser este indicado na url&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git remote add origin https://enderecodoseuservidor/aplicacao.git 
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git remote add origin https://enderecodoseuservidor/aplicacao.git
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;p&gt;Para enviar os fontes para o branch master remoto pela primeira vez&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git push -u origin master 
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git push -u origin master
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Um post com dicas e comandos git.</summary></entry><entry><title type="html">Instalação Redis MacOS X e Linux em 30s</title><link href="http://localhost:4000/Instalacao-Redis-MACOS-x-Linux/" rel="alternate" type="text/html" title="Instalação Redis MacOS X e Linux em 30s" /><published>2011-03-29T00:00:00-03:00</published><updated>2011-03-29T00:00:00-03:00</updated><id>http://localhost:4000/Instalacao-Redis-MACOS-x-Linux</id><content type="html" xml:base="http://localhost:4000/Instalacao-Redis-MACOS-x-Linux/">&lt;p&gt;Um daqueles posts relâmpago. :)&lt;/p&gt;
 

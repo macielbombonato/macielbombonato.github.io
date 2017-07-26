@@ -12,7 +12,7 @@ Um post com dicas e comandos git.
 
 Versionando um diretório local com git.
 
-Dentro do diretório executar o comando: 
+Dentro do diretório executar o comando:
 
 	git init
 
@@ -29,7 +29,7 @@ Exibe todos os branchs e marca com um asterisco o que está selecionado.
 Fazer stage dos arquivos (marcá-los para versionar)
 
 	git add
-	
+
 - . (ponto) adiciona todos arquivos que estão pendentes
 - [nome do arquivo] adiciona um arquivo específico
 
@@ -77,8 +77,8 @@ Os passos acima foram seguidos e o projeto está sendo versionado localmente ape
 
 Fazer com que o host remoto git do seu projeto passe a ser este indicado na url
 
-	$ git remote add origin https://enderecodoseuservidor/aplicacao.git 
+	$ git remote add origin https://enderecodoseuservidor/aplicacao.git
 
 Para enviar os fontes para o branch master remoto pela primeira vez
 
-	$ git push -u origin master 
+	$ git push -u origin master
