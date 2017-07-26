@@ -148,6 +148,51 @@
 				
 					,
 					
+					"jsf-url-redirect": {
+						"id": "jsf-url-redirect",
+						"title": "JSF - URL não muda após redirect?",
+						"date": "2012-07-18 00:00:00 -0300",
+						"url": " /JSF-URL-redirect/",
+						"content": "Mais um dos antigos migrados para cá.\n\nJSF - URL não muda após redirect?\n\n\n\nEm situações que um método retorna a url de redirect da sua página, como por exemplo:\n\npublic String listar() {\n\treturn \"/pages/list.xhtml\";\n}\n\n\n\nE o JSF não muda a URL na barra do browser, recomendo a inclusão da seguinte string após a url:  + “?faces-redirect=true”\n\nficando:\n\npublic String listar() {\n\treturn \"/pages/list.xhtml\"  + \"?faces-redirect=true\";\n}\n\n\n\nFazendo isso, a URL sempre vai mudar. ;-)"
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"jsf-pag-erro-sessao-expirada": {
+						"id": "jsf-pag-erro-sessao-expirada",
+						"title": "JSF - Página de erro após sessão expirada?",
+						"date": "2012-07-18 00:00:00 -0300",
+						"url": " /JSF-Pag-erro-sessao-expirada/",
+						"content": "Mais um dos antigos migrados para cá.\n\nJSF - Página de erro após sessão expirada?\n\n\n\nEu estava pegando sempre uma página de erro após muito tempo de inatividade em uma aplicação JSF ou quando reiniciava o servidor e clicava em algum link na página.\n\nPara resolver esse problema chato, usei as seguintes linhas no web.xml da aplicação.\n\n&lt;error-page&gt;\n\t&lt;exception-type&gt;\n\t\tjavax.faces.application.ViewExpiredException\n\t&lt;/exception-type&gt;\n\t&lt;location&gt; \n\t\t/index.html \n\t&lt;/location&gt;\n&lt;/error-page&gt; \n\n\n\nCom essas linhas no web.xml a aplicação ao invés de exibir a página de erro quando a view estiver expirada, vai redirecionar o usuário para a página indicada."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"jsf-sprint-di": {
+						"id": "jsf-sprint-di",
+						"title": "JSF 2.0 + Spring - Injeção de Dependência (DI)",
+						"date": "2012-04-15 00:00:00 -0300",
+						"url": " /JSF-Sprint-DI/",
+						"content": "Mais um dos antigos migrados para cá.\n\nJSF 2.0 + Spring - Injeção de Dependência (DI)\n\n\n\nEstou desenvolvendo uma aplicação utilizando JSF 2.0, Hibernate, Spring 3, etc…\n\nNo caso, procurei utilizar anotações e acabei cometendo um equívoco na escolha das anotações que a principio, não gerou problema, porém, quando testei multiplos acessos à aplicação, os problemas começaram a aparecer, como por exemplo, um usuário invalidando a sessão do outro.\n\nO ponto é que eu estava usando a anotação @Component(“nomeBean”) nos beans gerenciados e @Autowired para fazer o trabalho de DI (anotações do Spring).\n\nPesquisando para resolver o problema, cheguei ao seguinte resultado:\n\nAo invés de:\n\n@Component(\"nomeBean\")\n\n\n\nUse:\n\n@ManagedBean(name=\"nomeBean\")\n\n\n\ne ao invés de:\n\n@Autowired\n\n\n\nUse:\n\n@ManagedProperty(value=\"#{nomeBeanInjetar}\")\n\n\n\nUtilizarei como exemplo uma classe usuário recebendo a injeção de um UsuarioDAO.\n\nImplentação do UsuarioDAO que deverá ser injetado no objeto usuarioController, que é meu managed bean:\n\n@Component(\"usuarioDAO\")\npublic class UsuarioDAO implements IUsuarioDAO {\n...\n\n\n\nClasse que receberá a injeção:\n\n@ManagedBean(name=\"usuarioController\")\n@SessionScoped\npublic class UsuarioController {\n\n\t@ManagedProperty(value=\"#{usuarioDAO}\")\n\tprivate IUsuarioDAO usuarioDao;\n\n\tpublic void setUsuarioDAO(IUsuarioDAO usuarioDAO) {\n\t\tthis.usuarioDAO = usuarioDAO;\n\t}\n...\n\n\n\nNote que na abordagem acima estou usando anotações do JSF (@ManagedBean e @ManagedProperty) e anotações do Spring.\n\nA ideia é a seguinte:\n\n\n  Criamos os objetos que serão reutilizados mais adiante sendo injetados em nossos managed beans, esses objetos devem ser marcados como componentes e nesse momento, devemos dar um nome a ele, nesse processo, o Spring vai criar este objeto em memória e deixá-lo pronto para ser injetado quando for chamado;\n  O segundo passo é no nosso managed bean que devemos identificar a propriedade com a anotação @ManagedProperty e informar qual será o objeto que deverá ser injetado usando o mesmo nome dado anteriormente;\n\n\nBom, seguindo o padrão de posts rápidos e dirétos, basicamente foi isso que me ajudou bastante.\n\nOBS.:\n\n\n  Quando utilizada a anotação @ManagedProperty, o atributo deve possuir um setter associado a ele, como no exemplo acima;\n  Quando ainda não tinha notado que o erro era este, procurei coisas estáticas na aplicação e por ai vai, então, fica a dica;\n\n\nEspero ter ajudado e até a próxima."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
 					"comandos-maven": {
 						"id": "comandos-maven",
 						"title": "Alguns comandos úteis para utilizar MAVEN",

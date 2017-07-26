@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-07-26T01:30:21-03:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">Passo a passo para montar uma página com Jekyll</title><link href="http://localhost:4000/Criando-uma-pagina-com-Jektll/" rel="alternate" type="text/html" title="Passo a passo para montar uma página com Jekyll" /><published>2017-06-17T00:00:00-03:00</published><updated>2017-06-17T00:00:00-03:00</updated><id>http://localhost:4000/Criando-uma-pagina-com-Jektll</id><content type="html" xml:base="http://localhost:4000/Criando-uma-pagina-com-Jektll/">&lt;p&gt;Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-07-26T01:49:35-03:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">Passo a passo para montar uma página com Jekyll</title><link href="http://localhost:4000/Criando-uma-pagina-com-Jektll/" rel="alternate" type="text/html" title="Passo a passo para montar uma página com Jekyll" /><published>2017-06-17T00:00:00-03:00</published><updated>2017-06-17T00:00:00-03:00</updated><id>http://localhost:4000/Criando-uma-pagina-com-Jektll</id><content type="html" xml:base="http://localhost:4000/Criando-uma-pagina-com-Jektll/">&lt;p&gt;Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.&lt;/p&gt;
 
 &lt;h1 id=&quot;passo-a-passo-para-montar-uma-página-com-jekyll&quot;&gt;Passo a passo para montar uma página com Jekyll&lt;/h1&gt;
 
@@ -163,7 +163,134 @@
 
 &lt;p&gt;Eu aconselho que o vídeo do post mencionado acima seja visto, o artigo do camaradinha é muito bom e completo.&lt;/p&gt;
 
-&lt;p&gt;OBS.: Para quem quiser instalar o CM7 seguindo o tutorial acima, após a instalação, use a banda da Claro mencionada no tutorial, eu sou usuário VIVO e pra mim funcionou perfeitamente com aquela opção. A banda “Viva” não funcionou muito bem.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Alguns comandos úteis para utilizar MAVEN</title><link href="http://localhost:4000/Comandos-maven/" rel="alternate" type="text/html" title="Alguns comandos úteis para utilizar MAVEN" /><published>2012-03-30T00:00:00-03:00</published><updated>2012-03-30T00:00:00-03:00</updated><id>http://localhost:4000/Comandos-maven</id><content type="html" xml:base="http://localhost:4000/Comandos-maven/">&lt;p&gt;Mais um post antigo migrado pra cá. :)&lt;/p&gt;
+&lt;p&gt;OBS.: Para quem quiser instalar o CM7 seguindo o tutorial acima, após a instalação, use a banda da Claro mencionada no tutorial, eu sou usuário VIVO e pra mim funcionou perfeitamente com aquela opção. A banda “Viva” não funcionou muito bem.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">JSF - URL não muda após redirect?</title><link href="http://localhost:4000/JSF-URL-redirect/" rel="alternate" type="text/html" title="JSF - URL não muda após redirect?" /><published>2012-07-18T00:00:00-03:00</published><updated>2012-07-18T00:00:00-03:00</updated><id>http://localhost:4000/JSF-URL-redirect</id><content type="html" xml:base="http://localhost:4000/JSF-URL-redirect/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
+
+&lt;h1 id=&quot;jsf---url-não-muda-após-redirect&quot;&gt;JSF - URL não muda após redirect?&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Em situações que um método retorna a url de redirect da sua página, como por exemplo:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public String listar() {
+	return &quot;/pages/list.xhtml&quot;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;E o JSF não muda a URL na barra do browser, recomendo a inclusão da seguinte string após a url:  + “?faces-redirect=true”&lt;/p&gt;
+
+&lt;p&gt;ficando:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public String listar() {
+	return &quot;/pages/list.xhtml&quot;  + &quot;?faces-redirect=true&quot;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Fazendo isso, a URL sempre vai mudar. ;-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">JSF - Página de erro após sessão expirada?</title><link href="http://localhost:4000/JSF-Pag-erro-sessao-expirada/" rel="alternate" type="text/html" title="JSF - Página de erro após sessão expirada?" /><published>2012-07-18T00:00:00-03:00</published><updated>2012-07-18T00:00:00-03:00</updated><id>http://localhost:4000/JSF-Pag-erro-sessao-expirada</id><content type="html" xml:base="http://localhost:4000/JSF-Pag-erro-sessao-expirada/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
+
+&lt;h1 id=&quot;jsf---página-de-erro-após-sessão-expirada&quot;&gt;JSF - Página de erro após sessão expirada?&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Eu estava pegando sempre uma página de erro após muito tempo de inatividade em uma aplicação JSF ou quando reiniciava o servidor e clicava em algum link na página.&lt;/p&gt;
+
+&lt;p&gt;Para resolver esse problema chato, usei as seguintes linhas no web.xml da aplicação.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;error-page&amp;gt;
+	&amp;lt;exception-type&amp;gt;
+		javax.faces.application.ViewExpiredException
+	&amp;lt;/exception-type&amp;gt;
+	&amp;lt;location&amp;gt; 
+		/index.html 
+	&amp;lt;/location&amp;gt;
+&amp;lt;/error-page&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Com essas linhas no &lt;strong&gt;web.xml&lt;/strong&gt; a aplicação ao invés de exibir a página de erro quando a view estiver expirada, vai redirecionar o usuário para a página indicada.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">JSF 2.0 + Spring - Injeção de Dependência (DI)</title><link href="http://localhost:4000/JSF-Sprint-DI/" rel="alternate" type="text/html" title="JSF 2.0 + Spring - Injeção de Dependência (DI)" /><published>2012-04-15T00:00:00-03:00</published><updated>2012-04-15T00:00:00-03:00</updated><id>http://localhost:4000/JSF-Sprint-DI</id><content type="html" xml:base="http://localhost:4000/JSF-Sprint-DI/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
+
+&lt;h1 id=&quot;jsf-20--spring---injeção-de-dependência-di&quot;&gt;JSF 2.0 + Spring - Injeção de Dependência (DI)&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Estou desenvolvendo uma aplicação utilizando JSF 2.0, Hibernate, Spring 3, etc…&lt;/p&gt;
+
+&lt;p&gt;No caso, procurei utilizar anotações e acabei cometendo um equívoco na escolha das anotações que a principio, não gerou problema, porém, quando testei multiplos acessos à aplicação, os problemas começaram a aparecer, como por exemplo, um usuário invalidando a sessão do outro.&lt;/p&gt;
+
+&lt;p&gt;O ponto é que eu estava usando a anotação &lt;strong&gt;@Component(“nomeBean”)&lt;/strong&gt; nos beans gerenciados e &lt;strong&gt;@Autowired&lt;/strong&gt; para fazer o trabalho de DI (anotações do Spring).&lt;/p&gt;
+
+&lt;p&gt;Pesquisando para resolver o problema, cheguei ao seguinte resultado:&lt;/p&gt;
+
+&lt;p&gt;Ao invés de:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@Component(&quot;nomeBean&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Use:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@ManagedBean(name=&quot;nomeBean&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;e ao invés de:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@Autowired
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Use:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@ManagedProperty(value=&quot;#{nomeBeanInjetar}&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Utilizarei como exemplo uma classe usuário recebendo a injeção de um UsuarioDAO.&lt;/p&gt;
+
+&lt;p&gt;Implentação do UsuarioDAO que deverá ser injetado no objeto usuarioController, que é meu managed bean:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@Component(&quot;usuarioDAO&quot;)
+public class UsuarioDAO implements IUsuarioDAO {
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Classe que receberá a injeção:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@ManagedBean(name=&quot;usuarioController&quot;)
+@SessionScoped
+public class UsuarioController {
+
+	@ManagedProperty(value=&quot;#{usuarioDAO}&quot;)
+	private IUsuarioDAO usuarioDao;
+
+	public void setUsuarioDAO(IUsuarioDAO usuarioDAO) {
+		this.usuarioDAO = usuarioDAO;
+	}
+...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Note que na abordagem acima estou usando anotações do JSF (@ManagedBean e @ManagedProperty) e anotações do Spring.&lt;/p&gt;
+
+&lt;p&gt;A ideia é a seguinte:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Criamos os objetos que serão reutilizados mais adiante sendo injetados em nossos managed beans, esses objetos devem ser marcados como componentes e nesse momento, devemos dar um nome a ele, nesse processo, o Spring vai criar este objeto em memória e deixá-lo pronto para ser injetado quando for chamado;&lt;/li&gt;
+  &lt;li&gt;O segundo passo é no nosso managed bean que devemos identificar a propriedade com a anotação @ManagedProperty e informar qual será o objeto que deverá ser injetado usando o mesmo nome dado anteriormente;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Bom, seguindo o padrão de posts rápidos e dirétos, basicamente foi isso que me ajudou bastante.&lt;/p&gt;
+
+&lt;p&gt;OBS.:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Quando utilizada a anotação @ManagedProperty, o atributo deve possuir um setter associado a ele, como no exemplo acima;&lt;/li&gt;
+  &lt;li&gt;Quando ainda não tinha notado que o erro era este, procurei coisas estáticas na aplicação e por ai vai, então, fica a dica;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Espero ter ajudado e até a próxima.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Alguns comandos úteis para utilizar MAVEN</title><link href="http://localhost:4000/Comandos-maven/" rel="alternate" type="text/html" title="Alguns comandos úteis para utilizar MAVEN" /><published>2012-03-30T00:00:00-03:00</published><updated>2012-03-30T00:00:00-03:00</updated><id>http://localhost:4000/Comandos-maven</id><content type="html" xml:base="http://localhost:4000/Comandos-maven/">&lt;p&gt;Mais um post antigo migrado pra cá. :)&lt;/p&gt;
 
 &lt;h1 id=&quot;alguns-comandos-úteis-para-utilizar-maven&quot;&gt;Alguns comandos úteis para utilizar MAVEN&lt;/h1&gt;
 
@@ -477,66 +604,4 @@ git push origin master
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git push -u origin master
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Um post com dicas e comandos git.</summary></entry><entry><title type="html">Instalação Redis MacOS X e Linux em 30s</title><link href="http://localhost:4000/Instalacao-Redis-MACOS-x-Linux/" rel="alternate" type="text/html" title="Instalação Redis MacOS X e Linux em 30s" /><published>2011-03-29T00:00:00-03:00</published><updated>2011-03-29T00:00:00-03:00</updated><id>http://localhost:4000/Instalacao-Redis-MACOS-x-Linux</id><content type="html" xml:base="http://localhost:4000/Instalacao-Redis-MACOS-x-Linux/">&lt;p&gt;Um daqueles posts relâmpago. :)&lt;/p&gt;
-
-&lt;h1 id=&quot;instalação-redis-macos-x-e-linux-em-30s&quot;&gt;Instalação Redis MacOS X e Linux em 30s&lt;/h1&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Acesse: &lt;a href=&quot;http://redis.io/&quot;&gt;http://redis.io/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Baixe o último release em algum local da sua máquina.&lt;/p&gt;
-
-&lt;p&gt;Descompacte e via terminal execute o seguite comando na pasta do redis.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo make install
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Após a conclusão da instalação, basta executar o comando:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;redis-server
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Pronto!&lt;/p&gt;
-
-&lt;p&gt;Pré requisitos:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;MacOS X: Xcode&lt;/li&gt;
-  &lt;li&gt;Debian/Ubuntu: Pacote build-essential (sudo apt-get install build-essential).&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Um daqueles posts relâmpago. :)</summary></entry><entry><title type="html">Instalação/Preparação do Diaspora para desenvolvimento</title><link href="http://localhost:4000/Instalacao-Diaspora-Desenvolvimento/" rel="alternate" type="text/html" title="Instalação/Preparação do Diaspora para desenvolvimento" /><published>2011-03-29T00:00:00-03:00</published><updated>2011-03-29T00:00:00-03:00</updated><id>http://localhost:4000/Instalacao-Diaspora-Desenvolvimento</id><content type="html" xml:base="http://localhost:4000/Instalacao-Diaspora-Desenvolvimento/">&lt;p&gt;Outro daqueles posts relâmpago. :)&lt;/p&gt;
-
-&lt;h1 id=&quot;instalaçãopreparação-do-diaspora-para-desenvolvimento&quot;&gt;Instalação/Preparação do Diaspora para desenvolvimento&lt;/h1&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Primeiros passos, preparando a casa:&lt;/p&gt;
-
-&lt;p&gt;Instalação do rvm:
-	bash &amp;lt; .rvmrc
-	cd .
-	rvm gemset create ‘diaspora’
-	cd ..
-	cd diaspora&lt;/p&gt;
-
-&lt;p&gt;Confirme as mensagens que aparecem.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bundle install
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Tire a palavra exemplo do nome do arquivo &lt;strong&gt;database.yml&lt;/strong&gt;, certifique-se de que as configurações de banco de dados que estão no arquivo conferem com as da sua máquina.&lt;/p&gt;
-
-&lt;p&gt;Tire a palavra exemplo do nome do arquivo &lt;strong&gt;app_config.yml&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;No terminal execute o comando:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rake db:create db:migrate
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Pronto!&lt;/p&gt;
-
-&lt;p&gt;Agora é só personalizar a aplicação.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Outro daqueles posts relâmpago. :)</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Um post com dicas e comandos git.</summary></entry></feed>
