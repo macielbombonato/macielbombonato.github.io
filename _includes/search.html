@@ -2,9 +2,10 @@
 	<input
 			type="search"
 			name="q" {% if include.add_id %}id="search-input"{% endif %}
-			placeholder="Buscar por posts" 
+			placeholder="Buscar por posts"
 			autofocus
 		>
-	{% include search-icon.html %}
-	<input type="submit" value="Search" style="display: none;">
+	<button type="submit" style="background-color: white;">
+		Buscar
+	</button>
 </form>
