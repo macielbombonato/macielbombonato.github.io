@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Busca no site – Maciel Bombonato – Desenvolvedor de software</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Desenvolvedor de software">
+    <meta property="og:description" content="Desenvolvedor de software" />
+    
+    <meta name="author" content="Maciel Bombonato" />
+
+    
+    <meta property="og:title" content="Busca no site" />
+    <meta property="twitter:title" content="Busca no site" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="alternate" type="application/rss+xml" title="Maciel Bombonato - Desenvolvedor de software" href="/feed.xml" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+  </head>
+
+  <body>
+
+    <div class="intro-header">
+      <div class="wrapper-masthead">
+        <div class="container">
+          <header class="masthead clearfix">
+            <div class="site-info">
+              <h1 class="site-name"><a href="/">Maciel Bombonato</a></h1>
+              <p class="site-description">Desenvolvedor de software</p>
+            </div>
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+            <a href="/projects">Projects</a>
+          </nav>
+          </header>
+        </div>
+      </div>
+
+      <div class="container">
+
+        <div class="centered">
+          <ul class="ch-grid">
+            <li>
+              <div class="ch-item ch-img">
+                <div class="ch-info-wrap">
+                  <div class="ch-info">
+                    <div class="ch-info-front ch-img-1"></div>
+                    <div class="ch-info-back">
+                      <h3>Maciel Bombonato</h3>
+                      <p>
+                      </br>
+                      <a href="https://linkedin.com/in/macielbombonato">View on LinkedIn</a></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="container">
+          <section class="hero_search">
+            <form action="/search/" method="get">
+	<input
+			type="search"
+			name="q" 
+			placeholder="Buscar por posts" 
+			autofocus
+		>
+	<svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</svg>
+	<input type="submit" value="Search" style="display: none;">
+</form>
+
+          </section>
+        </div>
+
+        <div class="space-small"></div>
+
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="page">
+
+  <h1>Busca no site</h1>
+
+  <div class="entry">
+    <p>
+	<span id="search-process">Loading</span>
+	resultados
+	<span id="search-query-container" style="display: none;">
+		para "<strong id="search-query"></strong>"
+	</span>
+</p>
+
+<article class="post">
+	<ul id="search-results"></ul>
+</article>
+
+<script>
+	window.data = {
+		
+			
+				
+					
+					
+					"criando-uma-pagina-com-jektll": {
+						"id": "criando-uma-pagina-com-jektll",
+						"title": "Passo a passo para montar uma página com Jekyll",
+						"date": "2017-06-17 00:00:00 -0300",
+						"url": " /Criando-uma-pagina-com-Jektll/",
+						"content": "Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.\n\nPasso a passo para montar uma página com Jekyll\n\n\n\nQuase todo mundo que monta um blog/página pessoal no github pages faz um post dizendo como montou esse blog, para não ser diferente, vamos lá fazer a mesma coisa. :-)\n\nEu comecei lendo posts do meu amigo Leonardo Rifeli. Daí, sai fazendo testes e olhando alguns outros pontos na internet e disso montei este site que ainda estou resolvendo qual será o formato, layout, estilo e por aí vai.\n\nDe qualquer forma, a estrutura de posts será mantida, então, esse post deve ser atualizado de vez em quando com alguns complementos e melhorias.\n\nAgora vamos ao que interessa.\n\n\n\n1. Softwares necessários\n\n\n  DICA\n\n  Para usuários Linux e Mac: A maioria dos comandos abaixo (relacionados a instalação de softwares) só funcionam com o sudo na frente, ou seja, sudo gem install bundler.\n\n  Nos demais casos (executando como root ou usuários Windows), isso não será necessário. ;-)\n\n\nGit\nRuby\nbundler\n\ngem install bundler\n\n\n\nJekyll\n\ngem install jekyll\n\n\n\njekyll-sitemap\n\ngem install jekyll-sitemap\n\n\n\njekyll-feed\n\ngem install jekyll-feed\n\n\n\n2. Iniciando seu site\n\nApós instalar tudo, vamos criar o site.\n\nPrimeiro, execute o comando abaixo:\n\njekyll new nome_site\n\n\n\nOu dentro da pasta onde quer guardar as coisas:\n\njekyll new .\n\n\n\nIsso vai criar uma estrutura de pastas e arquivos necessários para a coisa funcionar.\n\nCaso não esteja na pasta, entre nela com o seguinte comando:\n\ncd nome_site\n\n\n\nAgora para testar, execute:\n\njekyll server\n\n\n\nIsso vai subir um servidor local que você pode testar acessando:\n\nhttp://localhost:4000\n\n\n\nQuando você acessar esse endereço vai ver o site de exemplo que o jekyll cria. Agora, edite isso e monte seu site. ;-)\n\nDurante o desenvolvimento do seu site, recomendo a abertura de uma nova janela de terminal com o comando:\n\njekyll build --watch\n\n\n\nDessa forma, sempre que atualizar alguma coisa, isso será refletido automágicamente no endereço local de testes. :-)\n\n3. Entendendo a estrutura do site criado\n\nO comando acima vai criar um arquivo _config.yml, nele você pode simplesmente trocar os dados para os seus e de quebra criar algumas variáveis novas que podem ser utilizadas em seu site.\n\nOutros pontos que acho bem bacana de criar:\n\n_layouts\n\nÉ bem útil ter um local com todos os possíveis layouts que você pretende ter em seu site, por exemplo, uma página simples, uma postagem e coisas do tipo.\n\n_includes\n\nOs includes são blocos de página utilizados para compor seu layout, por exemplo, um cabeçalho, rodapé, fragmento para inclusão de google analytics e aí por diante.\n\nArquivos .md\n\nO Jekyll usa arquivo markdown para oferecer páginas com formatação simples e sem a necessidade de conhecimento técnico para criá-las.\n\nPara montar esses arquivos .md você pode fazer tudo na unha e ver como está ficando realizando testes no navegador mesmo ou pode utilizar um editor online (por exemplo).\n\nQuando estou trabalhando em um mac costumo utilizar o MacDown para escrever arquivos MD e quando estou em uma máquina linux ou windows costumo utilizar o Stack Edit. Bem útil mesmo. ;-)\n…\n\n\n\nBom gente, é domingo e estou escrevendo isso aos poucos. hehehe. Então vou voltar para o netflix e durante a semana escrevo mais… :-)"
+					}
+					
+				
+			
+		
+	};
+</script>
+<script src="/js/lunr.min.js"></script>
+<script src="/js/search.js"></script>
+
+  </div>
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+            <div class="svg-icon">
+          
+<a href="mailto:maciel@bombonato.net"><i class="icon-envelope icon-2x"></i></a>
+
+
+<a href="https://github.com/macielbombonato"><i class="icon-github icon-2x"></i></a>
+
+<a href="https://www.linkedin.com/in/macielbombonato"><i class="icon-linkedin-sign icon-2x"></i></a>
+
+
+<a href="https://www.twitter.com/macielbombonato"><i class="icon-twitter icon-2x"></i></a>
+
+
+
+
+            </div>
+        </footer>
+      </div>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-60177831-5', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/search/',
+		  'title': 'Busca no site'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+  </body>
+</html>

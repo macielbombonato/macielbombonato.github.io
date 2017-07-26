@@ -975,3 +975,52 @@ button.button-primary:focus {
   opacity: 1;
   pointer-events: auto;
 }
+
+/*
+    *Search
+*/
+#search-results {
+  margin: 0;
+  padding: 0;
+}
+#search-results li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#search-results li h4 {
+  margin: 20px 0 10px 0;
+}
+#search-results li p {
+  line-height: 1.5;
+  padding: 0;
+  margin: 0;
+}
+#search-results li small {
+  font-size: small;
+}
+
+#search-query {
+  font-weight: bold;
+}
+
+.hero_search {
+  text-align: center;
+}
+.hero_search form {
+  position: relative;
+  margin: 0 auto;
+}
+.hero_search form svg {
+  fill: #eee;
+  position: absolute;
+  display: inline-block;
+  width: 36px;
+  height: 40px;
+  cursor: pointer;
+}
+.hero_search input[type=search] {
+  margin: 0;
+  font-size: 1.1em;
+  width: 80%;
+}
