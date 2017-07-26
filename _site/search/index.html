@@ -131,6 +131,126 @@
 				
 			
 		
+			
+				
+					,
+					
+					"motorola-defy-rooting": {
+						"id": "motorola-defy-rooting",
+						"title": "Motorola defy rooting android 2.2.1",
+						"date": "2012-12-23 00:00:00 -0200",
+						"url": " /Motorola-defy-rooting/",
+						"content": "Mais um dos antigos migrados para cá.\n\nMotorola defy rooting android 2.2.1\n\n\n\nEu estava pesquisando na net formas de obter acesso root no meu defy com android 2.2.1 e achei o seguinte post:\n\n\n  [Rom] Cyanogenmod 7 – 2.3.7 Defy\n\n\nEste foi o post mais completo, fácil e seguro que achei de realizar o processo, inclusive, para quem quiser fazer a atualização para o android 2.3.7 custom ROM cm7, pra mim funcionou muito bem e o aparelho fica muito, mas muito melhor mesmo.\n\nPara evitar o risco dos links do post do amigo quebrarem, eu baixei aqui os arquivos necessários para fazer o root e o boot de configuração:\n\n\n  GingerBreak\n  SndInitDefy-1.4.2\n\n\nObs.:\n\n\n  Para baixar os arquivos, clique com o botão direito no link e em seguida, “Salvar link Como”;\n  Retire a extenção GIF antes de utilizar os arquivos e conserve a extenção apk;\n  Para o rooting, use apenas o GingerBreak, o outro link será necessário apenas para iniciar o processo de troca de ROM;\n\n\nPara fazer o rooting é muito simples:\n\n\n  Copie os arquivos acima para seu SDCard (na raiz pra ficar mais fácil);\n  Vá em configurações, Aplicativos, Desenvolvimento e habilite a opção Depuração USB;\n  Com algum programa de exploração de pastas, como o ASTRO, por exemplo, localize o GingerBreak e execute-o;\n  Após a instalação, abra o programa e clique no primeiro botão (Root Device);\n\n\nPronto, o processo de rooting vai se conduzir sozinho e reiniciará o aparelho.\n\nEu aconselho que o vídeo do post mencionado acima seja visto, o artigo do camaradinha é muito bom e completo.\n\nOBS.: Para quem quiser instalar o CM7 seguindo o tutorial acima, após a instalação, use a banda da Claro mencionada no tutorial, eu sou usuário VIVO e pra mim funcionou perfeitamente com aquela opção. A banda “Viva” não funcionou muito bem."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"comandos-maven": {
+						"id": "comandos-maven",
+						"title": "Alguns comandos úteis para utilizar MAVEN",
+						"date": "2012-03-30 00:00:00 -0300",
+						"url": " /Comandos-maven/",
+						"content": "Mais um post antigo migrado pra cá. :)\n\nAlguns comandos úteis para utilizar MAVEN\n\n\n\nAbaixo vou listar algumas linhas de comando que podem ajudar no desenvolvimento de aplicações que usam MAVEN:\n\nCriar uma aplicação:\n\n$ mvn archetype:generate -DgroupId=br.com.meusistema -DartifactId=AppExemplo -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false \n\n\n\nNa primeira vez que este processo é executado, as coisas demoram um pouco por que o maven vai baixar meia internet no repositório local que ele cria na máquina.\n\nTerminado o processo, você verá que o maven criou uma pasta com o nome que foi utilizado no artifactId, no nosso exemplo, “AppExemplo”\n\nDepois disso, para que este projeto possa ser aberto no eclipse fácil, fácil, o comando é:\n\n$ cd AppExemplo\n\n\n\nE dentro do diretório da aplicação:\n\n$ mvn eclipse:clean \n$ mvn eclipse:eclipse \n\n\n\nou\n\n$ mvn eclipse:m2eclipse \n\n\n\nNa primeira vez deve demorar um pouco também.\n\nDepois, basta importar o projeto no eclipse e seguir a vida.\n\nEstou disponibilizando abaixo uma lista de comandos que normalmente uso.\n\n$ mvn clean\n$ mvn compile\n$ mvn install\n\n\n\nPretendo em uma hora com calma editar este post e incluir mais detalhes sobre cada operação descrita e incluir mais algumas que costumo usar."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"css-media-type": {
+						"id": "css-media-type",
+						"title": "CSS media type",
+						"date": "2012-01-20 00:00:00 -0200",
+						"url": " /CSS-media-type/",
+						"content": "Mais um dos antigos migrados para cá.\n\nCSS media type\n\n\n\nAo criar uma página HTML, é possível fazer com que o visual da página seja diferente para diversos tipos de dispositivos de apresentação.\n\nUma forma bem simples de fazer isso é usando o parâmetro media ao criar o CSS na própria página ou no import de um arquivo CSS.\n\nAbaixo dois exemplos básicos:\n\n&lt;style type=\"text/css\" media=\"print\"&gt;\n\tbody {\n\t\tBackground-color: #FFFFFF;\n\t}\n&lt;/style&gt;\n&lt;style type=\"text/css\" media=\"screen\"&gt;\n\tbody {\n\t\tBackground-color: #CCCCCC;\n\t}\n&lt;/style&gt;\n\n\n\nIsso fará com que o fundo da página seja branca na página de impressa (OBS.: Os browsers costumam vir por padrão com a opção de impressão de imagens e cores de fundo desabilitada, ou seja, se outra cor fosse colocada, com essa configuração padrão, o fundo permaneceria branco) e na tela o fundo será um tom de cinza.\n\nQuando não incluímos a opção media na criação do CSS, por padrão, seria como se tivessemos atribuido o valor “all” para esta propriedade.\n\nPara importar um arquivo de estilos, o padrão é o mesmo:\n\n&lt;link rel=\"stylesheet\" href=\"css/impressao.css\" media=\"print\" /&gt;\n&lt;link rel=\"stylesheet\" href=\"css/tela.css\" media=\"screen\" /&gt;\n\n\n\nEssa é a parte tranquila e básica da história, agora pode ocorrer a necessidade de fazer com que um HTML tenha que aparecer na tela de um jeito, ser impresso de outro e ainda ser enviado por email de outro jeito.\n\nEste terceiro ponto pode ser um problema.\n\nNavegando por sites a procura de coisas sobre o assunto encontrei o seguinte link que descreve um pouco a compatibilidade de cada programa de email com folhas de estilos:\nGuide to CSS support in email\n\nPara alguns pode ser bastante desanimador ao ver isso, e uma solução simples de implementar que achei de fato é descepcionante, mas, funcionou no caso de páginas JSP.\n\nNo meu caso, criei uma página JSP que recebe um parâmetro informando se ela será usada em um email ou não e ai, quando ela deverá ser utilizada no email ao invés de importar uma folha de estilos eu incluo o estilo diretamente no objeto, conforme exemplo abaixo:\n\n&lt;td &lt;%= email ? \"style='text-align: left;'\" : \"class='tdDiferente'\"%&gt; &gt;\n\n\n\nÉ uma forma bem chata de tratar isso, mas no meu caso foi eficiênte."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"assinando-jar": {
+						"id": "assinando-jar",
+						"title": "Assinando um JAR (JAVA WEB START)",
+						"date": "2011-11-22 00:00:00 -0200",
+						"url": " /Assinando-JAR/",
+						"content": "Mais um dos antigos migrados para cá.\n\nAssinando um JAR (JAVA WEB START)\n\n\n\nToda vez que criamos uma aplicação Java Web Start e precisamos que esta aplicação tenha alguns acessos a máquina cliente, é necessário incluir no arquivo JNLP a seguinte instrução:\n\n&lt;security&gt;\n\t&lt;all-permissions/&gt;\n&lt;/security&gt;\n\n\n\nO problema é que feito isso, é necessário assinar os jars que estão na lista que deve ser entregue a máquina cliente, abaixo criei um tutorial bem simples de como fazer isso.\n\nPrimeiro, no diretório onde estão os jars, digite a linha de comando que segue:\n\nkeytool -genkey -alias macielbombonato -keystore macielbombonato.cert\n\n\n\nEscolha a senha (minimo de 6 caracteres):\n\nEnter keystore password:\nRe-enter new password:\n\n\n\nResponda o questionário:\n\nWhat is your first and last name?\n[Unknown]: XXX\nWhat is the name of your organizational unit?\n[Unknown]: XXX\nWhat is the name of your organization?\n[Unknown]: XXX\nWhat is the name of your City or Locality?\n[Unknown]: XXX\nWhat is the name of your State or Province?\n[Unknown]: XX\nWhat is the two-letter country code for this unit?\n[Unknown]: XX\n\nIs CN=XXX, OU=XXX, O=XXX, L=XXX, ST=XX, C=XX correct?\n[no]: yes\n\n\n\nEsses passos acima vão criar um certificado na pasta onde os jars estão, agora é necessário assinar cada um dos jars com esse certificado, para isso, basta utilizar a linha de comando abaixo:\n\njarsigner -verbose -keystore macielbombonato.cert -storepass 123456 -keypass 123456 MeuJarAssinadoWebStart.jar macielbombonato\n\n\n\nCaso não queira incluir as senhas nas linhas de comando para assinar os jars, basta não utilizar os parâmetros -storepass e -keypass, com isso, a senha será solicitada antes do jar ser assinado."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"proxy-subversion": {
+						"id": "proxy-subversion",
+						"title": "Configure Proxy para subversion",
+						"date": "2011-07-01 00:00:00 -0300",
+						"url": " /Proxy-subversion/",
+						"content": "Mais um dos antigos migrados para cá.\n\nConfigure Proxy para subversion\n\n\n\nEssa dica vale pra quem precisa configurar proxy para utilização do subversion no sistema operacional como um todo ou para a utilização do plugin do eclipse o subclipse.\n\nPara quem estiver utilizando o sistema operacional Windows, um amigo achou na net a seguinte referencia: http://ykyuen.wordpress.com/2010/03/09/eclipse-configure-proxy-for-subclipse/\n\nAbaixo irei colocar o texto retirado deste site para o caso do post algum dia sair do ar.\n\n\n  The Eclipse proxy setting does not apply on subclipse. So you cannot connect to a SVN repostory outside your firewall even you have set the proxy in Eclipse.\n\n\n\n  Luckily, i found the solution in MKVille Blog – Using Subclipse Behind a Proxy Server.\n\n\n\n  For Windows XP user\n\n\n\n  Open the C:\\Documents and Settings\\Application Data\\Subversion\\servers\nConfigure the http-proxy-host and http-proxy-port settings under the [global] tag\n\n\n\n  For Windows 7 user\n\n\n\n  Open the C:\\Users\\AppData\\Roaming\\Subversion\\servers\nConfigure the http-proxy-host and http-proxy-port settings under the [global] tag\n\n\n\n  Done =)\n\n\nAgora a pergunta, porque estou reescrevendo este post?\n\nPara dar a dica para quem usa mac (ou linux).\n\nNo caso, basta realizar basicamente os mesmos passos que o autor do post original comentou, porém, usuários de mac devem usar o seguinte endereço:\n\n/Users/[nome_do_usuario]/.subversion\n\n\n\nAgora só preciso arrumar um tempo pra montar uns scripts pra ativar e desativar o proxy para quem é consultor e vai e vem para clientes.\n\nEspero que este post ajude mais alguém."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"utilizando-git": {
+						"id": "utilizando-git",
+						"title": "Utilizando Git na linha de comando",
+						"date": "2011-04-04 00:00:00 -0300",
+						"url": " /Utilizando-Git/",
+						"content": "Um post com dicas e comandos git.\n\nUtilizando Git na linha de comando\n\n\n\nVersionando um diretório local com git.\n\nDentro do diretório executar o comando:\n\ngit init\n\n\n\nE depois:\n\nStatus do branch selecionado\n\ngit status\n\n\n\nExibe todos os branchs e marca com um asterisco o que está selecionado.\n\ngit branch\n\n\n\nFazer stage dos arquivos (marcá-los para versionar)\n\ngit add\n\n\n\n\n  . (ponto) adiciona todos arquivos que estão pendentes\n  [nome do arquivo] adiciona um arquivo específico\n\n\nCriar um branch\n\ngit checkout -b [nome do branch]\n\n\n\nCommit das alterações\n\ngit commit -am “[mensagem]”\n\n\n\nAltera do branch atual para o branch mencionado\n\ngit checkout [nome do branch]\n\n\n\nPara pegar as alterações do branch master para outro branch qualquer:\n\ngit checkout [nome do branch]\ngit rebase master\n\n\n\nPara mandar as informações de um branch qualquer para o master:\n\ngit checkout master\ngit merge [nome do branch]\n\n\n\nNo caso do branch master ser remoto:\n\nPara atualizar seu master local:\n\ngit checkout master\ngit pull origin master\n\n\n\nAtualizar o branch master remoto com suas alterações locais:\n\ngit checkout master\ngit push origin master\n\n\n\n\n\nEditado (25/04/2012) - Inclusão de repositório remoto.\n\n\n\nOs passos acima foram seguidos e o projeto está sendo versionado localmente apenas, porém, em dado momento eis que surge um servidor git para que o projeto seja versionado, neste caso, o git oferece recursos bem simples de alteração do repositório que o projeto deve apontar, para isso basta:\n\nFazer com que o host remoto git do seu projeto passe a ser este indicado na url\n\n$ git remote add origin https://enderecodoseuservidor/aplicacao.git \n\n\n\nPara enviar os fontes para o branch master remoto pela primeira vez\n\n$ git push -u origin master"
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"instalacao-redis-macos-x-linux": {
+						"id": "instalacao-redis-macos-x-linux",
+						"title": "Instalação Redis MacOS X e Linux em 30s",
+						"date": "2011-03-29 00:00:00 -0300",
+						"url": " /Instalacao-Redis-MACOS-x-Linux/",
+						"content": "Um daqueles posts relâmpago. :)\n\nInstalação Redis MacOS X e Linux em 30s\n\n\n\nAcesse: http://redis.io/\n\nBaixe o último release em algum local da sua máquina.\n\nDescompacte e via terminal execute o seguite comando na pasta do redis.\n\nsudo make install\n\n\n\nApós a conclusão da instalação, basta executar o comando:\n\nredis-server\n\n\n\nPronto!\n\nPré requisitos:\n\n\n  MacOS X: Xcode\n  Debian/Ubuntu: Pacote build-essential (sudo apt-get install build-essential)."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"instalacao-diaspora-desenvolvimento": {
+						"id": "instalacao-diaspora-desenvolvimento",
+						"title": "Instalação/Preparação do Diaspora para desenvolvimento",
+						"date": "2011-03-29 00:00:00 -0300",
+						"url": " /Instalacao-Diaspora-Desenvolvimento/",
+						"content": "Outro daqueles posts relâmpago. :)\n\nInstalação/Preparação do Diaspora para desenvolvimento\n\n\n\nPrimeiros passos, preparando a casa:\n\nInstalação do rvm:\n\tbash &lt; .rvmrc\n\tcd .\n\trvm gemset create ‘diaspora’\n\tcd ..\n\tcd diaspora\n\nConfirme as mensagens que aparecem.\n\nbundle install\n\n\n\nTire a palavra exemplo do nome do arquivo database.yml, certifique-se de que as configurações de banco de dados que estão no arquivo conferem com as da sua máquina.\n\nTire a palavra exemplo do nome do arquivo app_config.yml.\n\nNo terminal execute o comando:\n\nrake db:create db:migrate\n\n\n\nPronto!\n\nAgora é só personalizar a aplicação."
+					}
+					
+				
+			
+		
 	};
 </script>
 <script src="/js/lunr.min.js"></script>

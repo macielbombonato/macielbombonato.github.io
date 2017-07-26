@@ -66,3 +66,19 @@ Atualizar o branch master remoto com suas alterações locais:
 
 	git checkout master
 	git push origin master
+
+---
+
+### **Editado (25/04/2012) - Inclusão de repositório remoto**.
+
+---
+
+Os passos acima foram seguidos e o projeto está sendo versionado localmente apenas, porém, em dado momento eis que surge um servidor git para que o projeto seja versionado, neste caso, o git oferece recursos bem simples de alteração do repositório que o projeto deve apontar, para isso basta:
+
+Fazer com que o host remoto git do seu projeto passe a ser este indicado na url
+
+	$ git remote add origin https://enderecodoseuservidor/aplicacao.git 
+
+Para enviar os fontes para o branch master remoto pela primeira vez
+
+	$ git push -u origin master 

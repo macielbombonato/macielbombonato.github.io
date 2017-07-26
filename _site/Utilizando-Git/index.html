@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Utilizando Git na linha de comando – Maciel Bombonato – Desenvolvedor de software</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Um post com dicas e comandos git.
+
+" />
+    <meta property="og:description" content="Um post com dicas e comandos git.
+
+" />
+    
+    <meta name="author" content="Maciel Bombonato" />
+
+    
+    <meta property="og:title" content="Utilizando Git na linha de comando" />
+    <meta property="twitter:title" content="Utilizando Git na linha de comando" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="alternate" type="application/rss+xml" title="Maciel Bombonato - Desenvolvedor de software" href="/feed.xml" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+  </head>
+
+  <body>
+
+    <div class="page-header">
+        <div class="wrapper-masthead">
+         <div class="container">
+           <header class="clearfix">
+             <div class="site-info">
+               <h1 class="site-name"><a href="/">Maciel Bombonato</a></h1>
+             </div>
+             <nav>
+               <a href="/">Blog</a>
+               <a href="/about">About</a>
+               <a href="/projects">Projects</a>
+             </nav>
+           </header>
+         </div>
+         <div class="container">
+           <div class="post-heading">
+               <h1>Utilizando Git na linha de comando</h1>
+               <span class="meta">
+                  Posted on April  4, 2011
+               </span>
+           </div>
+         </div>
+       </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+ <div class="space-extra-small">
+ </div>
+
+  <div class="entry">
+    <p>Um post com dicas e comandos git.</p>
+
+<h1 id="utilizando-git-na-linha-de-comando">Utilizando Git na linha de comando</h1>
+
+<hr />
+
+<p>Versionando um diretório local com git.</p>
+
+<p>Dentro do diretório executar o comando:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git init
+</code></pre>
+</div>
+
+<p>E depois:</p>
+
+<p>Status do branch selecionado</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git status
+</code></pre>
+</div>
+
+<p>Exibe todos os branchs e marca com um asterisco o que está selecionado.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git branch
+</code></pre>
+</div>
+
+<p>Fazer stage dos arquivos (marcá-los para versionar)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git add
+</code></pre>
+</div>
+
+<ul>
+  <li>. (ponto) adiciona todos arquivos que estão pendentes</li>
+  <li>[nome do arquivo] adiciona um arquivo específico</li>
+</ul>
+
+<p>Criar um branch</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git checkout -b [nome do branch]
+</code></pre>
+</div>
+
+<p>Commit das alterações</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git commit -am “[mensagem]”
+</code></pre>
+</div>
+
+<p>Altera do branch atual para o branch mencionado</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git checkout [nome do branch]
+</code></pre>
+</div>
+
+<p>Para pegar as alterações do branch master para outro branch qualquer:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git checkout [nome do branch]
+git rebase master
+</code></pre>
+</div>
+
+<p>Para mandar as informações de um branch qualquer para o master:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git checkout master
+git merge [nome do branch]
+</code></pre>
+</div>
+
+<p>No caso do branch master ser remoto:</p>
+
+<p>Para atualizar seu master local:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git checkout master
+git pull origin master
+</code></pre>
+</div>
+
+<p>Atualizar o branch master remoto com suas alterações locais:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git checkout master
+git push origin master
+</code></pre>
+</div>
+
+<hr />
+
+<h3 id="editado-25042012---inclusão-de-repositório-remoto"><strong>Editado (25/04/2012) - Inclusão de repositório remoto</strong>.</h3>
+
+<hr />
+
+<p>Os passos acima foram seguidos e o projeto está sendo versionado localmente apenas, porém, em dado momento eis que surge um servidor git para que o projeto seja versionado, neste caso, o git oferece recursos bem simples de alteração do repositório que o projeto deve apontar, para isso basta:</p>
+
+<p>Fazer com que o host remoto git do seu projeto passe a ser este indicado na url</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git remote add origin https://enderecodoseuservidor/aplicacao.git 
+</code></pre>
+</div>
+
+<p>Para enviar os fontes para o branch master remoto pela primeira vez</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git push -u origin master 
+</code></pre>
+</div>
+
+  </div>
+
+  
+</article>
+
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+            <div class="svg-icon">
+          
+<a href="mailto:maciel@bombonato.net"><i class="icon-envelope icon-2x"></i></a>
+
+
+<a href="https://github.com/macielbombonato"><i class="icon-github icon-2x"></i></a>
+
+<a href="https://www.linkedin.com/in/macielbombonato"><i class="icon-linkedin-sign icon-2x"></i></a>
+
+
+<a href="https://www.twitter.com/macielbombonato"><i class="icon-twitter icon-2x"></i></a>
+
+
+
+
+            </div>
+        </footer>
+      </div>
+    </div>
+
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-60177831-5', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/Utilizando-Git/',
+		  'title': 'Utilizando Git na linha de comando'
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+  </body>
+</html>
