@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Assinando um JAR (JAVA WEB START) – Maciel Bombonato – Desenvolvedor de software</title>
+    <title>Copiar chave pública SSH sem precisar do tradicional copy/paste – Maciel Bombonato – Desenvolvedor de software</title>
 
         <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,18 +9,18 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="Mais um dos antigos migrados para cá.
+    <meta name="description" content="Mais um migrado para cá.
 
 " />
-    <meta property="og:description" content="Mais um dos antigos migrados para cá.
+    <meta property="og:description" content="Mais um migrado para cá.
 
 " />
     
     <meta name="author" content="Maciel Bombonato" />
 
     
-    <meta property="og:title" content="Assinando um JAR (JAVA WEB START)" />
-    <meta property="twitter:title" content="Assinando um JAR (JAVA WEB START)" />
+    <meta property="og:title" content="Copiar chave pública SSH sem precisar do tradicional copy/paste" />
+    <meta property="twitter:title" content="Copiar chave pública SSH sem precisar do tradicional copy/paste" />
     
 
     <!--[if lt IE 9]>
@@ -52,9 +52,9 @@
          </div>
          <div class="container">
            <div class="post-heading">
-               <h1>Assinando um JAR (JAVA WEB START)</h1>
+               <h1>Copiar chave pública SSH sem precisar do tradicional copy/paste</h1>
                <span class="meta">
-                  Criado em: 22/11/2011
+                  Criado em: 05/09/2016
                </span>
            </div>
          </div>
@@ -67,63 +67,55 @@
  </div>
 
   <div class="entry">
-    <p>Mais um dos antigos migrados para cá.</p>
+    <p>Mais um migrado para cá.</p>
 
-<h1 id="assinando-um-jar-java-web-start">Assinando um JAR (JAVA WEB START)</h1>
+<h1 id="copiar-chave-pública-ssh-sem-precisar-do-tradicional-copypaste">Copiar chave pública SSH sem precisar do tradicional copy/paste</h1>
 
 <hr />
 
-<p>Toda vez que criamos uma aplicação Java Web Start e precisamos que esta aplicação tenha alguns acessos a máquina cliente, é necessário incluir no arquivo JNLP a seguinte instrução:</p>
+<p>Bom, este micro artigo é mais um da série “vou precisar disso denovo, mas vou esquecer”.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;security&gt;
-	&lt;all-permissions/&gt;
-&lt;/security&gt;
+<p>Depois que geramos uma chave SSH em uma máquina unix:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh-keygen -t rsa
 </code></pre>
 </div>
 
-<p>O problema é que feito isso, é necessário assinar os jars que estão na lista que deve ser entregue a máquina cliente, abaixo criei um tutorial bem simples de como fazer isso.</p>
+<p>Vamos precisar copiar a chave pública para inserí-la em alguns lugares.</p>
 
-<p>Primeiro, no diretório onde estão os jars, digite a linha de comando que segue:</p>
+<p>Bom, existe um comandinho mágico no OS X que faz com que não precisemos selecionar, e usar o Ctrl+C (Cmd+C no OS X) para pegar o conteúdo da chave, para isso basta usar o seguinte comando:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>keytool -genkey -alias macielbombonato -keystore macielbombonato.cert
+<div class="highlighter-rouge"><pre class="highlight"><code>cat ~/.ssh/id_rsa.pub | pbcopy
 </code></pre>
 </div>
 
-<p>Escolha a senha (minimo de 6 caracteres):</p>
+<p>O pbcopy faz todo o trabalho sujo de copiar o conteúdo que devemos colocar no github (por exemplo).</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Enter keystore password:
-Re-enter new password:
+<p>Beleza, bora fazer isso no Linux então. SQN.</p>
+
+<p>Para que isso funcione no linux (sim, existe similar), é necessário:</p>
+
+<h3 id="1-instalar-o-xclip-ele-faz-um-trabalho-similar">1. Instalar o xclip (ele faz um trabalho similar):</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install xclip
 </code></pre>
 </div>
 
-<p>Responda o questionário:</p>
+<h3 id="2-agora-eu-recomendo-é-só-criar-um-alias-no-seu-arquivo-de-profile-profile-ou-bashrc-dentro-da-pasta-home-do-seu-usuário-para-isso-adicione-a-seguinte-linha-em-um-desses-arquivos">2. Agora (eu recomendo) é só criar um alias no seu arquivo de profile (.profile ou .bashrc dentro da pasta home do seu usuário), para isso, adicione a seguinte linha em um desses arquivos:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>What is your first and last name?
-[Unknown]: XXX
-What is the name of your organizational unit?
-[Unknown]: XXX
-What is the name of your organization?
-[Unknown]: XXX
-What is the name of your City or Locality?
-[Unknown]: XXX
-What is the name of your State or Province?
-[Unknown]: XX
-What is the two-letter country code for this unit?
-[Unknown]: XX
-
-Is CN=XXX, OU=XXX, O=XXX, L=XXX, ST=XX, C=XX correct?
-[no]: yes
+<div class="highlighter-rouge"><pre class="highlight"><code>alias pbcopy="xclip -selection clipboard"
 </code></pre>
 </div>
 
-<p>Esses passos acima vão criar um certificado na pasta onde os jars estão, agora é necessário assinar cada um dos jars com esse certificado, para isso, basta utilizar a linha de comando abaixo:</p>
+<p>Depois, no terminal execute o seguinte comando (supondo que isso foi inserido no .bashrc):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>jarsigner -verbose -keystore macielbombonato.cert -storepass 123456 -keypass 123456 MeuJarAssinadoWebStart.jar macielbombonato
+<div class="highlighter-rouge"><pre class="highlight"><code>source ~/.bashrc
 </code></pre>
 </div>
 
-<p>Caso não queira incluir as senhas nas linhas de comando para assinar os jars, basta não utilizar os parâmetros -storepass e -keypass, com isso, a senha será solicitada antes do jar ser assinado.</p>
+<p>Agora é só ficar feliz e utilizar no seu linux o mesmo comando feito no OS X.</p>
 
+<p>OBS.: Depois de executar o comando é só ir até o local necessário e colar o conteúdo.</p>
 
   </div>
 
@@ -186,8 +178,8 @@ s.setAttribute('data-timestamp', +new Date());
 
 		ga('create', 'UA-60177831-5', 'auto');
 		ga('send', 'pageview', {
-		  'page': '/Assinando-JAR/',
-		  'title': 'Assinando um JAR (JAVA WEB START)'
+		  'page': '/copiar-chave-publica-ssh-sem-comando-tradicional/',
+		  'title': 'Copiar chave pública SSH sem precisar do tradicional copy/paste'
 		});
 	</script>
 	<!-- End Google Analytics -->

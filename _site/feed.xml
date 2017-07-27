@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-07-26T01:49:35-03:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">Passo a passo para montar uma página com Jekyll</title><link href="http://localhost:4000/Criando-uma-pagina-com-Jektll/" rel="alternate" type="text/html" title="Passo a passo para montar uma página com Jekyll" /><published>2017-06-17T00:00:00-03:00</published><updated>2017-06-17T00:00:00-03:00</updated><id>http://localhost:4000/Criando-uma-pagina-com-Jektll</id><content type="html" xml:base="http://localhost:4000/Criando-uma-pagina-com-Jektll/">&lt;p&gt;Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="http://jekyllrb.com" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-07-27T02:28:15-03:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">Passo a passo para montar uma página com Jekyll</title><link href="http://localhost:4000/Criando-uma-pagina-com-Jektll/" rel="alternate" type="text/html" title="Passo a passo para montar uma página com Jekyll" /><published>2017-06-17T00:00:00-03:00</published><updated>2017-06-17T00:00:00-03:00</updated><id>http://localhost:4000/Criando-uma-pagina-com-Jektll</id><content type="html" xml:base="http://localhost:4000/Criando-uma-pagina-com-Jektll/">&lt;p&gt;Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.&lt;/p&gt;
 
 &lt;h1 id=&quot;passo-a-passo-para-montar-uma-página-com-jekyll&quot;&gt;Passo a passo para montar uma página com Jekyll&lt;/h1&gt;
 
@@ -121,487 +121,316 @@
 
 &lt;hr /&gt;
 
-&lt;p&gt;Bom gente, é domingo e estou escrevendo isso aos poucos. hehehe. Então vou voltar para o netflix e durante a semana escrevo mais… :-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.</summary></entry><entry><title type="html">Motorola defy rooting android 2.2.1</title><link href="http://localhost:4000/Motorola-defy-rooting/" rel="alternate" type="text/html" title="Motorola defy rooting android 2.2.1" /><published>2012-12-23T00:00:00-02:00</published><updated>2012-12-23T00:00:00-02:00</updated><id>http://localhost:4000/Motorola-defy-rooting</id><content type="html" xml:base="http://localhost:4000/Motorola-defy-rooting/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
+&lt;p&gt;Bom gente, é domingo e estou escrevendo isso aos poucos. hehehe. Então vou voltar para o netflix e durante a semana escrevo mais… :-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.</summary></entry><entry><title type="html">Rocket.chat no Ubuntu 16 problemas nas notificações</title><link href="http://localhost:4000/rocketchat-ubuntu16-problema-notificacao/" rel="alternate" type="text/html" title="Rocket.chat no Ubuntu 16 problemas nas notificações" /><published>2016-10-18T00:00:00-02:00</published><updated>2016-10-18T00:00:00-02:00</updated><id>http://localhost:4000/rocketchat-ubuntu16-problema-notificacao</id><content type="html" xml:base="http://localhost:4000/rocketchat-ubuntu16-problema-notificacao/">&lt;p&gt;Mais um migrado para cá.&lt;/p&gt;
 
-&lt;h1 id=&quot;motorola-defy-rooting-android-221&quot;&gt;Motorola defy rooting android 2.2.1&lt;/h1&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Eu estava pesquisando na net formas de obter acesso root no meu defy com android 2.2.1 e achei o seguinte post:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.androidz.com.br/forum/topic/7395-rom-cyanogenmod-7-237-defy/&quot;&gt;[Rom] Cyanogenmod 7 – 2.3.7 Defy&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Este foi o post mais completo, fácil e seguro que achei de realizar o processo, inclusive, para quem quiser fazer a atualização para o android 2.3.7 custom ROM cm7, pra mim funcionou muito bem e o aparelho fica muito, mas muito melhor mesmo.&lt;/p&gt;
-
-&lt;p&gt;Para evitar o risco dos links do post do amigo quebrarem, eu baixei aqui os arquivos necessários para fazer o root e o boot de configuração:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://macielbombonato.files.wordpress.com/2012/02/gingerbreak-1-apk.gif&quot;&gt;GingerBreak&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://macielbombonato.files.wordpress.com/2012/02/sndinitdefy-1-4-2-apk.gif&quot;&gt;SndInitDefy-1.4.2&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Obs.:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Para baixar os arquivos, clique com o botão direito no link e em seguida, “Salvar link Como”;&lt;/li&gt;
-  &lt;li&gt;Retire a extenção GIF antes de utilizar os arquivos e conserve a extenção apk;&lt;/li&gt;
-  &lt;li&gt;Para o rooting, use apenas o GingerBreak, o outro link será necessário apenas para iniciar o processo de troca de ROM;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Para fazer o rooting é muito simples:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Copie os arquivos acima para seu SDCard (na raiz pra ficar mais fácil);&lt;/li&gt;
-  &lt;li&gt;Vá em configurações, Aplicativos, Desenvolvimento e habilite a opção Depuração USB;&lt;/li&gt;
-  &lt;li&gt;Com algum programa de exploração de pastas, como o ASTRO, por exemplo, localize o GingerBreak e execute-o;&lt;/li&gt;
-  &lt;li&gt;Após a instalação, abra o programa e clique no primeiro botão (Root Device);&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Pronto, o processo de rooting vai se conduzir sozinho e reiniciará o aparelho.&lt;/p&gt;
-
-&lt;p&gt;Eu aconselho que o vídeo do post mencionado acima seja visto, o artigo do camaradinha é muito bom e completo.&lt;/p&gt;
-
-&lt;p&gt;OBS.: Para quem quiser instalar o CM7 seguindo o tutorial acima, após a instalação, use a banda da Claro mencionada no tutorial, eu sou usuário VIVO e pra mim funcionou perfeitamente com aquela opção. A banda “Viva” não funcionou muito bem.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">JSF - URL não muda após redirect?</title><link href="http://localhost:4000/JSF-URL-redirect/" rel="alternate" type="text/html" title="JSF - URL não muda após redirect?" /><published>2012-07-18T00:00:00-03:00</published><updated>2012-07-18T00:00:00-03:00</updated><id>http://localhost:4000/JSF-URL-redirect</id><content type="html" xml:base="http://localhost:4000/JSF-URL-redirect/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;h1 id=&quot;jsf---url-não-muda-após-redirect&quot;&gt;JSF - URL não muda após redirect?&lt;/h1&gt;
+&lt;h1 id=&quot;rocketchat-no-ubuntu-16-problemas-nas-notificações&quot;&gt;Rocket.chat no Ubuntu 16: problemas nas notificações&lt;/h1&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;Em situações que um método retorna a url de redirect da sua página, como por exemplo:&lt;/p&gt;
+&lt;p&gt;Mais uma da linha para lembrança futura.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public String listar() {
-	return &quot;/pages/list.xhtml&quot;;
+&lt;p&gt;Quando atualizei minha máquina para o ubuntu 16 o rocket.chat começou a enviar as mensagens de notificação no formato de alerts clássicos (o que atrapalha bastante).&lt;/p&gt;
+
+&lt;p&gt;Procurando por uma solução para este problema, achei o seguinte post: &lt;a href=&quot;http://askubuntu.com/questions/766306/notifications-not-showing-up-properly-in-slack-and-other-electron-apps&quot;&gt;http://askubuntu.com/questions/766306/notifications-not-showing-up-properly-in-slack-and-other-electron-apps&lt;/a&gt; que basicamente indica que devemos executar o seguinte no console:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo touch /usr/lib/libunity-electron_notification_fix 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Funcionou perfeitamente e as notificações passaram a ser aquelas “bunitinhas” no canto da tela.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um migrado para cá.</summary></entry><entry><title type="html">Copiar chave pública SSH sem precisar do tradicional copy/paste</title><link href="http://localhost:4000/copiar-chave-publica-ssh-sem-comando-tradicional/" rel="alternate" type="text/html" title="Copiar chave pública SSH sem precisar do tradicional copy/paste" /><published>2016-09-05T00:00:00-03:00</published><updated>2016-09-05T00:00:00-03:00</updated><id>http://localhost:4000/copiar-chave-publica-ssh-sem-comando-tradicional</id><content type="html" xml:base="http://localhost:4000/copiar-chave-publica-ssh-sem-comando-tradicional/">&lt;p&gt;Mais um migrado para cá.&lt;/p&gt;
+
+&lt;h1 id=&quot;copiar-chave-pública-ssh-sem-precisar-do-tradicional-copypaste&quot;&gt;Copiar chave pública SSH sem precisar do tradicional copy/paste&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Bom, este micro artigo é mais um da série “vou precisar disso denovo, mas vou esquecer”.&lt;/p&gt;
+
+&lt;p&gt;Depois que geramos uma chave SSH em uma máquina unix:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh-keygen -t rsa
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Vamos precisar copiar a chave pública para inserí-la em alguns lugares.&lt;/p&gt;
+
+&lt;p&gt;Bom, existe um comandinho mágico no OS X que faz com que não precisemos selecionar, e usar o Ctrl+C (Cmd+C no OS X) para pegar o conteúdo da chave, para isso basta usar o seguinte comando:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat ~/.ssh/id_rsa.pub | pbcopy
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;O pbcopy faz todo o trabalho sujo de copiar o conteúdo que devemos colocar no github (por exemplo).&lt;/p&gt;
+
+&lt;p&gt;Beleza, bora fazer isso no Linux então. SQN.&lt;/p&gt;
+
+&lt;p&gt;Para que isso funcione no linux (sim, existe similar), é necessário:&lt;/p&gt;
+
+&lt;h3 id=&quot;1-instalar-o-xclip-ele-faz-um-trabalho-similar&quot;&gt;1. Instalar o xclip (ele faz um trabalho similar):&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install xclip
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;2-agora-eu-recomendo-é-só-criar-um-alias-no-seu-arquivo-de-profile-profile-ou-bashrc-dentro-da-pasta-home-do-seu-usuário-para-isso-adicione-a-seguinte-linha-em-um-desses-arquivos&quot;&gt;2. Agora (eu recomendo) é só criar um alias no seu arquivo de profile (.profile ou .bashrc dentro da pasta home do seu usuário), para isso, adicione a seguinte linha em um desses arquivos:&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;alias pbcopy=&quot;xclip -selection clipboard&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Depois, no terminal execute o seguinte comando (supondo que isso foi inserido no .bashrc):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;source ~/.bashrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Agora é só ficar feliz e utilizar no seu linux o mesmo comando feito no OS X.&lt;/p&gt;
+
+&lt;p&gt;OBS.: Depois de executar o comando é só ir até o local necessário e colar o conteúdo.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um migrado para cá.</summary></entry><entry><title type="html">Problemas com segundo monitor no Mac OS X</title><link href="http://localhost:4000/problemas-com-segundo-monitor-macosx/" rel="alternate" type="text/html" title="Problemas com segundo monitor no Mac OS X" /><published>2016-08-31T00:00:00-03:00</published><updated>2016-08-31T00:00:00-03:00</updated><id>http://localhost:4000/problemas-com-segundo-monitor-macosx</id><content type="html" xml:base="http://localhost:4000/problemas-com-segundo-monitor-macosx/">&lt;p&gt;Mais um migrado para cá.&lt;/p&gt;
+
+&lt;h1 id=&quot;problemas-com-segundo-monitor-no-mac-os-x&quot;&gt;Problemas com segundo monitor no Mac OS X&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Há um bom tempo não escrevo, na verdade, uso o blog só pra servir como referência futura (pra quando eu esquecer de algo que seria bom lembrar. rs).&lt;/p&gt;
+
+&lt;p&gt;Então, Maciel, caso você tenha esquecido como se faz isso de novo, lá vai.&lt;/p&gt;
+
+&lt;p&gt;Caso alguém mais esteja lendo e usa o Mac OS X e tem um monitor Samsung SyncMaster 933sn (não recomendo, monitor zuadinho).&lt;/p&gt;
+
+&lt;p&gt;Seu Mac OS provavelmente não vai detectar a resolução mais apropriada para o monitor e de quebra vai te empurrar um 800x600 (sim, é verdade).&lt;/p&gt;
+
+&lt;p&gt;A dica é:&lt;/p&gt;
+
+&lt;p&gt;Vá nas configurações de monitor (Displays) em preferências do sistema. Isso fará com que duas telas se abram, uma delas no monitor zuado. Bom, a opção Default for display provavelmente estará selecionada, nesse momento, segure a tecla option (alt) e depois clique em Scaled.&lt;/p&gt;
+
+&lt;p&gt;Para esse monitor a melhor opção seria 1360x768 (não tem essa no Mac) a melhor opção que achei (que funcionou) foi 1280x768. Fica um pouco distorcido, mas dá pra ler log de console de boa. ;-)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/2016-08-31-problemas-com-segundo-monitor-macosx/ScreenShot-2016-08-31at94416PM.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um migrado para cá.</summary></entry><entry><title type="html">IntelliJ IDEA rodando com JVM mais nova no MAC OS X</title><link href="http://localhost:4000/intellij-rodando-com-jvm-nova-macosx/" rel="alternate" type="text/html" title="IntelliJ IDEA rodando com JVM mais nova no MAC OS X" /><published>2015-07-24T00:00:00-03:00</published><updated>2015-07-24T00:00:00-03:00</updated><id>http://localhost:4000/intellij-rodando-com-jvm-nova-macosx</id><content type="html" xml:base="http://localhost:4000/intellij-rodando-com-jvm-nova-macosx/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
+
+&lt;h1 id=&quot;intellij-idea-rodando-com-jvm-mais-nova-no-mac-os-x&quot;&gt;IntelliJ IDEA rodando com JVM mais nova no MAC OS X&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Caso tenha atualizado seu MAC OS X e após isso passou a receber a mensagem que o IntelliJ IDEA precisa rodar em uma versão legada (legacy) da JVM, a solução para mim foi a seguinte.&lt;/p&gt;
+
+&lt;p&gt;No terminal:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /Applications/IntelliJ\ IDEA\ 14.app/Contents
+vi Info.plist
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;OBS.: O número 14 no caminho acima é a versão do meu IntelliJ, mude esse número para a sua versão da aplicação.&lt;/p&gt;
+
+&lt;p&gt;Após isso, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;/&lt;/code&gt; para habilitar a busca e em seguida digite &lt;code class=&quot;highlighter-rouge&quot;&gt;JVMVersion&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;enter&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Note que logo abaixo da string encontrada vc verá a versão 1.6*. Mude o 6 por 8 e em seguida salve o documento &lt;code class=&quot;highlighter-rouge&quot;&gt;esc&lt;/code&gt; + &lt;code class=&quot;highlighter-rouge&quot;&gt;wq&lt;/code&gt; + &lt;code class=&quot;highlighter-rouge&quot;&gt;enter&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Tente abrir o Intellij novamente. ;-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Problemas com upload de arquivos utilizando spring MVC</title><link href="http://localhost:4000/problemas-upload-arquivos-spring-mvc/" rel="alternate" type="text/html" title="Problemas com upload de arquivos utilizando spring MVC" /><published>2013-08-27T00:00:00-03:00</published><updated>2013-08-27T00:00:00-03:00</updated><id>http://localhost:4000/problemas-upload-arquivos-spring-mvc</id><content type="html" xml:base="http://localhost:4000/problemas-upload-arquivos-spring-mvc/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
+
+&lt;h1 id=&quot;problemas-com-upload-de-arquivos-utilizando-spring-mvc&quot;&gt;Problemas com upload de arquivos utilizando spring MVC&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Só uma dica rápida para aquele caso que está tudo certo e quando o Spring valida o conteúdo do campo de arquivos e vc recebe a seguinte mensagem:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Failed to convert property value of type 'java.lang.String' to required type 'org.springframework.web.multipart.MultipartFile' for property 'XXX'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Confirme se o formulário está com a propriedade enctype…&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;form action=&quot;URL/&quot; enctype=&quot;multipart/form-data&quot; id=&quot;form&quot; method=&quot;post&quot;&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Este pequeno detalhe causou o erro acima. ;-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Apache não sobe na porta 80</title><link href="http://localhost:4000/apache-nao-sobe-80-apache/" rel="alternate" type="text/html" title="Apache não sobe na porta 80" /><published>2013-03-26T00:00:00-03:00</published><updated>2013-03-26T00:00:00-03:00</updated><id>http://localhost:4000/apache-nao-sobe-80-apache</id><content type="html" xml:base="http://localhost:4000/apache-nao-sobe-80-apache/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
+
+&lt;h1 id=&quot;apache-não-sobe-na-porta-80&quot;&gt;Apache não sobe na porta 80&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Instalei o Apache algumas vezes pra rodar algumas aplicações de teste no meu ambiente de desenvolvimento.&lt;/p&gt;
+
+&lt;p&gt;Normalmente eu não conseguia fazer com que ele subisse na porta 80 até descobrir que o Skype era o responsável por isso (o próprio Apache entrega isso).&lt;/p&gt;
+
+&lt;p&gt;Pra acabar com este conflito, no Skype, vá até Ferramentas, Opções e Conexão, em seguida desative o primeiro check box (como na imagem abaixo), clique em salvar e reinicie o skype.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/2013-03-26-apache-nao-sobe-80-apache/skype-conf.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Agora este não é mais um problema para subir o Apache.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">jquery-chosen - Busca de termos não funciona</title><link href="http://localhost:4000/jquery-chosen-buscao-nao-funciona/" rel="alternate" type="text/html" title="jquery-chosen - Busca de termos não funciona" /><published>2013-03-12T00:00:00-03:00</published><updated>2013-03-12T00:00:00-03:00</updated><id>http://localhost:4000/jquery-chosen-buscao-nao-funciona</id><content type="html" xml:base="http://localhost:4000/jquery-chosen-buscao-nao-funciona/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
+
+&lt;h1 id=&quot;jquery-chosen---busca-de-termos-não-funciona&quot;&gt;jquery-chosen - Busca de termos não funciona&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Incluindo o chosen em algumas de minhas páginas (sistemas) notei que um probleminha estava acontecendo. Toda vez que eu tentava preencher com alguns caracteres para ele filtrar os termos e facilitar minha escolha eu recebia a mensagem de que o termo não foi encontrado, porém, quando o termo possuia mais de uma palavra e eu preenchia os caracteres relativos a esta segunda palavra, a busca funcionava.&lt;/p&gt;
+
+&lt;p&gt;A solução para isso é bem simples, basta retirar a identação deste ponto da página, por exemplo, quando colocado conforme abaixo:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;option&amp;gt;     
+    Valor a escolher
+&amp;lt;/option&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Se você preencher o termo de busca com “esco” ele vai encontrar o termo, porém, se colocar “valo” o termo não será encontrado.&lt;/p&gt;
+
+&lt;p&gt;Agora, sem a identação:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;option&amp;gt;Valor a escolher&amp;lt;/option&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A busca funciona normalmente.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Log de Auditoria - JPA + Spring</title><link href="http://localhost:4000/log-auditoria-jpa-spring/" rel="alternate" type="text/html" title="Log de Auditoria - JPA + Spring" /><published>2012-11-19T00:00:00-02:00</published><updated>2012-11-19T00:00:00-02:00</updated><id>http://localhost:4000/log-auditoria-jpa-spring</id><content type="html" xml:base="http://localhost:4000/log-auditoria-jpa-spring/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
+
+&lt;h1 id=&quot;log-de-auditoria---jpa--spring&quot;&gt;Log de Auditoria - JPA + Spring&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Vira e volta, aparecem sistemas onde é necessário fazer um esquema de log de auditoria para uma tabela ou várias.&lt;/p&gt;
+
+&lt;p&gt;Montei um esquema que pode ser facilmente extendido para outras tabelas do sistema, para fazê-lo, basta seguir os passos abaixo:&lt;/p&gt;
+
+&lt;h3 id=&quot;1-criar-um-enum-para-representar-as-ações-de-banco&quot;&gt;1. Criar um enum para representar as ações de banco:&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public enum TransactionType {
+    CREATE, UPDATE, DELETE;
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;E o JSF não muda a URL na barra do browser, recomendo a inclusão da seguinte string após a url:  + “?faces-redirect=true”&lt;/p&gt;
+&lt;h3 id=&quot;2-criar-a-entidade-de-log-de-auditoria&quot;&gt;2. Criar a entidade de log de auditoria:&lt;/h3&gt;
 
-&lt;p&gt;ficando:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@Entity
+@Table(name = &quot;log_trace&quot;)
+@AttributeOverride(name = &quot;id&quot;, column = @Column(name = &quot;log_trace_id&quot;))
+public class LogTrace extends BaseEntity {
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public String listar() {
-	return &quot;/pages/list.xhtml&quot;  + &quot;?faces-redirect=true&quot;;
+    @Column(name = &quot;transaction_type&quot;, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TransactionType transactionType;
+
+    @Column(name = &quot;entity_name&quot;, nullable = false)
+    private String entityName;
+
+    @Column(name = &quot;registry_id&quot;, nullable = false)
+    private Long registryId;
+
+    @Column(name = &quot;operation_date&quot;, nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date operationDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;executed_by&quot;, nullable = false)
+    private User executedBy;
+
+...getters e setters...
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Fazendo isso, a URL sempre vai mudar. ;-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">JSF - Página de erro após sessão expirada?</title><link href="http://localhost:4000/JSF-Pag-erro-sessao-expirada/" rel="alternate" type="text/html" title="JSF - Página de erro após sessão expirada?" /><published>2012-07-18T00:00:00-03:00</published><updated>2012-07-18T00:00:00-03:00</updated><id>http://localhost:4000/JSF-Pag-erro-sessao-expirada</id><content type="html" xml:base="http://localhost:4000/JSF-Pag-erro-sessao-expirada/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
+&lt;h3 id=&quot;3-criar-o-repositório-dao-e-o-serviço-como-está-sendo-feito-no-restante-do-sistema&quot;&gt;3. Criar o repositório (DAO) e o serviço como está sendo feito no restante do sistema;&lt;/h3&gt;
 
-&lt;h1 id=&quot;jsf---página-de-erro-após-sessão-expirada&quot;&gt;JSF - Página de erro após sessão expirada?&lt;/h1&gt;
+&lt;h3 id=&quot;4-criar-o-listener-que-será-disparado-pelo-hibernate&quot;&gt;4. Criar o listener que será disparado pelo hibernate:&lt;/h3&gt;
 
-&lt;hr /&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public class LogTraceListener {
 
-&lt;p&gt;Eu estava pegando sempre uma página de erro após muito tempo de inatividade em uma aplicação JSF ou quando reiniciava o servidor e clicava em algum link na página.&lt;/p&gt;
+    @Autowired
+    LogTraceService logTraceService;
 
-&lt;p&gt;Para resolver esse problema chato, usei as seguintes linhas no web.xml da aplicação.&lt;/p&gt;
+    @Autowired
+    UserService userService;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;error-page&amp;gt;
-	&amp;lt;exception-type&amp;gt;
-		javax.faces.application.ViewExpiredException
-	&amp;lt;/exception-type&amp;gt;
-	&amp;lt;location&amp;gt; 
-		/index.html 
-	&amp;lt;/location&amp;gt;
-&amp;lt;/error-page&amp;gt; 
+    @PostRemove
+    void postDelete(BaseEntity e) {
+        createLog(TransactionType.DELETE, e);
+    }
+
+    @PostPersist
+    void postPersist(BaseEntity e) {
+        createLog(TransactionType.CREATE, e);
+    }
+
+    @PostUpdate
+    void postUpdate(BaseEntity e) {
+        createLog(TransactionType.UPDATE, e);
+    }
+
+    private void createLog(TransactionType transactionType, BaseEntity e) {
+        /*
+         * OBSERVAÇÃO 1.
+         */
+        if (logTraceService == null) {
+            ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
+
+            logTraceService = (LogTraceService) ctx.getBean(&quot;logTraceService&quot;);
+        }
+
+        /*
+         * OBSERVAÇÃO 2.
+         */
+        User user = userService.getAuthenticatedUser();
+
+        LogTrace logTrace = new LogTrace();
+        /*
+         * OBSERVAÇÃO 3.
+         */
+        String entityName = e.getClass().getAnnotation(Table.class).name();
+        if (entityName == null || entityName.isEmpty()) {
+            entityName = e.getClass().getSimpleName();
+        }
+
+        logTrace.setTransactionType(transactionType);
+        logTrace.setEntityName(entityName);
+        logTrace.setRegistryId(e.getId());
+        logTrace.setExecutedBy(user);
+        logTrace.setOperationDate(new Date());
+
+        logTraceService.save(logTrace);
+    }
+}
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Com essas linhas no &lt;strong&gt;web.xml&lt;/strong&gt; a aplicação ao invés de exibir a página de erro quando a view estiver expirada, vai redirecionar o usuário para a página indicada.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">JSF 2.0 + Spring - Injeção de Dependência (DI)</title><link href="http://localhost:4000/JSF-Sprint-DI/" rel="alternate" type="text/html" title="JSF 2.0 + Spring - Injeção de Dependência (DI)" /><published>2012-04-15T00:00:00-03:00</published><updated>2012-04-15T00:00:00-03:00</updated><id>http://localhost:4000/JSF-Sprint-DI</id><content type="html" xml:base="http://localhost:4000/JSF-Sprint-DI/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;h1 id=&quot;jsf-20--spring---injeção-de-dependência-di&quot;&gt;JSF 2.0 + Spring - Injeção de Dependência (DI)&lt;/h1&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Estou desenvolvendo uma aplicação utilizando JSF 2.0, Hibernate, Spring 3, etc…&lt;/p&gt;
-
-&lt;p&gt;No caso, procurei utilizar anotações e acabei cometendo um equívoco na escolha das anotações que a principio, não gerou problema, porém, quando testei multiplos acessos à aplicação, os problemas começaram a aparecer, como por exemplo, um usuário invalidando a sessão do outro.&lt;/p&gt;
-
-&lt;p&gt;O ponto é que eu estava usando a anotação &lt;strong&gt;@Component(“nomeBean”)&lt;/strong&gt; nos beans gerenciados e &lt;strong&gt;@Autowired&lt;/strong&gt; para fazer o trabalho de DI (anotações do Spring).&lt;/p&gt;
-
-&lt;p&gt;Pesquisando para resolver o problema, cheguei ao seguinte resultado:&lt;/p&gt;
-
-&lt;p&gt;Ao invés de:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@Component(&quot;nomeBean&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Use:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@ManagedBean(name=&quot;nomeBean&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;e ao invés de:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@Autowired
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Use:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@ManagedProperty(value=&quot;#{nomeBeanInjetar}&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Utilizarei como exemplo uma classe usuário recebendo a injeção de um UsuarioDAO.&lt;/p&gt;
-
-&lt;p&gt;Implentação do UsuarioDAO que deverá ser injetado no objeto usuarioController, que é meu managed bean:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@Component(&quot;usuarioDAO&quot;)
-public class UsuarioDAO implements IUsuarioDAO {
-...
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Classe que receberá a injeção:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@ManagedBean(name=&quot;usuarioController&quot;)
-@SessionScoped
-public class UsuarioController {
-
-	@ManagedProperty(value=&quot;#{usuarioDAO}&quot;)
-	private IUsuarioDAO usuarioDao;
-
-	public void setUsuarioDAO(IUsuarioDAO usuarioDAO) {
-		this.usuarioDAO = usuarioDAO;
-	}
-...
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Note que na abordagem acima estou usando anotações do JSF (@ManagedBean e @ManagedProperty) e anotações do Spring.&lt;/p&gt;
-
-&lt;p&gt;A ideia é a seguinte:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Criamos os objetos que serão reutilizados mais adiante sendo injetados em nossos managed beans, esses objetos devem ser marcados como componentes e nesse momento, devemos dar um nome a ele, nesse processo, o Spring vai criar este objeto em memória e deixá-lo pronto para ser injetado quando for chamado;&lt;/li&gt;
-  &lt;li&gt;O segundo passo é no nosso managed bean que devemos identificar a propriedade com a anotação @ManagedProperty e informar qual será o objeto que deverá ser injetado usando o mesmo nome dado anteriormente;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Bom, seguindo o padrão de posts rápidos e dirétos, basicamente foi isso que me ajudou bastante.&lt;/p&gt;
-
-&lt;p&gt;OBS.:&lt;/p&gt;
+&lt;h2 id=&quot;observações&quot;&gt;Observações:&lt;/h2&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;Quando utilizada a anotação @ManagedProperty, o atributo deve possuir um setter associado a ele, como no exemplo acima;&lt;/li&gt;
-  &lt;li&gt;Quando ainda não tinha notado que o erro era este, procurei coisas estáticas na aplicação e por ai vai, então, fica a dica;&lt;/li&gt;
+  &lt;li&gt;O listener é disparado pelo mecanismo JPA. Uma vez que a classe não foi instanciada pelo Spring, as dependências não são injetadas e para resolver isso, podemos usar aspéctos (AOP) ou uma abordagem mais simples como a feita acima;&lt;/li&gt;
+  &lt;li&gt;A lógica de recuperação do usuário logado (via consulta ou busca na sessão) está no serviço neste caso;&lt;/li&gt;
+  &lt;li&gt;Alguns projetos adotam o uso da anotação &lt;strong&gt;@Table&lt;/strong&gt;, neste listener, coloquei uma lógica que abrange esta abordagem (como principal) e se não for o caso, o campo receberá o nome da entidade, por exemplo, “PedidoInterno”, ao invés de “pedido_interno” (que é a forma como os bancos normalmente são modelados. Veja que nossa “LogTrace” teria o campo salvo como “log_trace”;&lt;/li&gt;
+  &lt;li&gt;Anotar entidades que devem ser auditadas:
+As entidades que devem ser auditadas recebem a anotação &lt;strong&gt;@EntityListeners(value = LogTraceListener.class)&lt;/strong&gt;. Para melhorar a leitura da classe, indico colocar esta anotação logo após a anotação &lt;strong&gt;@Entity&lt;/strong&gt; ou &lt;strong&gt;@Table(name = “minha_entidade”)&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Espero ter ajudado e até a próxima.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Alguns comandos úteis para utilizar MAVEN</title><link href="http://localhost:4000/Comandos-maven/" rel="alternate" type="text/html" title="Alguns comandos úteis para utilizar MAVEN" /><published>2012-03-30T00:00:00-03:00</published><updated>2012-03-30T00:00:00-03:00</updated><id>http://localhost:4000/Comandos-maven</id><content type="html" xml:base="http://localhost:4000/Comandos-maven/">&lt;p&gt;Mais um post antigo migrado pra cá. :)&lt;/p&gt;
+&lt;p&gt;Com isso, sempre que uma das operações monitoradas pelo listener acontecer, são as anotações que estão sobre os métodos: &lt;strong&gt;@PostPersist&lt;/strong&gt;, &lt;strong&gt;@PostUpdate&lt;/strong&gt; e &lt;strong&gt;@PostRemove&lt;/strong&gt;, um registro será gerado na tabela de log de auditoria.&lt;/p&gt;
 
-&lt;h1 id=&quot;alguns-comandos-úteis-para-utilizar-maven&quot;&gt;Alguns comandos úteis para utilizar MAVEN&lt;/h1&gt;
+&lt;p&gt;Para que outra tabela/entidade seja autitada, basta repetir o passo 5 (incluir a anotação na entidade).&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;NOTA: Normalmente as entidades de um sistema extendem uma entidade base ou implementam uma interface para que um padrão “mínimo” seja seguido. Este exemplo foi construído considerando este caso, ou seja, as entidades extendem BaseEntity.&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">App web Java + Maven não roda no ecplise</title><link href="http://localhost:4000/App-web-java-maven-eclipse/" rel="alternate" type="text/html" title="App web Java + Maven não roda no ecplise" /><published>2012-09-17T00:00:00-03:00</published><updated>2012-09-17T00:00:00-03:00</updated><id>http://localhost:4000/App-web-java-maven-eclipse</id><content type="html" xml:base="http://localhost:4000/App-web-java-maven-eclipse/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
+
+&lt;h1 id=&quot;app-web-java--maven-não-roda-no-ecplise&quot;&gt;App web Java + Maven não roda no ecplise&lt;/h1&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;Abaixo vou listar algumas linhas de comando que podem ajudar no desenvolvimento de aplicações que usam MAVEN:&lt;/p&gt;
+&lt;p&gt;Imagine que você desenvolveu uma aplicação java com maven e versionou ela em algum repositório da vida, por exemplo, github, e ao instalá-la em outro computador ela apresenta a seguinte mensagem quando o servidor sobe:&lt;/p&gt;
 
-&lt;p&gt;Criar uma aplicação:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ mvn archetype:generate -DgroupId=br.com.meusistema -DartifactId=AppExemplo -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false 
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Error configuring application listener of class org.springframework.web.context.ContextLoaderListener
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Na primeira vez que este processo é executado, as coisas demoram um pouco por que o maven vai baixar meia internet no repositório local que ele cria na máquina.&lt;/p&gt;
-
-&lt;p&gt;Terminado o processo, você verá que o maven criou uma pasta com o nome que foi utilizado no artifactId, no nosso exemplo, “AppExemplo”&lt;/p&gt;
-
-&lt;p&gt;Depois disso, para que este projeto possa ser aberto no eclipse fácil, fácil, o comando é:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cd AppExemplo
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;E dentro do diretório da aplicação:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ mvn eclipse:clean 
-$ mvn eclipse:eclipse 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;ou&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ mvn eclipse:m2eclipse 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Na primeira vez deve demorar um pouco também.&lt;/p&gt;
-
-&lt;p&gt;Depois, basta importar o projeto no eclipse e seguir a vida.&lt;/p&gt;
-
-&lt;p&gt;Estou disponibilizando abaixo uma lista de comandos que normalmente uso.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ mvn clean
-$ mvn compile
-$ mvn install
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Pretendo em uma hora com calma editar este post e incluir mais detalhes sobre cada operação descrita e incluir mais algumas que costumo usar.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um post antigo migrado pra cá. :)</summary></entry><entry><title type="html">CSS media type</title><link href="http://localhost:4000/CSS-media-type/" rel="alternate" type="text/html" title="CSS media type" /><published>2012-01-20T00:00:00-02:00</published><updated>2012-01-20T00:00:00-02:00</updated><id>http://localhost:4000/CSS-media-type</id><content type="html" xml:base="http://localhost:4000/CSS-media-type/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;h1 id=&quot;css-media-type&quot;&gt;CSS media type&lt;/h1&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Ao criar uma página HTML, é possível fazer com que o visual da página seja diferente para diversos tipos de dispositivos de apresentação.&lt;/p&gt;
-
-&lt;p&gt;Uma forma bem simples de fazer isso é usando o parâmetro media ao criar o CSS na própria página ou no import de um arquivo CSS.&lt;/p&gt;
-
-&lt;p&gt;Abaixo dois exemplos básicos:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;style type=&quot;text/css&quot; media=&quot;print&quot;&amp;gt;
-	body {
-		Background-color: #FFFFFF;
-	}
-&amp;lt;/style&amp;gt;
-&amp;lt;style type=&quot;text/css&quot; media=&quot;screen&quot;&amp;gt;
-	body {
-		Background-color: #CCCCCC;
-	}
-&amp;lt;/style&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Isso fará com que o fundo da página seja branca na página de impressa (OBS.: Os browsers costumam vir por padrão com a opção de impressão de imagens e cores de fundo desabilitada, ou seja, se outra cor fosse colocada, com essa configuração padrão, o fundo permaneceria branco) e na tela o fundo será um tom de cinza.&lt;/p&gt;
-
-&lt;p&gt;Quando não incluímos a opção media na criação do CSS, por padrão, seria como se tivessemos atribuido o valor “all” para esta propriedade.&lt;/p&gt;
-
-&lt;p&gt;Para importar um arquivo de estilos, o padrão é o mesmo:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;link rel=&quot;stylesheet&quot; href=&quot;css/impressao.css&quot; media=&quot;print&quot; /&amp;gt;
-&amp;lt;link rel=&quot;stylesheet&quot; href=&quot;css/tela.css&quot; media=&quot;screen&quot; /&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Essa é a parte tranquila e básica da história, agora pode ocorrer a necessidade de fazer com que um HTML tenha que aparecer na tela de um jeito, ser impresso de outro e ainda ser enviado por email de outro jeito.&lt;/p&gt;
-
-&lt;p&gt;Este terceiro ponto pode ser um problema.&lt;/p&gt;
-
-&lt;p&gt;Navegando por sites a procura de coisas sobre o assunto encontrei o seguinte link que descreve um pouco a compatibilidade de cada programa de email com folhas de estilos:
-Guide to CSS support in email&lt;/p&gt;
-
-&lt;p&gt;Para alguns pode ser bastante desanimador ao ver isso, e uma solução simples de implementar que achei de fato é descepcionante, mas, funcionou no caso de páginas JSP.&lt;/p&gt;
-
-&lt;p&gt;No meu caso, criei uma página JSP que recebe um parâmetro informando se ela será usada em um email ou não e ai, quando ela deverá ser utilizada no email ao invés de importar uma folha de estilos eu incluo o estilo diretamente no objeto, conforme exemplo abaixo:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;td &amp;lt;%= email ? &quot;style='text-align: left;'&quot; : &quot;class='tdDiferente'&quot;%&amp;gt; &amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;É uma forma bem chata de tratar isso, mas no meu caso foi eficiênte.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Assinando um JAR (JAVA WEB START)</title><link href="http://localhost:4000/Assinando-JAR/" rel="alternate" type="text/html" title="Assinando um JAR (JAVA WEB START)" /><published>2011-11-22T00:00:00-02:00</published><updated>2011-11-22T00:00:00-02:00</updated><id>http://localhost:4000/Assinando-JAR</id><content type="html" xml:base="http://localhost:4000/Assinando-JAR/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;h1 id=&quot;assinando-um-jar-java-web-start&quot;&gt;Assinando um JAR (JAVA WEB START)&lt;/h1&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Toda vez que criamos uma aplicação Java Web Start e precisamos que esta aplicação tenha alguns acessos a máquina cliente, é necessário incluir no arquivo JNLP a seguinte instrução:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;security&amp;gt;
-	&amp;lt;all-permissions/&amp;gt;
-&amp;lt;/security&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;O problema é que feito isso, é necessário assinar os jars que estão na lista que deve ser entregue a máquina cliente, abaixo criei um tutorial bem simples de como fazer isso.&lt;/p&gt;
-
-&lt;p&gt;Primeiro, no diretório onde estão os jars, digite a linha de comando que segue:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;keytool -genkey -alias macielbombonato -keystore macielbombonato.cert
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Escolha a senha (minimo de 6 caracteres):&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Enter keystore password:
-Re-enter new password:
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Responda o questionário:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;What is your first and last name?
-[Unknown]: XXX
-What is the name of your organizational unit?
-[Unknown]: XXX
-What is the name of your organization?
-[Unknown]: XXX
-What is the name of your City or Locality?
-[Unknown]: XXX
-What is the name of your State or Province?
-[Unknown]: XX
-What is the two-letter country code for this unit?
-[Unknown]: XX
-
-Is CN=XXX, OU=XXX, O=XXX, L=XXX, ST=XX, C=XX correct?
-[no]: yes
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Esses passos acima vão criar um certificado na pasta onde os jars estão, agora é necessário assinar cada um dos jars com esse certificado, para isso, basta utilizar a linha de comando abaixo:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jarsigner -verbose -keystore macielbombonato.cert -storepass 123456 -keypass 123456 MeuJarAssinadoWebStart.jar macielbombonato
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Caso não queira incluir as senhas nas linhas de comando para assinar os jars, basta não utilizar os parâmetros -storepass e -keypass, com isso, a senha será solicitada antes do jar ser assinado.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Configure Proxy para subversion</title><link href="http://localhost:4000/Proxy-subversion/" rel="alternate" type="text/html" title="Configure Proxy para subversion" /><published>2011-07-01T00:00:00-03:00</published><updated>2011-07-01T00:00:00-03:00</updated><id>http://localhost:4000/Proxy-subversion</id><content type="html" xml:base="http://localhost:4000/Proxy-subversion/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;h1 id=&quot;configure-proxy-para-subversion&quot;&gt;Configure Proxy para subversion&lt;/h1&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Essa dica vale pra quem precisa configurar proxy para utilização do subversion no sistema operacional como um todo ou para a utilização do plugin do eclipse o subclipse.&lt;/p&gt;
-
-&lt;p&gt;Para quem estiver utilizando o sistema operacional Windows, um amigo achou na net a seguinte referencia: &lt;a href=&quot;http://ykyuen.wordpress.com/2010/03/09/eclipse-configure-proxy-for-subclipse/&quot;&gt;http://ykyuen.wordpress.com/2010/03/09/eclipse-configure-proxy-for-subclipse/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Abaixo irei colocar o texto retirado deste site para o caso do post algum dia sair do ar.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The Eclipse proxy setting does not apply on subclipse. So you cannot connect to a SVN repostory outside your firewall even you have set the proxy in Eclipse.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Luckily, i found the solution in MKVille Blog – Using Subclipse Behind a Proxy Server.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;For Windows XP user&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Open the C:\Documents and Settings\Application Data\Subversion\servers
-Configure the http-proxy-host and http-proxy-port settings under the [global] tag&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;For Windows 7 user&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Open the C:\Users\AppData\Roaming\Subversion\servers
-Configure the http-proxy-host and http-proxy-port settings under the [global] tag&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Done =)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Agora a pergunta, porque estou reescrevendo este post?&lt;/p&gt;
-
-&lt;p&gt;Para dar a dica para quem usa mac (ou linux).&lt;/p&gt;
-
-&lt;p&gt;No caso, basta realizar basicamente os mesmos passos que o autor do post original comentou, porém, usuários de mac devem usar o seguinte endereço:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/Users/[nome_do_usuario]/.subversion
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Agora só preciso arrumar um tempo pra montar uns scripts pra ativar e desativar o proxy para quem é consultor e vai e vem para clientes.&lt;/p&gt;
-
-&lt;p&gt;Espero que este post ajude mais alguém.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Utilizando Git na linha de comando</title><link href="http://localhost:4000/Utilizando-Git/" rel="alternate" type="text/html" title="Utilizando Git na linha de comando" /><published>2011-04-04T00:00:00-03:00</published><updated>2011-04-04T00:00:00-03:00</updated><id>http://localhost:4000/Utilizando-Git</id><content type="html" xml:base="http://localhost:4000/Utilizando-Git/">&lt;p&gt;Um post com dicas e comandos git.&lt;/p&gt;
-
-&lt;h1 id=&quot;utilizando-git-na-linha-de-comando&quot;&gt;Utilizando Git na linha de comando&lt;/h1&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Versionando um diretório local com git.&lt;/p&gt;
-
-&lt;p&gt;Dentro do diretório executar o comando:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git init
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;E depois:&lt;/p&gt;
-
-&lt;p&gt;Status do branch selecionado&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git status
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Exibe todos os branchs e marca com um asterisco o que está selecionado.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git branch
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Fazer stage dos arquivos (marcá-los para versionar)&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git add
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;. (ponto) adiciona todos arquivos que estão pendentes&lt;/li&gt;
-  &lt;li&gt;[nome do arquivo] adiciona um arquivo específico&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Criar um branch&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git checkout -b [nome do branch]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Commit das alterações&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git commit -am “[mensagem]”
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Altera do branch atual para o branch mencionado&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git checkout [nome do branch]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Para pegar as alterações do branch master para outro branch qualquer:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git checkout [nome do branch]
-git rebase master
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Para mandar as informações de um branch qualquer para o master:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git checkout master
-git merge [nome do branch]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;No caso do branch master ser remoto:&lt;/p&gt;
-
-&lt;p&gt;Para atualizar seu master local:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git checkout master
-git pull origin master
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Atualizar o branch master remoto com suas alterações locais:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git checkout master
-git push origin master
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;editado-25042012---inclusão-de-repositório-remoto&quot;&gt;&lt;strong&gt;Editado (25/04/2012) - Inclusão de repositório remoto&lt;/strong&gt;.&lt;/h3&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Os passos acima foram seguidos e o projeto está sendo versionado localmente apenas, porém, em dado momento eis que surge um servidor git para que o projeto seja versionado, neste caso, o git oferece recursos bem simples de alteração do repositório que o projeto deve apontar, para isso basta:&lt;/p&gt;
-
-&lt;p&gt;Fazer com que o host remoto git do seu projeto passe a ser este indicado na url&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git remote add origin https://enderecodoseuservidor/aplicacao.git
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Para enviar os fontes para o branch master remoto pela primeira vez&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git push -u origin master
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Um post com dicas e comandos git.</summary></entry></feed>
+&lt;p&gt;Consultando este problema na internet achei a seguinte solução:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Abre as propriedades do projeto (botão direito no projeto e propriedades);&lt;/li&gt;
+  &lt;li&gt;Selecione “Deployment Assembly”;&lt;/li&gt;
+  &lt;li&gt;Clique em “Add…”;&lt;/li&gt;
+  &lt;li&gt;Selecione “Java Build Path Entries” e clique em “Next”;&lt;/li&gt;
+  &lt;li&gt;Selecione “Maven Dependencies” e clique “Finish”;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Reinicie seu servidor tomcat e veja que agora funciona.&lt;/p&gt;
+
+&lt;p&gt;Essas dicas foram retiradas do post &lt;a href=&quot;http://stackoverflow.com/questions/6210757/java-lang-classnotfoundexception-org-springframework-web-context-contextloaderl&quot;&gt;6210757 - java-lang-classnotfoundexception-org-springframework-web-context-contextloaderl no stackoverflow.com&lt;/a&gt;&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry></feed>

@@ -62,7 +62,7 @@
                       <h3>Maciel Bombonato</h3>
                       <p>
                       </br>
-                      <a href="https://linkedin.com/in/macielbombonato">View on LinkedIn</a></p>
+                      <a href="https://linkedin.com/in/macielbombonato">LinkedIn</a></p>
                     </div>
                   </div>
                 </div>
@@ -133,12 +133,132 @@
 				
 					,
 					
-					"motorola-defy-rooting": {
-						"id": "motorola-defy-rooting",
-						"title": "Motorola defy rooting android 2.2.1",
-						"date": "2012-12-23 00:00:00 -0200",
-						"url": " /Motorola-defy-rooting/",
-						"content": "Mais um dos antigos migrados para cá.\n\nMotorola defy rooting android 2.2.1\n\n\n\nEu estava pesquisando na net formas de obter acesso root no meu defy com android 2.2.1 e achei o seguinte post:\n\n\n  [Rom] Cyanogenmod 7 – 2.3.7 Defy\n\n\nEste foi o post mais completo, fácil e seguro que achei de realizar o processo, inclusive, para quem quiser fazer a atualização para o android 2.3.7 custom ROM cm7, pra mim funcionou muito bem e o aparelho fica muito, mas muito melhor mesmo.\n\nPara evitar o risco dos links do post do amigo quebrarem, eu baixei aqui os arquivos necessários para fazer o root e o boot de configuração:\n\n\n  GingerBreak\n  SndInitDefy-1.4.2\n\n\nObs.:\n\n\n  Para baixar os arquivos, clique com o botão direito no link e em seguida, “Salvar link Como”;\n  Retire a extenção GIF antes de utilizar os arquivos e conserve a extenção apk;\n  Para o rooting, use apenas o GingerBreak, o outro link será necessário apenas para iniciar o processo de troca de ROM;\n\n\nPara fazer o rooting é muito simples:\n\n\n  Copie os arquivos acima para seu SDCard (na raiz pra ficar mais fácil);\n  Vá em configurações, Aplicativos, Desenvolvimento e habilite a opção Depuração USB;\n  Com algum programa de exploração de pastas, como o ASTRO, por exemplo, localize o GingerBreak e execute-o;\n  Após a instalação, abra o programa e clique no primeiro botão (Root Device);\n\n\nPronto, o processo de rooting vai se conduzir sozinho e reiniciará o aparelho.\n\nEu aconselho que o vídeo do post mencionado acima seja visto, o artigo do camaradinha é muito bom e completo.\n\nOBS.: Para quem quiser instalar o CM7 seguindo o tutorial acima, após a instalação, use a banda da Claro mencionada no tutorial, eu sou usuário VIVO e pra mim funcionou perfeitamente com aquela opção. A banda “Viva” não funcionou muito bem."
+					"rocketchat-ubuntu16-problema-notificacao": {
+						"id": "rocketchat-ubuntu16-problema-notificacao",
+						"title": "Rocket.chat no Ubuntu 16 problemas nas notificações",
+						"date": "2016-10-18 00:00:00 -0200",
+						"url": " /rocketchat-ubuntu16-problema-notificacao/",
+						"content": "Mais um migrado para cá.\n\nRocket.chat no Ubuntu 16: problemas nas notificações\n\n\n\nMais uma da linha para lembrança futura.\n\nQuando atualizei minha máquina para o ubuntu 16 o rocket.chat começou a enviar as mensagens de notificação no formato de alerts clássicos (o que atrapalha bastante).\n\nProcurando por uma solução para este problema, achei o seguinte post: http://askubuntu.com/questions/766306/notifications-not-showing-up-properly-in-slack-and-other-electron-apps que basicamente indica que devemos executar o seguinte no console:\n\nsudo touch /usr/lib/libunity-electron_notification_fix \n\n\n\nFuncionou perfeitamente e as notificações passaram a ser aquelas “bunitinhas” no canto da tela."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"copiar-chave-publica-ssh-sem-comando-tradicional": {
+						"id": "copiar-chave-publica-ssh-sem-comando-tradicional",
+						"title": "Copiar chave pública SSH sem precisar do tradicional copy/paste",
+						"date": "2016-09-05 00:00:00 -0300",
+						"url": " /copiar-chave-publica-ssh-sem-comando-tradicional/",
+						"content": "Mais um migrado para cá.\n\nCopiar chave pública SSH sem precisar do tradicional copy/paste\n\n\n\nBom, este micro artigo é mais um da série “vou precisar disso denovo, mas vou esquecer”.\n\nDepois que geramos uma chave SSH em uma máquina unix:\n\nssh-keygen -t rsa\n\n\n\nVamos precisar copiar a chave pública para inserí-la em alguns lugares.\n\nBom, existe um comandinho mágico no OS X que faz com que não precisemos selecionar, e usar o Ctrl+C (Cmd+C no OS X) para pegar o conteúdo da chave, para isso basta usar o seguinte comando:\n\ncat ~/.ssh/id_rsa.pub | pbcopy\n\n\n\nO pbcopy faz todo o trabalho sujo de copiar o conteúdo que devemos colocar no github (por exemplo).\n\nBeleza, bora fazer isso no Linux então. SQN.\n\nPara que isso funcione no linux (sim, existe similar), é necessário:\n\n1. Instalar o xclip (ele faz um trabalho similar):\n\nsudo apt-get install xclip\n\n\n\n2. Agora (eu recomendo) é só criar um alias no seu arquivo de profile (.profile ou .bashrc dentro da pasta home do seu usuário), para isso, adicione a seguinte linha em um desses arquivos:\n\nalias pbcopy=\"xclip -selection clipboard\"\n\n\n\nDepois, no terminal execute o seguinte comando (supondo que isso foi inserido no .bashrc):\n\nsource ~/.bashrc\n\n\n\nAgora é só ficar feliz e utilizar no seu linux o mesmo comando feito no OS X.\n\nOBS.: Depois de executar o comando é só ir até o local necessário e colar o conteúdo."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"problemas-com-segundo-monitor-macosx": {
+						"id": "problemas-com-segundo-monitor-macosx",
+						"title": "Problemas com segundo monitor no Mac OS X",
+						"date": "2016-08-31 00:00:00 -0300",
+						"url": " /problemas-com-segundo-monitor-macosx/",
+						"content": "Mais um migrado para cá.\n\nProblemas com segundo monitor no Mac OS X\n\n\n\nHá um bom tempo não escrevo, na verdade, uso o blog só pra servir como referência futura (pra quando eu esquecer de algo que seria bom lembrar. rs).\n\nEntão, Maciel, caso você tenha esquecido como se faz isso de novo, lá vai.\n\nCaso alguém mais esteja lendo e usa o Mac OS X e tem um monitor Samsung SyncMaster 933sn (não recomendo, monitor zuadinho).\n\nSeu Mac OS provavelmente não vai detectar a resolução mais apropriada para o monitor e de quebra vai te empurrar um 800x600 (sim, é verdade).\n\nA dica é:\n\nVá nas configurações de monitor (Displays) em preferências do sistema. Isso fará com que duas telas se abram, uma delas no monitor zuado. Bom, a opção Default for display provavelmente estará selecionada, nesse momento, segure a tecla option (alt) e depois clique em Scaled.\n\nPara esse monitor a melhor opção seria 1360x768 (não tem essa no Mac) a melhor opção que achei (que funcionou) foi 1280x768. Fica um pouco distorcido, mas dá pra ler log de console de boa. ;-)"
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"intellij-rodando-com-jvm-nova-macosx": {
+						"id": "intellij-rodando-com-jvm-nova-macosx",
+						"title": "IntelliJ IDEA rodando com JVM mais nova no MAC OS X",
+						"date": "2015-07-24 00:00:00 -0300",
+						"url": " /intellij-rodando-com-jvm-nova-macosx/",
+						"content": "Mais um dos antigos migrados para cá.\n\nIntelliJ IDEA rodando com JVM mais nova no MAC OS X\n\n\n\nCaso tenha atualizado seu MAC OS X e após isso passou a receber a mensagem que o IntelliJ IDEA precisa rodar em uma versão legada (legacy) da JVM, a solução para mim foi a seguinte.\n\nNo terminal:\n\ncd /Applications/IntelliJ\\ IDEA\\ 14.app/Contents\nvi Info.plist\n\n\n\nOBS.: O número 14 no caminho acima é a versão do meu IntelliJ, mude esse número para a sua versão da aplicação.\n\nApós isso, digite / para habilitar a busca e em seguida digite JVMVersion e enter.\n\nNote que logo abaixo da string encontrada vc verá a versão 1.6*. Mude o 6 por 8 e em seguida salve o documento esc + wq + enter.\n\nTente abrir o Intellij novamente. ;-)"
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"problemas-upload-arquivos-spring-mvc": {
+						"id": "problemas-upload-arquivos-spring-mvc",
+						"title": "Problemas com upload de arquivos utilizando spring MVC",
+						"date": "2013-08-27 00:00:00 -0300",
+						"url": " /problemas-upload-arquivos-spring-mvc/",
+						"content": "Mais um dos antigos migrados para cá.\n\nProblemas com upload de arquivos utilizando spring MVC\n\n\n\nSó uma dica rápida para aquele caso que está tudo certo e quando o Spring valida o conteúdo do campo de arquivos e vc recebe a seguinte mensagem:\n\nFailed to convert property value of type 'java.lang.String' to required type 'org.springframework.web.multipart.MultipartFile' for property 'XXX'\n\n\n\nConfirme se o formulário está com a propriedade enctype…\n\n&lt;form action=\"URL/\" enctype=\"multipart/form-data\" id=\"form\" method=\"post\"&gt; \n\n\n\nEste pequeno detalhe causou o erro acima. ;-)"
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"apache-nao-sobe-80-apache": {
+						"id": "apache-nao-sobe-80-apache",
+						"title": "Apache não sobe na porta 80",
+						"date": "2013-03-26 00:00:00 -0300",
+						"url": " /apache-nao-sobe-80-apache/",
+						"content": "Mais um dos antigos migrados para cá.\n\nApache não sobe na porta 80\n\n\n\nInstalei o Apache algumas vezes pra rodar algumas aplicações de teste no meu ambiente de desenvolvimento.\n\nNormalmente eu não conseguia fazer com que ele subisse na porta 80 até descobrir que o Skype era o responsável por isso (o próprio Apache entrega isso).\n\nPra acabar com este conflito, no Skype, vá até Ferramentas, Opções e Conexão, em seguida desative o primeiro check box (como na imagem abaixo), clique em salvar e reinicie o skype.\n\n\n\nAgora este não é mais um problema para subir o Apache."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"jquery-chosen-buscao-nao-funciona": {
+						"id": "jquery-chosen-buscao-nao-funciona",
+						"title": "jquery-chosen - Busca de termos não funciona",
+						"date": "2013-03-12 00:00:00 -0300",
+						"url": " /jquery-chosen-buscao-nao-funciona/",
+						"content": "Mais um dos antigos migrados para cá.\n\njquery-chosen - Busca de termos não funciona\n\n\n\nIncluindo o chosen em algumas de minhas páginas (sistemas) notei que um probleminha estava acontecendo. Toda vez que eu tentava preencher com alguns caracteres para ele filtrar os termos e facilitar minha escolha eu recebia a mensagem de que o termo não foi encontrado, porém, quando o termo possuia mais de uma palavra e eu preenchia os caracteres relativos a esta segunda palavra, a busca funcionava.\n\nA solução para isso é bem simples, basta retirar a identação deste ponto da página, por exemplo, quando colocado conforme abaixo:\n\n&lt;option&gt;     \n    Valor a escolher\n&lt;/option&gt;\n\n\n\nSe você preencher o termo de busca com “esco” ele vai encontrar o termo, porém, se colocar “valo” o termo não será encontrado.\n\nAgora, sem a identação:\n\n&lt;option&gt;Valor a escolher&lt;/option&gt;\n\n\n\nA busca funciona normalmente."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"log-auditoria-jpa-spring": {
+						"id": "log-auditoria-jpa-spring",
+						"title": "Log de Auditoria - JPA + Spring",
+						"date": "2012-11-19 00:00:00 -0200",
+						"url": " /log-auditoria-jpa-spring/",
+						"content": "Mais um dos antigos migrados para cá.\n\nLog de Auditoria - JPA + Spring\n\n\n\nVira e volta, aparecem sistemas onde é necessário fazer um esquema de log de auditoria para uma tabela ou várias.\n\nMontei um esquema que pode ser facilmente extendido para outras tabelas do sistema, para fazê-lo, basta seguir os passos abaixo:\n\n1. Criar um enum para representar as ações de banco:\n\npublic enum TransactionType {\n    CREATE, UPDATE, DELETE;\n}\n\n\n\n2. Criar a entidade de log de auditoria:\n\n@Entity\n@Table(name = \"log_trace\")\n@AttributeOverride(name = \"id\", column = @Column(name = \"log_trace_id\"))\npublic class LogTrace extends BaseEntity {\n\n    @Column(name = \"transaction_type\", nullable = false)\n    @Enumerated(EnumType.STRING)\n    private TransactionType transactionType;\n\n    @Column(name = \"entity_name\", nullable = false)\n    private String entityName;\n\n    @Column(name = \"registry_id\", nullable = false)\n    private Long registryId;\n\n    @Column(name = \"operation_date\", nullable = false)\n    @Temporal(TemporalType.TIMESTAMP)\n    private Date operationDate;\n\n    @ManyToOne(fetch = FetchType.LAZY)\n    @JoinColumn(name = \"executed_by\", nullable = false)\n    private User executedBy;\n\n...getters e setters...\n}\n\n\n\n3. Criar o repositório (DAO) e o serviço como está sendo feito no restante do sistema;\n\n4. Criar o listener que será disparado pelo hibernate:\n\npublic class LogTraceListener {\n\n    @Autowired\n    LogTraceService logTraceService;\n\n    @Autowired\n    UserService userService;\n\n    @PostRemove\n    void postDelete(BaseEntity e) {\n        createLog(TransactionType.DELETE, e);\n    }\n\n    @PostPersist\n    void postPersist(BaseEntity e) {\n        createLog(TransactionType.CREATE, e);\n    }\n\n    @PostUpdate\n    void postUpdate(BaseEntity e) {\n        createLog(TransactionType.UPDATE, e);\n    }\n\n    private void createLog(TransactionType transactionType, BaseEntity e) {\n        /*\n         * OBSERVAÇÃO 1.\n         */\n        if (logTraceService == null) {\n            ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();\n\n            logTraceService = (LogTraceService) ctx.getBean(\"logTraceService\");\n        }\n\n        /*\n         * OBSERVAÇÃO 2.\n         */\n        User user = userService.getAuthenticatedUser();\n\n        LogTrace logTrace = new LogTrace();\n        /*\n         * OBSERVAÇÃO 3.\n         */\n        String entityName = e.getClass().getAnnotation(Table.class).name();\n        if (entityName == null || entityName.isEmpty()) {\n            entityName = e.getClass().getSimpleName();\n        }\n\n        logTrace.setTransactionType(transactionType);\n        logTrace.setEntityName(entityName);\n        logTrace.setRegistryId(e.getId());\n        logTrace.setExecutedBy(user);\n        logTrace.setOperationDate(new Date());\n\n        logTraceService.save(logTrace);\n    }\n}\n\n\n\nObservações:\n\n\n  O listener é disparado pelo mecanismo JPA. Uma vez que a classe não foi instanciada pelo Spring, as dependências não são injetadas e para resolver isso, podemos usar aspéctos (AOP) ou uma abordagem mais simples como a feita acima;\n  A lógica de recuperação do usuário logado (via consulta ou busca na sessão) está no serviço neste caso;\n  Alguns projetos adotam o uso da anotação @Table, neste listener, coloquei uma lógica que abrange esta abordagem (como principal) e se não for o caso, o campo receberá o nome da entidade, por exemplo, “PedidoInterno”, ao invés de “pedido_interno” (que é a forma como os bancos normalmente são modelados. Veja que nossa “LogTrace” teria o campo salvo como “log_trace”;\n  Anotar entidades que devem ser auditadas:\nAs entidades que devem ser auditadas recebem a anotação @EntityListeners(value = LogTraceListener.class). Para melhorar a leitura da classe, indico colocar esta anotação logo após a anotação @Entity ou @Table(name = “minha_entidade”).\n\n\nCom isso, sempre que uma das operações monitoradas pelo listener acontecer, são as anotações que estão sobre os métodos: @PostPersist, @PostUpdate e @PostRemove, um registro será gerado na tabela de log de auditoria.\n\nPara que outra tabela/entidade seja autitada, basta repetir o passo 5 (incluir a anotação na entidade).\n\n\n  NOTA: Normalmente as entidades de um sistema extendem uma entidade base ou implementam uma interface para que um padrão “mínimo” seja seguido. Este exemplo foi construído considerando este caso, ou seja, as entidades extendem BaseEntity."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"app-web-java-maven-eclipse": {
+						"id": "app-web-java-maven-eclipse",
+						"title": "App web Java + Maven não roda no ecplise",
+						"date": "2012-09-17 00:00:00 -0300",
+						"url": " /App-web-java-maven-eclipse/",
+						"content": "Mais um dos antigos migrados para cá.\n\nApp web Java + Maven não roda no ecplise\n\n\n\nImagine que você desenvolveu uma aplicação java com maven e versionou ela em algum repositório da vida, por exemplo, github, e ao instalá-la em outro computador ela apresenta a seguinte mensagem quando o servidor sobe:\n\nError configuring application listener of class org.springframework.web.context.ContextLoaderListener\n\n\n\nConsultando este problema na internet achei a seguinte solução:\n\n\n  Abre as propriedades do projeto (botão direito no projeto e propriedades);\n  Selecione “Deployment Assembly”;\n  Clique em “Add…”;\n  Selecione “Java Build Path Entries” e clique em “Next”;\n  Selecione “Maven Dependencies” e clique “Finish”;\n\n\nReinicie seu servidor tomcat e veja que agora funciona.\n\nEssas dicas foram retiradas do post 6210757 - java-lang-classnotfoundexception-org-springframework-web-context-contextloaderl no stackoverflow.com"
 					}
 					
 				
@@ -199,6 +319,21 @@
 						"date": "2012-03-30 00:00:00 -0300",
 						"url": " /Comandos-maven/",
 						"content": "Mais um post antigo migrado pra cá. :)\n\nAlguns comandos úteis para utilizar MAVEN\n\n\n\nAbaixo vou listar algumas linhas de comando que podem ajudar no desenvolvimento de aplicações que usam MAVEN:\n\nCriar uma aplicação:\n\n$ mvn archetype:generate -DgroupId=br.com.meusistema -DartifactId=AppExemplo -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false \n\n\n\nNa primeira vez que este processo é executado, as coisas demoram um pouco por que o maven vai baixar meia internet no repositório local que ele cria na máquina.\n\nTerminado o processo, você verá que o maven criou uma pasta com o nome que foi utilizado no artifactId, no nosso exemplo, “AppExemplo”\n\nDepois disso, para que este projeto possa ser aberto no eclipse fácil, fácil, o comando é:\n\n$ cd AppExemplo\n\n\n\nE dentro do diretório da aplicação:\n\n$ mvn eclipse:clean \n$ mvn eclipse:eclipse \n\n\n\nou\n\n$ mvn eclipse:m2eclipse \n\n\n\nNa primeira vez deve demorar um pouco também.\n\nDepois, basta importar o projeto no eclipse e seguir a vida.\n\nEstou disponibilizando abaixo uma lista de comandos que normalmente uso.\n\n$ mvn clean\n$ mvn compile\n$ mvn install\n\n\n\nPretendo em uma hora com calma editar este post e incluir mais detalhes sobre cada operação descrita e incluir mais algumas que costumo usar."
+					}
+					
+				
+			
+		
+			
+				
+					,
+					
+					"motorola-defy-rooting": {
+						"id": "motorola-defy-rooting",
+						"title": "Motorola defy rooting android 2.2.1",
+						"date": "2012-02-23 00:00:00 -0200",
+						"url": " /Motorola-defy-rooting/",
+						"content": "Mais um dos antigos migrados para cá.\n\nMotorola defy rooting android 2.2.1\n\n\n\nEu estava pesquisando na net formas de obter acesso root no meu defy com android 2.2.1 e achei o seguinte post:\n\n\n  [Rom] Cyanogenmod 7 – 2.3.7 Defy\n\n\nEste foi o post mais completo, fácil e seguro que achei de realizar o processo, inclusive, para quem quiser fazer a atualização para o android 2.3.7 custom ROM cm7, pra mim funcionou muito bem e o aparelho fica muito, mas muito melhor mesmo.\n\nPara evitar o risco dos links do post do amigo quebrarem, eu baixei aqui os arquivos necessários para fazer o root e o boot de configuração:\n\n\n  GingerBreak\n  SndInitDefy-1.4.2\n\n\nObs.:\n\n\n  Para baixar os arquivos, clique com o botão direito no link e em seguida, “Salvar link Como”;\n  Retire a extenção GIF antes de utilizar os arquivos e conserve a extenção apk;\n  Para o rooting, use apenas o GingerBreak, o outro link será necessário apenas para iniciar o processo de troca de ROM;\n\n\nPara fazer o rooting é muito simples:\n\n\n  Copie os arquivos acima para seu SDCard (na raiz pra ficar mais fácil);\n  Vá em configurações, Aplicativos, Desenvolvimento e habilite a opção Depuração USB;\n  Com algum programa de exploração de pastas, como o ASTRO, por exemplo, localize o GingerBreak e execute-o;\n  Após a instalação, abra o programa e clique no primeiro botão (Root Device);\n\n\nPronto, o processo de rooting vai se conduzir sozinho e reiniciará o aparelho.\n\nEu aconselho que o vídeo do post mencionado acima seja visto, o artigo do camaradinha é muito bom e completo.\n\nOBS.: Para quem quiser instalar o CM7 seguindo o tutorial acima, após a instalação, use a banda da Claro mencionada no tutorial, eu sou usuário VIVO e pra mim funcionou perfeitamente com aquela opção. A banda “Viva” não funcionou muito bem."
 					}
 					
 				
@@ -308,7 +443,7 @@
       <div class="container">
         <footer class="footer">
             <div class="svg-icon">
-          
+                
 <a href="mailto:maciel@bombonato.net"><i class="icon-envelope icon-2x"></i></a>
 
 

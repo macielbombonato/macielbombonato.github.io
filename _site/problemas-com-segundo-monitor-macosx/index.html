@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Assinando um JAR (JAVA WEB START) – Maciel Bombonato – Desenvolvedor de software</title>
+    <title>Problemas com segundo monitor no Mac OS X – Maciel Bombonato – Desenvolvedor de software</title>
 
         <meta charset="utf-8" />
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
@@ -9,18 +9,18 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
     
-    <meta name="description" content="Mais um dos antigos migrados para cá.
+    <meta name="description" content="Mais um migrado para cá.
 
 " />
-    <meta property="og:description" content="Mais um dos antigos migrados para cá.
+    <meta property="og:description" content="Mais um migrado para cá.
 
 " />
     
     <meta name="author" content="Maciel Bombonato" />
 
     
-    <meta property="og:title" content="Assinando um JAR (JAVA WEB START)" />
-    <meta property="twitter:title" content="Assinando um JAR (JAVA WEB START)" />
+    <meta property="og:title" content="Problemas com segundo monitor no Mac OS X" />
+    <meta property="twitter:title" content="Problemas com segundo monitor no Mac OS X" />
     
 
     <!--[if lt IE 9]>
@@ -52,9 +52,9 @@
          </div>
          <div class="container">
            <div class="post-heading">
-               <h1>Assinando um JAR (JAVA WEB START)</h1>
+               <h1>Problemas com segundo monitor no Mac OS X</h1>
                <span class="meta">
-                  Criado em: 22/11/2011
+                  Criado em: 31/08/2016
                </span>
            </div>
          </div>
@@ -67,63 +67,27 @@
  </div>
 
   <div class="entry">
-    <p>Mais um dos antigos migrados para cá.</p>
+    <p>Mais um migrado para cá.</p>
 
-<h1 id="assinando-um-jar-java-web-start">Assinando um JAR (JAVA WEB START)</h1>
+<h1 id="problemas-com-segundo-monitor-no-mac-os-x">Problemas com segundo monitor no Mac OS X</h1>
 
 <hr />
 
-<p>Toda vez que criamos uma aplicação Java Web Start e precisamos que esta aplicação tenha alguns acessos a máquina cliente, é necessário incluir no arquivo JNLP a seguinte instrução:</p>
+<p>Há um bom tempo não escrevo, na verdade, uso o blog só pra servir como referência futura (pra quando eu esquecer de algo que seria bom lembrar. rs).</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;security&gt;
-	&lt;all-permissions/&gt;
-&lt;/security&gt;
-</code></pre>
-</div>
+<p>Então, Maciel, caso você tenha esquecido como se faz isso de novo, lá vai.</p>
 
-<p>O problema é que feito isso, é necessário assinar os jars que estão na lista que deve ser entregue a máquina cliente, abaixo criei um tutorial bem simples de como fazer isso.</p>
+<p>Caso alguém mais esteja lendo e usa o Mac OS X e tem um monitor Samsung SyncMaster 933sn (não recomendo, monitor zuadinho).</p>
 
-<p>Primeiro, no diretório onde estão os jars, digite a linha de comando que segue:</p>
+<p>Seu Mac OS provavelmente não vai detectar a resolução mais apropriada para o monitor e de quebra vai te empurrar um 800x600 (sim, é verdade).</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>keytool -genkey -alias macielbombonato -keystore macielbombonato.cert
-</code></pre>
-</div>
+<p>A dica é:</p>
 
-<p>Escolha a senha (minimo de 6 caracteres):</p>
+<p>Vá nas configurações de monitor (Displays) em preferências do sistema. Isso fará com que duas telas se abram, uma delas no monitor zuado. Bom, a opção Default for display provavelmente estará selecionada, nesse momento, segure a tecla option (alt) e depois clique em Scaled.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Enter keystore password:
-Re-enter new password:
-</code></pre>
-</div>
+<p>Para esse monitor a melhor opção seria 1360x768 (não tem essa no Mac) a melhor opção que achei (que funcionou) foi 1280x768. Fica um pouco distorcido, mas dá pra ler log de console de boa. ;-)</p>
 
-<p>Responda o questionário:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>What is your first and last name?
-[Unknown]: XXX
-What is the name of your organizational unit?
-[Unknown]: XXX
-What is the name of your organization?
-[Unknown]: XXX
-What is the name of your City or Locality?
-[Unknown]: XXX
-What is the name of your State or Province?
-[Unknown]: XX
-What is the two-letter country code for this unit?
-[Unknown]: XX
-
-Is CN=XXX, OU=XXX, O=XXX, L=XXX, ST=XX, C=XX correct?
-[no]: yes
-</code></pre>
-</div>
-
-<p>Esses passos acima vão criar um certificado na pasta onde os jars estão, agora é necessário assinar cada um dos jars com esse certificado, para isso, basta utilizar a linha de comando abaixo:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>jarsigner -verbose -keystore macielbombonato.cert -storepass 123456 -keypass 123456 MeuJarAssinadoWebStart.jar macielbombonato
-</code></pre>
-</div>
-
-<p>Caso não queira incluir as senhas nas linhas de comando para assinar os jars, basta não utilizar os parâmetros -storepass e -keypass, com isso, a senha será solicitada antes do jar ser assinado.</p>
-
+<p><img src="/images/posts/2016-08-31-problemas-com-segundo-monitor-macosx/ScreenShot-2016-08-31at94416PM.png" alt="" /></p>
 
   </div>
 
@@ -186,8 +150,8 @@ s.setAttribute('data-timestamp', +new Date());
 
 		ga('create', 'UA-60177831-5', 'auto');
 		ga('send', 'pageview', {
-		  'page': '/Assinando-JAR/',
-		  'title': 'Assinando um JAR (JAVA WEB START)'
+		  'page': '/problemas-com-segundo-monitor-macosx/',
+		  'title': 'Problemas com segundo monitor no Mac OS X'
 		});
 	</script>
 	<!-- End Google Analytics -->
