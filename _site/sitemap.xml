@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://localhost:4000/Datacontrol/</loc>
+<lastmod>1996-06-01T00:00:00-03:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/Bitcompany/</loc>
+<lastmod>1997-01-01T00:00:00-02:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/LAOInd/</loc>
+<lastmod>1997-10-01T00:00:00-03:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/LAOInd/</loc>
+<lastmod>1998-08-01T00:00:00-03:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/Microlins/</loc>
+<lastmod>1999-01-01T00:00:00-02:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/LAOInd/</loc>
+<lastmod>1999-02-01T00:00:00-02:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/Instalacao-Diaspora-Desenvolvimento/</loc>
 <lastmod>2011-03-29T00:00:00-03:00</lastmod>
 </url>
@@ -89,6 +113,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/about/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/career/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/</loc>

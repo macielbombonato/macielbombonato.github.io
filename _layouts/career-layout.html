@@ -37,7 +37,7 @@
            <div class="post-heading">
                <h1>{{page.title}}</h1>
                <span class="meta">
-                  Criado em: {{ page.date | date: "%d/%m/%Y" }}
+                  {{ page.date | date: "%m/%Y" }} - {{ page.end | date: "%m/%Y" }}
                </span>
            </div>
          </div>

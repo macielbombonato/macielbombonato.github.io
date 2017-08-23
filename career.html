@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<div class="posts">
+  {% for career in site.categories.career %}
+    <article class="post">
+
+      <h1>
+        <a href="{{ site.baseurl }}{{ career.url }}">
+          {{ career.title }}
+        </a>
+      </h1>
+      <h2 style="margin-top: -25px;">
+        {{ career.company }}
+      </h2>
+
+      <div class="entry">
+        <span class="meta">
+           {{ career.date | date: "%m/%Y" }} - {{ career.end | date: "%m/%Y" }}
+        </span>
+        <br />
+        <span class="meta">
+           {{ career.location }}
+        </span>
+        {{ career.excerpt }}
+      </div>
+
+    </article>
+  {% endfor %}
+</div>
