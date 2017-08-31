@@ -1,64 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }} – {{ site.description }}</title>
-
-    {% include meta.html %}
-
-    <!--[if lt IE 9]>
-      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-
+    {% include head.html %}
   </head>
 
   <body>
+    {% include nav.html %}
 
-    <div class="page-header">
-        <div class="wrapper-masthead">
-         <div class="container">
-           <header class="clearfix">
-             <div class="site-info">
-               <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
-             </div>
-             <nav>
-               <a href="{{ site.baseurl }}/">Blog</a>
-               <a href="{{ site.baseurl }}/career">Carreira</a>
-               <!--a href="{{ site.baseurl }}/about">About</a>
-               <a href="{{ site.baseurl }}/projects">Projects</a-->
-             </nav>
-           </header>
-         </div>
-         <div class="container">
-           <div class="post-heading">
-               <h1>{{page.title}}</h1>
-               <span class="meta">
-                  {{ page.date | date: "%m/%Y" }} - {{ page.end | date: "%m/%Y" }}
-               </span>
-           </div>
-         </div>
-       </div>
+    <div class="wrapper">
+      <div class="header header-filter" style="background-image: url('{{ site.baseurl }}/assets/img/bg3.jpeg');">
+    		<div class="container">
+    			<div class="row">
+    				<div class="col-md-6 col-md-offset-3">
+              <h1 style="color: white;">{{page.title}}</h1>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    	<!-- you can use the class main-raised if you want the main area to be as a page with shadows -->
+    	<div class="main">
+    		<div class="container">
+
+    			{{ content }}
+
+    		</div>
+    	</div>
+
+      <footer class="footer footer-transparent">
+          <div class="container">
+              <nav class="pull-left">
+                <ul>
+                  <li>
+                    &copy; 2017
+                  </li>
+                </ul>
+              </nav>
+              <div class="social-area pull-right">
+                {% include svg-icons.html %}
+              </div>
+
+          </div>
+      </footer>
     </div>
-
-    <div id="main" role="main" class="container">
-      {{ content }}
-    </div>
-
-    <div class="wrapper-footer">
-      <div class="container">
-        <footer class="footer">
-            <div class="svg-icon">
-          {% include svg-icons.html %}
-            </div>
-        </footer>
-      </div>
-    </div>
-
 
     {% include analytics.html %}
   </body>
+
+  {% include javascript.html %}
+
 </html>

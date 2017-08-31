@@ -1,11 +1,20 @@
-<form action="{{ site.baseurl }}/search/" method="get">
-	<input
-			type="search"
-			name="q" {% if include.add_id %}id="search-input"{% endif %}
-			placeholder="Buscar"
-			autofocus
-		>
-	<button type="submit" style="background-color: white;">
-		Buscar
-	</button>
+<form class=""
+			action="{{ site.baseurl }}/search/"
+			accept-charset="UTF-8"
+			method="get">
+
+		<input name="utf8" type="hidden" value="✓">
+    <div class="form-group form-search">
+        <input
+						type="text"
+						name="q" {% if include.add_id %} id="search-input"{% endif %}
+						class="form-control form-control-search"
+						placeholder="Buscar"
+						itemprop="query-input"
+					>
+        <button type="submit" name="button" class="btn btn-default btn-round btn-submit">
+						<i class="fa fa-search" style="font-size: 25px;"></i>
+        </button>
+
+    </div>
 </form>
