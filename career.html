@@ -4,28 +4,39 @@ layout: default-material
 
 <div class="posts">
   {% for career in site.categories.career %}
-    <article class="post">
-
-      <h1>
-        <a href="{{ site.baseurl }}{{ career.url }}">
-          {{ career.title }}
-        </a>
-      </h1>
-      <h2 style="margin-top: -10px;">
-        {{ career.company }}
-      </h2>
-
-      <div class="entry">
-        <span class="meta">
-           {{ career.date | date: "%m/%Y" }} - {{ career.end | date: "%m/%Y" }}
-        </span>
-        <br />
-        <span class="meta">
-           {{ career.location }}
-        </span>
-        {{ career.excerpt }}
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="card">
+        <div class="col-md-12">
+          <div class="info info-horizontal" style="padding-top: 0px;">
+            <div class="description">
+              <h3 class="info-title">
+                <a href="{{ site.baseurl }}{{ career.url }}">
+                  {{ career.title }}
+                </a>
+              </h3>
+              <h4 style="margin-top: -10px;">
+                {{ career.company }}
+              </h4>
+              <span class="meta">
+                 {{ career.date | date: "%m/%Y" }} - {{ career.end | date: "%m/%Y" }}
+              </span>
+              <br />
+              <span class="meta">
+                 {{ career.location }}
+              </span>
+              <p>
+                {{ career.content }}
+              </p>
+              <a href="{{ site.baseurl }}{{ career.url }}">
+                Mais detalhes
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
 
-    </article>
   {% endfor %}
 </div>

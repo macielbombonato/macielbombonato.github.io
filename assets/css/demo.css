@@ -119,14 +119,14 @@
     overflow: hidden;
     border-radius: 50%;
     border: 1px solid #333333;
-    width: 50px;
+    width: 40px;
     float: left;
 }
 
 .logo-container .brand{
-    font-size: 16px;
+    font-size: 20px;
     color: #FFFFFF;
-    line-height: 14px;
+    line-height: 18px;
     float: left;
     margin-left: 10px;
     margin-top: 7px;
@@ -394,4 +394,61 @@
 .components-page .title,
 .tutorial-page .title{
     color: #FFFFFF;
+}
+
+
+.navbar-form {
+    margin-top: 12px;
+    margin-bottom: 12px
+}
+
+.form-search {
+    max-width: 510px;
+    padding: 0 15px;
+    margin: 30px auto 0;
+    position: relative
+}
+
+.form-search .btn-submit {
+    position: absolute;
+    right: 18px;
+    border: none;
+    padding: 10px 12px;
+    height: 44px;
+    line-height: 30px;
+    width: 44px;
+    display: block;
+    top: -7px;
+    opacity: .7;
+    background: #FFFFFF;
+    color: #666666;
+    transition: all .2s
+}
+
+.form-search .btn-submit:hover,.form-search .btn-submit:focus,.form-search .btn-submit:active {
+    opacity: 1;
+    background: #FFFFFF;
+    color: #666666
+}
+
+.form-search .form-control-search {
+    background-color: rgba(121,121,121,0.55);
+    box-shadow: none;
+    border: medium none;
+    border-radius: 30px;
+    box-shadow: 0 0 0;
+    color: #FFFFFF;
+    display: block;
+    font-size: 20px;
+    font-weight: 300;
+    height: 50px;
+    line-height: 1.42857;
+    padding: 6px 20px;
+    vertical-align: middle;
+    transition: background-color .2s;
+}
+
+.form-search .form-control-search:focus {
+    background-color: rgba(0,0,0,0.3);
+    border: none
 }
