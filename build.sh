@@ -3,7 +3,7 @@ set -e
 
 echo "Building bombonato.net"
 
-bundle exec travis-lint
+gem install bundler
 bundle exec jekyll build
 
 echo "Finished"
