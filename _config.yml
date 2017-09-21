@@ -15,20 +15,15 @@ description: Desenvolvedor de software
 
 # Includes an icon in the footer for each username you enter
 footer-links:
-  dribbble:
   email: maciel@bombonato.net
-  facebook:
-  flickr:
+  flickr: ""
   github: macielbombonato
-  instagram:
+  instagram: ""
   linkedin: macielbombonato
-  pinterest:
-  rss: # just type anything here for a working RSS icon
+  pinterest: ""
+  rss: "" # just type anything here for a working RSS icon
   twitter: macielbombonato
-  stackoverflow: # your stackoverflow profile, e.g. "users/3807565/akshay"
-  youtube: # channel/<your_long_string> or user/<user-name>
-  googleplus: # anything in your profile username that comes after plus.google.com/
-
+  stackoverflow: "" # your stackoverflow profile, e.g. "users/3807565/akshay"
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
 # You can find your shortname on the Settings page of your Disqus account
@@ -70,6 +65,7 @@ sass:
 # Use the following plug-ins
 gems:
   - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
+  - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
 
 # Exclude these files from your production _site
 exclude:
