@@ -16,14 +16,13 @@ description: Desenvolvedor de software
 # Includes an icon in the footer for each username you enter
 footer-links:
   email: maciel@bombonato.net
-  flickr: ""
+  flickr: macielbombonato
   github: macielbombonato
-  instagram: ""
+  instagram: macielbombonato
   linkedin: macielbombonato
-  pinterest: ""
   rss: "" # just type anything here for a working RSS icon
   twitter: macielbombonato
-  stackoverflow: "" # your stackoverflow profile, e.g. "users/3807565/akshay"
+  stackoverflow: users/1096326/maciel-bombonato # your stackoverflow profile, e.g. "users/3807565/akshay"
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
 # You can find your shortname on the Settings page of your Disqus account
