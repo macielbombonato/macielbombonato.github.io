@@ -102,15 +102,13 @@
 
 <p>Só uma dica rápida para aquele caso que está tudo certo e quando o Spring valida o conteúdo do campo de arquivos e vc recebe a seguinte mensagem:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Failed to convert property value of type 'java.lang.String' to required type 'org.springframework.web.multipart.MultipartFile' for property 'XXX'
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Failed to convert property value of type 'java.lang.String' to required type 'org.springframework.web.multipart.MultipartFile' for property 'XXX'
+</code></pre></div></div>
 
 <p>Confirme se o formulário está com a propriedade enctype…</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;form action="URL/" enctype="multipart/form-data" id="form" method="post"&gt; 
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;form action="URL/" enctype="multipart/form-data" id="form" method="post"&gt; 
+</code></pre></div></div>
 
 <p>Este pequeno detalhe causou o erro acima. ;-)</p>
 

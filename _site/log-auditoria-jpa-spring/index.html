@@ -106,15 +106,14 @@
 
 <h3 id="1-criar-um-enum-para-representar-as-ações-de-banco">1. Criar um enum para representar as ações de banco:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>public enum TransactionType {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public enum TransactionType {
     CREATE, UPDATE, DELETE;
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="2-criar-a-entidade-de-log-de-auditoria">2. Criar a entidade de log de auditoria:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@Entity
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@Entity
 @Table(name = "log_trace")
 @AttributeOverride(name = "id", column = @Column(name = "log_trace_id"))
 public class LogTrace extends BaseEntity {
@@ -139,14 +138,13 @@ public class LogTrace extends BaseEntity {
 
 ...getters e setters...
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="3-criar-o-repositório-dao-e-o-serviço-como-está-sendo-feito-no-restante-do-sistema">3. Criar o repositório (DAO) e o serviço como está sendo feito no restante do sistema;</h3>
 
 <h3 id="4-criar-o-listener-que-será-disparado-pelo-hibernate">4. Criar o listener que será disparado pelo hibernate:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>public class LogTraceListener {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public class LogTraceListener {
 
     @Autowired
     LogTraceService logTraceService;
@@ -202,8 +200,7 @@ public class LogTrace extends BaseEntity {
         logTraceService.save(logTrace);
     }
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="observações">Observações:</h2>
 

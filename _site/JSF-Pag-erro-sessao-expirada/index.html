@@ -104,7 +104,7 @@
 
 <p>Para resolver esse problema chato, usei as seguintes linhas no web.xml da aplicação.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;error-page&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;error-page&gt;
 	&lt;exception-type&gt;
 		javax.faces.application.ViewExpiredException
 	&lt;/exception-type&gt;
@@ -112,8 +112,7 @@
 		/index.html 
 	&lt;/location&gt;
 &lt;/error-page&gt; 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Com essas linhas no <strong>web.xml</strong> a aplicação ao invés de exibir a página de erro quando a view estiver expirada, vai redirecionar o usuário para a página indicada.</p>
 

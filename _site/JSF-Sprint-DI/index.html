@@ -110,41 +110,36 @@
 
 <p>Ao invés de:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@Component("nomeBean")
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@Component("nomeBean")
+</code></pre></div></div>
 
 <p>Use:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@ManagedBean(name="nomeBean")
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@ManagedBean(name="nomeBean")
+</code></pre></div></div>
 
 <p>e ao invés de:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@Autowired
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@Autowired
+</code></pre></div></div>
 
 <p>Use:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@ManagedProperty(value="#{nomeBeanInjetar}")
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@ManagedProperty(value="#{nomeBeanInjetar}")
+</code></pre></div></div>
 
 <p>Utilizarei como exemplo uma classe usuário recebendo a injeção de um UsuarioDAO.</p>
 
 <p>Implentação do UsuarioDAO que deverá ser injetado no objeto usuarioController, que é meu managed bean:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@Component("usuarioDAO")
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@Component("usuarioDAO")
 public class UsuarioDAO implements IUsuarioDAO {
 ...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Classe que receberá a injeção:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@ManagedBean(name="usuarioController")
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@ManagedBean(name="usuarioController")
 @SessionScoped
 public class UsuarioController {
 
@@ -155,8 +150,7 @@ public class UsuarioController {
 		this.usuarioDAO = usuarioDAO;
 	}
 ...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Note que na abordagem acima estou usando anotações do JSF (@ManagedBean e @ManagedProperty) e anotações do Spring.</p>
 

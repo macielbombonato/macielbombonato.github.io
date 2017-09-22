@@ -102,21 +102,19 @@
 
 <p>Em situações que um método retorna a url de redirect da sua página, como por exemplo:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>public String listar() {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public String listar() {
 	return "/pages/list.xhtml";
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>E o JSF não muda a URL na barra do browser, recomendo a inclusão da seguinte string após a url:  + “?faces-redirect=true”</p>
 
 <p>ficando:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>public String listar() {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public String listar() {
 	return "/pages/list.xhtml"  + "?faces-redirect=true";
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Fazendo isso, a URL sempre vai mudar. ;-)</p>
 

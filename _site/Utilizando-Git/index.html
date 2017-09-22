@@ -104,29 +104,25 @@
 
 <p>Dentro do diretório executar o comando:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git init
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+</code></pre></div></div>
 
 <p>E depois:</p>
 
 <p>Status do branch selecionado</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git status
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status
+</code></pre></div></div>
 
 <p>Exibe todos os branchs e marca com um asterisco o que está selecionado.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git branch
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch
+</code></pre></div></div>
 
 <p>Fazer stage dos arquivos (marcá-los para versionar)</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git add
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add
+</code></pre></div></div>
 
 <ul>
   <li>. (ponto) adiciona todos arquivos que estão pendentes</li>
@@ -135,51 +131,44 @@
 
 <p>Criar um branch</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git checkout -b [nome do branch]
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout -b [nome do branch]
+</code></pre></div></div>
 
 <p>Commit das alterações</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git commit -am “[mensagem]”
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit -am “[mensagem]”
+</code></pre></div></div>
 
 <p>Altera do branch atual para o branch mencionado</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git checkout [nome do branch]
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout [nome do branch]
+</code></pre></div></div>
 
 <p>Para pegar as alterações do branch master para outro branch qualquer:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git checkout [nome do branch]
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout [nome do branch]
 git rebase master
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Para mandar as informações de um branch qualquer para o master:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git checkout master
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master
 git merge [nome do branch]
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>No caso do branch master ser remoto:</p>
 
 <p>Para atualizar seu master local:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git checkout master
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master
 git pull origin master
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Atualizar o branch master remoto com suas alterações locais:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git checkout master
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master
 git push origin master
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <hr />
 
@@ -191,15 +180,13 @@ git push origin master
 
 <p>Fazer com que o host remoto git do seu projeto passe a ser este indicado na url</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ git remote add origin https://enderecodoseuservidor/aplicacao.git
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git remote add origin https://enderecodoseuservidor/aplicacao.git
+</code></pre></div></div>
 
 <p>Para enviar os fontes para o branch master remoto pela primeira vez</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ git push -u origin master
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git push -u origin master
+</code></pre></div></div>
 
     </div>
 

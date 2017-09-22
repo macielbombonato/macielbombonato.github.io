@@ -23,3 +23,7 @@ env:
 
 matrix:
   fast_finish: true
+  include:
+    - # GitHub Pages
+      rvm: 2.4.1
+      env: GH_PAGES=true

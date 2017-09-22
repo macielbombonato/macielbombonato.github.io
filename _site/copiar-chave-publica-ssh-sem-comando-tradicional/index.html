@@ -104,17 +104,15 @@
 
 <p>Depois que geramos uma chave SSH em uma máquina unix:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ssh-keygen -t rsa
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen -t rsa
+</code></pre></div></div>
 
 <p>Vamos precisar copiar a chave pública para inserí-la em alguns lugares.</p>
 
 <p>Bom, existe um comandinho mágico no OS X que faz com que não precisemos selecionar, e usar o Ctrl+C (Cmd+C no OS X) para pegar o conteúdo da chave, para isso basta usar o seguinte comando:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>cat ~/.ssh/id_rsa.pub | pbcopy
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat ~/.ssh/id_rsa.pub | pbcopy
+</code></pre></div></div>
 
 <p>O pbcopy faz todo o trabalho sujo de copiar o conteúdo que devemos colocar no github (por exemplo).</p>
 
@@ -124,21 +122,18 @@
 
 <h3 id="1-instalar-o-xclip-ele-faz-um-trabalho-similar">1. Instalar o xclip (ele faz um trabalho similar):</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install xclip
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install xclip
+</code></pre></div></div>
 
 <h3 id="2-agora-eu-recomendo-é-só-criar-um-alias-no-seu-arquivo-de-profile-profile-ou-bashrc-dentro-da-pasta-home-do-seu-usuário-para-isso-adicione-a-seguinte-linha-em-um-desses-arquivos">2. Agora (eu recomendo) é só criar um alias no seu arquivo de profile (.profile ou .bashrc dentro da pasta home do seu usuário), para isso, adicione a seguinte linha em um desses arquivos:</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>alias pbcopy="xclip -selection clipboard"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias pbcopy="xclip -selection clipboard"
+</code></pre></div></div>
 
 <p>Depois, no terminal execute o seguinte comando (supondo que isso foi inserido no .bashrc):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>source ~/.bashrc
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source ~/.bashrc
+</code></pre></div></div>
 
 <p>Agora é só ficar feliz e utilizar no seu linux o mesmo comando feito no OS X.</p>
 

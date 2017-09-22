@@ -102,30 +102,27 @@
 
 <p>Toda vez que criamos uma aplicação Java Web Start e precisamos que esta aplicação tenha alguns acessos a máquina cliente, é necessário incluir no arquivo JNLP a seguinte instrução:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;security&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;security&gt;
 	&lt;all-permissions/&gt;
 &lt;/security&gt;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>O problema é que feito isso, é necessário assinar os jars que estão na lista que deve ser entregue a máquina cliente, abaixo criei um tutorial bem simples de como fazer isso.</p>
 
 <p>Primeiro, no diretório onde estão os jars, digite a linha de comando que segue:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>keytool -genkey -alias macielbombonato -keystore macielbombonato.cert
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keytool -genkey -alias macielbombonato -keystore macielbombonato.cert
+</code></pre></div></div>
 
 <p>Escolha a senha (minimo de 6 caracteres):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Enter keystore password:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Enter keystore password:
 Re-enter new password:
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Responda o questionário:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>What is your first and last name?
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>What is your first and last name?
 [Unknown]: XXX
 What is the name of your organizational unit?
 [Unknown]: XXX
@@ -140,14 +137,12 @@ What is the two-letter country code for this unit?
 
 Is CN=XXX, OU=XXX, O=XXX, L=XXX, ST=XX, C=XX correct?
 [no]: yes
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Esses passos acima vão criar um certificado na pasta onde os jars estão, agora é necessário assinar cada um dos jars com esse certificado, para isso, basta utilizar a linha de comando abaixo:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>jarsigner -verbose -keystore macielbombonato.cert -storepass 123456 -keypass 123456 MeuJarAssinadoWebStart.jar macielbombonato
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jarsigner -verbose -keystore macielbombonato.cert -storepass 123456 -keypass 123456 MeuJarAssinadoWebStart.jar macielbombonato
+</code></pre></div></div>
 
 <p>Caso não queira incluir as senhas nas linhas de comando para assinar os jars, basta não utilizar os parâmetros -storepass e -keypass, com isso, a senha será solicitada antes do jar ser assinado.</p>
 
