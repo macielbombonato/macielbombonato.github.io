@@ -10,7 +10,6 @@ before_install:
 
 rvm:
   - 2.3.3
-  - jruby-1.7.25
 
 before_script:
   - chmod +x build.sh
