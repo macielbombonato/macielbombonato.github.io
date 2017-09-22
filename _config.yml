@@ -76,3 +76,5 @@ exclude:
   - .travis.yml
   - build.sh
   - .DS_Store
+  - node_modules/material-components-web/node_modules/@material/dialog/node_modules/focus-trap/CHANGELOG.md
+  - node_modules/material-components-web/node_modules/@material/dialog/node_modules/focus-trap/node_modules/tabbable/CHANGELOG.md
