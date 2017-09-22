@@ -6,10 +6,10 @@ branches:
   only: master
 
 before_install:
-  - rvm install 2.3.3
+  - rvm install 2.4.1
 
 rvm:
-  - 2.3.3
+  - 2.4.1
 
 before_script:
   - chmod +x build.sh
