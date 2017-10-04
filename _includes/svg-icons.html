@@ -47,10 +47,10 @@
   </a>
 {% endif %}
 
-{% if site.footer-links.rss %}
+{% if site.footer-links.stackoverflow %}
   <a class="btn btn-social btn-simple" target="_blank"
-      href="{{ site.baseurl }}/feed.xml">
-    <i class="fa fa-rss"></i>
+      href="http://stackoverflow.com/{{ site.footer-links.stackoverflow }}">
+    <i class="fa fa-stack-overflow"></i>
   </a>
 {% endif %}
 
@@ -58,13 +58,6 @@
   <a class="btn btn-social btn-simple" target="_blank"
       href="https://www.twitter.com/{{ site.footer-links.twitter }}">
     <i class="fa fa-twitter"></i>
-  </a>
-{% endif %}
-
-{% if site.footer-links.stackoverflow %}
-  <a class="btn btn-social btn-simple" target="_blank"
-      href="http://stackoverflow.com/{{ site.footer-links.stackoverflow }}">
-    <i class="fa fa-stackexchange"></i>
   </a>
 {% endif %}
 
@@ -79,5 +72,12 @@
   <a class="btn btn-social btn-simple" target="_blank"
       href="https://plus.google.com/{{ site.footer-links.googleplus }}">
     <i class="fa fa-google-plus"></i>
+  </a>
+{% endif %}
+
+{% if site.footer-links.rss %}
+  <a class="btn btn-social btn-simple" target="_blank"
+      href="{{ site.baseurl }}/feed.xml">
+    <i class="fa fa-rss"></i>
   </a>
 {% endif %}
