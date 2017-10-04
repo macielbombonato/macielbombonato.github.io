@@ -2,8 +2,7 @@ jQuery(function() {
 	var $sidebar = $('.sidebar'),
 		$content = $('.content'),
 		$tutorial = $('.tutorial-content'),
-		$window = $(window),
-		offset = $content.offset().top + 60;
+		$window = $(window);
 
 	var found = true;
 
