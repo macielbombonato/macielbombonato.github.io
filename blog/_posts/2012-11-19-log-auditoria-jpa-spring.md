@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Mais um dos antigos migrados para cá.
 
-# Log de Auditoria - JPA + Spring
-
 --------
 
 Vira e volta, aparecem sistemas onde é necessário fazer um esquema de log de auditoria para uma tabela ou várias.
@@ -27,25 +25,25 @@ Montei um esquema que pode ser facilmente extendido para outras tabelas do siste
 	@Table(name = "log_trace")
 	@AttributeOverride(name = "id", column = @Column(name = "log_trace_id"))
 	public class LogTrace extends BaseEntity {
-	
+
 	    @Column(name = "transaction_type", nullable = false)
 	    @Enumerated(EnumType.STRING)
 	    private TransactionType transactionType;
-	
+
 	    @Column(name = "entity_name", nullable = false)
 	    private String entityName;
-	
+
 	    @Column(name = "registry_id", nullable = false)
 	    private Long registryId;
-	
+
 	    @Column(name = "operation_date", nullable = false)
 	    @Temporal(TemporalType.TIMESTAMP)
 	    private Date operationDate;
-	
+
 	    @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "executed_by", nullable = false)
 	    private User executedBy;
-	
+
 	...getters e setters...
 	}
 
@@ -55,43 +53,43 @@ Montei um esquema que pode ser facilmente extendido para outras tabelas do siste
 ### 4. Criar o listener que será disparado pelo hibernate:
 
 	public class LogTraceListener {
-	
+
 	    @Autowired
 	    LogTraceService logTraceService;
-	
+
 	    @Autowired
 	    UserService userService;
-	
+
 	    @PostRemove
 	    void postDelete(BaseEntity e) {
 	        createLog(TransactionType.DELETE, e);
 	    }
-	
+
 	    @PostPersist
 	    void postPersist(BaseEntity e) {
 	        createLog(TransactionType.CREATE, e);
 	    }
-	
+
 	    @PostUpdate
 	    void postUpdate(BaseEntity e) {
 	        createLog(TransactionType.UPDATE, e);
 	    }
-	
+
 	    private void createLog(TransactionType transactionType, BaseEntity e) {
 	        /*
 	         * OBSERVAÇÃO 1.
 	         */
 	        if (logTraceService == null) {
 	            ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
-	
+
 	            logTraceService = (LogTraceService) ctx.getBean("logTraceService");
 	        }
-	
+
 	        /*
 	         * OBSERVAÇÃO 2.
 	         */
 	        User user = userService.getAuthenticatedUser();
-	
+
 	        LogTrace logTrace = new LogTrace();
 	        /*
 	         * OBSERVAÇÃO 3.
@@ -100,13 +98,13 @@ Montei um esquema que pode ser facilmente extendido para outras tabelas do siste
 	        if (entityName == null || entityName.isEmpty()) {
 	            entityName = e.getClass().getSimpleName();
 	        }
-	
+
 	        logTrace.setTransactionType(transactionType);
 	        logTrace.setEntityName(entityName);
 	        logTrace.setRegistryId(e.getId());
 	        logTrace.setExecutedBy(user);
 	        logTrace.setOperationDate(new Date());
-	
+
 	        logTraceService.save(logTrace);
 	    }
 	}

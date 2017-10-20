@@ -82,12 +82,29 @@
     <div class="header header-filter" style="background-image: url('/assets/img/bg3.jpeg');">
   		<div class="container">
   			<div class="row">
-  				<div class="col-md-12 col-sm-12">
-            <h1 class="title text-center"></h1>
-            <h2 style="color: white;">Problemas com upload de arquivos utilizando spring MVC</h2>
-            <span style="color: white;" class="meta">
-               Criado em: 27/08/2013
-            </span>
+  				<div class="col-md-6 col-md-offset-3">
+  					<h1 class="title text-center"></h1>
+
+            <form class=""
+			action="/search/"
+			accept-charset="UTF-8"
+			method="get">
+
+		<input name="utf8" type="hidden" value="✓">
+    <div class="form-group form-search">
+        <input
+						type="text"
+						name="q" 
+						class="form-control form-control-search"
+						placeholder="Buscar"
+						itemprop="query-input"
+					/>
+        <button type="submit" name="button" class="btn btn-default btn-round btn-submit">
+						<i class="fa fa-search" style="font-size: 25px;"></i>
+        </button>
+    </div>
+</form>
+
   				</div>
   			</div>
   		</div>
@@ -96,14 +113,23 @@
     <div class="main main-raised">
         <div class="section">
   		      <div class="container">
+                  <h1 class="title text-center">
+                    Problemas com upload de arquivos utilizando spring MVC
+                  </h1>
+
+                  <span class="meta">
+                     Criado em: 27/08/2013
+                  </span>
+
+                  <br />
+                  <br />
+
   			         <article class="post">
    <div class="space-extra-small">
    </div>
 
     <div class="entry">
       <p>Mais um dos antigos migrados para cá.</p>
-
-<h1 id="problemas-com-upload-de-arquivos-utilizando-spring-mvc">Problemas com upload de arquivos utilizando spring MVC</h1>
 
 <hr />
 
@@ -114,7 +140,7 @@
 
 <p>Confirme se o formulário está com a propriedade enctype…</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;form action="URL/" enctype="multipart/form-data" id="form" method="post"&gt; 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;form action="URL/" enctype="multipart/form-data" id="form" method="post"&gt;
 </code></pre></div></div>
 
 <p>Este pequeno detalhe causou o erro acima. ;-)</p>

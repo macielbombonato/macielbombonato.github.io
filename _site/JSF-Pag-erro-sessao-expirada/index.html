@@ -82,12 +82,29 @@
     <div class="header header-filter" style="background-image: url('/assets/img/bg3.jpeg');">
   		<div class="container">
   			<div class="row">
-  				<div class="col-md-12 col-sm-12">
-            <h1 class="title text-center"></h1>
-            <h2 style="color: white;">JSF - Página de erro após sessão expirada?</h2>
-            <span style="color: white;" class="meta">
-               Criado em: 18/07/2012
-            </span>
+  				<div class="col-md-6 col-md-offset-3">
+  					<h1 class="title text-center"></h1>
+
+            <form class=""
+			action="/search/"
+			accept-charset="UTF-8"
+			method="get">
+
+		<input name="utf8" type="hidden" value="✓">
+    <div class="form-group form-search">
+        <input
+						type="text"
+						name="q" 
+						class="form-control form-control-search"
+						placeholder="Buscar"
+						itemprop="query-input"
+					/>
+        <button type="submit" name="button" class="btn btn-default btn-round btn-submit">
+						<i class="fa fa-search" style="font-size: 25px;"></i>
+        </button>
+    </div>
+</form>
+
   				</div>
   			</div>
   		</div>
@@ -96,14 +113,23 @@
     <div class="main main-raised">
         <div class="section">
   		      <div class="container">
+                  <h1 class="title text-center">
+                    JSF - Página de erro após sessão expirada?
+                  </h1>
+
+                  <span class="meta">
+                     Criado em: 18/07/2012
+                  </span>
+
+                  <br />
+                  <br />
+
   			         <article class="post">
    <div class="space-extra-small">
    </div>
 
     <div class="entry">
       <p>Mais um dos antigos migrados para cá.</p>
-
-<h1 id="jsf---página-de-erro-após-sessão-expirada">JSF - Página de erro após sessão expirada?</h1>
 
 <hr />
 
@@ -115,10 +141,10 @@
 	&lt;exception-type&gt;
 		javax.faces.application.ViewExpiredException
 	&lt;/exception-type&gt;
-	&lt;location&gt; 
-		/index.html 
+	&lt;location&gt;
+		/index.html
 	&lt;/location&gt;
-&lt;/error-page&gt; 
+&lt;/error-page&gt;
 </code></pre></div></div>
 
 <p>Com essas linhas no <strong>web.xml</strong> a aplicação ao invés de exibir a página de erro quando a view estiver expirada, vai redirecionar o usuário para a página indicada.</p>

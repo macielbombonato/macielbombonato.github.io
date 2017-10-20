@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Mais um dos antigos migrados para cá.
 
-# Assinando um JAR (JAVA WEB START)
-
 --------
 
 Toda vez que criamos uma aplicação Java Web Start e precisamos que esta aplicação tenha alguns acessos a máquina cliente, é necessário incluir no arquivo JNLP a seguinte instrução:
@@ -41,7 +39,7 @@ Responda o questionário:
 	[Unknown]: XX
 	What is the two-letter country code for this unit?
 	[Unknown]: XX
-	
+
 	Is CN=XXX, OU=XXX, O=XXX, L=XXX, ST=XX, C=XX correct?
 	[no]: yes
 
@@ -50,4 +48,3 @@ Esses passos acima vão criar um certificado na pasta onde os jars estão, agora
 	jarsigner -verbose -keystore macielbombonato.cert -storepass 123456 -keypass 123456 MeuJarAssinadoWebStart.jar macielbombonato
 
 Caso não queira incluir as senhas nas linhas de comando para assinar os jars, basta não utilizar os parâmetros -storepass e -keypass, com isso, a senha será solicitada antes do jar ser assinado.
-

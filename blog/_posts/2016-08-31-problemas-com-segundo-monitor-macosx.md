@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Mais um migrado para cá.
 
-# Problemas com segundo monitor no Mac OS X
-
 --------
 
 Há um bom tempo não escrevo, na verdade, uso o blog só pra servir como referência futura (pra quando eu esquecer de algo que seria bom lembrar. rs).
@@ -24,4 +22,4 @@ Vá nas configurações de monitor (Displays) em preferências do sistema. Isso 
 
 Para esse monitor a melhor opção seria 1360x768 (não tem essa no Mac) a melhor opção que achei (que funcionou) foi 1280x768. Fica um pouco distorcido, mas dá pra ler log de console de boa. ;-)
 
-![](/images/posts/2016-08-31-problemas-com-segundo-monitor-macosx/ScreenShot-2016-08-31at94416PM.png)
+![-fullwidth](/images/posts/2016-08-31-problemas-com-segundo-monitor-macosx/ScreenShot-2016-08-31at94416PM.png)

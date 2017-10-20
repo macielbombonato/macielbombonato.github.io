@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Um daqueles posts relâmpago. :)
 
-# Instalação Redis MacOS X e Linux em 30s
-
 --------
 
 Acesse: [http://redis.io/](http://redis.io/)

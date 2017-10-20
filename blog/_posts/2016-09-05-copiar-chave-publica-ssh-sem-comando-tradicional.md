@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Mais um migrado para cá.
 
-# Copiar chave pública SSH sem precisar do tradicional copy/paste
-
 --------
 
 Bom, este micro artigo é mais um da série "vou precisar disso denovo, mas vou esquecer".

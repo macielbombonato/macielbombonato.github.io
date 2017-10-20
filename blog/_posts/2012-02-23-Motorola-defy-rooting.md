@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Mais um dos antigos migrados para cá.
 
-# Motorola defy rooting android 2.2.1
-
 --------
 
 Eu estava pesquisando na net formas de obter acesso root no meu defy com android 2.2.1 e achei o seguinte post:

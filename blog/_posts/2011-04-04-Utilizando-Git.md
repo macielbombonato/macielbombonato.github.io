@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Um post com dicas e comandos git.
 
-# Utilizando Git na linha de comando
-
 --------
 
 Versionando um diretório local com git.

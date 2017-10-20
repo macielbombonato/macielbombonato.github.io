@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Mais um dos antigos migrados para cá.
 
-# IntelliJ IDEA rodando com JVM mais nova no MAC OS X
-
 --------
 
 Caso tenha atualizado seu MAC OS X e após isso passou a receber a mensagem que o IntelliJ IDEA precisa rodar em uma versão legada (legacy) da JVM, a solução para mim foi a seguinte.

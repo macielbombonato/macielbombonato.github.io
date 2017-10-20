@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Mais um dos antigos migrados para cá.
 
-# Configure Proxy para subversion
-
 --------
 
 Essa dica vale pra quem precisa configurar proxy para utilização do subversion no sistema operacional como um todo ou para a utilização do plugin do eclipse o subclipse.

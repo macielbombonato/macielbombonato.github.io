@@ -3,7 +3,17 @@ layout: default-material
 ---
 
 <div class="row">
+  {% assign counter = 0 %}
   {% for post in site.categories.blog %}
+
+    {% if counter >= 3 %}
+      {% assign counter = 0 %}
+      </div>
+      <div class="row">
+    {% endif %}
+
+    {% assign counter = counter | plus: 1 %}
+
     <div class="col-md-4">
       <div class="card">
         <div class="col-md-12">

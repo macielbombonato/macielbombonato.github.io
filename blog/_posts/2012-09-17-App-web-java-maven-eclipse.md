@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Mais um dos antigos migrados para cá.
 
-# App web Java + Maven não roda no ecplise
-
 --------
 
 Imagine que você desenvolveu uma aplicação java com maven e versionou ela em algum repositório da vida, por exemplo, github, e ao instalá-la em outro computador ela apresenta a seguinte mensagem quando o servidor sobe:
@@ -16,7 +14,7 @@ Imagine que você desenvolveu uma aplicação java com maven e versionou ela em 
 
 Consultando este problema na internet achei a seguinte solução:
 
-1. Abre as propriedades do projeto (botão direito no projeto e propriedades); 
+1. Abre as propriedades do projeto (botão direito no projeto e propriedades);
 2. Selecione "Deployment Assembly";
 3. Clique em "Add...";
 4. Selecione "Java Build Path Entries" e clique em "Next";

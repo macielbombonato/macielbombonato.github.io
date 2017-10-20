@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.
 
-# Passo a passo para montar uma página com Jekyll
-
 --------
 
 Quase todo mundo que monta um blog/página pessoal no github pages faz um post dizendo como montou esse blog, para não ser diferente, vamos lá fazer a mesma coisa. :-)
@@ -22,10 +20,10 @@ Agora vamos ao que interessa.
 
 ## **1. Softwares necessários**
 
-> **DICA** 
-> 
-> Para usuários **Linux** e **Mac**: A maioria dos comandos abaixo (relacionados a instalação de softwares) só funcionam com o **sudo** na frente, ou seja, **sudo gem install bundler**. 
-> 
+> **DICA**
+>
+> Para usuários **Linux** e **Mac**: A maioria dos comandos abaixo (relacionados a instalação de softwares) só funcionam com o **sudo** na frente, ou seja, **sudo gem install bundler**.
+>
 > Nos demais casos (executando como root ou usuários Windows), isso não será necessário. ;-)
 
 

@@ -1,3 +1,8 @@
+img[alt$="-fullwidth"]{
+  width:  100%;
+  display: block;
+}
+
 .tim-row{
     margin-bottom: 20px;
 }

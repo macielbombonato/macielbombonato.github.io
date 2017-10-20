@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Outro daqueles posts relâmpago. :)
 
-# Instalação/Preparação do Diaspora para desenvolvimento
-
 --------
 
 Primeiros passos, preparando a casa:

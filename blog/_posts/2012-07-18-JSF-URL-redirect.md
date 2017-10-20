@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Mais um dos antigos migrados para cá.
 
-# JSF - URL não muda após redirect?
-
 --------
 
 Em situações que um método retorna a url de redirect da sua página, como por exemplo:

@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Mais um dos antigos migrados para cá.
 
-# JSF 2.0 + Spring - Injeção de Dependência (DI)
-
 --------
 
 Estou desenvolvendo uma aplicação utilizando JSF 2.0, Hibernate, Spring 3, etc...
@@ -36,7 +34,7 @@ Use:
 	@ManagedProperty(value="#{nomeBeanInjetar}")
 
 
-Utilizarei como exemplo uma classe usuário recebendo a injeção de um UsuarioDAO. 
+Utilizarei como exemplo uma classe usuário recebendo a injeção de um UsuarioDAO.
 
 Implentação do UsuarioDAO que deverá ser injetado no objeto usuarioController, que é meu managed bean:
 

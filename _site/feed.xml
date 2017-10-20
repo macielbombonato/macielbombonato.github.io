@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-10-04T02:10:29-03:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">Atualizando a passphrase da sua chave privada SSH</title><link href="http://localhost:4000/update-passphrase-ssh-key/" rel="alternate" type="text/html" title="Atualizando a passphrase da sua chave privada SSH" /><published>2017-10-04T00:00:00-03:00</published><updated>2017-10-04T00:00:00-03:00</updated><id>http://localhost:4000/update-passphrase-ssh-key</id><content type="html" xml:base="http://localhost:4000/update-passphrase-ssh-key/">&lt;p&gt;Esse post descreve como atualizar a senha da sua chave SSH.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-10-20T02:42:04-02:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">Atualizando a passphrase da sua chave privada SSH</title><link href="http://localhost:4000/update-passphrase-ssh-key/" rel="alternate" type="text/html" title="Atualizando a passphrase da sua chave privada SSH" /><published>2017-10-04T00:00:00-03:00</published><updated>2017-10-04T00:00:00-03:00</updated><id>http://localhost:4000/update-passphrase-ssh-key</id><content type="html" xml:base="http://localhost:4000/update-passphrase-ssh-key/">&lt;p&gt;Esse post descreve como atualizar a senha da sua chave SSH.&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -16,8 +16,6 @@
 &lt;blockquote&gt;
   &lt;p&gt;Caso não queira mais digitar senha, basta deixar em branco e digitar &lt;strong&gt;ENTER&lt;/strong&gt; nas duas vezes que ele pedir a senha. ;-)&lt;/p&gt;
 &lt;/blockquote&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Esse post descreve como atualizar a senha da sua chave SSH.</summary></entry><entry><title type="html">Passo a passo para montar uma página com Jekyll</title><link href="http://localhost:4000/Criando-uma-pagina-com-Jektll/" rel="alternate" type="text/html" title="Passo a passo para montar uma página com Jekyll" /><published>2017-06-17T00:00:00-03:00</published><updated>2017-06-17T00:00:00-03:00</updated><id>http://localhost:4000/Criando-uma-pagina-com-Jektll</id><content type="html" xml:base="http://localhost:4000/Criando-uma-pagina-com-Jektll/">&lt;p&gt;Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.&lt;/p&gt;
-
-&lt;h1 id=&quot;passo-a-passo-para-montar-uma-página-com-jekyll&quot;&gt;Passo a passo para montar uma página com Jekyll&lt;/h1&gt;
 
 &lt;hr /&gt;
 
@@ -130,8 +128,6 @@
 
 &lt;p&gt;Bom gente, é domingo e estou escrevendo isso aos poucos. hehehe. Então vou voltar para o netflix e durante a semana escrevo mais… :-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.</summary></entry><entry><title type="html">Rocket.chat no Ubuntu 16 problemas nas notificações</title><link href="http://localhost:4000/rocketchat-ubuntu16-problema-notificacao/" rel="alternate" type="text/html" title="Rocket.chat no Ubuntu 16 problemas nas notificações" /><published>2016-10-18T00:00:00-02:00</published><updated>2016-10-18T00:00:00-02:00</updated><id>http://localhost:4000/rocketchat-ubuntu16-problema-notificacao</id><content type="html" xml:base="http://localhost:4000/rocketchat-ubuntu16-problema-notificacao/">&lt;p&gt;Mais um migrado para cá.&lt;/p&gt;
 
-&lt;h1 id=&quot;rocketchat-no-ubuntu-16-problemas-nas-notificações&quot;&gt;Rocket.chat no Ubuntu 16: problemas nas notificações&lt;/h1&gt;
-
 &lt;hr /&gt;
 
 &lt;p&gt;Mais uma da linha para lembrança futura.&lt;/p&gt;
@@ -140,12 +136,10 @@
 
 &lt;p&gt;Procurando por uma solução para este problema, achei o seguinte post: &lt;a href=&quot;http://askubuntu.com/questions/766306/notifications-not-showing-up-properly-in-slack-and-other-electron-apps&quot;&gt;http://askubuntu.com/questions/766306/notifications-not-showing-up-properly-in-slack-and-other-electron-apps&lt;/a&gt; que basicamente indica que devemos executar o seguinte no console:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo touch /usr/lib/libunity-electron_notification_fix 
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo touch /usr/lib/libunity-electron_notification_fix
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Funcionou perfeitamente e as notificações passaram a ser aquelas “bunitinhas” no canto da tela.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um migrado para cá.</summary></entry><entry><title type="html">Copiar chave pública SSH sem precisar do tradicional copy/paste</title><link href="http://localhost:4000/copiar-chave-publica-ssh-sem-comando-tradicional/" rel="alternate" type="text/html" title="Copiar chave pública SSH sem precisar do tradicional copy/paste" /><published>2016-09-05T00:00:00-03:00</published><updated>2016-09-05T00:00:00-03:00</updated><id>http://localhost:4000/copiar-chave-publica-ssh-sem-comando-tradicional</id><content type="html" xml:base="http://localhost:4000/copiar-chave-publica-ssh-sem-comando-tradicional/">&lt;p&gt;Mais um migrado para cá.&lt;/p&gt;
-
-&lt;h1 id=&quot;copiar-chave-pública-ssh-sem-precisar-do-tradicional-copypaste&quot;&gt;Copiar chave pública SSH sem precisar do tradicional copy/paste&lt;/h1&gt;
 
 &lt;hr /&gt;
 
@@ -188,8 +182,6 @@
 
 &lt;p&gt;OBS.: Depois de executar o comando é só ir até o local necessário e colar o conteúdo.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um migrado para cá.</summary></entry><entry><title type="html">Problemas com segundo monitor no Mac OS X</title><link href="http://localhost:4000/problemas-com-segundo-monitor-macosx/" rel="alternate" type="text/html" title="Problemas com segundo monitor no Mac OS X" /><published>2016-08-31T00:00:00-03:00</published><updated>2016-08-31T00:00:00-03:00</updated><id>http://localhost:4000/problemas-com-segundo-monitor-macosx</id><content type="html" xml:base="http://localhost:4000/problemas-com-segundo-monitor-macosx/">&lt;p&gt;Mais um migrado para cá.&lt;/p&gt;
 
-&lt;h1 id=&quot;problemas-com-segundo-monitor-no-mac-os-x&quot;&gt;Problemas com segundo monitor no Mac OS X&lt;/h1&gt;
-
 &lt;hr /&gt;
 
 &lt;p&gt;Há um bom tempo não escrevo, na verdade, uso o blog só pra servir como referência futura (pra quando eu esquecer de algo que seria bom lembrar. rs).&lt;/p&gt;
@@ -206,9 +198,7 @@
 
 &lt;p&gt;Para esse monitor a melhor opção seria 1360x768 (não tem essa no Mac) a melhor opção que achei (que funcionou) foi 1280x768. Fica um pouco distorcido, mas dá pra ler log de console de boa. ;-)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/posts/2016-08-31-problemas-com-segundo-monitor-macosx/ScreenShot-2016-08-31at94416PM.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um migrado para cá.</summary></entry><entry><title type="html">IntelliJ IDEA rodando com JVM mais nova no MAC OS X</title><link href="http://localhost:4000/intellij-rodando-com-jvm-nova-macosx/" rel="alternate" type="text/html" title="IntelliJ IDEA rodando com JVM mais nova no MAC OS X" /><published>2015-07-24T00:00:00-03:00</published><updated>2015-07-24T00:00:00-03:00</updated><id>http://localhost:4000/intellij-rodando-com-jvm-nova-macosx</id><content type="html" xml:base="http://localhost:4000/intellij-rodando-com-jvm-nova-macosx/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;h1 id=&quot;intellij-idea-rodando-com-jvm-mais-nova-no-mac-os-x&quot;&gt;IntelliJ IDEA rodando com JVM mais nova no MAC OS X&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/2016-08-31-problemas-com-segundo-monitor-macosx/ScreenShot-2016-08-31at94416PM.png&quot; alt=&quot;-fullwidth&quot; /&gt;&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um migrado para cá.</summary></entry><entry><title type="html">IntelliJ IDEA rodando com JVM mais nova no MAC OS X</title><link href="http://localhost:4000/intellij-rodando-com-jvm-nova-macosx/" rel="alternate" type="text/html" title="IntelliJ IDEA rodando com JVM mais nova no MAC OS X" /><published>2015-07-24T00:00:00-03:00</published><updated>2015-07-24T00:00:00-03:00</updated><id>http://localhost:4000/intellij-rodando-com-jvm-nova-macosx</id><content type="html" xml:base="http://localhost:4000/intellij-rodando-com-jvm-nova-macosx/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -228,8 +218,6 @@ vi Info.plist
 
 &lt;p&gt;Tente abrir o Intellij novamente. ;-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Problemas com upload de arquivos utilizando spring MVC</title><link href="http://localhost:4000/problemas-upload-arquivos-spring-mvc/" rel="alternate" type="text/html" title="Problemas com upload de arquivos utilizando spring MVC" /><published>2013-08-27T00:00:00-03:00</published><updated>2013-08-27T00:00:00-03:00</updated><id>http://localhost:4000/problemas-upload-arquivos-spring-mvc</id><content type="html" xml:base="http://localhost:4000/problemas-upload-arquivos-spring-mvc/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
 
-&lt;h1 id=&quot;problemas-com-upload-de-arquivos-utilizando-spring-mvc&quot;&gt;Problemas com upload de arquivos utilizando spring MVC&lt;/h1&gt;
-
 &lt;hr /&gt;
 
 &lt;p&gt;Só uma dica rápida para aquele caso que está tudo certo e quando o Spring valida o conteúdo do campo de arquivos e vc recebe a seguinte mensagem:&lt;/p&gt;
@@ -239,12 +227,10 @@ vi Info.plist
 
 &lt;p&gt;Confirme se o formulário está com a propriedade enctype…&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;form action=&quot;URL/&quot; enctype=&quot;multipart/form-data&quot; id=&quot;form&quot; method=&quot;post&quot;&amp;gt; 
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;form action=&quot;URL/&quot; enctype=&quot;multipart/form-data&quot; id=&quot;form&quot; method=&quot;post&quot;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Este pequeno detalhe causou o erro acima. ;-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Apache não sobe na porta 80</title><link href="http://localhost:4000/apache-nao-sobe-80-apache/" rel="alternate" type="text/html" title="Apache não sobe na porta 80" /><published>2013-03-26T00:00:00-03:00</published><updated>2013-03-26T00:00:00-03:00</updated><id>http://localhost:4000/apache-nao-sobe-80-apache</id><content type="html" xml:base="http://localhost:4000/apache-nao-sobe-80-apache/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;h1 id=&quot;apache-não-sobe-na-porta-80&quot;&gt;Apache não sobe na porta 80&lt;/h1&gt;
 
 &lt;hr /&gt;
 
@@ -254,11 +240,9 @@ vi Info.plist
 
 &lt;p&gt;Pra acabar com este conflito, no Skype, vá até Ferramentas, Opções e Conexão, em seguida desative o primeiro check box (como na imagem abaixo), clique em salvar e reinicie o skype.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/posts/2013-03-26-apache-nao-sobe-80-apache/skype-conf.PNG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/2013-03-26-apache-nao-sobe-80-apache/skype-conf.PNG&quot; alt=&quot;-fullwidth&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Agora este não é mais um problema para subir o Apache.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">jquery-chosen - Busca de termos não funciona</title><link href="http://localhost:4000/jquery-chosen-buscao-nao-funciona/" rel="alternate" type="text/html" title="jquery-chosen - Busca de termos não funciona" /><published>2013-03-12T00:00:00-03:00</published><updated>2013-03-12T00:00:00-03:00</updated><id>http://localhost:4000/jquery-chosen-buscao-nao-funciona</id><content type="html" xml:base="http://localhost:4000/jquery-chosen-buscao-nao-funciona/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;h1 id=&quot;jquery-chosen---busca-de-termos-não-funciona&quot;&gt;jquery-chosen - Busca de termos não funciona&lt;/h1&gt;
 
 &lt;hr /&gt;
 
@@ -279,8 +263,6 @@ vi Info.plist
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;A busca funciona normalmente.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Log de Auditoria - JPA + Spring</title><link href="http://localhost:4000/log-auditoria-jpa-spring/" rel="alternate" type="text/html" title="Log de Auditoria - JPA + Spring" /><published>2012-11-19T00:00:00-02:00</published><updated>2012-11-19T00:00:00-02:00</updated><id>http://localhost:4000/log-auditoria-jpa-spring</id><content type="html" xml:base="http://localhost:4000/log-auditoria-jpa-spring/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;h1 id=&quot;log-de-auditoria---jpa--spring&quot;&gt;Log de Auditoria - JPA + Spring&lt;/h1&gt;
 
 &lt;hr /&gt;
 

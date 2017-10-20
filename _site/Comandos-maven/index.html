@@ -82,12 +82,29 @@
     <div class="header header-filter" style="background-image: url('/assets/img/bg3.jpeg');">
   		<div class="container">
   			<div class="row">
-  				<div class="col-md-12 col-sm-12">
-            <h1 class="title text-center"></h1>
-            <h2 style="color: white;">Alguns comandos úteis para utilizar MAVEN</h2>
-            <span style="color: white;" class="meta">
-               Criado em: 30/03/2012
-            </span>
+  				<div class="col-md-6 col-md-offset-3">
+  					<h1 class="title text-center"></h1>
+
+            <form class=""
+			action="/search/"
+			accept-charset="UTF-8"
+			method="get">
+
+		<input name="utf8" type="hidden" value="✓">
+    <div class="form-group form-search">
+        <input
+						type="text"
+						name="q" 
+						class="form-control form-control-search"
+						placeholder="Buscar"
+						itemprop="query-input"
+					/>
+        <button type="submit" name="button" class="btn btn-default btn-round btn-submit">
+						<i class="fa fa-search" style="font-size: 25px;"></i>
+        </button>
+    </div>
+</form>
+
   				</div>
   			</div>
   		</div>
@@ -96,6 +113,17 @@
     <div class="main main-raised">
         <div class="section">
   		      <div class="container">
+                  <h1 class="title text-center">
+                    Alguns comandos úteis para utilizar MAVEN
+                  </h1>
+
+                  <span class="meta">
+                     Criado em: 30/03/2012
+                  </span>
+
+                  <br />
+                  <br />
+
   			         <article class="post">
    <div class="space-extra-small">
    </div>
@@ -103,15 +131,13 @@
     <div class="entry">
       <p>Mais um post antigo migrado pra cá. :)</p>
 
-<h1 id="alguns-comandos-úteis-para-utilizar-maven">Alguns comandos úteis para utilizar MAVEN</h1>
-
 <hr />
 
 <p>Abaixo vou listar algumas linhas de comando que podem ajudar no desenvolvimento de aplicações que usam MAVEN:</p>
 
 <p>Criar uma aplicação:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mvn archetype:generate -DgroupId=br.com.meusistema -DartifactId=AppExemplo -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mvn archetype:generate -DgroupId=br.com.meusistema -DartifactId=AppExemplo -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
 </code></pre></div></div>
 
 <p>Na primeira vez que este processo é executado, as coisas demoram um pouco por que o maven vai baixar meia internet no repositório local que ele cria na máquina.</p>
@@ -125,13 +151,13 @@
 
 <p>E dentro do diretório da aplicação:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mvn eclipse:clean 
-$ mvn eclipse:eclipse 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mvn eclipse:clean
+$ mvn eclipse:eclipse
 </code></pre></div></div>
 
 <p>ou</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mvn eclipse:m2eclipse 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mvn eclipse:m2eclipse
 </code></pre></div></div>
 
 <p>Na primeira vez deve demorar um pouco também.</p>

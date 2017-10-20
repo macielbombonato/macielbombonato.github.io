@@ -6,8 +6,6 @@ author: Maciel Escudero Bombonato
 
 Mais um dos antigos migrados para cá.
 
-# CSS media type
-
 --------
 
 Ao criar uma página HTML, é possível fazer com que o visual da página seja diferente para diversos tipos de dispositivos de apresentação.
