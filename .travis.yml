@@ -7,6 +7,7 @@ branches:
 
 before_install:
   - rvm install 2.4.1
+  - gem install bundler:1.15.4
 
 rvm:
   - 2.4.1
@@ -15,7 +16,6 @@ before_script:
   - chmod +x build.sh
 
 script:
-  - gem install bundler:1.15.4
   - ./build.sh
 
 env:
