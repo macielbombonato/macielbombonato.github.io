@@ -3,7 +3,7 @@ set -e
 
 echo "Building bombonato.net"
 
-gem install bundler
+gem install bundler:1.15.4
 bundle install
 bundle exec jekyll build
 
