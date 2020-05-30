@@ -6,9 +6,10 @@ end: 04/2012
 location: São Paulo, SP
 ---
 
-Conquistas e contribuições:
-•	Líder técnico e desenvolvedor de software;
+Conquistas e contribuições:  
 
-Tecnologias: Java, Struts, JSF, JQuery, DWR, Tomcat, JBoss, PL/SQL, Jenkins, BizAgi e Eclipse.
-
-Principais clientes: Odontoprev, Makro, Tropico (Promon Logicalis) e Votorantin Bank.
+- Líder técnico e desenvolvedor de software;  
+  
+Tecnologias: Java, Struts, JSF, JQuery, DWR, Tomcat, JBoss, PL/SQL, Jenkins, BizAgi e Eclipse.  
+  
+Principais clientes: Odontoprev, Makro, Tropico (Promon Logicalis) e Votorantin Bank.  
