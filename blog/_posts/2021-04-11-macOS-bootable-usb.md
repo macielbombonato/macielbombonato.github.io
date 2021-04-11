@@ -19,7 +19,7 @@ Faça o download aqui [https://apps.apple.com/app/macos-catalina/id1466841314?mt
 Depois execute no terminal:
 
 ```
-sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/MACIEL --nointeraction && say Hi boss, I'm done here
+sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/MACIEL --nointeraction && say Hi boss, I\'m done here
 ```
 
 ## 10.14: Mojave
@@ -29,5 +29,5 @@ Faça o download aqui [https://apps.apple.com/app/macos-mojave/id1398502828?mt=1
 Depois execute no terminal:
 
 ```
-sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallmedia --volume /Volumes/MACIEL --nointeraction && say Hi boss, I'm done here
+sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallmedia --volume /Volumes/MACIEL --nointeraction && say Hi boss, I\'m done here
 ```
