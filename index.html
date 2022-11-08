@@ -4,7 +4,13 @@ layout: career-layout
 
 <div class="posts">
   <div class="row">
+  {% assign careerCount = 0 %}
   {% for career in site.categories.career %}
+    {% assign careerCount = careerCount | plus: 1 %}
+
+    {% if careerCount % 2 %}
+      <div class="row">
+    {% endif %}
     <div class="col-md-5">
       <div class="card">
         <div class="col-md-12">
@@ -36,6 +42,9 @@ layout: career-layout
         </div>
       </div>
     </div>
+    {% if careerCount % 2 %}
+      </div>
+    {% endif %}
   {% endfor %}
   </div>
 </div>
