@@ -5,11 +5,8 @@ layout: career-layout
 <div class="posts">
   <div class="row">
   {% for career in site.categories.career %}
-    {% assign careerCount = forloop.index | modulo:2 %}
-    <p>{{forloop.index }}</p>
-    <p>{{forloop.index | modulo:2}}</p>
-    <p>{{careerCount}}</p>
-    {% if careerCount == 0 %}
+    {% assign loopCount = forloop.index | modulo:2 %}
+    {% if loopCount == 0 %}
       <div class="row">
     {% endif %}
     <div class="col-md-5">
@@ -43,7 +40,7 @@ layout: career-layout
         </div>
       </div>
     </div>
-    {% if careerCount == 0 %}
+    {% if loopCount == 0 %}
       </div>
     {% endif %}
   {% endfor %}
