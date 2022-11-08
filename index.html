@@ -1,42 +1,42 @@
 ---
-layout: default-material
+layout: career-layout
 ---
 
-<div class="row">
-  {% assign counter = 0 %}
-  {% for post in site.categories.blog %}
-
-    {% if counter >= 3 %}
-      {% assign counter = 0 %}
-      </div>
-      <div class="row">
-    {% endif %}
-
-    {% assign counter = counter | plus: 1 %}
-
-    <div class="col-md-4">
+<div class="posts">
+  {% for career in site.categories.career %}
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
       <div class="card">
         <div class="col-md-12">
           <div class="info info-horizontal" style="padding-top: 0px;">
             <div class="description">
               <h3 class="info-title">
-                <a href="{{ site.baseurl }}{{ post.url }}">
-                  {{ post.title }}
+                <a href="{{ site.baseurl }}{{ career.url }}">
+                  {{ career.title }}
                 </a>
               </h3>
+              <h4 style="margin-top: -10px;">
+                {{ career.company }}
+              </h4>
               <span class="meta">
-                 Criado em: {{ post.date | date: "%d/%m/%Y" }}
+                 {{ career.date | date: "%m/%Y" }} - {{ career.end }}
+              </span>
+              <br />
+              <span class="meta">
+                 {{ career.location }}
               </span>
               <p>
-                {{ post.excerpt }}
+                {{ career.content }}
               </p>
-              <a href="{{ site.baseurl }}{{ post.url }}">
-                Leia mais
+              <a href="{{ site.baseurl }}{{ career.url }}">
+                Mais detalhes
               </a>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
   {% endfor %}
 </div>
