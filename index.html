@@ -8,7 +8,7 @@ layout: career-layout
   {% for career in site.categories.career %}
     {% assign careerCount = careerCount | plus: 1 %}
 
-    {% if careerCount % 2 %}
+    {%- if careerCount % 2 -%}
       <div class="row">
     {% endif %}
     <div class="col-md-5">
