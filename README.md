@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/macielbombonato/macielbombonato.github.io.svg?branch=master)](https://travis-ci.org/macielbombonato/macielbombonato.github.io)
+[![Build Status](https://travis-ci.com/macielbombonato/macielbombonato.github.io.svg?branch=master)](https://travis-ci.com/macielbombonato/macielbombonato.github.io)
 
 Sobre este projeto
 ========================
