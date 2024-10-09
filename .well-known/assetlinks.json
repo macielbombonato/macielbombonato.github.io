@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.salesforce.marketingcloud.learningapp",
+    "sha256_cert_fingerprints":
+    ["23:C2:0E:E6:20:DC:A9:F9:94:37:50:0A:A4:07:81:A3:B9:0D:F4:C9:AB:F4:05:6A:74:F7:5E:99:11:6F:28:F9"]
+  }
+}]
