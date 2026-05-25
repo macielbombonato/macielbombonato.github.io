@@ -2,9 +2,15 @@
 layout: career-layout
 ---
 
-<article class="post">
- <div class="space-extra-small">
- </div>
+<article class="post"
+         data-experience-id="{{ page.url }}"
+         data-experience-title="{{ page.title | escape }}"
+         data-experience-company="{{ page.company | escape }}"
+         data-experience-start="{{ page.date | date: '%Y-%m' }}"
+         data-experience-end="{{ page.end | default: '' | escape }}"
+         data-experience-location="{{ page.location | default: '' | escape }}">
+
+  <div class="space-extra-small"></div>
 
   <div class="entry">
     {{ content }}
