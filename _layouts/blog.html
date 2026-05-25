@@ -8,6 +8,15 @@
 
   {% include nav.html %}
 
+<article class="post"
+  data-experience-id="{{ page.url }}"
+  data-experience-name="{{ page.title | escape }}"
+  data-experience-author="{{ page.author | escape }}"
+  data-experience-date="{{ page.date | date: '%Y-%m' }}"
+  data-experience-location="{{ page.location | default: '' | escape }}">
+
+<div class="space-extra-small"></div>
+
   <div class="wrapper">
     <div class="header header-filter" style="background-image: url('{{ site.baseurl }}/assets/img/bg3.jpeg');">
   		<div class="container">
