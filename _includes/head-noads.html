@@ -19,6 +19,14 @@
 <link href="{{ site.baseurl }}/assets/css/material-kit.css" rel="stylesheet"/>
 <link href="{{ site.baseurl }}/assets/css/demo.css" rel="stylesheet" />
 
-<script type="text/javascript" src="//cdn.evgnet.com/beacon/mbombonato523014907/bombonato_prd/scripts/evergage.min.js"></script>
+  <!-- Salesforce Marketing Cloud Personalization Beacon -->
+  <script type="text/javascript">
+    (function(d, s, p, t) {
+      var script = d.createElement(s);
+      script.src = p + "//cdn.evgnet.com/beacon/mbombonato523014907/bombonato_prd/scripts/evergage.min.js";
+      script.async = true;
+      (d.getElementsByTagName(s)[0] || d.head).parentNode.insertBefore(script, null);
+    })(document, "script", document.location.protocol === "https:" ? "https:" : "http:");
+  </script>
 
 {% include analytics.html %}
