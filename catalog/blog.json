@@ -1,0 +1,23 @@
+---
+layout: null
+permalink: /catalog/blog.json
+sitemap: false
+---
+{
+  "schemaVersion": "1.0",
+  "type": "Blog",
+  "generatedAt": "{{ site.time | date_to_xmlschema }}",
+  "source": "{{ site.url }}",
+  "count": {{ site.categories.blog | size }},
+  "items": [{% for blog in site.categories.blog %}
+    {
+      "id": {{ blog.url | jsonify }},
+      "name": {{ blog.title | jsonify }},
+      "author": {{ blog.author | jsonify }},
+      "date": {{ blog.date | date: "%Y-%m" | jsonify }},
+      "location": {{ blog.location | default: "" | jsonify }},
+      "url": {{ blog.url | absolute_url | jsonify }},
+      "content": {{ blog.content | strip_html | strip_newlines | strip | truncate: 500 | jsonify }}
+    }{% unless forloop.last %},{% endunless %}{% endfor %}
+  ]
+}

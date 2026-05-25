@@ -1,4 +1,260 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2017-12-07T21:57:51-06:00</updated><id>http://0.0.0.0:4000/</id><title type="html">Maciel Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">Atualizando a passphrase da sua chave privada SSH</title><link href="http://0.0.0.0:4000/update-passphrase-ssh-key/" rel="alternate" type="text/html" title="Atualizando a passphrase da sua chave privada SSH" /><published>2017-10-04T00:00:00-05:00</published><updated>2017-10-04T00:00:00-05:00</updated><id>http://0.0.0.0:4000/update-passphrase-ssh-key</id><content type="html" xml:base="http://0.0.0.0:4000/update-passphrase-ssh-key/">&lt;p&gt;Esse post descreve como atualizar a senha da sua chave SSH.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-05-25T17:19:12-03:00</updated><id>http://localhost:4000/</id><title type="html">Maciel Escudero Bombonato</title><subtitle>Desenvolvedor de software</subtitle><entry><title type="html">Arquiteto Técnico</title><link href="http://localhost:4000/Salesforce/" rel="alternate" type="text/html" title="Arquiteto Técnico" /><published>2022-07-01T00:00:00-03:00</published><updated>2022-07-01T00:00:00-03:00</updated><id>http://localhost:4000/Salesforce</id><content type="html" xml:base="http://localhost:4000/Salesforce/">&lt;p&gt;Arquiteto Técnico (Marketing Cloud).&lt;/p&gt;</content><author><name></name></author><summary type="html">Arquiteto Técnico (Marketing Cloud).</summary></entry><entry><title type="html">git lfs (large file system) - Como adicionar arquivos grandes no repositório</title><link href="http://localhost:4000/git-lfs/" rel="alternate" type="text/html" title="git lfs (large file system) - Como adicionar arquivos grandes no repositório" /><published>2021-10-28T00:00:00-03:00</published><updated>2021-10-28T00:00:00-03:00</updated><id>http://localhost:4000/git-lfs</id><content type="html" xml:base="http://localhost:4000/git-lfs/">&lt;p&gt;Neste post descrevo como adicionar arquivos com mais de 100.00 MB no repositório git.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;partindo-de-um-erro-no-terminal&quot;&gt;Partindo de um erro no terminal&lt;/h2&gt;
+
+&lt;p&gt;Vamos imaginar que você se deparou com a seguinte mensagem de erro após tentar fazer push.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.
+remote: error: File folder/large-file.zip is 160.08 MB; this exceeds GitHub file size limit of 100.00 MB
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;E o caminho mais rápido, ou necessário, seja cometer um crime. Bom, pra isso siga os passos abaixo.&lt;/p&gt;
+
+&lt;h2 id=&quot;abrindo-caminho-para-o-crime&quot;&gt;Abrindo caminho para o crime&lt;/h2&gt;
+
+&lt;p&gt;É necessário instalar o &lt;code class=&quot;highlighter-rouge&quot;&gt;git lfs&lt;/code&gt; no seu computador.&lt;/p&gt;
+
+&lt;p&gt;Assumindo que está usando um MacOS com homebrew, o comando é o seguinte:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew install git-lfs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;sujando-as-mãos&quot;&gt;Sujando as mãos&lt;/h2&gt;
+
+&lt;p&gt;Na pasta raiz do seu repositório execute:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git lfs install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Vamos imaginar que você quer adicionar arquivos ZIP meio grandinhos, então execute:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git lfs track &quot;*.zip&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Agora marque isso no seu repositório:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git add .gitattributes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Pronto, a partir daqui seu repositório está preparado para receber arquivos ZIP (neste exemplo) grandes.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;PS: Não recomendo seguir os passos deste artigo.&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Neste post descrevo como adicionar arquivos com mais de 100.00 MB no repositório git.</summary></entry><entry><title type="html">macOS - Bootable USB</title><link href="http://localhost:4000/macOS-bootable-usb/" rel="alternate" type="text/html" title="macOS - Bootable USB" /><published>2021-04-11T00:00:00-03:00</published><updated>2021-04-11T00:00:00-03:00</updated><id>http://localhost:4000/macOS-bootable-usb</id><content type="html" xml:base="http://localhost:4000/macOS-bootable-usb/">&lt;p&gt;Neste post descrevo (pra mim no futuro) como gerar o pendrive bootável de instalação do macOS em algumas versões e quais os links de download (a busca da apple store é bem ruim as vezes).&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;antes-de-começar&quot;&gt;Antes de começar&lt;/h2&gt;
+
+&lt;p&gt;Os comandos são basicamente divididos em duas partes, o comando em si pra gerar o bootável de cada versão e o volume (pendrive) de destino. Abaixo nos comandos de exemplo, as partes relacionadas a cada versão devem servir em qualquer computador, mas a parte de volume deve ser ajustada para o nome da sua mídia.&lt;/p&gt;
+
+&lt;h2 id=&quot;1015-catalina&quot;&gt;10.15: Catalina&lt;/h2&gt;
+
+&lt;p&gt;Faça o download aqui &lt;a href=&quot;https://apps.apple.com/app/macos-catalina/id1466841314?mt=12&quot;&gt;https://apps.apple.com/app/macos-catalina/id1466841314?mt=12&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Depois execute no terminal:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/MACIEL --nointeraction &amp;amp;&amp;amp; say Hi boss, I\'m done here
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;1014-mojave&quot;&gt;10.14: Mojave&lt;/h2&gt;
+
+&lt;p&gt;Faça o download aqui &lt;a href=&quot;https://apps.apple.com/app/macos-mojave/id1398502828?mt=12&quot;&gt;https://apps.apple.com/app/macos-mojave/id1398502828?mt=12&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Depois execute no terminal:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallmedia --volume /Volumes/MACIEL --nointeraction &amp;amp;&amp;amp; say Hi boss, I\'m done here
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Neste post descrevo (pra mim no futuro) como gerar o pendrive bootável de instalação do macOS em algumas versões e quais os links de download (a busca da apple store é bem ruim as vezes).</summary></entry><entry><title type="html">Consultor Técnico Senior</title><link href="http://localhost:4000/SAP/" rel="alternate" type="text/html" title="Consultor Técnico Senior" /><published>2019-08-01T00:00:00-03:00</published><updated>2019-08-01T00:00:00-03:00</updated><id>http://localhost:4000/SAP</id><content type="html" xml:base="http://localhost:4000/SAP/">&lt;p&gt;Consultor técnico commerce (Hybris) e aplicações cloud tendo como principal área de atuação o sul da américa latina.&lt;/p&gt;
+
+&lt;p&gt;Consultor técnico em SAP Commerce (antigo Hybris) atuando principalmente na região da América Latina como:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Architecture and business advisor&lt;/li&gt;
+  &lt;li&gt;Atividades de pré-vendas (PoC, estimativa de tempo e recursos)&lt;/li&gt;
+  &lt;li&gt;Performance engineer&lt;/li&gt;
+  &lt;li&gt;Move to cloud consultant&lt;/li&gt;
+  &lt;li&gt;Desenvolvedor Java em projetos específicos atuando diretamente com o time de produtos situado na Europa&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Tecnologias&lt;/strong&gt;: Java, Spring (boot e data), Jenkins, Azure, AWS, Docker, Kyma and SAP Commerce (Hybris)&lt;/p&gt;</content><author><name></name></author><summary type="html">Consultor técnico commerce (Hybris) e aplicações cloud tendo como principal área de atuação o sul da américa latina.</summary></entry><entry><title type="html">Rancher - Registro privado AWS ECR</title><link href="http://localhost:4000/rancher-aws-ecr/" rel="alternate" type="text/html" title="Rancher - Registro privado AWS ECR" /><published>2019-07-22T00:00:00-03:00</published><updated>2019-07-22T00:00:00-03:00</updated><id>http://localhost:4000/rancher-aws-ecr</id><content type="html" xml:base="http://localhost:4000/rancher-aws-ecr/">&lt;p&gt;Esse post descreve como atualizar a o token de autenticação do registro de imagens da AWS, o ECR.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Bom gente, estou estudando um pouco do &lt;a href=&quot;https://rancher.com/&quot;&gt;Rancher&lt;/a&gt; e me deparei com um problema com o uso do registro de imagens privado da AWS o ECR.&lt;/p&gt;
+
+&lt;p&gt;O token de acesso dele vale apenas por um tempo (acredito que seja algo em torno de 6 horas) e com isso, simplesmente cadastrar registros privados no banco de registros não resolve.&lt;/p&gt;
+
+&lt;p&gt;Pesquisando alternativas, achei &lt;a href=&quot;https://medium.com/@damitj07/how-to-configure-and-use-aws-ecr-with-kubernetes-rancher2-0-6144c626d42c&quot;&gt;este artigo no medium&lt;/a&gt; que me deu quase tudo que eu precisava, basicamente fiz alguns pequenos ajustes no script dele.&lt;/p&gt;
+
+&lt;h2 id=&quot;configurações&quot;&gt;Configurações&lt;/h2&gt;
+
+&lt;p&gt;Primeiro, vá até o cluster que deseja incluir a credencial e clique na sequência de menus: &lt;strong&gt;Resources &amp;gt; Secrets&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Clique em &lt;strong&gt;Add Secret&lt;/strong&gt; (sugestão de nome aws) e adicione as seguintes chaves:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;AWS_ACCESS_KEY_ID&lt;/li&gt;
+  &lt;li&gt;AWS_ACCOUNT_NUMBER&lt;/li&gt;
+  &lt;li&gt;AWS_DEFAULT_REGION&lt;/li&gt;
+  &lt;li&gt;AWS_SECRET_ACCESS_KEY&lt;/li&gt;
+  &lt;li&gt;EMAIL&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Caso em sua rede seja utilizado proxy, sugiro criar outra &lt;em&gt;Secret&lt;/em&gt; com o nome de &lt;strong&gt;proxy&lt;/strong&gt; e adicionar as seguintes chaves:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;http_proxy&lt;/li&gt;
+  &lt;li&gt;https_proxy&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Caso tenha rotas pré-definidas que não devem sair por proxy, inclua a chave &lt;strong&gt;no_proxy&lt;/strong&gt; aqui também.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;É interessante marcar essas chaves para uso em qualquer &lt;strong&gt;namespace&lt;/strong&gt; para que os &lt;strong&gt;Workloads&lt;/strong&gt; que vamos criar possam acessá-las.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;deploy&quot;&gt;Deploy&lt;/h2&gt;
+
+&lt;p&gt;Na parte superior esquerda temos o logo do rancher e ao lado uma estrutura de menu que permite navegar entre os clusters, navegue para o cluster e projeto que deseja incluir a chave.&lt;/p&gt;
+
+&lt;p&gt;Nesta tela teremos uma estrutura de tabs, certifique-se que estamos na tab &lt;strong&gt;Workloads&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Clique no botão &lt;strong&gt;Import YAML&lt;/strong&gt; que fica na parte superior esquerda.&lt;/p&gt;
+
+&lt;p&gt;Na linha destacada cole o seguinte código:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: aws-ecr-credential
+  namespace: default
+spec:
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+          - command:
+            - /bin/sh
+            - -c
+            - |-
+              NAMESPACE=default
+              SECRET_NAME=ecr-${NAMESPACE}
+              AWS_ACCOUNT_NUMBER=${AWS_ACCOUNT_NUMBER}
+              AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+              EMAIL=${EMAIL}
+              DOCKER_SERVER=&quot;https://${AWS_ACCOUNT_NUMBER}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com&quot;
+              TOKEN=`aws ecr get-login --no-include-email --no-verify-ssl --region ${AWS_DEFAULT_REGION} --registry-ids ${AWS_ACCOUNT_NUMBER} | cut -d' ' -f6`  
+              echo &quot;ENV variables setup done.&quot; 
+              echo &quot; ==&amp;gt; Removendo registro&quot; 
+              kubectl delete secret --ignore-not-found ${SECRET_NAME} 
+              echo &quot; ==&amp;gt; Recriando registro&quot; 
+              kubectl create secret docker-registry ${SECRET_NAME} --docker-server=${DOCKER_SERVER} --docker-username=&quot;AWS&quot; --docker-password=&quot;${TOKEN}&quot; --docker-email=&quot;${EMAIL}&quot;   
+              echo &quot; ==&amp;gt; Recuperando eventos do kubernetes&quot; 
+              kubectl get events 
+              echo &quot;Secret created by name. ${SECRET_NAME}&quot; 
+              echo &quot; ==&amp;gt; Configurando que o registro padrao deve ser o ECR&quot; 
+              kubectl patch serviceaccount ${NAMESPACE} -p '{&quot;imagePullSecrets&quot;:[{&quot;name&quot;:&quot;'${SECRET_NAME}'&quot;}]}' 
+              echo &quot;All done.&quot; 
+            env:
+            - name: no_proxy
+              value: 10.43.0.1
+            envFrom:
+            - secretRef:
+                name: aws
+                optional: false
+            - secretRef:
+                name: proxy
+                optional: false
+            image: odaniait/aws-kubectl:latest
+            imagePullPolicy: IfNotPresent
+            name: ecr-cred-helper
+            resources: {}
+            securityContext:
+              allowPrivilegeEscalation: true
+              capabilities: {}
+              privileged: true
+              procMount: Default
+              runAsNonRoot: false
+            terminationMessagePath: /dev/termination-log
+            terminationMessagePolicy: File
+          dnsPolicy: Default
+          hostNetwork: true
+          restartPolicy: Never
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+  schedule: 0 */2 * * *
+  successfulJobsHistoryLimit: 3
+  suspend: false
+status:
+  lastScheduleTime: &quot;2019-07-19T21:28:00Z&quot;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;pontos-que-devem-ser-analisados-nesse-código&quot;&gt;Pontos que devem ser analisados nesse código&lt;/h3&gt;
+
+&lt;p&gt;No início do código temos a variável &lt;strong&gt;namespace&lt;/strong&gt; que está como default, é necessário apontar para o namespace correto.&lt;/p&gt;
+
+&lt;p&gt;Esse ajuste de namespace deve ser refletido no meio do &lt;strong&gt;yml&lt;/strong&gt; na variável &lt;strong&gt;NAMESPACE&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note que abaixo dessa variável as chaves que foram incluídas em secrets estão sendo atribuidas para variáveis internas deste serviço.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Um pouco abaixo temos referência as chaves secretas criadas, apontando para &lt;strong&gt;aws&lt;/strong&gt; e &lt;strong&gt;proxy&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Por fim, temos a configuração &lt;strong&gt;cron&lt;/strong&gt; deste serviço. Neste caso, configurado para executar todo zero minutos de duas em duas horas.&lt;/p&gt;
+
+&lt;h2 id=&quot;o-que-isso-faz&quot;&gt;O que isso faz?&lt;/h2&gt;
+
+&lt;p&gt;Esse processo vai executar a cada duas horas, apagar a chave de registro privado que nesse caso se chamará &lt;strong&gt;ecr-default&lt;/strong&gt; e recriá-la com o novo token.&lt;/p&gt;
+
+&lt;p&gt;Também dirá para sua estrutura kubernetes que toda imagem que for baixada dentro do workspace default deve utilizar este mesmo registro como padrão.&lt;/p&gt;
+
+&lt;h2 id=&quot;problemas-que-podem-acontecer&quot;&gt;Problemas que podem acontecer&lt;/h2&gt;
+
+&lt;p&gt;Durante meus testes, me deparei com um problema de acesso a chave de registro privado, nas pesquisas que fiz, achei um caso parecido que pode ajudar nesse &lt;a href=&quot;https://stackoverflow.com/questions/49173838/deployments-apps-is-forbidden-user-systemserviceaccountdefaultdefault-cann&quot;&gt;post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Basicamente consiste em ir ao cluster (na tela do dashboard que mostra o estado do cluster) e clicar no botão &lt;strong&gt;Launch Kubectl&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;No terminal digitar o seguinte código:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create clusterrolebinding serviceaccounts-cluster-admin \
+  --clusterrole=cluster-admin \
+  --group=system:serviceaccounts
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Não deixe de ver a dica dada no post mencionado acima.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;conclusão&quot;&gt;Conclusão&lt;/h2&gt;
+
+&lt;p&gt;Após isso, as imagens que estavam no registro privado passaram a funcionar normalmente, agora preciso testar isso no &lt;strong&gt;rancher 1.x&lt;/strong&gt; para ver que alterações que temos pra rodar este mesmo processo nele.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Esse post descreve como atualizar a o token de autenticação do registro de imagens da AWS, o ECR.</summary></entry><entry><title type="html">Arquiteto de Sistemas</title><link href="http://localhost:4000/Brasilprev/" rel="alternate" type="text/html" title="Arquiteto de Sistemas" /><published>2019-01-01T00:00:00-02:00</published><updated>2019-01-01T00:00:00-02:00</updated><id>http://localhost:4000/Brasilprev</id><content type="html" xml:base="http://localhost:4000/Brasilprev/">&lt;p&gt;Conquistas e contribuições:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Teste e homologação de novos softwares utilizados pela empresa;&lt;/li&gt;
+  &lt;li&gt;Desenho de solução técnica para integração com sistemas de parceiros;&lt;/li&gt;
+  &lt;li&gt;Liderança técnica em projetos para integração de sistemas e times de diversos projetos;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Tecnologias: Java, Spring (boot, batch e data), Jenkins, Azure DevOps, Docker e Amazon (ECS, EC2, RDS, S3 e Elastic Beanstalk);&lt;/p&gt;</content><author><name></name></author><summary type="html">Conquistas e contribuições: Teste e homologação de novos softwares utilizados pela empresa; Desenho de solução técnica para integração com sistemas de parceiros; Liderança técnica em projetos para integração de sistemas e times de diversos projetos; Tecnologias: Java, Spring (boot, batch e data), Jenkins, Azure DevOps, Docker e Amazon (ECS, EC2, RDS, S3 e Elastic Beanstalk);</summary></entry><entry><title type="html">Analista de Arquitetura de Sistemas</title><link href="http://localhost:4000/PAN/" rel="alternate" type="text/html" title="Analista de Arquitetura de Sistemas" /><published>2018-03-01T00:00:00-03:00</published><updated>2018-03-01T00:00:00-03:00</updated><id>http://localhost:4000/PAN</id><content type="html" xml:base="http://localhost:4000/PAN/">&lt;p&gt;Conquistas e contribuições:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Responsável pelo produto de financiamento de veículos, dando suporte ao time e atuando no desenho de soluções baseado em requisitos demandados pela área de produtos;&lt;/li&gt;
+  &lt;li&gt;Responsável por processos de integração contínua como por exemplo a criação do pipeline de aplicativos móveis (Android e iOS) via Jenkins e integração do Jenkins com Spring Config Server para melhorar a segurança de chaves utilizadas em processos de build e implantação;&lt;/li&gt;
+  &lt;li&gt;Criação de imagens docker especializadas em empacotamento das aplicações Java e Android para distribuição de agentes executores do Jenkins;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Tecnologias: Java, Spring (boot, batch e data), Jenkins, Docker e Amazon (EC2, RDS, S3 e Elastic Beanstalk);&lt;/p&gt;</content><author><name></name></author><summary type="html">Conquistas e contribuições: Responsável pelo produto de financiamento de veículos, dando suporte ao time e atuando no desenho de soluções baseado em requisitos demandados pela área de produtos; Responsável por processos de integração contínua como por exemplo a criação do pipeline de aplicativos móveis (Android e iOS) via Jenkins e integração do Jenkins com Spring Config Server para melhorar a segurança de chaves utilizadas em processos de build e implantação; Criação de imagens docker especializadas em empacotamento das aplicações Java e Android para distribuição de agentes executores do Jenkins; Tecnologias: Java, Spring (boot, batch e data), Jenkins, Docker e Amazon (EC2, RDS, S3 e Elastic Beanstalk);</summary></entry><entry><title type="html">Atualizando a passphrase da sua chave privada SSH</title><link href="http://localhost:4000/update-passphrase-ssh-key/" rel="alternate" type="text/html" title="Atualizando a passphrase da sua chave privada SSH" /><published>2017-10-04T00:00:00-03:00</published><updated>2017-10-04T00:00:00-03:00</updated><id>http://localhost:4000/update-passphrase-ssh-key</id><content type="html" xml:base="http://localhost:4000/update-passphrase-ssh-key/">&lt;p&gt;Esse post descreve como atualizar a senha da sua chave SSH.&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -15,7 +271,7 @@
 
 &lt;blockquote&gt;
   &lt;p&gt;Caso não queira mais digitar senha, basta deixar em branco e digitar &lt;strong&gt;ENTER&lt;/strong&gt; nas duas vezes que ele pedir a senha. ;-)&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Esse post descreve como atualizar a senha da sua chave SSH.</summary></entry><entry><title type="html">Passo a passo para montar uma página com Jekyll</title><link href="http://0.0.0.0:4000/Criando-uma-pagina-com-Jektll/" rel="alternate" type="text/html" title="Passo a passo para montar uma página com Jekyll" /><published>2017-06-17T00:00:00-05:00</published><updated>2017-06-17T00:00:00-05:00</updated><id>http://0.0.0.0:4000/Criando-uma-pagina-com-Jektll</id><content type="html" xml:base="http://0.0.0.0:4000/Criando-uma-pagina-com-Jektll/">&lt;p&gt;Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Esse post descreve como atualizar a senha da sua chave SSH.</summary></entry><entry><title type="html">Passo a passo para montar uma página com Jekyll</title><link href="http://localhost:4000/Criando-uma-pagina-com-Jektll/" rel="alternate" type="text/html" title="Passo a passo para montar uma página com Jekyll" /><published>2017-06-17T00:00:00-03:00</published><updated>2017-06-17T00:00:00-03:00</updated><id>http://localhost:4000/Criando-uma-pagina-com-Jektll</id><content type="html" xml:base="http://localhost:4000/Criando-uma-pagina-com-Jektll/">&lt;p&gt;Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -126,262 +382,12 @@
 
 &lt;hr /&gt;
 
-&lt;p&gt;Bom gente, é domingo e estou escrevendo isso aos poucos. hehehe. Então vou voltar para o netflix e durante a semana escrevo mais… :-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.</summary></entry><entry><title type="html">Rocket.chat no Ubuntu 16 problemas nas notificações</title><link href="http://0.0.0.0:4000/rocketchat-ubuntu16-problema-notificacao/" rel="alternate" type="text/html" title="Rocket.chat no Ubuntu 16 problemas nas notificações" /><published>2016-10-18T00:00:00-05:00</published><updated>2016-10-18T00:00:00-05:00</updated><id>http://0.0.0.0:4000/rocketchat-ubuntu16-problema-notificacao</id><content type="html" xml:base="http://0.0.0.0:4000/rocketchat-ubuntu16-problema-notificacao/">&lt;p&gt;Mais um migrado para cá.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Mais uma da linha para lembrança futura.&lt;/p&gt;
-
-&lt;p&gt;Quando atualizei minha máquina para o ubuntu 16 o rocket.chat começou a enviar as mensagens de notificação no formato de alerts clássicos (o que atrapalha bastante).&lt;/p&gt;
-
-&lt;p&gt;Procurando por uma solução para este problema, achei o seguinte post: &lt;a href=&quot;http://askubuntu.com/questions/766306/notifications-not-showing-up-properly-in-slack-and-other-electron-apps&quot;&gt;http://askubuntu.com/questions/766306/notifications-not-showing-up-properly-in-slack-and-other-electron-apps&lt;/a&gt; que basicamente indica que devemos executar o seguinte no console:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo touch /usr/lib/libunity-electron_notification_fix
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Funcionou perfeitamente e as notificações passaram a ser aquelas “bunitinhas” no canto da tela.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um migrado para cá.</summary></entry><entry><title type="html">Copiar chave pública SSH sem precisar do tradicional copy/paste</title><link href="http://0.0.0.0:4000/copiar-chave-publica-ssh-sem-comando-tradicional/" rel="alternate" type="text/html" title="Copiar chave pública SSH sem precisar do tradicional copy/paste" /><published>2016-09-05T00:00:00-05:00</published><updated>2016-09-05T00:00:00-05:00</updated><id>http://0.0.0.0:4000/copiar-chave-publica-ssh-sem-comando-tradicional</id><content type="html" xml:base="http://0.0.0.0:4000/copiar-chave-publica-ssh-sem-comando-tradicional/">&lt;p&gt;Mais um migrado para cá.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Bom, este micro artigo é mais um da série “vou precisar disso denovo, mas vou esquecer”.&lt;/p&gt;
-
-&lt;p&gt;Depois que geramos uma chave SSH em uma máquina unix:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh-keygen -t rsa
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Vamos precisar copiar a chave pública para inserí-la em alguns lugares.&lt;/p&gt;
-
-&lt;p&gt;Bom, existe um comandinho mágico no OS X que faz com que não precisemos selecionar, e usar o Ctrl+C (Cmd+C no OS X) para pegar o conteúdo da chave, para isso basta usar o seguinte comando:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cat ~/.ssh/id_rsa.pub | pbcopy
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;O pbcopy faz todo o trabalho sujo de copiar o conteúdo que devemos colocar no github (por exemplo).&lt;/p&gt;
-
-&lt;p&gt;Beleza, bora fazer isso no Linux então. SQN.&lt;/p&gt;
-
-&lt;p&gt;Para que isso funcione no linux (sim, existe similar), é necessário:&lt;/p&gt;
-
-&lt;h3 id=&quot;1-instalar-o-xclip-ele-faz-um-trabalho-similar&quot;&gt;1. Instalar o xclip (ele faz um trabalho similar):&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install xclip
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-agora-eu-recomendo-é-só-criar-um-alias-no-seu-arquivo-de-profile-profile-ou-bashrc-dentro-da-pasta-home-do-seu-usuário-para-isso-adicione-a-seguinte-linha-em-um-desses-arquivos&quot;&gt;2. Agora (eu recomendo) é só criar um alias no seu arquivo de profile (.profile ou .bashrc dentro da pasta home do seu usuário), para isso, adicione a seguinte linha em um desses arquivos:&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;alias pbcopy=&quot;xclip -selection clipboard&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Depois, no terminal execute o seguinte comando (supondo que isso foi inserido no .bashrc):&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;source ~/.bashrc
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Agora é só ficar feliz e utilizar no seu linux o mesmo comando feito no OS X.&lt;/p&gt;
-
-&lt;p&gt;OBS.: Depois de executar o comando é só ir até o local necessário e colar o conteúdo.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um migrado para cá.</summary></entry><entry><title type="html">Problemas com segundo monitor no Mac OS X</title><link href="http://0.0.0.0:4000/problemas-com-segundo-monitor-macosx/" rel="alternate" type="text/html" title="Problemas com segundo monitor no Mac OS X" /><published>2016-08-31T00:00:00-05:00</published><updated>2016-08-31T00:00:00-05:00</updated><id>http://0.0.0.0:4000/problemas-com-segundo-monitor-macosx</id><content type="html" xml:base="http://0.0.0.0:4000/problemas-com-segundo-monitor-macosx/">&lt;p&gt;Mais um migrado para cá.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Há um bom tempo não escrevo, na verdade, uso o blog só pra servir como referência futura (pra quando eu esquecer de algo que seria bom lembrar. rs).&lt;/p&gt;
-
-&lt;p&gt;Então, Maciel, caso você tenha esquecido como se faz isso de novo, lá vai.&lt;/p&gt;
-
-&lt;p&gt;Caso alguém mais esteja lendo e usa o Mac OS X e tem um monitor Samsung SyncMaster 933sn (não recomendo, monitor zuadinho).&lt;/p&gt;
-
-&lt;p&gt;Seu Mac OS provavelmente não vai detectar a resolução mais apropriada para o monitor e de quebra vai te empurrar um 800x600 (sim, é verdade).&lt;/p&gt;
-
-&lt;p&gt;A dica é:&lt;/p&gt;
-
-&lt;p&gt;Vá nas configurações de monitor (Displays) em preferências do sistema. Isso fará com que duas telas se abram, uma delas no monitor zuado. Bom, a opção Default for display provavelmente estará selecionada, nesse momento, segure a tecla option (alt) e depois clique em Scaled.&lt;/p&gt;
-
-&lt;p&gt;Para esse monitor a melhor opção seria 1360x768 (não tem essa no Mac) a melhor opção que achei (que funcionou) foi 1280x768. Fica um pouco distorcido, mas dá pra ler log de console de boa. ;-)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/posts/2016-08-31-problemas-com-segundo-monitor-macosx/ScreenShot-2016-08-31at94416PM.png&quot; alt=&quot;-fullwidth&quot; /&gt;&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um migrado para cá.</summary></entry><entry><title type="html">IntelliJ IDEA rodando com JVM mais nova no MAC OS X</title><link href="http://0.0.0.0:4000/intellij-rodando-com-jvm-nova-macosx/" rel="alternate" type="text/html" title="IntelliJ IDEA rodando com JVM mais nova no MAC OS X" /><published>2015-07-24T00:00:00-05:00</published><updated>2015-07-24T00:00:00-05:00</updated><id>http://0.0.0.0:4000/intellij-rodando-com-jvm-nova-macosx</id><content type="html" xml:base="http://0.0.0.0:4000/intellij-rodando-com-jvm-nova-macosx/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Caso tenha atualizado seu MAC OS X e após isso passou a receber a mensagem que o IntelliJ IDEA precisa rodar em uma versão legada (legacy) da JVM, a solução para mim foi a seguinte.&lt;/p&gt;
-
-&lt;p&gt;No terminal:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /Applications/IntelliJ\ IDEA\ 14.app/Contents
-vi Info.plist
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;OBS.: O número 14 no caminho acima é a versão do meu IntelliJ, mude esse número para a sua versão da aplicação.&lt;/p&gt;
-
-&lt;p&gt;Após isso, digite &lt;code class=&quot;highlighter-rouge&quot;&gt;/&lt;/code&gt; para habilitar a busca e em seguida digite &lt;code class=&quot;highlighter-rouge&quot;&gt;JVMVersion&lt;/code&gt; e &lt;code class=&quot;highlighter-rouge&quot;&gt;enter&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Note que logo abaixo da string encontrada vc verá a versão 1.6*. Mude o 6 por 8 e em seguida salve o documento &lt;code class=&quot;highlighter-rouge&quot;&gt;esc&lt;/code&gt; + &lt;code class=&quot;highlighter-rouge&quot;&gt;wq&lt;/code&gt; + &lt;code class=&quot;highlighter-rouge&quot;&gt;enter&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Tente abrir o Intellij novamente. ;-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Problemas com upload de arquivos utilizando spring MVC</title><link href="http://0.0.0.0:4000/problemas-upload-arquivos-spring-mvc/" rel="alternate" type="text/html" title="Problemas com upload de arquivos utilizando spring MVC" /><published>2013-08-27T00:00:00-05:00</published><updated>2013-08-27T00:00:00-05:00</updated><id>http://0.0.0.0:4000/problemas-upload-arquivos-spring-mvc</id><content type="html" xml:base="http://0.0.0.0:4000/problemas-upload-arquivos-spring-mvc/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Só uma dica rápida para aquele caso que está tudo certo e quando o Spring valida o conteúdo do campo de arquivos e vc recebe a seguinte mensagem:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Failed to convert property value of type 'java.lang.String' to required type 'org.springframework.web.multipart.MultipartFile' for property 'XXX'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Confirme se o formulário está com a propriedade enctype…&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;form action=&quot;URL/&quot; enctype=&quot;multipart/form-data&quot; id=&quot;form&quot; method=&quot;post&quot;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Este pequeno detalhe causou o erro acima. ;-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Apache não sobe na porta 80</title><link href="http://0.0.0.0:4000/apache-nao-sobe-80-apache/" rel="alternate" type="text/html" title="Apache não sobe na porta 80" /><published>2013-03-26T00:00:00-05:00</published><updated>2013-03-26T00:00:00-05:00</updated><id>http://0.0.0.0:4000/apache-nao-sobe-80-apache</id><content type="html" xml:base="http://0.0.0.0:4000/apache-nao-sobe-80-apache/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Instalei o Apache algumas vezes pra rodar algumas aplicações de teste no meu ambiente de desenvolvimento.&lt;/p&gt;
-
-&lt;p&gt;Normalmente eu não conseguia fazer com que ele subisse na porta 80 até descobrir que o Skype era o responsável por isso (o próprio Apache entrega isso).&lt;/p&gt;
-
-&lt;p&gt;Pra acabar com este conflito, no Skype, vá até Ferramentas, Opções e Conexão, em seguida desative o primeiro check box (como na imagem abaixo), clique em salvar e reinicie o skype.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/posts/2013-03-26-apache-nao-sobe-80-apache/skype-conf.PNG&quot; alt=&quot;-fullwidth&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Agora este não é mais um problema para subir o Apache.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">jquery-chosen - Busca de termos não funciona</title><link href="http://0.0.0.0:4000/jquery-chosen-buscao-nao-funciona/" rel="alternate" type="text/html" title="jquery-chosen - Busca de termos não funciona" /><published>2013-03-12T00:00:00-05:00</published><updated>2013-03-12T00:00:00-05:00</updated><id>http://0.0.0.0:4000/jquery-chosen-buscao-nao-funciona</id><content type="html" xml:base="http://0.0.0.0:4000/jquery-chosen-buscao-nao-funciona/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Incluindo o chosen em algumas de minhas páginas (sistemas) notei que um probleminha estava acontecendo. Toda vez que eu tentava preencher com alguns caracteres para ele filtrar os termos e facilitar minha escolha eu recebia a mensagem de que o termo não foi encontrado, porém, quando o termo possuia mais de uma palavra e eu preenchia os caracteres relativos a esta segunda palavra, a busca funcionava.&lt;/p&gt;
-
-&lt;p&gt;A solução para isso é bem simples, basta retirar a identação deste ponto da página, por exemplo, quando colocado conforme abaixo:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;option&amp;gt;     
-    Valor a escolher
-&amp;lt;/option&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Se você preencher o termo de busca com “esco” ele vai encontrar o termo, porém, se colocar “valo” o termo não será encontrado.&lt;/p&gt;
-
-&lt;p&gt;Agora, sem a identação:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;option&amp;gt;Valor a escolher&amp;lt;/option&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;A busca funciona normalmente.&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry><entry><title type="html">Log de Auditoria - JPA + Spring</title><link href="http://0.0.0.0:4000/log-auditoria-jpa-spring/" rel="alternate" type="text/html" title="Log de Auditoria - JPA + Spring" /><published>2012-11-19T00:00:00-06:00</published><updated>2012-11-19T00:00:00-06:00</updated><id>http://0.0.0.0:4000/log-auditoria-jpa-spring</id><content type="html" xml:base="http://0.0.0.0:4000/log-auditoria-jpa-spring/">&lt;p&gt;Mais um dos antigos migrados para cá.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Vira e volta, aparecem sistemas onde é necessário fazer um esquema de log de auditoria para uma tabela ou várias.&lt;/p&gt;
-
-&lt;p&gt;Montei um esquema que pode ser facilmente extendido para outras tabelas do sistema, para fazê-lo, basta seguir os passos abaixo:&lt;/p&gt;
-
-&lt;h3 id=&quot;1-criar-um-enum-para-representar-as-ações-de-banco&quot;&gt;1. Criar um enum para representar as ações de banco:&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public enum TransactionType {
-    CREATE, UPDATE, DELETE;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-criar-a-entidade-de-log-de-auditoria&quot;&gt;2. Criar a entidade de log de auditoria:&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@Entity
-@Table(name = &quot;log_trace&quot;)
-@AttributeOverride(name = &quot;id&quot;, column = @Column(name = &quot;log_trace_id&quot;))
-public class LogTrace extends BaseEntity {
-
-    @Column(name = &quot;transaction_type&quot;, nullable = false)
-    @Enumerated(EnumType.STRING)
-    private TransactionType transactionType;
-
-    @Column(name = &quot;entity_name&quot;, nullable = false)
-    private String entityName;
-
-    @Column(name = &quot;registry_id&quot;, nullable = false)
-    private Long registryId;
-
-    @Column(name = &quot;operation_date&quot;, nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date operationDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = &quot;executed_by&quot;, nullable = false)
-    private User executedBy;
-
-...getters e setters...
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;3-criar-o-repositório-dao-e-o-serviço-como-está-sendo-feito-no-restante-do-sistema&quot;&gt;3. Criar o repositório (DAO) e o serviço como está sendo feito no restante do sistema;&lt;/h3&gt;
-
-&lt;h3 id=&quot;4-criar-o-listener-que-será-disparado-pelo-hibernate&quot;&gt;4. Criar o listener que será disparado pelo hibernate:&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public class LogTraceListener {
-
-    @Autowired
-    LogTraceService logTraceService;
-
-    @Autowired
-    UserService userService;
-
-    @PostRemove
-    void postDelete(BaseEntity e) {
-        createLog(TransactionType.DELETE, e);
-    }
-
-    @PostPersist
-    void postPersist(BaseEntity e) {
-        createLog(TransactionType.CREATE, e);
-    }
-
-    @PostUpdate
-    void postUpdate(BaseEntity e) {
-        createLog(TransactionType.UPDATE, e);
-    }
-
-    private void createLog(TransactionType transactionType, BaseEntity e) {
-        /*
-         * OBSERVAÇÃO 1.
-         */
-        if (logTraceService == null) {
-            ApplicationContext ctx = ContextLoader.getCurrentWebApplicationContext();
-
-            logTraceService = (LogTraceService) ctx.getBean(&quot;logTraceService&quot;);
-        }
-
-        /*
-         * OBSERVAÇÃO 2.
-         */
-        User user = userService.getAuthenticatedUser();
-
-        LogTrace logTrace = new LogTrace();
-        /*
-         * OBSERVAÇÃO 3.
-         */
-        String entityName = e.getClass().getAnnotation(Table.class).name();
-        if (entityName == null || entityName.isEmpty()) {
-            entityName = e.getClass().getSimpleName();
-        }
-
-        logTrace.setTransactionType(transactionType);
-        logTrace.setEntityName(entityName);
-        logTrace.setRegistryId(e.getId());
-        logTrace.setExecutedBy(user);
-        logTrace.setOperationDate(new Date());
-
-        logTraceService.save(logTrace);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;observações&quot;&gt;Observações:&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;O listener é disparado pelo mecanismo JPA. Uma vez que a classe não foi instanciada pelo Spring, as dependências não são injetadas e para resolver isso, podemos usar aspéctos (AOP) ou uma abordagem mais simples como a feita acima;&lt;/li&gt;
-  &lt;li&gt;A lógica de recuperação do usuário logado (via consulta ou busca na sessão) está no serviço neste caso;&lt;/li&gt;
-  &lt;li&gt;Alguns projetos adotam o uso da anotação &lt;strong&gt;@Table&lt;/strong&gt;, neste listener, coloquei uma lógica que abrange esta abordagem (como principal) e se não for o caso, o campo receberá o nome da entidade, por exemplo, “PedidoInterno”, ao invés de “pedido_interno” (que é a forma como os bancos normalmente são modelados. Veja que nossa “LogTrace” teria o campo salvo como “log_trace”;&lt;/li&gt;
-  &lt;li&gt;Anotar entidades que devem ser auditadas:
-As entidades que devem ser auditadas recebem a anotação &lt;strong&gt;@EntityListeners(value = LogTraceListener.class)&lt;/strong&gt;. Para melhorar a leitura da classe, indico colocar esta anotação logo após a anotação &lt;strong&gt;@Entity&lt;/strong&gt; ou &lt;strong&gt;@Table(name = “minha_entidade”)&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Com isso, sempre que uma das operações monitoradas pelo listener acontecer, são as anotações que estão sobre os métodos: &lt;strong&gt;@PostPersist&lt;/strong&gt;, &lt;strong&gt;@PostUpdate&lt;/strong&gt; e &lt;strong&gt;@PostRemove&lt;/strong&gt;, um registro será gerado na tabela de log de auditoria.&lt;/p&gt;
-
-&lt;p&gt;Para que outra tabela/entidade seja autitada, basta repetir o passo 5 (incluir a anotação na entidade).&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;NOTA: Normalmente as entidades de um sistema extendem uma entidade base ou implementam uma interface para que um padrão “mínimo” seja seguido. Este exemplo foi construído considerando este caso, ou seja, as entidades extendem BaseEntity.&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Mais um dos antigos migrados para cá.</summary></entry></feed>
+&lt;p&gt;Bom gente, é domingo e estou escrevendo isso aos poucos. hehehe. Então vou voltar para o netflix e durante a semana escrevo mais… :-)&lt;/p&gt;</content><author><name>Maciel Escudero Bombonato</name></author><summary type="html">Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.</summary></entry><entry><title type="html">Analista de Desenvolvimento de Sistemas (Terceiro alocado)</title><link href="http://localhost:4000/Citi/" rel="alternate" type="text/html" title="Analista de Desenvolvimento de Sistemas (Terceiro alocado)" /><published>2017-01-01T00:00:00-02:00</published><updated>2017-01-01T00:00:00-02:00</updated><id>http://localhost:4000/Citi</id><content type="html" xml:base="http://localhost:4000/Citi/">&lt;p&gt;Conquistas e contribuições:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Atuando como arquiteto de sistemas, líder técnico e desenvolvedor Java em projetos relacionados a sistemas de pagamento;&lt;/li&gt;
+  &lt;li&gt;Implementação de componentes do framework Scrum;&lt;/li&gt;
+  &lt;li&gt;Parte do time técnico responsável pela implementação do Jira, Bitbucket (Stash), Teamcity, Sonarqube e uDeploy em 22 sistemas da torre TTS Brazil e treinamento de funcionários do Citi no uso destas;&lt;/li&gt;
+  &lt;li&gt;Atuação conjunta com times da India, Estados Unidos e em países da Europa no desenvolvimento e implantação de aplicações;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Tecnologias: JavaEE, Spring (boot, batch e data), IBM MQ Series, IBM Websphere 8.x, Python (Jython para configurar Websphere) e Oracle PL/SQL;&lt;/p&gt;</content><author><name></name></author><summary type="html">Conquistas e contribuições: Atuando como arquiteto de sistemas, líder técnico e desenvolvedor Java em projetos relacionados a sistemas de pagamento; Implementação de componentes do framework Scrum; Parte do time técnico responsável pela implementação do Jira, Bitbucket (Stash), Teamcity, Sonarqube e uDeploy em 22 sistemas da torre TTS Brazil e treinamento de funcionários do Citi no uso destas; Atuação conjunta com times da India, Estados Unidos e em países da Europa no desenvolvimento e implantação de aplicações; Tecnologias: JavaEE, Spring (boot, batch e data), IBM MQ Series, IBM Websphere 8.x, Python (Jython para configurar Websphere) e Oracle PL/SQL;</summary></entry></feed>
