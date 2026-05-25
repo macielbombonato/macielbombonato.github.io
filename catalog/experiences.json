@@ -1,0 +1,24 @@
+---
+layout: null
+permalink: /catalog/experiences.json
+sitemap: false
+---
+{
+  "schemaVersion": "1.0",
+  "type": "Experience",
+  "generatedAt": "{{ site.time | date_to_xmlschema }}",
+  "source": "{{ site.url }}",
+  "count": {{ site.categories.career | size }},
+  "items": [{% for career in site.categories.career %}
+    {
+      "id": {{ career.url | jsonify }},
+      "name": {{ career.title | jsonify }},
+      "company": {{ career.company | jsonify }},
+      "startDate": {{ career.date | date: "%Y-%m" | jsonify }},
+      "endDate": {% if career.end and career.end != "" %}{{ career.end | jsonify }}{% else %}null{% endif %},
+      "location": {{ career.location | default: "" | jsonify }},
+      "url": {{ career.url | absolute_url | jsonify }},
+      "description": {{ career.content | strip_html | strip_newlines | strip | truncate: 500 | jsonify }}
+    }{% unless forloop.last %},{% endunless %}{% endfor %}
+  ]
+}
