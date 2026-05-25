@@ -13,12 +13,16 @@ sitemap: false
     {
       "id": {{ career.url | jsonify }},
       "name": {{ career.title | jsonify }},
+      "subtype": {{ career.subtype | jsonify }},
       "company": {{ career.company | jsonify }},
       "startDate": {{ career.date | date: "%Y-%m" | jsonify }},
       "endDate": {% if career.end and career.end != "" %}{{ career.end | jsonify }}{% else %}null{% endif %},
       "location": {{ career.location | default: "" | jsonify }},
       "url": {{ career.url | absolute_url | jsonify }},
-      "description": {{ career.content | strip_html | strip_newlines | strip | truncate: 500 | jsonify }}
+      "description": {{ career.content | strip_html | strip_newlines | strip | truncate: 500 | jsonify }},
+      "category": {{ career.category | default: "" | jsonify }},
+      "seniority": {{ career.seniority | default: "" | jsonify }},
+      "order": {{ career.order | default: 0 | jsonify }}
     }{% unless forloop.last %},{% endunless %}{% endfor %}
   ]
 }

@@ -8,11 +8,11 @@
 
   {% include nav.html %}
 
-<article class="post"
+  <article class="post"
   data-experience-id="{{ page.url }}"
   data-experience-title="{{ page.title | escape }}"
-  data-experience-author="{{ page.author | escape }}"
-  data-experience-date="{{ page.date | date: '%Y-%m' }}"
+  data-experience-subtype="blog"
+  data-experience-start="{{ page.date | date: '%Y-%m' }}"
   data-experience-location="{{ page.location | default: '' | escape }}">
 
 <div class="space-extra-small"></div>
