@@ -2,7 +2,7 @@
 layout: career
 company: Brasilprev
 title: Arquiteto de Sistemas
-end: 08/2019
+end: 2019-08-31
 location: São Paulo, SP
 industry: pension
 seniority: architect

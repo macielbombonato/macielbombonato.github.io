@@ -2,7 +2,7 @@
 layout: career
 company: Microlins Franchising
 title: Professor de Informática
-end: 06/1999
+end: 1999-06-30
 location: Carapicuíba, SP
 industry: education
 seniority: junior

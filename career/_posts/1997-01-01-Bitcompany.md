@@ -2,7 +2,7 @@
 layout: career
 company: Bit Company Centro Técnico
 title: Estágio - Suporte Laboratórios
-end: 10/1997
+end: 1997-10-31
 location: Carapicuíba, SP
 industry: education
 seniority: intern
