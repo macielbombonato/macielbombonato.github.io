@@ -9,10 +9,9 @@
   {% include nav.html %}
 
   <article class="post"
-  data-article-id="{{ page.url }}"
+  data-article-id="{{ page.url | remove: '/' | escape }}"
   data-article-name="{{ page.title | escape }}"
   data-article-category="blog"
-  data-article-url="{{ page.url | absolute_url }}"
   data-article-author="{{ page.author | default: site.name | escape }}"
   data-article-publish-date="{{ page.date | date: '%Y-%m-%d' }}"
   data-article-description="{% if page.description %}{{ page.description | escape }}{% else %}{{ page.content | strip_html | strip_newlines | strip | truncate: 200 | escape }}{% endif %}"

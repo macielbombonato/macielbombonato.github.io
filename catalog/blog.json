@@ -12,7 +12,7 @@ sitemap: false
   "count": {{ site.categories.blog | size }},
   "items": [{% for post in site.categories.blog %}
     {
-      "_id": {{ post.url | jsonify }},
+      "_id": {{ post.url | remove: "/" | jsonify }},
       "name": {{ post.title | jsonify }},
       "url": {{ post.url | absolute_url | jsonify }},
       "categories": [{"_id": "blog", "name": "Blog"}],

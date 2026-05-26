@@ -12,7 +12,7 @@ sitemap: false
   "count": {{ site.categories.career | size }},
   "items": [{% for career in site.categories.career %}
     {
-      "_id": {{ career.url | jsonify }},
+      "_id": {{ career.url | remove: "/" | jsonify }},
       "name": {{ career.title | jsonify }},
       "url": {{ career.url | absolute_url | jsonify }},
       "categories": [{"_id": "career", "name": "Carreira"}],
