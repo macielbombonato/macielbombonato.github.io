@@ -15,7 +15,7 @@ sitemap: false
       "_id": {{ career.url | remove: "/" | jsonify }},
       "name": {{ career.title | jsonify }},
       "url": {{ career.url | absolute_url | jsonify }},
-      "categories": [{"_id": "career", "name": "Carreira"}],
+      "categories": [{"type": "Category", "_id": "career", "name": "Carreira"}],
       "author": {{ career.author | default: site.name | jsonify }},
       "publishDate": {{ career.date | date: "%Y-%m-%d" | jsonify }},
       "description": {% if career.description %}{{ career.description | jsonify }}{% else %}{{ career.content | strip_html | strip_newlines | strip | truncate: 500 | jsonify }}{% endif %},
