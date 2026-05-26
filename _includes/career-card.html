@@ -1,0 +1,73 @@
+{%- comment -%}
+  Renders one career experience as a clickable card.
+
+  Usage:
+    {% include career-card.html career=career %}
+{%- endcomment -%}
+{%- assign career = include.career -%}
+{%- assign industry_label = site.data.career_labels.industries[career.industry] | default: career.industry -%}
+{%- assign seniority_label = site.data.career_labels.seniorities[career.seniority] | default: career.seniority -%}
+{%- assign max_chips = 6 -%}
+
+<div class="col-md-6 col-sm-12 career-card-col">
+  <a class="career-card" href="{{ site.baseurl }}{{ career.url }}">
+    <div class="career-card-top">
+      <span class="career-card-period">
+        <i class="material-icons">event</i>
+        {% include career-period.html start=career.date end=career.end %}
+      </span>
+      {% if career.location and career.location != "" %}
+        <span class="career-card-location">
+          <i class="material-icons">place</i>
+          {{ career.location }}
+        </span>
+      {% endif %}
+    </div>
+
+    <div class="career-card-body">
+      <h3 class="career-card-role">{{ career.title }}</h3>
+      <h4 class="career-card-company">{{ career.company }}</h4>
+
+      {%- if career.description and career.description != "" -%}
+        {%- assign raw_description = career.description -%}
+      {%- else -%}
+        {%- assign raw_description = career.content -%}
+      {%- endif -%}
+      {%- assign clean_description = raw_description
+            | strip_html
+            | normalize_whitespace
+            | strip -%}
+      <p class="career-card-description">{{ clean_description | truncate: 220 }}</p>
+
+      {% if seniority_label != "" or industry_label != "" %}
+        <div class="career-card-badges">
+          {% if seniority_label and seniority_label != "" %}
+            <span class="career-badge career-badge-seniority">{{ seniority_label }}</span>
+          {% endif %}
+          {% if industry_label and industry_label != "" %}
+            <span class="career-badge career-badge-industry">{{ industry_label }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if career.technologies and career.technologies.size > 0 %}
+        <div class="career-card-tech">
+          {% for tech in career.technologies limit: max_chips %}
+            <span class="tech-chip">{{ tech }}</span>
+          {% endfor %}
+          {% if career.technologies.size > max_chips %}
+            {% assign more = career.technologies.size | minus: max_chips %}
+            <span class="tech-chip tech-chip-more">+{{ more }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="career-card-footer">
+      <span class="career-card-cta">
+        Ver detalhes
+        <i class="material-icons">arrow_forward</i>
+      </span>
+    </div>
+  </a>
+</div>

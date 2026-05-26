@@ -2,47 +2,17 @@
 layout: career-layout
 ---
 
-<div class="posts">
-  <div class="row">
-  {% for career in site.categories.career %}
-    {% assign loopCount = forloop.index | modulo:2 %}
-    {% if loopCount == 0 %}
-      <div class="row">
-    {% endif %}
-    <div class="col-md-5">
-      <div class="card">
-        <div class="col-md-12">
-          <div class="info info-horizontal" style="padding-top: 0px;">
-            <div class="description">
-              <h3 class="info-title">
-                <a href="{{ site.baseurl }}{{ career.url }}">
-                  {{ career.title }}
-                </a>
-              </h3>
-              <h4 style="margin-top: -10px;">
-                {{ career.company }}
-              </h4>
-              <span class="meta">
-                 {{ career.date | date: "%m/%Y" }} - {{ career.end }}
-              </span>
-              <br />
-              <span class="meta">
-                 {{ career.location }}
-              </span>
-              <p>
-                {{ career.content }}
-              </p>
-              <a href="{{ site.baseurl }}{{ career.url }}">
-                Mais detalhes
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% if loopCount == 0 %}
-      </div>
-    {% endif %}
-  {% endfor %}
+<section class="career-section">
+  <header class="career-section-header">
+    <h2 class="career-section-title">Experiência profissional</h2>
+    <p class="career-section-subtitle">
+      Mais de duas décadas de carreira em desenvolvimento, arquitetura e tecnologia &mdash; das primeiras linhas de código ao papel atual como Arquiteto Técnico.
+    </p>
+  </header>
+
+  <div class="row career-card-grid">
+    {% for career in site.categories.career %}
+      {% include career-card.html career=career %}
+    {% endfor %}
   </div>
-</div>
+</section>

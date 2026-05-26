@@ -1,0 +1,19 @@
+industries:
+  airlines: Aviação
+  banking: Bancos & Finanças
+  education: Educação
+  healthcare: Saúde
+  it-services: TI & Serviços
+  manufacturing: Indústria
+  pension: Previdência
+  research: Pesquisa
+  telecom: Telecom
+
+seniorities:
+  intern: Estagiário
+  junior: Júnior
+  mid: Pleno
+  senior: Sênior
+  tech-lead: Tech Lead
+  architect: Arquiteto
+  manager: Gestor

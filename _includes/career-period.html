@@ -1,0 +1,19 @@
+{%- comment -%}
+  Renders a localized career period like "Mar 2018 — Dez 2018" or
+  "Mar 2018 — Atual" when `end` is empty.
+
+  Usage:
+    {% include career-period.html start=page.date end=page.end %}
+{%- endcomment -%}
+{%- assign months_pt = "Jan,Fev,Mar,Abr,Mai,Jun,Jul,Ago,Set,Out,Nov,Dez" | split: "," -%}
+{%- assign si = include.start | date: "%m" | minus: 1 -%}
+{%- assign sy = include.start | date: "%Y" -%}
+{%- assign end_value = include.end -%}
+{%- if end_value and end_value != empty -%}
+  {%- assign ei = end_value | date: "%m" | minus: 1 -%}
+  {%- assign ey = end_value | date: "%Y" -%}
+  {%- capture end_label -%}{{ months_pt[ei] }} {{ ey }}{%- endcapture -%}
+{%- else -%}
+  {%- capture end_label -%}<span class="career-period-current">Atual</span>{%- endcapture -%}
+{%- endif -%}
+{{ months_pt[si] }} {{ sy }} — {{ end_label }}

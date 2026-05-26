@@ -2,7 +2,10 @@
 layout: career-layout
 ---
 
-<article class="post"
+{%- assign industry_label = site.data.career_labels.industries[page.industry] | default: page.industry -%}
+{%- assign seniority_label = site.data.career_labels.seniorities[page.seniority] | default: page.seniority -%}
+
+<article class="post career-detail"
          data-article-id="{{ page.url | remove: '/' | escape }}"
          data-article-name="{{ page.title | escape }}"
          data-article-category="career"
@@ -18,9 +21,60 @@ layout: career-layout
          data-article-seniority="{{ page.seniority | default: '' | escape }}"
          data-article-technologies="{{ page.technologies | join: ',' | escape }}">
 
-  <div class="space-extra-small"></div>
+  <header class="career-detail-header">
+    <a class="career-detail-back" href="{{ site.baseurl }}/">
+      <i class="material-icons">arrow_back</i>
+      Voltar para carreira
+    </a>
 
-  <div class="entry">
+    <div class="career-detail-period">
+      <i class="material-icons">event</i>
+      {% include career-period.html start=page.date end=page.end %}
+    </div>
+
+    <h1 class="career-detail-role">{{ page.title }}</h1>
+    {% if page.company and page.company != '' %}
+      <h2 class="career-detail-company">{{ page.company }}</h2>
+    {% endif %}
+
+    {% if page.location != '' or industry_label != '' or seniority_label != '' %}
+      <div class="career-detail-meta">
+        {% if page.location and page.location != '' %}
+          <span class="career-detail-meta-item">
+            <i class="material-icons">place</i>{{ page.location }}
+          </span>
+        {% endif %}
+        {% if industry_label and industry_label != '' %}
+          <span class="career-detail-meta-item">
+            <i class="material-icons">work</i>{{ industry_label }}
+          </span>
+        {% endif %}
+        {% if seniority_label and seniority_label != '' %}
+          <span class="career-detail-meta-item">
+            <i class="material-icons">account_circle</i>{{ seniority_label }}
+          </span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if page.technologies and page.technologies.size > 0 %}
+      <div class="career-detail-tech">
+        {% for tech in page.technologies %}
+          <span class="tech-chip">{{ tech }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if page.tags and page.tags.size > 0 %}
+      <div class="career-detail-tags">
+        {% for tag in page.tags %}
+          <span class="tag-chip">#{{ tag }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </header>
+
+  <div class="entry career-detail-body">
     {{ content }}
   </div>
 
