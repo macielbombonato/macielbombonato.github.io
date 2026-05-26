@@ -1,0 +1,24 @@
+---
+layout: null
+permalink: /catalog/blog.json
+sitemap: false
+---
+{
+  "schemaVersion": "1.0",
+  "type": "Article",
+  "category": "blog",
+  "generatedAt": "{{ site.time | date_to_xmlschema }}",
+  "source": "{{ site.url }}",
+  "count": {{ site.categories.blog | size }},
+  "items": [{% for post in site.categories.blog %}
+    {
+      "_id": {{ post.url | jsonify }},
+      "name": {{ post.title | jsonify }},
+      "url": {{ post.url | absolute_url | jsonify }},
+      "categories": ["blog"],
+      "author": {{ post.author | default: site.name | jsonify }},
+      "publishDate": {{ post.date | date: "%Y-%m-%d" | jsonify }},
+      "description": {{ post.content | strip_html | strip_newlines | strip | truncate: 500 | jsonify }}
+    }{% unless forloop.last %},{% endunless %}{% endfor %}
+  ]
+}
