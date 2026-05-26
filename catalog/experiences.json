@@ -18,11 +18,15 @@ sitemap: false
       "categories": ["career"],
       "author": {{ career.author | default: site.name | jsonify }},
       "publishDate": {{ career.date | date: "%Y-%m-%d" | jsonify }},
-      "description": {{ career.content | strip_html | strip_newlines | strip | truncate: 500 | jsonify }},
+      "description": {% if career.description %}{{ career.description | jsonify }}{% else %}{{ career.content | strip_html | strip_newlines | strip | truncate: 500 | jsonify }}{% endif %},
+      "tags": {% if career.tags and career.tags != empty %}{{ career.tags | jsonify }}{% else %}[]{% endif %},
       "company": {% if career.company and career.company != "" %}{{ career.company | jsonify }}{% else %}null{% endif %},
       "startDate": {{ career.date | date: "%Y-%m-%d" | jsonify }},
       "endDate": {% if career.end and career.end != "" %}{{ career.end | jsonify }}{% else %}null{% endif %},
-      "location": {% if career.location and career.location != "" %}{{ career.location | jsonify }}{% else %}null{% endif %}
+      "location": {% if career.location and career.location != "" %}{{ career.location | jsonify }}{% else %}null{% endif %},
+      "industry": {% if career.industry and career.industry != "" %}{{ career.industry | jsonify }}{% else %}null{% endif %},
+      "seniority": {% if career.seniority and career.seniority != "" %}{{ career.seniority | jsonify }}{% else %}null{% endif %},
+      "technologies": {% if career.technologies and career.technologies != empty %}{{ career.technologies | jsonify }}{% else %}[]{% endif %}
     }{% unless forloop.last %},{% endunless %}{% endfor %}
   ]
 }

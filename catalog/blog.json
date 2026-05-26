@@ -18,7 +18,8 @@ sitemap: false
       "categories": ["blog"],
       "author": {{ post.author | default: site.name | jsonify }},
       "publishDate": {{ post.date | date: "%Y-%m-%d" | jsonify }},
-      "description": {{ post.content | strip_html | strip_newlines | strip | truncate: 500 | jsonify }}
+      "description": {% if post.description %}{{ post.description | jsonify }}{% else %}{{ post.content | strip_html | strip_newlines | strip | truncate: 500 | jsonify }}{% endif %},
+      "tags": {% if post.tags and post.tags != empty %}{{ post.tags | jsonify }}{% else %}[]{% endif %}
     }{% unless forloop.last %},{% endunless %}{% endfor %}
   ]
 }

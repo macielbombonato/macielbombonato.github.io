@@ -2,6 +2,8 @@
 layout: post
 title: Problemas com upload de arquivos utilizando spring MVC
 author: Maciel Escudero Bombonato
+description: Como resolver o erro "Failed to convert property value MultipartFile" no Spring MVC adicionando enctype=multipart/form-data no formulário HTML.
+tags: [java, spring, spring-mvc, web, upload, debugging, multipart]
 ---
 
 Mais um dos antigos migrados para cá.

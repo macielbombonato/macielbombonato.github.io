@@ -2,6 +2,8 @@
 layout: post
 title: Alguns comandos úteis para utilizar MAVEN
 author: Maciel Escudero Bombonato
+description: Coleção de comandos Maven essenciais para criar projetos do zero, integrar com Eclipse e rodar tarefas de build clean, compile e install.
+tags: [java, maven, build, eclipse, cli, dev]
 ---
 
 Mais um post antigo migrado pra cá. :)

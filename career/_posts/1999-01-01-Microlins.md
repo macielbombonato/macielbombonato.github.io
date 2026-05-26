@@ -4,6 +4,10 @@ company: Microlins Franchising
 title: Professor de Informática
 end: 06/1999
 location: Carapicuíba, SP
+industry: education
+seniority: junior
+tags: [teaching, education, computer-basics, instructor]
+technologies: [windows-98, office, internet]
 ---
 Professor substituto (cobertura de férias) em turmas de informática básica e titular em turmas extra.
 

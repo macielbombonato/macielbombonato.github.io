@@ -15,7 +15,8 @@
   data-article-url="{{ page.url | absolute_url }}"
   data-article-author="{{ page.author | default: site.name | escape }}"
   data-article-publish-date="{{ page.date | date: '%Y-%m-%d' }}"
-  data-article-description="{{ page.content | strip_html | strip_newlines | strip | truncate: 200 | escape }}">
+  data-article-description="{% if page.description %}{{ page.description | escape }}{% else %}{{ page.content | strip_html | strip_newlines | strip | truncate: 200 | escape }}{% endif %}"
+  data-article-tags="{{ page.tags | join: ',' | escape }}">
 
 <div class="space-extra-small"></div>
 

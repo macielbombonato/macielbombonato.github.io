@@ -2,6 +2,8 @@
 layout: post
 title: JSF 2.0 + Spring - Injeção de Dependência (DI)
 author: Maciel Escudero Bombonato
+description: Como combinar JSF 2.0 com Spring para injeção de dependência usando @ManagedBean e @ManagedProperty no lugar de @Component e @Autowired, evitando conflito de sessão entre usuários.
+tags: [java, jsf, spring, di, hibernate, web]
 ---
 
 Mais um dos antigos migrados para cá.

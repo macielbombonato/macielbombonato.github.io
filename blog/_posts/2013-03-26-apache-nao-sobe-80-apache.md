@@ -2,6 +2,8 @@
 layout: post
 title: Apache não sobe na porta 80
 author: Maciel Escudero Bombonato
+description: Por que o Apache não consegue subir na porta 80 quando o Skype está rodando, e como liberar a porta nas configurações de conexão do Skype.
+tags: [apache, web, network, skype, debugging, port]
 ---
 
 Mais um dos antigos migrados para cá.

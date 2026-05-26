@@ -2,6 +2,8 @@
 layout: post
 title: CSS media type
 author: Maciel Escudero Bombonato
+description: Como usar o atributo media de CSS para aplicar estilos diferentes em telas, impressão e emails, com soluções para limitações de clientes de email.
+tags: [css, web, email, frontend, print]
 ---
 
 Mais um dos antigos migrados para cá.

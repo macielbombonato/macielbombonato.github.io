@@ -2,6 +2,8 @@
 layout: post
 title: macOS - Bootable USB
 author: Maciel Escudero Bombonato
+description: Comandos de terminal para gerar pendrives bootáveis de instalação do macOS (Catalina e Mojave) usando createinstallmedia, com links de download oficiais.
+tags: [macos, bootable-usb, installer, system, terminal]
 ---
 
 Neste post descrevo (pra mim no futuro) como gerar o pendrive bootável de instalação do macOS em algumas versões e quais os links de download (a busca da apple store é bem ruim as vezes).

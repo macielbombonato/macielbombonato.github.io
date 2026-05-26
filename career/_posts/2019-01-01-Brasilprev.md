@@ -4,6 +4,10 @@ company: Brasilprev
 title: Arquiteto de Sistemas
 end: 08/2019
 location: São Paulo, SP
+industry: pension
+seniority: architect
+tags: [architecture, pension, insurance, finance, java, devops, cloud, integration]
+technologies: [java, spring-boot, spring-batch, spring-data, jenkins, azure-devops, docker, aws, ecs, ec2, rds, s3, elastic-beanstalk]
 ---
 
 Conquistas e contribuições:  
