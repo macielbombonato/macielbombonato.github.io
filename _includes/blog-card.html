@@ -1,0 +1,55 @@
+{%- comment -%}
+  Renders one blog post as a clickable card.
+
+  Usage:
+    {% include blog-card.html post=post %}
+{%- endcomment -%}
+{%- assign post = include.post -%}
+{%- assign months_pt = "Jan,Fev,Mar,Abr,Mai,Jun,Jul,Ago,Set,Out,Nov,Dez" | split: "," -%}
+{%- assign mi = post.date | date: "%m" | minus: 1 -%}
+{%- assign max_tags = 4 -%}
+
+{%- if post.description and post.description != "" -%}
+  {%- assign raw_description = post.description -%}
+{%- else -%}
+  {%- assign raw_description = post.content -%}
+{%- endif -%}
+{%- assign clean_description = raw_description
+      | strip_html
+      | normalize_whitespace
+      | strip -%}
+
+<div class="col-md-4 col-sm-6 blog-card-col">
+  <a class="blog-card" href="{{ site.baseurl }}{{ post.url }}">
+    <div class="blog-card-top">
+      <span class="blog-card-date">
+        <i class="material-icons">event</i>
+        {{ post.date | date: "%d" }} {{ months_pt[mi] }} {{ post.date | date: "%Y" }}
+      </span>
+    </div>
+
+    <div class="blog-card-body">
+      <h3 class="blog-card-title">{{ post.title }}</h3>
+      <p class="blog-card-description">{{ clean_description | truncate: 180 }}</p>
+
+      {% if post.tags and post.tags.size > 0 %}
+        <div class="blog-card-tags">
+          {% for tag in post.tags limit: max_tags %}
+            <span class="blog-card-tag">#{{ tag }}</span>
+          {% endfor %}
+          {% if post.tags.size > max_tags %}
+            {% assign more = post.tags.size | minus: max_tags %}
+            <span class="blog-card-tag blog-card-tag-more">+{{ more }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="blog-card-footer">
+      <span class="blog-card-cta">
+        Ler artigo
+        <i class="material-icons">arrow_forward</i>
+      </span>
+    </div>
+  </a>
+</div>

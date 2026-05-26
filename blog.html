@@ -4,41 +4,17 @@ title: Blog
 permalink: /blog/
 ---
 
-<div class="row">
-  {% assign counter = 0 %}
-  {% for post in site.categories.blog %}
+<section class="blog-section">
+  <header class="blog-section-header">
+    <h2 class="blog-section-title">Blog técnico</h2>
+    <p class="blog-section-subtitle">
+      Notas, soluções e descobertas anotadas ao longo da carreira &mdash; de truques rápidos a setups completos.
+    </p>
+  </header>
 
-    {% if counter >= 3 %}
-      {% assign counter = 0 %}
-      </div>
-      <div class="row">
-    {% endif %}
-
-    {% assign counter = counter | plus: 1 %}
-
-    <div class="col-md-4">
-      <div class="card">
-        <div class="col-md-12">
-          <div class="info info-horizontal" style="padding-top: 0px;">
-            <div class="description">
-              <h3 class="info-title">
-                <a href="{{ site.baseurl }}{{ post.url }}">
-                  {{ post.title }}
-                </a>
-              </h3>
-              <span class="meta">
-                 Criado em: {{ post.date | date: "%d/%m/%Y" }}
-              </span>
-              <p>
-                {{ post.excerpt }}
-              </p>
-              <a href="{{ site.baseurl }}{{ post.url }}">
-                Leia mais
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  {% endfor %}
-</div>
+  <div class="row blog-card-grid">
+    {% for post in site.categories.blog %}
+      {% include blog-card.html post=post %}
+    {% endfor %}
+  </div>
+</section>

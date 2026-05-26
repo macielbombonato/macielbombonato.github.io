@@ -8,54 +8,79 @@
 
   {% include nav.html %}
 
-  <article class="post"
-  data-article-id="{{ page.url | remove: '/' | escape }}"
-  data-article-name="{{ page.title | escape }}"
-  data-article-category="blog"
-  data-article-author="{{ page.author | default: site.name | escape }}"
-  data-article-publish-date="{{ page.date | date: '%Y-%m-%d' }}"
-  data-article-description="{% if page.description %}{{ page.description | escape }}{% else %}{{ page.content | strip_html | strip_newlines | strip | truncate: 200 | escape }}{% endif %}"
-  data-article-tags="{{ page.tags | join: ',' | escape }}">
-
-<div class="space-extra-small"></div>
-
   <div class="wrapper">
     <div class="header header-filter" style="background-image: url('{{ site.baseurl }}/assets/img/bg3.jpeg');">
-  		<div class="container">
-  			<div class="row">
-  				<div class="col-md-6 col-md-offset-3">
-  					<h1 class="title text-center"></h1>
-
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <h1 class="title text-center"></h1>
             {% include search.html %}
-  				</div>
-  			</div>
-  		</div>
-  	</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="main main-raised">
-        <div class="section">
-  		      <div class="container">
-                  <h1 class="title text-center">
-                    {{page.title}}
-                  </h1>
+      <div class="section">
+        <div class="container">
 
-                  <span class="meta">
-                     Criado em: {{ page.date | date: "%d/%m/%Y" }}
-                  </span>
+          {%- assign months_pt = "Jan,Fev,Mar,Abr,Mai,Jun,Jul,Ago,Set,Out,Nov,Dez" | split: "," -%}
+          {%- assign mi = page.date | date: "%m" | minus: 1 -%}
 
-                  <br />
-                  <br />
+          <article class="post blog-detail"
+            data-article-id="{{ page.url | remove: '/' | escape }}"
+            data-article-name="{{ page.title | escape }}"
+            data-article-category="blog"
+            data-article-author="{{ page.author | default: site.name | escape }}"
+            data-article-publish-date="{{ page.date | date: '%Y-%m-%d' }}"
+            data-article-description="{% if page.description %}{{ page.description | escape }}{% else %}{{ page.content | strip_html | strip_newlines | strip | truncate: 200 | escape }}{% endif %}"
+            data-article-tags="{{ page.tags | join: ',' | escape }}">
 
-  			         {{ content }}
-  		      </div>
-  	   </div>
+            <header class="blog-detail-header">
+              <a class="blog-detail-back" href="{{ site.baseurl }}/blog/">
+                <i class="material-icons">arrow_back</i>
+                Voltar para o blog
+              </a>
+
+              <div class="blog-detail-date">
+                <i class="material-icons">event</i>
+                {{ page.date | date: "%d" }} {{ months_pt[mi] }} {{ page.date | date: "%Y" }}
+              </div>
+
+              <h1 class="blog-detail-title">{{ page.title }}</h1>
+
+              {% if page.author and page.author != '' %}
+                <div class="blog-detail-author">
+                  <i class="material-icons">person</i>
+                  {{ page.author }}
+                </div>
+              {% endif %}
+
+              {% if page.tags and page.tags.size > 0 %}
+                <div class="blog-detail-tags">
+                  {% for tag in page.tags %}
+                    <span class="blog-card-tag">#{{ tag }}</span>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </header>
+
+            <div class="entry blog-detail-body">
+              {{ content }}
+            </div>
+
+            <br />
+            {% include disqus.html %}
+          </article>
+
+        </div>
+      </div>
     </div>
 
     {% include footer.html %}
   </div>
 
   {% include analytics.html %}
-
   {% include javascript.html %}
 </body>
 </html>
