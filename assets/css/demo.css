@@ -655,6 +655,94 @@ img[alt$="-fullwidth"]{
     margin-left: 2px;
 }
 
+/* Multi-role company card variant */
+
+.career-card-group {
+    /* Override the single-card hover lift since the card itself is not a link */
+    cursor: default;
+}
+.career-card-group:hover,
+.career-card-group:focus {
+    transform: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.career-card-company-name {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: #2c3e50;
+    line-height: 1.25;
+}
+.career-card-positions-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #00838f;
+    margin: 0 0 14px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+.career-card-positions-count .material-icons {
+    font-size: 16px;
+}
+
+.career-card-roles {
+    border-top: 1px solid #f1f3f5;
+    margin-top: 12px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.career-card-role-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 0 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    text-decoration: none !important;
+    color: inherit !important;
+    transition: background-color .2s, transform .2s;
+}
+.career-card-role-item:hover,
+.career-card-role-item:focus {
+    background-color: #f0fafa;
+    text-decoration: none;
+}
+.career-card-role-item:hover .career-card-role-item-arrow {
+    transform: translateX(3px);
+    color: #00838f;
+}
+.career-card-role-item-period {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 11px;
+    font-weight: 600;
+    color: #6c7a89;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+}
+.career-card-role-item-title {
+    grid-column: 1;
+    grid-row: 2;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c3e50;
+    line-height: 1.35;
+}
+.career-card-role-item-arrow {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    font-size: 18px !important;
+    color: #b0bec5;
+    transition: transform .2s, color .2s;
+}
+
 /* Career detail page */
 
 .career-detail {

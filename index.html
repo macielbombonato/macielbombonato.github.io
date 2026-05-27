@@ -11,8 +11,9 @@ layout: career-layout
   </header>
 
   <div class="row career-card-grid">
-    {% for career in site.categories.career %}
-      {% include career-card.html career=career %}
+    {% assign by_company = site.categories.career | group_by: "company" %}
+    {% for company_group in by_company %}
+      {% include career-company-card.html company_group=company_group %}
     {% endfor %}
   </div>
 </section>

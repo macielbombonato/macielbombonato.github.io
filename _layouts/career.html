@@ -6,7 +6,7 @@ layout: career-layout
 {%- assign seniority_label = site.data.career_labels.seniorities[page.seniority] | default: page.seniority -%}
 
 <article class="post career-detail"
-         data-article-id="{{ page.url | remove: '/' | escape }}"
+         data-article-id="{{ page.date | date: '%Y' }}-{{ page.slug | escape }}"
          data-article-name="{{ page.title | escape }}"
          data-article-category="career"
          data-article-author="{{ page.author | default: site.name | escape }}"

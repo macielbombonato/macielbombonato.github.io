@@ -1,0 +1,96 @@
+{%- comment -%}
+  Renders one company's career experience(s).
+
+  - 1 role: delegates to career-card.html (current behavior)
+  - 2+ roles: renders a "company group" card with shared metadata at the
+    top and a list of clickable role rows at the bottom.
+
+  Usage:
+    {% assign by_company = site.categories.career | group_by: "company" %}
+    {% for group in by_company %}
+      {% include career-company-card.html company_group=group %}
+    {% endfor %}
+{%- endcomment -%}
+{%- assign roles = include.company_group.items -%}
+{%- assign company = include.company_group.name -%}
+{%- assign role_count = roles | size -%}
+
+{%- if role_count == 1 -%}
+  {%- assign single_role = roles | first -%}
+  {% include career-card.html career=single_role %}
+{%- else -%}
+  {%- assign latest = roles | first -%}
+  {%- assign earliest = roles | last -%}
+
+  {%- assign industry_label = site.data.career_labels.industries[latest.industry] | default: latest.industry -%}
+  {%- assign seniority_label = site.data.career_labels.seniorities[latest.seniority] | default: latest.seniority -%}
+
+  {%- assign all_tech = "" | split: "" -%}
+  {%- for r in roles -%}
+    {%- if r.technologies -%}
+      {%- assign all_tech = all_tech | concat: r.technologies -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- assign unique_tech = all_tech | uniq -%}
+  {%- assign max_chips = 6 -%}
+
+  <div class="col-md-6 col-sm-12 career-card-col">
+    <div class="career-card career-card-group">
+      <div class="career-card-top">
+        <span class="career-card-period">
+          <i class="material-icons">event</i>
+          {% include career-period.html start=earliest.date end=latest.end %}
+        </span>
+        {% if latest.location and latest.location != "" %}
+          <span class="career-card-location">
+            <i class="material-icons">place</i>
+            {{ latest.location }}
+          </span>
+        {% endif %}
+      </div>
+
+      <div class="career-card-body">
+        <h3 class="career-card-company-name">{{ company }}</h3>
+        <p class="career-card-positions-count">
+          <i class="material-icons">timeline</i>
+          {{ role_count }} posições nesta empresa
+        </p>
+
+        {% if seniority_label != "" or industry_label != "" %}
+          <div class="career-card-badges">
+            {% if seniority_label and seniority_label != "" %}
+              <span class="career-badge career-badge-seniority">{{ seniority_label }}</span>
+            {% endif %}
+            {% if industry_label and industry_label != "" %}
+              <span class="career-badge career-badge-industry">{{ industry_label }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if unique_tech.size > 0 %}
+          <div class="career-card-tech">
+            {% for tech in unique_tech limit: max_chips %}
+              <span class="tech-chip">{{ tech }}</span>
+            {% endfor %}
+            {% if unique_tech.size > max_chips %}
+              {% assign more = unique_tech.size | minus: max_chips %}
+              <span class="tech-chip tech-chip-more">+{{ more }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="career-card-roles">
+        {% for role in roles %}
+          <a class="career-card-role-item" href="{{ site.baseurl }}{{ role.url }}">
+            <div class="career-card-role-item-period">
+              {% include career-period.html start=role.date end=role.end %}
+            </div>
+            <div class="career-card-role-item-title">{{ role.title }}</div>
+            <i class="material-icons career-card-role-item-arrow">arrow_forward</i>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
