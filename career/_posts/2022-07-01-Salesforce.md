@@ -2,7 +2,7 @@
 layout: career
 company: Salesforce
 title: Arquiteto Técnico
-end: 
+end: 2025-01-31
 location: São Paulo, SP
 industry: it-services
 seniority: architect

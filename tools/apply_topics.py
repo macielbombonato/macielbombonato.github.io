@@ -48,6 +48,8 @@ TOPICS: dict[str, list[str]] = {
     "career/_posts/2019-01-01-Brasilprev.md": ["architecture", "devops-cloud"],
     "career/_posts/2019-08-01-SAP.md": ["architecture", "consulting", "devops-cloud"],
     "career/_posts/2022-07-01-Salesforce.md": ["architecture", "marketing-tech"],
+    "career/_posts/2025-02-01-Salesforce.md": ["consulting", "marketing-tech"],
+    "career/_posts/2026-02-01-Salesforce.md": ["consulting", "marketing-tech"],
     # Blog posts
     "blog/_posts/2011-03-29-Instalacao-Diaspora-Desenvolvimento.md": ["tooling", "development"],
     "blog/_posts/2011-03-29-Instalacao-Redis-MACOS-x-Linux.md": ["tooling", "devops-cloud"],
