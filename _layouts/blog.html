@@ -29,7 +29,7 @@
 
           <article class="post blog-detail"
             data-article-id="{{ page.date | date: '%Y' }}-{{ page.slug | escape }}"
-            data-article-name="{{ page.title | escape }}"
+            data-article-name="[Blog] {{ page.title | escape }}"
             data-article-category="blog"
             data-article-author="{{ page.author | default: site.name | escape }}"
             data-article-publish-date="{{ page.date | date: '%Y-%m-%d' }}"
