@@ -79,6 +79,24 @@
               {{ content }}
             </div>
 
+            <aside class="related-articles" aria-label="Conteúdo relacionado">
+              <section class="related-section" data-mcp-zone="related_careers">
+                <h3 class="related-section-title">
+                  <i class="material-icons">work_history</i>
+                  Experiências profissionais relacionadas
+                </h3>
+                <div id="mcp-related-careers" class="related-grid"></div>
+              </section>
+
+              <section class="related-section" data-mcp-zone="related_blog">
+                <h3 class="related-section-title">
+                  <i class="material-icons">article</i>
+                  Outros artigos do blog relacionados
+                </h3>
+                <div id="mcp-related-blog" class="related-grid"></div>
+              </section>
+            </aside>
+
             <br />
             {% include disqus.html %}
           </article>

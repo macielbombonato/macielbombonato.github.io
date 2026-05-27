@@ -769,6 +769,125 @@ img[alt$="-fullwidth"]{
     background: linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%);
 }
 
+/* Related articles section (MCP campaign target) */
+
+/* Hide the wrapper entirely when both grids are empty so no border or
+   spacing leaks above Disqus. Show with styles only when MCP injects
+   at least one item. */
+.related-articles {
+    display: none;
+}
+.related-articles:has(.related-grid:not(:empty)) {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin: 56px 0 0;
+    padding-top: 32px;
+    border-top: 1px solid #eceff1;
+}
+.related-section:has(.related-grid:empty) {
+    display: none;
+}
+.related-section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 16px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #455a64;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+}
+.related-section-title .material-icons {
+    font-size: 20px;
+    color: #90a4ae;
+}
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+.related-grid:empty {
+    display: none;
+}
+@media (max-width: 768px) {
+    .related-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Card injected by the MCP template (these styles must match what
+   the Handlebars template renders). */
+.related-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid #eceff1;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    text-decoration: none !important;
+    color: inherit !important;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    min-height: 130px;
+}
+.related-card:hover,
+.related-card:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    border-color: #b2dfdb;
+    text-decoration: none;
+}
+.related-card-meta {
+    font-size: 11px;
+    font-weight: 600;
+    color: #78909c;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+}
+.related-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c3e50;
+    line-height: 1.4;
+    margin: 0;
+    /* Clamp to ~3 lines to keep grid even */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.related-card-company {
+    font-size: 12px;
+    color: #00838f;
+    font-weight: 500;
+    margin: 0;
+}
+.related-card-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+}
+.related-card-topic {
+    font-size: 10px;
+    font-weight: 600;
+    color: #00838f;
+    background: #e0f2f1;
+    padding: 2px 8px;
+    border-radius: 99px;
+    letter-spacing: .3px;
+}
+.related-card.is-blog .related-card-topic {
+    color: #6a1b9a;
+    background: #f3e5f5;
+}
+.related-card.is-blog:hover {
+    border-color: #ce93d8;
+}
+
 /* Career detail page */
 
 .career-detail {
