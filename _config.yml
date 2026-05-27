@@ -45,7 +45,7 @@ baseurl: ""
 # !! You don't need to change any of the configuration flags below !!
 #
 
-permalink: /:year/:title/
+permalink: /:year/:month/:title/
 
 # Jekyll 3 now only supports Kramdown for Markdown
 kramdown:
