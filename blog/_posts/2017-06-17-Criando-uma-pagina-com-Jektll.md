@@ -4,6 +4,7 @@ title: Passo a passo para montar uma página com Jekyll
 author: Maciel Escudero Bombonato
 description: Passo a passo para criar um blog/site pessoal usando Jekyll e GitHub Pages, com setup do ambiente Ruby, instalação de plugins e estrutura básica de _layouts, _includes e arquivos markdown.
 tags: [jekyll, github-pages, ruby, blog, static-site, web]
+topics: [tooling, development]
 ---
 
 Este post descreve como criei este site, sua estrutura e o que é necessário para deixar tudo funcionando.

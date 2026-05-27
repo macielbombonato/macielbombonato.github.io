@@ -4,6 +4,7 @@ title: App web Java + Maven não roda no ecplise
 author: Maciel Escudero Bombonato
 description: Solução para o erro ContextLoaderListener em aplicações Java/Maven importadas no Eclipse — adicionando Maven Dependencies no Deployment Assembly do projeto.
 tags: [java, maven, eclipse, spring, tomcat, debugging, web]
+topics: [development, troubleshooting]
 ---
 
 Mais um dos antigos migrados para cá.

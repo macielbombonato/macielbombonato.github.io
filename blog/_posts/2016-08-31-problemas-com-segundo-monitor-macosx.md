@@ -4,6 +4,7 @@ title: Problemas com segundo monitor no Mac OS X
 author: Maciel Escudero Bombonato
 description: Como forçar resoluções customizadas em monitores externos no macOS usando a tecla Option na opção Scaled em Displays, com exemplo prático no Samsung SyncMaster.
 tags: [macos, display, monitor, hardware, configuration]
+topics: [tooling, troubleshooting]
 ---
 
 Mais um migrado para cá.

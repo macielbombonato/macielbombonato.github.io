@@ -4,6 +4,7 @@ title: IntelliJ IDEA rodando com JVM mais nova no MAC OS X
 author: Maciel Escudero Bombonato
 description: Como configurar o IntelliJ IDEA para rodar com JVM mais nova no macOS editando a propriedade JVMVersion no arquivo Info.plist da aplicação.
 tags: [java, intellij, jvm, macos, ide, configuration]
+topics: [tooling]
 ---
 
 Mais um dos antigos migrados para cá.

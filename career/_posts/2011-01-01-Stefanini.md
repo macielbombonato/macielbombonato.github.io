@@ -7,6 +7,7 @@ location: São Paulo, SP
 industry: it-services
 seniority: tech-lead
 tags: [development, consulting, java, tech-lead, retail, banking, healthcare]
+topics: [development, consulting]
 technologies: [java, struts, jsf, jquery, dwr, tomcat, jboss, plsql, jenkins, bizagi, eclipse]
 ---
 

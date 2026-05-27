@@ -4,6 +4,7 @@ title: Motorola defy rooting android 2.2.1
 author: Maciel Escudero Bombonato
 description: Tutorial para fazer root no Motorola Defy com Android 2.2.1 usando GingerBreak e instruções para troca da ROM para Cyanogenmod 7.
 tags: [android, motorola, rooting, mobile, custom-rom, cyanogenmod]
+topics: [tooling]
 ---
 
 Mais um dos antigos migrados para cá.

@@ -743,6 +743,32 @@ img[alt$="-fullwidth"]{
     transition: transform .2s, color .2s;
 }
 
+/* Topic chips (curated taxonomy, distinct from free-form tags) */
+
+.career-detail-topics,
+.blog-detail-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 6px 0 14px;
+}
+.topic-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 99px;
+    background: linear-gradient(135deg, #00838f 0%, #006064 100%);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .25px;
+    text-transform: none;
+    line-height: 1.4;
+}
+.topic-chip-blog {
+    background: linear-gradient(135deg, #7b1fa2 0%, #4a148c 100%);
+}
+
 /* Career detail page */
 
 .career-detail {

@@ -4,6 +4,7 @@ title: Instalação/Preparação do Diaspora para desenvolvimento
 author: Maciel Escudero Bombonato
 description: Passo a passo para instalar e preparar o ambiente de desenvolvimento da rede social Diaspora usando RVM, bundler e configuração de banco.
 tags: [ruby, rvm, diaspora, setup, dev]
+topics: [tooling, development]
 ---
 
 Outro daqueles posts relâmpago. :)

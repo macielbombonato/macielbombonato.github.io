@@ -4,6 +4,7 @@ title: Log de Auditoria - JPA + Spring
 author: Maciel Escudero Bombonato
 description: Implementação completa de log de auditoria para entidades JPA usando listeners @PostPersist, @PostUpdate e @PostRemove integrados com Spring.
 tags: [java, jpa, spring, hibernate, audit, listener, persistence]
+topics: [development, data]
 ---
 
 Mais um dos antigos migrados para cá.

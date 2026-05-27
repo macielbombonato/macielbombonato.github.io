@@ -4,6 +4,7 @@ title: jquery-chosen - Busca de termos não funciona
 author: Maciel Escudero Bombonato
 description: Solução para problema de busca no plugin jquery-chosen quando os textos dos options possuem identação extra, fazendo o filtro não encontrar termos.
 tags: [jquery, chosen, frontend, web, debugging]
+topics: [development, troubleshooting]
 ---
 
 Mais um dos antigos migrados para cá.

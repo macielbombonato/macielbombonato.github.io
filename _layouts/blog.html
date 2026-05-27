@@ -34,7 +34,8 @@
             data-article-author="{{ page.author | default: site.name | escape }}"
             data-article-publish-date="{{ page.date | date: '%Y-%m-%d' }}"
             data-article-description="{% if page.description %}{{ page.description | escape }}{% else %}{{ page.content | strip_html | strip_newlines | strip | truncate: 200 | escape }}{% endif %}"
-            data-article-tags="{{ page.tags | join: ',' | escape }}">
+            data-article-tags="{{ page.tags | join: ',' | escape }}"
+            data-article-topics="{{ page.topics | join: ',' | escape }}">
 
             <header class="blog-detail-header">
               <a class="blog-detail-back" href="{{ site.baseurl }}/blog/">
@@ -53,6 +54,15 @@
                 <div class="blog-detail-author">
                   <i class="material-icons">person</i>
                   {{ page.author }}
+                </div>
+              {% endif %}
+
+              {% if page.topics and page.topics.size > 0 %}
+                <div class="blog-detail-topics">
+                  {% for t in page.topics %}
+                    {%- assign topic_label = site.data.topics.topics[t] | default: t -%}
+                    <span class="topic-chip topic-chip-blog">{{ topic_label }}</span>
+                  {% endfor %}
                 </div>
               {% endif %}
 

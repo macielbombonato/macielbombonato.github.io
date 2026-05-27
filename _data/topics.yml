@@ -1,0 +1,19 @@
+# Curated topic taxonomy for the Article catalog object in MCP.
+#
+# Topics are the small, durable set of themes used for reporting and
+# segmentation. They live alongside the free-form `tags` list:
+#   - tags   = granular, free-form, sent to MCP as Tag polymorphic objects
+#   - topics = curated, ~10 values, sent to MCP as a CSV `topics` attribute
+#
+# To add a new topic, append it here and update the affected posts.
+topics:
+  architecture: Arquitetura
+  development: Desenvolvimento
+  devops-cloud: DevOps & Cloud
+  security: Segurança
+  marketing-tech: MarTech & CX
+  data: Dados & Integração
+  consulting: Consultoria
+  teaching: Ensino & Mentoria
+  tooling: Ferramentas & CLI
+  troubleshooting: Suporte & Resolução
