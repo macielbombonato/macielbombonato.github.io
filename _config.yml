@@ -79,5 +79,8 @@ exclude:
   - .travis.yml
   - build.sh
   - .DS_Store
+  - mcp # MCP Personalization sitemap source-of-truth, manually pasted into MCP UI
+  - tools # local helper scripts (e.g. apply_topics.py)
+  - AGENTS.md # agent memory file
   - node_modules/material-components-web/node_modules/@material/dialog/node_modules/focus-trap/CHANGELOG.md
   - node_modules/material-components-web/node_modules/@material/dialog/node_modules/focus-trap/node_modules/tabbable/CHANGELOG.md
