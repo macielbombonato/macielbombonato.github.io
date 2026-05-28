@@ -20,7 +20,7 @@ mcp/
    - Paste full file contents
    - SAVE → EXECUTE (dry-run) → PUBLISH
 4. **Bump version note** in the header comment of `sitemap.js` when
-   relevant (e.g. `Last published configVersion: 22`).
+   relevant (e.g. `Reflects configVersion: 21`).
 
 ## Why we version this
 

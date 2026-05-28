@@ -12,7 +12,10 @@
  *   4. Optionally click EXECUTE to dry-run against the current page
  *   5. Click PUBLISH to make it live (this increments configVersion)
  *
- * Last published configVersion: 22
+ * Reflects configVersion: 21
+ *   (currently-published v22 also declares the related_careers and
+ *   related_blog content zones; those were dropped here as part of
+ *   reverting the related-items widget exploration.)
  *
  * Catalog model
  *   - Item Type: Article
