@@ -1,0 +1,36 @@
+{{!--
+  MCP Web Campaign — Related Careers Widget
+  -----------------------------------------
+  Target zone: related_careers
+  Page types : career_detail, blog_detail
+  Recipe     : Related Career Experiences
+  Renders 1–3 career-themed cards. The wrapper <aside class="related-articles">
+  has CSS that auto-hides when this grid is empty.
+
+  Card markup must match the .related-card styles already deployed in
+  /assets/css/demo.css.
+--}}
+{{#if (gt items.length 0)}}
+  {{#each items}}
+    <a class="related-card"
+       href="{{attributes.url}}"
+       data-cy-track="related_career_click"
+       data-cy-target-id="{{_id}}">
+      <div class="related-card-meta">
+        {{formatDate attributes.startDate "MMM YYYY"}}
+        {{#if attributes.endDate}} — {{formatDate attributes.endDate "MMM YYYY"}}{{else}} — ATUAL{{/if}}
+      </div>
+      <h4 class="related-card-title">{{attributes.name}}</h4>
+      {{#if attributes.company}}
+        <p class="related-card-company">{{attributes.company}}</p>
+      {{/if}}
+      {{#if attributes.topics}}
+        <div class="related-card-topics">
+          {{#each attributes.topics}}
+            <span class="related-card-topic">{{this}}</span>
+          {{/each}}
+        </div>
+      {{/if}}
+    </a>
+  {{/each}}
+{{/if}}

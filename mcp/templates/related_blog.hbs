@@ -1,0 +1,32 @@
+{{!--
+  MCP Web Campaign — Related Blog Widget
+  --------------------------------------
+  Target zone: related_blog
+  Page types : career_detail, blog_detail
+  Recipe     : Related Blog Articles
+  Renders 1–3 blog post cards. The wrapper <aside class="related-articles">
+  has CSS that auto-hides when this grid is empty.
+
+  Cards reuse the .related-card styles but add the .is-blog modifier so the
+  topic chips render in purple (matching the blog detail layout's palette).
+--}}
+{{#if (gt items.length 0)}}
+  {{#each items}}
+    <a class="related-card is-blog"
+       href="{{attributes.url}}"
+       data-cy-track="related_blog_click"
+       data-cy-target-id="{{_id}}">
+      <div class="related-card-meta">
+        {{formatDate attributes.publishDate "DD MMM YYYY"}}
+      </div>
+      <h4 class="related-card-title">{{attributes.name}}</h4>
+      {{#if attributes.topics}}
+        <div class="related-card-topics">
+          {{#each attributes.topics}}
+            <span class="related-card-topic">{{this}}</span>
+          {{/each}}
+        </div>
+      {{/if}}
+    </a>
+  {{/each}}
+{{/if}}

@@ -7,8 +7,11 @@ Personalization for `https://www.bombonato.net`.
 
 ```
 mcp/
-├── README.md           ← this file
-└── sitemap.js          ← Sitemap JS (paste into MCP Visual Editor → Sitemap)
+├── README.md                          ← this file
+├── sitemap.js                         ← Sitemap JS (paste into MCP Visual Editor → Sitemap)
+└── templates/
+    ├── related_careers.hbs            ← Handlebars template for "Related Careers Widget" campaign
+    └── related_blog.hbs               ← Handlebars template for "Related Blog Widget" campaign
 ```
 
 ## Workflow
