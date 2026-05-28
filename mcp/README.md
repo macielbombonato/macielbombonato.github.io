@@ -104,17 +104,29 @@ element is in the DOM on the first navigation. A synchronous
 `matchWhenReady` helper returns a Promise that resolves either on
 `DOMContentLoaded` or after a 1.5s safety timeout.
 
-## Content zones currently declared (informational)
+## Content zones currently declared
 
-| Zone           | Defined on     | Selector            |
-|----------------|----------------|---------------------|
-| `hero_banner`  | `home`         | `header, .hero`     |
-| `main_content` | `home`         | `main, body`        |
+| Zone              | Defined on                      | Selector                  |
+|-------------------|---------------------------------|---------------------------|
+| `hero_banner`     | `home`                          | `header, .hero`           |
+| `main_content`    | `home`                          | `main, body`              |
+| `related_careers` | `career_detail`, `blog_detail`  | `#mcp-related-careers`    |
+| `related_blog`    | `career_detail`, `blog_detail`  | `#mcp-related-blog`       |
 
-> The site's `_layouts/career.html` and `_layouts/blog.html` still
-> contain `#mcp-related-careers` and `#mcp-related-blog` divs from an
-> earlier exploration of related-items widgets. They are hidden by
-> CSS when empty and have no matching content zone declared in the
-> sitemap. Either re-add the zones + recipes + campaigns in MCP to
-> use them, or strip the divs from the layouts if you don't plan to
-> revisit that feature.
+The `related_*` zones are rendered as hidden `<aside>` blocks in
+`_layouts/career.html` and `_layouts/blog.html`. They appear once
+an MCP Web Campaign injects items into the inner `.related-grid`
+(CSS rule `.related-articles:has(.related-grid:not(:empty))`).
+
+## Recipes & Campaigns (managed in MCP UI)
+
+| Recipe                       | Type    | Filter                  | Target Zone        |
+|------------------------------|---------|-------------------------|--------------------|
+| `Related Career Experiences` | Article | `categories._id=career` | `related_careers`  |
+| `Related Blog Articles`      | Article | `categories._id=blog`   | `related_blog`     |
+
+Each recipe is consumed by a Web Campaign that:
+1. Targets pages matching `career_detail` OR `blog_detail`
+2. Renders into its respective zone
+3. Uses a Handlebars template producing `.related-card` markup
+   (already styled in `assets/css/demo.css`)

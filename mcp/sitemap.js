@@ -165,6 +165,10 @@ SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
             },
           },
         },
+        contentZones: [
+          { name: "related_careers", selector: "#mcp-related-careers" },
+          { name: "related_blog",    selector: "#mcp-related-blog"    },
+        ],
       },
 
       {
@@ -187,6 +191,10 @@ SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
             },
           },
         },
+        contentZones: [
+          { name: "related_careers", selector: "#mcp-related-careers" },
+          { name: "related_blog",    selector: "#mcp-related-blog"    },
+        ],
       },
     ],
   });
