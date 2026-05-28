@@ -8,8 +8,7 @@ Personalization for `https://www.bombonato.net`.
 ```
 mcp/
 ├── README.md           ← this file
-├── sitemap.js          ← Sitemap JS (paste into MCP Visual Editor → Sitemap)
-└── templates/          ← (future) Handlebars templates for Web Campaigns
+└── sitemap.js          ← Sitemap JS (paste into MCP Visual Editor → Sitemap)
 ```
 
 ## Workflow
@@ -17,12 +16,11 @@ mcp/
 1. **Edit** the relevant file in this folder (e.g. `sitemap.js`).
 2. **Commit** the change so we have history of what was deployed.
 3. **Apply** in MCP:
-   - For `sitemap.js`: open MCP UI → Web → Sitemap → tab "Sitemap JS" →
-     paste full file contents → SAVE → EXECUTE to dry-run → PUBLISH.
-   - For campaign templates: open the campaign in MCP UI → Template tab
-     → paste template contents → Save & Publish.
-4. **Bump version note** in the header comment of the file when relevant
-   (e.g. `Last published configVersion: 22`).
+   - Open MCP UI → Web → Sitemap → tab "Sitemap JS"
+   - Paste full file contents
+   - SAVE → EXECUTE (dry-run) → PUBLISH
+4. **Bump version note** in the header comment of `sitemap.js` when
+   relevant (e.g. `Last published configVersion: 22`).
 
 ## Why we version this
 
@@ -46,23 +44,17 @@ mcp/
   - Career only: `company`, `startDate`, `endDate`, `location`,
     `industry`, `seniority`, `technologies`
 
-## Content zones
+## Content zones (currently declared in sitemap)
 
-| Zone name         | Selector                  | Lives on            |
-|-------------------|---------------------------|---------------------|
-| `related_careers` | `#mcp-related-careers`    | career & blog detail |
-| `related_blog`    | `#mcp-related-blog`       | career & blog detail |
+| Zone name      | Selector              | Note                                  |
+|----------------|-----------------------|---------------------------------------|
+| `hero_banner`  | `#hero-banner-zone`   | Placeholder — site does not yet render this zone |
+| `main_content` | `#main-content-zone`  | Placeholder — site does not yet render this zone |
 
-## Einstein Recipes (configured in MCP UI)
-
-| Recipe                       | Type    | Filter                 | Used by                  |
-|------------------------------|---------|------------------------|--------------------------|
-| `Related Career Experiences` | Article | `categories._id=career`| Campaign → `related_careers` |
-| `Related Blog Articles`      | Article | `categories._id=blog`  | Campaign → `related_blog`    |
-
-## Web Campaigns (configured in MCP UI)
-
-| Campaign                  | Target Zone        | Recipe                       |
-|---------------------------|--------------------|------------------------------|
-| `Related Careers Widget`  | `related_careers`  | `Related Career Experiences` |
-| `Related Blog Widget`     | `related_blog`     | `Related Blog Articles`      |
+> Note: the site's `_layouts/career.html` and `_layouts/blog.html` still
+> contain `#mcp-related-careers` and `#mcp-related-blog` divs from an
+> earlier exploration of related-items widgets. They are currently
+> hidden by CSS (`:has(.related-grid:not(:empty))`) and have no
+> matching content zone declaration. Either re-add the zones + recipes
+> + campaigns in MCP to use them, or strip the divs from the layouts
+> if you don't plan to revisit that feature.
