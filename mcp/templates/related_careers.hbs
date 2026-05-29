@@ -10,7 +10,7 @@
   Card markup must match the .related-card styles already deployed in
   /assets/css/demo.css.
 --}}
-{{#if (gt items.length 0)}}
+{{#if items.length}}
   {{#each items}}
     <a class="related-card"
        href="{{attributes.url}}"

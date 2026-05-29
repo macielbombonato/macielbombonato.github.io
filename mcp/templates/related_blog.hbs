@@ -10,7 +10,7 @@
   Cards reuse the .related-card styles but add the .is-blog modifier so the
   topic chips render in purple (matching the blog detail layout's palette).
 --}}
-{{#if (gt items.length 0)}}
+{{#if items.length}}
   {{#each items}}
     <a class="related-card is-blog"
        href="{{attributes.url}}"
