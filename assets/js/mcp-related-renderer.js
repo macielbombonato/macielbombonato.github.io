@@ -57,6 +57,13 @@
 (function () {
     "use strict";
 
+    // Maximum cards rendered per zone. Mirrors `.restrictMaxResults(3)`
+    // in mcp/templates/related_careers.ts and related_blog.ts as
+    // defense-in-depth: if the marketer ever raises the cap in the
+    // Campaign editor or someone forgets to re-paste the .ts into MCP,
+    // the renderer still trims to this number. Bump in BOTH places.
+    var MAX_PER_ZONE = 3;
+
     var WIDGETS = {
         related_careers: {
             selector: "#mcp-related-careers",
@@ -169,15 +176,22 @@
         if (window[cfg.renderedFlag]) return 0;
         window[cfg.renderedFlag] = true;
 
+        // Trim to MAX_PER_ZONE — defense-in-depth in case the marketer
+        // raised maxResults in the Campaign editor above the cap our
+        // Serverside Code intends.
+        var cards = items.length > MAX_PER_ZONE
+            ? items.slice(0, MAX_PER_ZONE)
+            : items;
+
         var html = [];
-        for (var i = 0; i < items.length; i++) {
-            html.push(cfg.build(items[i]));
+        for (var i = 0; i < cards.length; i++) {
+            html.push(cfg.build(cards[i]));
         }
         target.innerHTML = html.join("");
 
         attachClickListeners(target, cfg);
-        fireImpression(cfg, items.length);
-        return items.length;
+        fireImpression(cfg, cards.length);
+        return cards.length;
     }
 
     function deferRender(cfg, items) {

@@ -27,8 +27,17 @@
  * runtime throws "System service exception via [recommend :
  * context.services.recommendations.recommend(request)]" and the
  * entire campaign fails to render. Catching here keeps the page
- * clean (empty zone) and lets the Handlebars `{{#if items.length}}`
- * guard hide the widget naturally.
+ * clean (empty zone) and lets the site-side renderer hide the widget
+ * naturally (the .related-grid:empty CSS rule does the reveal).
+ *
+ * `.restrictMaxResults(3)` caps the recommendation list at 3 cards.
+ * The site is small and the related-items aside sits below the
+ * Disqus block; long lists scroll the user away from the article
+ * footer and dilute attribution. 3 is also the limit the site-side
+ * renderer enforces as a defense-in-depth slice
+ * (`assets/js/mcp-related-renderer.js`, `MAX_PER_ZONE`), so changing
+ * this number in one place without the other will be capped to the
+ * smaller of the two.
  */
 import { RecommendationsConfig, recommend } from "recs";
 
@@ -36,7 +45,9 @@ export class RelatedCareersTemplate implements CampaignTemplateComponent {
 
     @title("Recommendation Settings")
     @subtitle("Pick the recipe (e.g. Related Career Experiences) and limits")
-    recsConfig: RecommendationsConfig = new RecommendationsConfig().restrictItemType("Article");
+    recsConfig: RecommendationsConfig = new RecommendationsConfig()
+        .restrictItemType("Article")
+        .restrictMaxResults(3);
 
     run(context: CampaignComponentContext) {
         try {
