@@ -94,10 +94,16 @@ These fire from `mcp/templates/related_*.js`, **not** from the sitemap.
 They run inside the rendered Campaign so the impression is only counted
 when the template actually drew cards on the page.
 
-| Name                    | When                                          | Extra fields                                         |
-|-------------------------|-----------------------------------------------|------------------------------------------------------|
-| `View Recommendations`  | The recommendations widget rendered           | `widget` (`related_careers` \| `related_blog`)       |
-| `Click Recommendation`  | Visitor clicked a recommended card            | `widget`, `targetId`, `targetName`, `destination`    |
+Each widget uses a **distinct event name** — sharing a single name
+across both widgets trips the MCP beacon's client-side rate limiter
+when both render on the same detail page (see the gotcha below).
+
+| Name                    | When                                                    | Extra fields                                       |
+|-------------------------|---------------------------------------------------------|----------------------------------------------------|
+| `View Related Careers`  | `related_careers` widget rendered ≥1 card, once/page    | `widget`, `itemCount`                              |
+| `Click Related Career`  | Visitor clicked a card in `related_careers`             | `widget`, `targetId`, `targetName`, `destination`  |
+| `View Related Blog`     | `related_blog` widget rendered ≥1 card, once/page       | `widget`, `itemCount`                              |
+| `Click Related Blog`    | Visitor clicked a card in `related_blog`                | `widget`, `targetId`, `targetName`, `destination`  |
 
 ## Gotchas (lessons learned)
 
@@ -337,19 +343,31 @@ attribute the recipe to user behavior:
 
     var WIDGET = "related_careers";
     var SELECTOR = '[data-cy-track="related_career_click"]';
+    var IMPRESSION_NAME = "View Related Careers";
+    var CLICK_NAME = "Click Related Career";
+    var IMPRESSION_FLAG = "__mcp_impressed_" + WIDGET;
 
-    try {
-        SalesforceInteractions.sendEvent({
-            interaction: { name: "View Recommendations", widget: WIDGET },
-        });
-    } catch (e) {}
+    var cards = document.querySelectorAll(SELECTOR);
 
-    document.querySelectorAll(SELECTOR).forEach(function (card) {
+    if (cards.length > 0 && !window[IMPRESSION_FLAG]) {
+        window[IMPRESSION_FLAG] = true;
+        try {
+            SalesforceInteractions.sendEvent({
+                interaction: {
+                    name: IMPRESSION_NAME,
+                    widget: WIDGET,
+                    itemCount: cards.length,
+                },
+            });
+        } catch (e) {}
+    }
+
+    cards.forEach(function (card) {
         card.addEventListener("click", function () {
             try {
                 SalesforceInteractions.sendEvent({
                     interaction: {
-                        name: "Click Recommendation",
+                        name: CLICK_NAME,
                         widget: WIDGET,
                         targetId: card.getAttribute("data-cy-target-id") || "",
                         destination: card.getAttribute("href") || "",
@@ -363,6 +381,18 @@ attribute the recipe to user behavior:
 
 Key points:
 
+- **Distinct event names per widget** (`View Related Careers` vs
+  `View Related Blog`, same for clicks). Sharing one name trips the
+  rate limiter — see the gotcha below.
+- **Render-guard**: only fire the impression if cards were actually
+  drawn (`cards.length > 0`). The Clientside Code runs regardless
+  of Handlebars output, so without this guard an empty render
+  would still count an impression.
+- **Per-page-load de-dup** via `window.__mcp_impressed_<widget>`.
+  MCP can re-execute the Clientside Code on Campaign re-render
+  (e.g. with `Auto Render` on in the Template Editor, or when MCP
+  refreshes decision data). Without the flag, every re-render fires
+  another impression and bursts trip the rate limiter.
 - The script reads the `data-cy-track` and `data-cy-target-id`
   attributes from the rendered cards — `.hbs` and `.js` are
   **coupled**, so if you rename one, rename the other.
@@ -373,9 +403,42 @@ Key points:
   listener. MCP can re-render a Campaign multiple times in one
   session; per-card listeners die with the card when it leaves the
   DOM, so we don't leak stale handlers.
-- The `widget` field distinguishes `related_careers` from
-  `related_blog` so reports can compute per-widget impressions and
-  CTR even when both render on the same detail page.
-- `Click Recommendation` is **not** the same as the page-level
+- `Click Related *` events are **not** the same as the page-level
   `View Catalog Object` that the sitemap fires on the destination
   page — both should be present for attribution to work.
+
+### `Client: Event Rate Limiter triggered` — distinct names + de-dup
+
+The MCP beacon ships with a client-side throttle that drops bursts
+of identically named `sendEvent` calls. When it kicks in, the SDK
+logs:
+
+```
+Client: Event Rate Limiter triggered
+```
+
+…and the offending event never reaches the server, silently
+under-counting your dashboard.
+
+Three patterns we hit (now all fixed in `related_*.js`):
+
+1. **Two widgets sharing one `interaction.name`.** On career and
+   blog detail pages both widgets render in quick succession; if
+   they both dispatch `{name: "View Recommendations"}` back-to-back,
+   the second fires the limiter. Fix: give each widget its own
+   event name — `View Related Careers`, `View Related Blog`,
+   `Click Related Career`, `Click Related Blog`.
+2. **Impression fires on Campaign re-render.** MCP can re-execute
+   the Clientside Code (Auto Render in the editor, MCP refreshing
+   decisions). Same `name`, microseconds apart → throttled. Fix:
+   set a `window.__mcp_impressed_<widget>` flag on first dispatch
+   and skip subsequent ones in the same page load.
+3. **Impression fires on zero-card render.** When the Recipe
+   returns nothing, the Handlebars output is empty but the
+   Clientside Code still runs and dispatches. Fix: render-guard
+   on `cards.length > 0`.
+
+Diagnosis: open the Chrome console with the SDK Launcher extension
+on; if you see `Client: Event Rate Limiter triggered`, look at the
+preceding events — you'll find two with the same `name` in <1s.
+That's your duplicate.
