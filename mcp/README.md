@@ -447,8 +447,21 @@ See the file itself for the full implementation, including:
 - **`escapeHtml`** / **`escapeAttr`** — all injected strings are
   escaped because we build innerHTML manually.
 - **Idempotency via `window.__mcp_rendered_<zone>`** — only render
-  each zone once per page-load. MCP can re-poll mid-session and we
-  don't want to replay impressions.
+  each zone once per page-load AFTER we have drawn at least one card.
+  Empty MCP responses (which happen on the very first request of a
+  cold session because recipes like `Related Career Experiences`
+  need at least one prior catalog view to recommend anything) DO NOT
+  set the flag — otherwise the second response (populated, fired
+  after the page-view event lands) would be ignored and the widget
+  would only render after a manual reload. Once a non-empty payload
+  has rendered, subsequent MCP re-polls are ignored so impressions
+  don't replay.
+- **Debug buffer `window.__mcpResponses`** — every intercepted MCP
+  response that targets one of our zones is pushed here as
+  `{ ts, zonesSeen, totalItems, rendered, body }`. Use this to verify
+  the empty-first / populated-second hypothesis: in production you
+  should see `__mcpResponses[0].totalItems === 0` followed by
+  `__mcpResponses[1].totalItems > 0`.
 - **Deferred render via `DOMContentLoaded`** — if the MCP response
   arrives before the page DOM is parsed (rare but possible with a
   fast CDN response), we wait and retry instead of failing.

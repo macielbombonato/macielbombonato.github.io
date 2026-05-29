@@ -97,10 +97,24 @@
 
     /* ----- main dispatcher ----- */
 
+    // Debug buffer — every intercepted MCP response is pushed here so it
+    // can be inspected from the console:
+    //
+    //     window.__mcpResponses
+    //         → array of { ts, zonesSeen, totalItems, body }
+    //
+    // Specifically useful for diagnosing the "first-load empty / cmd+r
+    // populated" symptom: if window.__mcpResponses[0] has totalItems=0
+    // but window.__mcpResponses[1] has totalItems>0, the cold-load fix
+    // in renderZone() is what allows the second response to draw cards.
+    if (!window.__mcpResponses) window.__mcpResponses = [];
+
     function handlePayload(body) {
         if (!isMcpResponse(body)) return 0;
         var list = body.campaignResponses;
         var totalRendered = 0;
+        var zonesSeen = [];
+        var totalItems = 0;
         for (var i = 0; i < list.length; i++) {
             var resp = list[i];
             var payload = resp && resp.payload;
@@ -108,18 +122,25 @@
             var zoneName = payload.contentZone;
             var items = payload.items || [];
             var cfg = WIDGETS[zoneName];
-            if (!cfg) continue;
-            totalRendered += renderZone(cfg, items);
+            if (cfg) {
+                zonesSeen.push(zoneName);
+                totalItems += items.length;
+                totalRendered += renderZone(cfg, items);
+            }
+        }
+        if (zonesSeen.length > 0) {
+            window.__mcpResponses.push({
+                ts: Date.now(),
+                zonesSeen: zonesSeen,
+                totalItems: totalItems,
+                rendered: totalRendered,
+                body: body
+            });
         }
         return totalRendered;
     }
 
     function renderZone(cfg, items) {
-        // Idempotency — only render each zone once per page-load. Without
-        // this, multiple campaignResponses pings (MCP can re-poll mid-
-        // session) would replay the impression and trip the rate limiter.
-        if (window[cfg.renderedFlag]) return 0;
-
         // The DOM might not be ready yet if the MCP beacon fired before
         // DOMContentLoaded. Bail to a deferred retry instead of failing.
         var target = document.querySelector(cfg.selector);
@@ -128,12 +149,25 @@
             return 0;
         }
 
-        window[cfg.renderedFlag] = true;
-
+        // EMPTY-RESPONSE PASS-THROUGH (cold-load fix). MCP frequently
+        // returns an empty `items` array on the very first campaign
+        // request of a session, because recipes like "Related Career
+        // Experiences" need at least one prior catalog view to produce
+        // recommendations. Without this guard we would set the
+        // renderedFlag on that first empty response and ignore the
+        // SECOND response (populated, fired right after the page-view
+        // event lands) — which is exactly the "only works after cmd+r"
+        // symptom we hit in production. So: only lock the zone once
+        // we've actually drawn at least one card.
         if (!items || items.length === 0) {
-            target.innerHTML = "";
             return 0;
         }
+
+        // Idempotency — once we've rendered a non-empty payload, ignore
+        // any subsequent MCP re-polls in the same page-load. This keeps
+        // impressions de-duplicated and avoids the rate limiter.
+        if (window[cfg.renderedFlag]) return 0;
+        window[cfg.renderedFlag] = true;
 
         var html = [];
         for (var i = 0; i < items.length; i++) {
