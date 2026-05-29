@@ -11,6 +11,13 @@
  *
  * Paste this into the Serverside Code tab of the `related_blog`
  * template in MCP. Keep this file in sync after any edit there.
+ *
+ * Defensive `try/catch`: when the marketer has not yet picked a Recipe,
+ * or the Recipe references missing catalog data, the runtime throws
+ * "System service exception via [recommend : context.services.
+ * recommendations.recommend(request)]" and the entire campaign fails
+ * to render. Catching here keeps the page clean (empty zone) and lets
+ * the Handlebars `{{#if items.length}}` guard hide the widget naturally.
  */
 import { RecommendationsConfig, recommend } from "recs";
 
@@ -21,9 +28,13 @@ export class RelatedBlogTemplate implements CampaignTemplateComponent {
     recsConfig: RecommendationsConfig = new RecommendationsConfig();
 
     run(context: CampaignComponentContext) {
-        return {
-            items: recommend(context, this.recsConfig),
-        };
+        try {
+            return {
+                items: recommend(context, this.recsConfig),
+            };
+        } catch (e) {
+            return { items: [] };
+        }
     }
 
 }

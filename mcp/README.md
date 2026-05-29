@@ -223,23 +223,79 @@ import { RecommendationsConfig, recommend } from "recs";
 
 export class RelatedCareersTemplate implements CampaignTemplateComponent {
     @title("Recommendation Settings")
-    recsConfig: RecommendationsConfig = new RecommendationsConfig()
-        .restrictItemType("Article");
+    recsConfig: RecommendationsConfig = new RecommendationsConfig();
 
     run(context: CampaignComponentContext) {
-        return { items: recommend(context, this.recsConfig) };
+        try {
+            return { items: recommend(context, this.recsConfig) };
+        } catch (e) {
+            return { items: [] };
+        }
     }
 }
 ```
 
 Key points:
 
-- `restrictItemType("Article")` matches the item type our sitemap sends.
+- Keep `new RecommendationsConfig()` **minimal**. Do **not** call
+  `.restrictItemType("Article")` — on a single-Item-Type catalog it
+  throws `"Error occurred while processing server-side template code"`
+  at runtime. The Recipe's own filter handles the type restriction.
 - The `@title`/`@subtitle` decorators expose the recipe picker in the
   Campaign editor — the marketer chooses which Recipe runs.
 - `recommend(context, recsConfig)` returns an array of catalog items
   shaped like `{ _id, type, attributes: { ... } }`, which the
   Handlebars template iterates with `{{#each items}}`.
+- The `try/catch` is **defensive** — see the gotcha below.
 - For programmatic / hardcoded recipes (no marketer picker), use
   `context.services.recommendations.recommend({ recipeId, ... })`
   inside `run()` instead.
+
+### `recommend()` may throw a System Service Exception — wrap it
+
+When `recommend(context, this.recsConfig)` runs and any of these is
+true, MCP throws at the call site:
+
+```
+Server: System service exception via
+  [recommend : context.services.recommendations.recommend(request)]
+```
+
+Common triggers:
+
+1. **No Recipe picked in the Campaign yet.** `new RecommendationsConfig()`
+   surfaces a Recipe picker in the Campaign editor; if it is empty,
+   `recommend()` has no `recipeId` to execute and throws.
+2. **Recipe filters on Categories before the CSV ETL has run.**
+   The beacon does not populate `Article.categories`. Without
+   `catalog/articles.csv` ingested, a Recipe filtering on
+   `Category = career` (or `blog`) finds no eligible items and
+   throws instead of returning empty.
+3. **Recipe references an attribute that is not registered on the
+   Item Type** (e.g. `author`, `publishDate` — both unregistered;
+   use the System Attribute `published` instead).
+4. **Strict Catalog Security is ON.** Toggle OFF at
+   `Settings → Catalog and Profile Objects → Catalog Settings →
+   Security → Enable Strict Catalog Security` — when ON the beacon
+   only registers item IDs and Recipes that read attributes fail.
+5. **Recipe expects "related to current item" but the page has no
+   active catalog object in context** (e.g. testing the campaign on
+   `/` or any page without a `ViewCatalogObject` event).
+
+The unhandled exception kills the entire campaign render — the user
+sees a broken zone. Wrapping `recommend()` in `try/catch` returns an
+empty `items` array, and the Handlebars guard `{{#if items.length}}`
++ the CSS rule `.related-articles:has(.related-grid:not(:empty))`
+hide the widget cleanly.
+
+Diagnosis recipe:
+
+1. Open the page in an incognito window with the Chrome
+   "Salesforce Interactions SDK Launcher" extension.
+2. Check that `View Catalog Object` fires with the correct
+   `catalogObject.id` and `categories: [...]`.
+3. In MCP UI → Campaigns → the affected campaign → open the
+   template settings → confirm a Recipe is selected.
+4. In MCP UI → Recipes → open that Recipe → run **Test/Preview**
+   with a real Profile ID; if it errors here, the Recipe (not the
+   template) is the cause.
