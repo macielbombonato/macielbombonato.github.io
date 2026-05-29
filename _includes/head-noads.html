@@ -19,6 +19,18 @@
 <link href="{{ site.baseurl }}/assets/css/material-kit.css" rel="stylesheet"/>
 <link href="{{ site.baseurl }}/assets/css/demo.css" rel="stylesheet" />
 
+  {%- comment -%}
+    MCP Related-Items Renderer — site-side renderer that bypasses the MCP
+    Template's Clientside Code and the MCP-managed apply() flow. Must load
+    SYNCHRONOUSLY and BEFORE the Personalization beacon so its fetch/XHR
+    hooks are armed when the beacon fires its first request. Only career
+    posts (layout: career) have the #mcp-related-* zones, so we skip the
+    script on other pages to avoid global fetch/XHR mutation.
+  {%- endcomment -%}
+  {% if page.layout == 'career' %}
+  <script type="text/javascript" src="{{ site.baseurl }}/assets/js/mcp-related-renderer.js"></script>
+  {% endif %}
+
   <!-- Salesforce Marketing Cloud Personalization Beacon -->
   <script type="text/javascript">
     (function(d, s, p, t) {
