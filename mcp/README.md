@@ -223,7 +223,8 @@ import { RecommendationsConfig, recommend } from "recs";
 
 export class RelatedCareersTemplate implements CampaignTemplateComponent {
     @title("Recommendation Settings")
-    recsConfig: RecommendationsConfig = new RecommendationsConfig();
+    recsConfig: RecommendationsConfig = new RecommendationsConfig()
+        .restrictItemType("Article");
 
     run(context: CampaignComponentContext) {
         try {
@@ -237,10 +238,13 @@ export class RelatedCareersTemplate implements CampaignTemplateComponent {
 
 Key points:
 
-- Keep `new RecommendationsConfig()` **minimal**. Do **not** call
-  `.restrictItemType("Article")` — on a single-Item-Type catalog it
-  throws `"Error occurred while processing server-side template code"`
-  at runtime. The Recipe's own filter handles the type restriction.
+- **`.restrictItemType("Article")` is required**, not optional. Without
+  it the picker in the Campaign editor exposes an `Item Type` dropdown
+  that defaults to `"Product"` (the MCP placeholder Item Type). Our
+  catalog only ships `Article`, so the Recipe dropdown then shows
+  **"No options"**, the marketer can't pick a Recipe, and at runtime
+  `recommend()` is called with `recipeId: null` and throws the
+  "System service exception" — see the gotcha below.
 - The `@title`/`@subtitle` decorators expose the recipe picker in the
   Campaign editor — the marketer chooses which Recipe runs.
 - `recommend(context, recsConfig)` returns an array of catalog items
@@ -263,9 +267,10 @@ Server: System service exception via
 
 Common triggers:
 
-1. **No Recipe picked in the Campaign yet.** `new RecommendationsConfig()`
-   surfaces a Recipe picker in the Campaign editor; if it is empty,
-   `recommend()` has no `recipeId` to execute and throws.
+1. **No Recipe picked in the Campaign yet** (or the picker shows
+   "No options" because the Item Type was left as the default
+   "Product" — see the previous bullet about `.restrictItemType`).
+   Either way, `recommend()` has no `recipeId` to execute and throws.
 2. **Recipe filters on Categories before the CSV ETL has run.**
    The beacon does not populate `Article.categories`. Without
    `catalog/articles.csv` ingested, a Recipe filtering on
@@ -290,12 +295,17 @@ hide the widget cleanly.
 
 Diagnosis recipe:
 
-1. Open the page in an incognito window with the Chrome
-   "Salesforce Interactions SDK Launcher" extension.
-2. Check that `View Catalog Object` fires with the correct
-   `catalogObject.id` and `categories: [...]`.
-3. In MCP UI → Campaigns → the affected campaign → open the
+1. Open the Template Editor → **TEST** panel → check the
+   **Recommendation Settings** card. `Item Type` should be locked to
+   `Article`; the `Recipe` dropdown must list at least one option.
+   If it shows "No options" the cause is almost always a missing
+   `.restrictItemType("Article")` in the Serverside Code.
+2. In MCP UI → Campaigns → the affected campaign → open the
    template settings → confirm a Recipe is selected.
+3. Open the page in an incognito window with the Chrome
+   "Salesforce Interactions SDK Launcher" extension; check that
+   `View Catalog Object` fires with the correct `catalogObject.id`
+   and `categories: [...]`.
 4. In MCP UI → Recipes → open that Recipe → run **Test/Preview**
    with a real Profile ID; if it errors here, the Recipe (not the
    template) is the cause.
