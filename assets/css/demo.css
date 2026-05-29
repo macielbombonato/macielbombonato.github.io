@@ -888,6 +888,32 @@ img[alt$="-fullwidth"]{
     border-color: #ce93d8;
 }
 
+/* "Powered by" attribution at the foot of .related-articles. Sits as
+   the last child of the aside so the parent's :has(.related-grid:not(:empty))
+   reveal also takes it visible/hidden along with the rest of the
+   widget. Discreet by design — same #90a4ae as the section-title icons
+   and the 11px scale of .related-card-meta so it harmonizes with the
+   existing visual rhythm without competing for attention. */
+.related-attribution {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 8px 0 0;
+    padding: 12px 0 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #90a4ae;
+    text-align: center;
+    letter-spacing: .3px;
+}
+.related-attribution .material-icons {
+    font-size: 14px;
+    color: #b0bec5;
+}
+
 /* Career detail page */
 
 .career-detail {
