@@ -18,7 +18,7 @@ export class RelatedBlogTemplate implements CampaignTemplateComponent {
 
     @title("Recommendation Settings")
     @subtitle("Pick the recipe (e.g. Related Blog Articles) and limits")
-    recsConfig: RecommendationsConfig = new RecommendationsConfig().restrictItemType("Article");
+    recsConfig: RecommendationsConfig = new RecommendationsConfig();
 
     run(context: CampaignComponentContext) {
         return {
