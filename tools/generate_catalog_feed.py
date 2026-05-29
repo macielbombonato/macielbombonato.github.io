@@ -4,28 +4,37 @@ Generate a CSV catalog feed for Marketing Cloud Personalization (MCP).
 
 Reads all career and blog markdown posts, extracts front matter + the first
 paragraphs of body content, and emits a CSV at `catalog/articles.csv` shaped
-for MCP's Catalog Object ETL.
+for MCP's Catalog Object ETL (`CatalogObjectETL.ts`).
 
 Output schema (one row per Article):
 
-    id, categories,
-    attribute:name, attribute:url,
-    attribute:author, attribute:publishDate, attribute:description,
+    id, catalogObjectType, categories,
+    attribute:name, attribute:url, attribute:description,
     attribute:company, attribute:startDate, attribute:endDate,
     attribute:location, attribute:industry, attribute:seniority,
-    attribute:topics, attribute:technologies
+    attribute:published, attribute:topics, attribute:technologies
 
 Conventions
 -----------
-* `id`        : `<YYYYMM>-<slug>` (must match the value our sitemap.js sends
-                in `data-article-id`, so beacon-driven views and feed-driven
-                items reconcile on the same key).
-* `categories`: single value, `career` or `blog`. Maps to the built-in MCP
-                Category Item Type via the `categories` Related Catalog Object.
-* `attribute:*`: scalar attributes on the Article. MultiString fields
-                (`topics`, `technologies`) use pipe `|` as separator.
-* `attribute:description`: comes from front matter `description:` if present,
-                otherwise the first ~200 characters of stripped body content.
+* `id`                : `<YYYYMM>-<slug>` (must match the value our sitemap.js
+                        sends in `data-article-id`, so beacon-driven views and
+                        feed-driven items reconcile on the same key).
+* `catalogObjectType` : Required by `CatalogObjectETL`. Always `Article` — we
+                        use a single Item Type for both career and blog and
+                        let `categories` differentiate them.
+* `categories`        : Single value, `career` or `blog`. Built-in MultiString
+                        relation that links the Article to a Category catalog
+                        object. Pipe-separated when multi-valued.
+* `attribute:topics`  : MultiString — pipe-separated (`marketing-tech|consulting`).
+* `attribute:technologies`: String (CSV format inside the field) — comma-separated
+                            so the value is stored as a single literal string,
+                            matching the way the beacon sends it.
+* `attribute:published`: System Date attribute (mapped from post date). We do
+                         NOT emit `attribute:publishDate` or `attribute:author`
+                         because they are not registered on the Article Item
+                         Type — the ETL would reject the whole row.
+* `attribute:description`: front matter `description:` if present, otherwise
+                           the first ~200 characters of stripped body content.
 
 Usage
 -----
@@ -57,7 +66,6 @@ BLOG_DIR = REPO_ROOT / "blog" / "_posts"
 OUTPUT = REPO_ROOT / "catalog" / "articles.csv"
 
 SITE_URL = "https://www.bombonato.net"
-AUTHOR = "Maciel Escudero Bombonato"
 
 FRONT_MATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n(.*)$", re.DOTALL)
 FILENAME_RE = re.compile(r"^(\d{4})-(\d{2})-(\d{2})-(.+)\.md$")
@@ -101,11 +109,16 @@ def strip_to_description(body: str, max_len: int = 200) -> str:
     return text
 
 
-def joined_list(fm: dict, key: str) -> str:
+def joined_list(fm: dict, key: str, sep: str = "|") -> str:
+    """Join a list-typed front-matter field with the given separator.
+
+    MultiString attributes use pipe `|`; plain String attributes that happen
+    to carry CSV-style values (e.g. `technologies`) use comma `,`.
+    """
     values = fm.get(key) or []
     if isinstance(values, str):
         values = [v.strip() for v in values.split(",") if v.strip()]
-    return "|".join(str(v) for v in values)
+    return sep.join(str(v) for v in values)
 
 
 def normalize_end_date(value) -> str:
@@ -130,11 +143,10 @@ def build_row_career(path: Path, fm: dict, body: str) -> dict | None:
 
     return {
         "id": item_id,
+        "catalogObjectType": "Article",
         "categories": "career",
         "attribute:name": f"[Carreira] {fm.get('title', '')}",
         "attribute:url": url,
-        "attribute:author": AUTHOR,
-        "attribute:publishDate": start_date,
         "attribute:description": description,
         "attribute:company": fm.get("company", "") or "",
         "attribute:startDate": start_date,
@@ -142,8 +154,9 @@ def build_row_career(path: Path, fm: dict, body: str) -> dict | None:
         "attribute:location": fm.get("location", "") or "",
         "attribute:industry": fm.get("industry", "") or "",
         "attribute:seniority": fm.get("seniority", "") or "",
-        "attribute:topics": joined_list(fm, "topics"),
-        "attribute:technologies": joined_list(fm, "technologies"),
+        "attribute:published": start_date,
+        "attribute:topics": joined_list(fm, "topics", sep="|"),
+        "attribute:technologies": joined_list(fm, "technologies", sep=","),
     }
 
 
@@ -160,11 +173,10 @@ def build_row_blog(path: Path, fm: dict, body: str) -> dict | None:
 
     return {
         "id": item_id,
+        "catalogObjectType": "Article",
         "categories": "blog",
         "attribute:name": f"[Blog] {fm.get('title', '')}",
         "attribute:url": url,
-        "attribute:author": AUTHOR,
-        "attribute:publishDate": publish_date,
         "attribute:description": description,
         "attribute:company": "",
         "attribute:startDate": "",
@@ -172,18 +184,18 @@ def build_row_blog(path: Path, fm: dict, body: str) -> dict | None:
         "attribute:location": "",
         "attribute:industry": "",
         "attribute:seniority": "",
-        "attribute:topics": joined_list(fm, "topics"),
+        "attribute:published": publish_date,
+        "attribute:topics": joined_list(fm, "topics", sep="|"),
         "attribute:technologies": "",
     }
 
 
 FIELDNAMES = [
     "id",
+    "catalogObjectType",
     "categories",
     "attribute:name",
     "attribute:url",
-    "attribute:author",
-    "attribute:publishDate",
     "attribute:description",
     "attribute:company",
     "attribute:startDate",
@@ -191,6 +203,7 @@ FIELDNAMES = [
     "attribute:location",
     "attribute:industry",
     "attribute:seniority",
+    "attribute:published",
     "attribute:topics",
     "attribute:technologies",
 ]
