@@ -10,9 +10,22 @@ mcp/
 ├── README.md                          ← this file
 ├── sitemap.js                         ← Sitemap JS (paste into MCP Visual Editor → Sitemap)
 └── templates/
-    ├── related_careers.hbs            ← Handlebars template for "Related Careers Widget" campaign
-    └── related_blog.hbs               ← Handlebars template for "Related Blog Widget" campaign
+    ├── related_careers.hbs            ← Handlebars markup (paste into Handlebars tab)
+    ├── related_careers.ts             ← Serverside Code (paste into Serverside Code tab)
+    ├── related_blog.hbs               ← Handlebars markup (paste into Handlebars tab)
+    └── related_blog.ts                ← Serverside Code (paste into Serverside Code tab)
+
+catalog/articles.csv                   ← Catalog feed (generated, served at /catalog/articles.csv)
+tools/generate_catalog_feed.py         ← Regenerates the CSV from Jekyll _posts
 ```
+
+Each Web Campaign template in MCP has 4 tabs (`Handlebars`, `CSS`,
+`Clientside Code`, `Serverside Code`). We only need the first and the
+last: the `.hbs` files carry the markup; the `.ts` files carry the
+recommendation binding (`RecommendationsConfig + recommend` from
+`recs`). The Recipe itself is **selected by the marketer in the Campaign
+editor**, not hardcoded — so the same template can power both the
+careers and the blog widget if you reassign the recipe.
 
 ## Workflow
 
@@ -99,6 +112,17 @@ The MCP catalog attribute `topics` is configured as MultiString
 array. Do not switch to `fromSelectorAttribute` (which returns a CSV
 string) unless you also change the catalog attribute back to String.
 
+### Handlebars helpers in MCP are limited — no `gt`, `lt`, `eq`, etc.
+
+MCP's Handlebars engine only ships the built-in helpers (`#if`,
+`#each`, `#with`, `#unless`, `lookup`, `log`) plus a few MCP-specific
+ones (`formatDate`, `formatCurrency`). Comparison helpers like `gt`,
+`lt`, `eq`, `and`, `or` are **not registered** and throw
+`ReferenceError: gt is not defined` at render time.
+
+For "is the array non-empty?" use `{{#if items.length}}` — an empty
+array has `length: 0`, which Handlebars treats as falsy.
+
 ### `isMatch` runs early — use `matchWhenReady` for DOM-based matches
 
 `SalesforceInteractions.initSitemap` may run before the `<article>`
@@ -133,3 +157,89 @@ Each recipe is consumed by a Web Campaign that:
 2. Renders into its respective zone
 3. Uses a Handlebars template producing `.related-card` markup
    (already styled in `assets/css/demo.css`)
+
+### Catalog Feed (`catalog/articles.csv`)
+
+Beacon events update Article attributes and increment Category view
+counts, but they do **not** auto-populate the `Article.categories`
+relation. Without that relation, recipes filtering on `Category =
+career` (or `Category = blog`) return zero items, and any related-
+items campaign renders empty.
+
+The fix is to bulk-load Articles via a CSV catalog feed. The feed is
+the **source of truth** for the relation between Articles and
+Categories; beacon events keep handling behavioral signals and
+attributes.
+
+**Workflow**
+
+1. Edit posts in `career/_posts/` or `blog/_posts/` as usual.
+2. From the repo root, regenerate the CSV:
+   ```bash
+   python3 tools/generate_catalog_feed.py
+   ```
+   Output: `catalog/articles.csv`, one row per post, 15 columns.
+3. Commit `catalog/articles.csv` (and any post edits).
+4. Push to GitHub Pages. Jekyll serves the CSV at
+   `https://www.bombonato.net/catalog/articles.csv`.
+5. In MCP UI → Feeds Dashboard → upload or point at the URL → ETL =
+   `Catalog Object ETL` → Validate → Commit.
+
+**CSV schema**
+
+| Column                       | Notes                                             |
+|------------------------------|---------------------------------------------------|
+| `id`                         | `YYYYMM-slug`, matches the value the sitemap sends |
+| `categories`                 | `career` or `blog` (one value per Article)        |
+| `attribute:name`             | `[Carreira] …` or `[Blog] …` prefix               |
+| `attribute:url`              | Absolute URL                                      |
+| `attribute:author`           | Hardcoded to site author                          |
+| `attribute:publishDate`      | Post date (YYYY-MM-DD)                            |
+| `attribute:description`      | Front matter `description:` or first ~200 chars   |
+| `attribute:company`          | Career only                                       |
+| `attribute:startDate`        | Career only                                       |
+| `attribute:endDate`          | Career only — empty if "ATUAL"                    |
+| `attribute:location`         | Career only                                       |
+| `attribute:industry`         | Career only                                       |
+| `attribute:seniority`        | Career only                                       |
+| `attribute:topics`           | MultiString — pipe-separated (`a|b|c`)            |
+| `attribute:technologies`     | Career only — pipe-separated                      |
+
+**Why no SFTP**
+
+MCP also supports SFTP-based feed delivery. We use the HTTP variant
+because GitHub Pages already hosts the site over HTTPS, so the CSV is
+deployed as part of the regular Jekyll build pipeline — no extra
+infrastructure required. If the feed grows or needs scheduling, swap
+to SFTP without changing the upstream generator.
+
+### Template Serverside Code (`recs` module)
+
+MCP Personalization exposes the Recommendations API via the `recs`
+module. Templates that need recipe-driven items follow this pattern:
+
+```ts
+import { RecommendationsConfig, recommend } from "recs";
+
+export class RelatedCareersTemplate implements CampaignTemplateComponent {
+    @title("Recommendation Settings")
+    recsConfig: RecommendationsConfig = new RecommendationsConfig()
+        .restrictItemType("Article");
+
+    run(context: CampaignComponentContext) {
+        return { items: recommend(context, this.recsConfig) };
+    }
+}
+```
+
+Key points:
+
+- `restrictItemType("Article")` matches the item type our sitemap sends.
+- The `@title`/`@subtitle` decorators expose the recipe picker in the
+  Campaign editor — the marketer chooses which Recipe runs.
+- `recommend(context, recsConfig)` returns an array of catalog items
+  shaped like `{ _id, type, attributes: { ... } }`, which the
+  Handlebars template iterates with `{{#each items}}`.
+- For programmatic / hardcoded recipes (no marketer picker), use
+  `context.services.recommendations.recommend({ recipeId, ... })`
+  inside `run()` instead.
