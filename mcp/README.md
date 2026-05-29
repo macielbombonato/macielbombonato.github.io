@@ -10,27 +10,31 @@ mcp/
 ├── README.md                          ← this file
 ├── sitemap.js                         ← Sitemap JS (paste into MCP Visual Editor → Sitemap)
 └── templates/
-    ├── related_careers.hbs            ← Handlebars markup (paste into Handlebars tab)
-    ├── related_careers.js             ← Clientside Code (paste into Clientside Code tab)
-    ├── related_careers.ts             ← Serverside Code (paste into Serverside Code tab)
-    ├── related_blog.hbs               ← Handlebars markup (paste into Handlebars tab)
-    ├── related_blog.js                ← Clientside Code (paste into Clientside Code tab)
-    └── related_blog.ts                ← Serverside Code (paste into Serverside Code tab)
+    ├── related_careers.hbs            ← Handlebars markup — design-only, see note
+    ├── related_careers.js             ← Clientside Code — renders cards manually
+    ├── related_careers.ts             ← Serverside Code — recs binding
+    ├── related_blog.hbs               ← Handlebars markup — design-only, see note
+    ├── related_blog.js                ← Clientside Code — renders cards manually
+    └── related_blog.ts                ← Serverside Code — recs binding
 
 catalog/articles.csv                   ← Catalog feed (generated, served at /catalog/articles.csv)
 tools/generate_catalog_feed.py         ← Regenerates the CSV from Jekyll _posts
 ```
 
 Each Web Campaign template in MCP has 4 tabs (`Handlebars`, `CSS`,
-`Clientside Code`, `Serverside Code`). We version three of them: the
-`.hbs` files carry the markup, the `.js` files carry browser-side
-tracking (impression + click), and the `.ts` files carry the
-recommendation binding (`RecommendationsConfig + recommend` from
-`recs`). We don't version `CSS` because the related-card styles live
-in `assets/css/demo.css` and are shipped with the site, not with the
-template. The Recipe itself is **selected by the marketer in the
-Campaign editor**, not hardcoded — so the same template can power both
-the careers and the blog widget if you reassign the recipe.
+`Clientside Code`, `Serverside Code`). We version three of them and
+they play distinct roles:
+
+| Tab               | Versioned file | Role                                              |
+|-------------------|----------------|---------------------------------------------------|
+| `Serverside Code` | `.ts`          | Binds the marketer-selected Recipe → returns `items` |
+| `Clientside Code` | `.js`          | **Renders** the cards manually + fires tracking — see strategy below |
+| `Handlebars`      | `.hbs`         | Design-only mirror of the card DOM. Kept in sync with `.js` so the markup contract is reviewable, but no longer in the render path |
+| `CSS`             | —              | Not versioned. The `.related-card` styles live in `assets/css/demo.css` and ship with the Jekyll site |
+
+The Recipe itself is **selected by the marketer in the Campaign
+editor**, not hardcoded — so the same template can power both the
+careers and the blog widget if you reassign the recipe.
 
 ## Workflow
 
@@ -332,80 +336,130 @@ Diagnosis recipe:
    with a real Profile ID; if it errors here, the Recipe (not the
    template) is the cause.
 
-### Template Clientside Code
+### Template Clientside Code — **manual rendering** strategy
 
-Runs in the browser **after** Handlebars renders. Its job is to
-attribute the recipe to user behavior:
+The Clientside Code does **not** rely on MCP's `apply()` flow to inject
+the Handlebars output. It does the rendering itself by intercepting
+the bundle's `registerTemplate` function and reading `source.items`
+directly:
 
 ```js
 (function () {
     "use strict";
 
     var WIDGET = "related_careers";
-    var SELECTOR = '[data-cy-track="related_career_click"]';
+    var TARGET_SELECTOR = "#mcp-related-careers";
     var IMPRESSION_NAME = "View Related Careers";
     var CLICK_NAME = "Click Related Career";
     var IMPRESSION_FLAG = "__mcp_impressed_" + WIDGET;
 
-    var cards = document.querySelectorAll(SELECTOR);
-
-    if (cards.length > 0 && !window[IMPRESSION_FLAG]) {
-        window[IMPRESSION_FLAG] = true;
-        try {
-            SalesforceInteractions.sendEvent({
-                interaction: {
-                    name: IMPRESSION_NAME,
-                    widget: WIDGET,
-                    itemCount: cards.length,
-                },
-            });
-        } catch (e) {}
+    if (typeof registerTemplate === "function") {
+        registerTemplate = function (source) {
+            try {
+                var items = (source && source.items) || [];
+                renderCards(items);
+            } catch (e) {
+                if (window.Evergage && Evergage.log) {
+                    Evergage.log.error(e);
+                }
+            }
+        };
     }
 
-    cards.forEach(function (card) {
-        card.addEventListener("click", function () {
-            try {
-                SalesforceInteractions.sendEvent({
-                    interaction: {
-                        name: CLICK_NAME,
-                        widget: WIDGET,
-                        targetId: card.getAttribute("data-cy-target-id") || "",
-                        destination: card.getAttribute("href") || "",
-                    },
-                });
-            } catch (e) {}
-        });
-    });
+    function renderCards(items) {
+        var zone = document.querySelector(TARGET_SELECTOR);
+        if (!zone) return;
+        if (!Array.isArray(items) || items.length === 0) {
+            zone.innerHTML = "";
+            return;
+        }
+        zone.innerHTML = items.map(buildCardHtml).join("");
+        attachClickListeners(zone);
+        fireImpression(items.length);
+    }
+
+    // buildCardHtml, attachClickListeners, fireImpression, escapeHtml,
+    // formatDateMonth — see mcp/templates/related_careers.js for full body
 })();
 ```
 
-Key points:
+**Why we bypass `apply()`**
+
+On Rule Based Test campaigns the Content Zone Action could not be
+configured to reliably inject into our `<div id="mcp-related-careers">`
+target. The server kept returning a full `campaignResponses[].payload.
+items` array but `#mcp-related-careers.children.length` stayed at 0
+(empty zone, no error). Manual rendering removes that single point of
+failure: as long as MCP delivers the bundle (which is the transport
+itself), we control what reaches the DOM.
+
+**How the hook works**
+
+The bundle MCP delivers has this shape:
+
+```js
+function registerTemplate(source) {
+    return TemplateService.registerTemplate(
+        Object.assign({}, source, {
+            name: 'related_careers',
+            handlebars: <compiled .hbs>,
+        })
+    );
+}
+
+try { /* this Clientside Code IIFE */ } catch (e) { /* ... */ }
+```
+
+`function registerTemplate(...)` is hoisted, so it lives in our IIFE's
+scope. We **reassign** it to a wrapper that grabs `source.items` and
+renders the cards ourselves. When MCP later invokes `registerTemplate(
+source)` (which is when items are bound), our wrapper fires and the
+cards land in `#mcp-related-careers`.
+
+We intentionally do **not** chain the original implementation — calling
+it would let MCP's `apply()` also fire (whenever it eventually works)
+and we'd risk a duplicate render.
+
+**The `.hbs` becomes design-only**
+
+The `.hbs` files in `mcp/templates/` still mirror the card markup —
+they are the visual source-of-truth for the DOM shape we render. The
+`buildCardHtml` function in each `.js` file MUST produce the same DOM
+(same classes, same `data-cy-*` attributes) because the CSS in
+`assets/css/demo.css` and the impression/click tracking selectors
+depend on that contract. Touch the `.hbs` and the `.js` together, or
+the styles drift.
+
+**Key invariants preserved from the previous architecture**
 
 - **Distinct event names per widget** (`View Related Careers` vs
   `View Related Blog`, same for clicks). Sharing one name trips the
   rate limiter — see the gotcha below.
-- **Render-guard**: only fire the impression if cards were actually
-  drawn (`cards.length > 0`). The Clientside Code runs regardless
-  of Handlebars output, so without this guard an empty render
-  would still count an impression.
-- **Per-page-load de-dup** via `window.__mcp_impressed_<widget>`.
-  MCP can re-execute the Clientside Code on Campaign re-render
-  (e.g. with `Auto Render` on in the Template Editor, or when MCP
-  refreshes decision data). Without the flag, every re-render fires
-  another impression and bursts trip the rate limiter.
-- The script reads the `data-cy-track` and `data-cy-target-id`
-  attributes from the rendered cards — `.hbs` and `.js` are
-  **coupled**, so if you rename one, rename the other.
-- All tracking is wrapped in `try/catch`. The Clientside Code must
-  never break the rendered widget or block the user's click — a
-  failed beacon is worse than no beacon.
-- Use **per-card** listeners, not a document-level delegated
-  listener. MCP can re-render a Campaign multiple times in one
-  session; per-card listeners die with the card when it leaves the
-  DOM, so we don't leak stale handlers.
+- **Render-guard**: impression only fires when at least one card was
+  actually rendered (now a hard guarantee because we control the
+  rendering, not a defensive `cards.length > 0` check).
+- **Per-page-load de-dup** via `window.__mcp_impressed_<widget>`. MCP
+  can re-execute the Clientside Code on Campaign re-render; without
+  the flag we'd fire duplicate impressions.
+- **try/catch around every beacon** — tracking failures must never
+  break the rendered widget or block the user's click.
+- **Per-card `addEventListener`** (re-attached on every render), not a
+  document-level delegated listener — listeners die cleanly with the
+  cards when MCP re-renders.
 - `Click Related *` events are **not** the same as the page-level
   `View Catalog Object` that the sitemap fires on the destination
   page — both should be present for attribution to work.
+
+**HTML/Date helpers**
+
+`buildCardHtml` reads the MCP attribute shape (`attrs.x.value`) defensively
+via a `readAttr(attr)` helper (returns `null` when missing). Dates arrive
+as **Unix-ms numbers** (e.g. `1738368000000`), formatted to PT-BR via a
+local `MONTHS_PTBR` array — we do not depend on the MCP Handlebars
+`formatDate` helper because the `.hbs` is no longer in the render path.
+All injected strings go through `escapeHtml` / `escapeAttr` to keep the
+manually-built innerHTML safe against catalog content with HTML-special
+characters.
 
 ### `Client: Event Rate Limiter triggered` — distinct names + de-dup
 
