@@ -1,40 +1,76 @@
 #!/usr/bin/env python3
 """
-Generate a CSV catalog feed for Marketing Cloud Personalization (MCP).
+Generate the two CSV catalog feeds for Marketing Cloud Personalization (MCP):
 
-Reads all career and blog markdown posts, extracts front matter + the first
-paragraphs of body content, and emits a CSV at `catalog/articles.csv` shaped
-for MCP's Catalog Object ETL (`CatalogObjectETL.ts`).
+    catalog/articles.csv   →  Item Type `Article`  (career experiences only)
+    catalog/blogs.csv      →  Item Type `Blog`     (native MCP Blog Post type)
 
-Output schema (one row per Article):
+Why two feeds (and two Item Types)?
+-----------------------------------
+We used to ship a single `articles.csv` with `catalogObjectType=Article` for
+both career and blog rows, differentiated by the polymorphic `categories`
+column (`career` vs `blog`). That collapsed everything onto one Item Type
+and forced every Recipe to carry an `Include Rule: Category = …` filter —
+which behaved unreliably on behavioral algorithms (Item Affinity falls back
+to a popularity bucket that ignores Include Rules, so blog Recipes ended
+up returning career items).
 
-    id, catalogObjectType, categories,
+MCP ships a native Item Type called `Blog` (`EVGBlog`) with first-class
+System attributes for blog posts (`publishedDate`, `subtitle`,
+`modifiedTime`, `tags` typed as `Author`/`Keyword`) and built-in Recipe
+hooks (`tools.global.blogs`, `tools.global.authors`). We now:
+
+  * Career → keep `Article` (no native equivalent), drop the redundant
+    `categories=career` column, drop the `[Carreira]` prefix from `name`.
+  * Blog   → use the native `Blog` Item Type, drop `[Blog]` prefix, no
+    `categories` column, use the Blog-native `publishedDate` System attr.
+
+The Recipe `Related Blog Articles` then becomes just
+`restrictItemType("Blog")` with no Include Rule, and `Related Career
+Experiences` becomes just `restrictItemType("Article")` with no Include
+Rule. The Item Type alone is the discriminator.
+
+Schemas
+-------
+
+`articles.csv` (Item Type `Article`, 28 career rows):
+
+    id, catalogObjectType,
     attribute:name, attribute:url, attribute:description,
     attribute:company, attribute:startDate, attribute:endDate,
     attribute:location, attribute:industry, attribute:seniority,
     attribute:published, attribute:topics, attribute:technologies
 
+`blogs.csv` (Item Type `Blog`, 25 blog rows):
+
+    id, catalogObjectType,
+    attribute:name, attribute:url, attribute:description,
+    attribute:publishedDate, attribute:topics
+
 Conventions
 -----------
-* `id`                : `<YYYYMM>-<slug>` (must match the value our sitemap.js
-                        sends in `data-article-id`, so beacon-driven views and
-                        feed-driven items reconcile on the same key).
-* `catalogObjectType` : Required by `CatalogObjectETL`. Always `Article` — we
-                        use a single Item Type for both career and blog and
-                        let `categories` differentiate them.
-* `categories`        : Single value, `career` or `blog`. Built-in MultiString
-                        relation that links the Article to a Category catalog
-                        object. Pipe-separated when multi-valued.
-* `attribute:topics`  : MultiString — pipe-separated (`marketing-tech|consulting`).
-* `attribute:technologies`: String (CSV format inside the field) — comma-separated
-                            so the value is stored as a single literal string,
-                            matching the way the beacon sends it.
-* `attribute:published`: System Date attribute (mapped from post date). We do
-                         NOT emit `attribute:publishDate` or `attribute:author`
-                         because they are not registered on the Article Item
-                         Type — the ETL would reject the whole row.
-* `attribute:description`: front matter `description:` if present, otherwise
-                           the first ~200 characters of stripped body content.
+* `id`                : `<YYYYMM>-<slug>` (must match the value our
+                        sitemap.js sends in `data-article-id`, so beacon-
+                        driven views and feed-driven items reconcile on
+                        the same key).
+* `catalogObjectType` : Required by `CatalogObjectETL`. `Article` for
+                        career rows, `Blog` for blog rows.
+* `attribute:name`    : NO prefix. The Item Type already discriminates.
+* `attribute:published`     : System Date attribute on Article. Career
+                              start date.
+* `attribute:publishedDate` : System Date attribute on Blog (per MCP
+                              docs: "`publishedDate` must be exclusively
+                              used for articles and blogs"). Post date.
+* `attribute:topics`        : MultiString — pipe-separated
+                              (`marketing-tech|consulting`). The ONLY
+                              custom attribute we register on the native
+                              `Blog` Item Type.
+* `attribute:technologies`  : Article-only — plain String, comma-separated
+                              so the value is stored as a single literal
+                              string matching the beacon shape.
+* `attribute:description`   : front matter `description:` if present,
+                              otherwise the first ~200 characters of
+                              stripped body content.
 
 Usage
 -----
@@ -42,7 +78,10 @@ Usage
 
 Run from the repo root. Requires PyYAML (`pip install pyyaml`).
 
-Upload the resulting CSV via MCP UI → Feeds Dashboard → Catalog Object ETL.
+Upload each CSV via MCP UI → Feeds Dashboard → Catalog Object ETL. The
+production filename pattern MUST start with `catalog-object-` (e.g.
+`catalog-object-articles-YYYYMMDD.csv`) to match the production regex;
+the Gear Editor /testing/ path is dry-run only and never persists.
 """
 
 from __future__ import annotations
@@ -63,12 +102,41 @@ except ImportError:
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CAREER_DIR = REPO_ROOT / "career" / "_posts"
 BLOG_DIR = REPO_ROOT / "blog" / "_posts"
-OUTPUT = REPO_ROOT / "catalog" / "articles.csv"
+ARTICLES_OUT = REPO_ROOT / "catalog" / "articles.csv"
+BLOGS_OUT = REPO_ROOT / "catalog" / "blogs.csv"
 
 SITE_URL = "https://www.bombonato.net"
 
 FRONT_MATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n(.*)$", re.DOTALL)
 FILENAME_RE = re.compile(r"^(\d{4})-(\d{2})-(\d{2})-(.+)\.md$")
+
+
+ARTICLES_FIELDNAMES = [
+    "id",
+    "catalogObjectType",
+    "attribute:name",
+    "attribute:url",
+    "attribute:description",
+    "attribute:company",
+    "attribute:startDate",
+    "attribute:endDate",
+    "attribute:location",
+    "attribute:industry",
+    "attribute:seniority",
+    "attribute:published",
+    "attribute:topics",
+    "attribute:technologies",
+]
+
+BLOGS_FIELDNAMES = [
+    "id",
+    "catalogObjectType",
+    "attribute:name",
+    "attribute:url",
+    "attribute:description",
+    "attribute:publishedDate",
+    "attribute:topics",
+]
 
 
 def parse_post(path: Path) -> tuple[dict, str] | tuple[None, None]:
@@ -144,8 +212,7 @@ def build_row_career(path: Path, fm: dict, body: str) -> dict | None:
     return {
         "id": item_id,
         "catalogObjectType": "Article",
-        "categories": "career",
-        "attribute:name": f"[Carreira] {fm.get('title', '')}",
+        "attribute:name": fm.get("title", "") or "",
         "attribute:url": url,
         "attribute:description": description,
         "attribute:company": fm.get("company", "") or "",
@@ -173,44 +240,30 @@ def build_row_blog(path: Path, fm: dict, body: str) -> dict | None:
 
     return {
         "id": item_id,
-        "catalogObjectType": "Article",
-        "categories": "blog",
-        "attribute:name": f"[Blog] {fm.get('title', '')}",
+        "catalogObjectType": "Blog",
+        "attribute:name": fm.get("title", "") or "",
         "attribute:url": url,
         "attribute:description": description,
-        "attribute:company": "",
-        "attribute:startDate": "",
-        "attribute:endDate": "",
-        "attribute:location": "",
-        "attribute:industry": "",
-        "attribute:seniority": "",
-        "attribute:published": publish_date,
+        "attribute:publishedDate": publish_date,
         "attribute:topics": joined_list(fm, "topics", sep="|"),
-        "attribute:technologies": "",
     }
 
 
-FIELDNAMES = [
-    "id",
-    "catalogObjectType",
-    "categories",
-    "attribute:name",
-    "attribute:url",
-    "attribute:description",
-    "attribute:company",
-    "attribute:startDate",
-    "attribute:endDate",
-    "attribute:location",
-    "attribute:industry",
-    "attribute:seniority",
-    "attribute:published",
-    "attribute:topics",
-    "attribute:technologies",
-]
+def write_csv(path: Path, fieldnames: list[str], rows: list[dict]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as fh:
+        writer = csv.DictWriter(
+            fh,
+            fieldnames=fieldnames,
+            quoting=csv.QUOTE_MINIMAL,
+        )
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 def main() -> int:
-    rows: list[dict] = []
+    article_rows: list[dict] = []
+    blog_rows: list[dict] = []
 
     for path in sorted(CAREER_DIR.glob("*.md")):
         fm, body = parse_post(path)
@@ -218,7 +271,7 @@ def main() -> int:
             continue
         row = build_row_career(path, fm, body or "")
         if row:
-            rows.append(row)
+            article_rows.append(row)
 
     for path in sorted(BLOG_DIR.glob("*.md")):
         fm, body = parse_post(path)
@@ -226,25 +279,18 @@ def main() -> int:
             continue
         row = build_row_blog(path, fm, body or "")
         if row:
-            rows.append(row)
+            blog_rows.append(row)
 
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    with OUTPUT.open("w", encoding="utf-8", newline="") as fh:
-        writer = csv.DictWriter(
-            fh,
-            fieldnames=FIELDNAMES,
-            quoting=csv.QUOTE_MINIMAL,
-        )
-        writer.writeheader()
-        writer.writerows(rows)
-
-    career_count = sum(1 for r in rows if r["categories"] == "career")
-    blog_count = sum(1 for r in rows if r["categories"] == "blog")
+    write_csv(ARTICLES_OUT, ARTICLES_FIELDNAMES, article_rows)
+    write_csv(BLOGS_OUT, BLOGS_FIELDNAMES, blog_rows)
 
     print(
-        f"Generated {OUTPUT.relative_to(REPO_ROOT)} "
-        f"with {len(rows)} items "
-        f"({career_count} career, {blog_count} blog)."
+        f"Generated {ARTICLES_OUT.relative_to(REPO_ROOT)} "
+        f"with {len(article_rows)} career rows."
+    )
+    print(
+        f"Generated {BLOGS_OUT.relative_to(REPO_ROOT)} "
+        f"with {len(blog_rows)} blog rows."
     )
     return 0
 

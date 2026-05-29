@@ -12,17 +12,18 @@ mcp/
 └── templates/
     ├── related_careers.hbs            ← Handlebars markup — design-only mirror
     ├── related_careers.js             ← Clientside Code — INTENTIONAL NO-OP
-    ├── related_careers.ts             ← Serverside Code — recs binding
+    ├── related_careers.ts             ← Serverside Code — recs binding (Item Type Article)
     ├── related_blog.hbs               ← Handlebars markup — design-only mirror
     ├── related_blog.js                ← Clientside Code — INTENTIONAL NO-OP
-    └── related_blog.ts                ← Serverside Code — recs binding
+    └── related_blog.ts                ← Serverside Code — recs binding (Item Type Blog)
 
 assets/js/mcp-related-renderer.js      ← SITE-SIDE RENDERER (actual render path)
                                          loaded synchronously from
                                          _includes/head.html and head-noads.html
                                          BEFORE the MCP beacon
-catalog/articles.csv                   ← Catalog feed (generated, served at /catalog/articles.csv)
-tools/generate_catalog_feed.py         ← Regenerates the CSV from Jekyll _posts
+catalog/articles.csv                   ← Catalog feed for Article (career) — served at /catalog/articles.csv
+catalog/blogs.csv                      ← Catalog feed for Blog (native) — served at /catalog/blogs.csv
+tools/generate_catalog_feed.py         ← Regenerates BOTH CSVs from Jekyll _posts
 ```
 
 Each Web Campaign template in MCP has 4 tabs (`Handlebars`, `CSS`,
@@ -93,16 +94,54 @@ it does on every detail page-load), we intercept and render.
 
 ## Catalog model
 
-- **Item Type**: `Article`
-- **Categories** (polymorphic, `type: "c"`):
-  - `career` → Carreira
-  - `blog` → Blog
-- **Tags** (polymorphic, `type: "t"`): free-form, from `data-article-tags`
-  CSV on the `<article>` element
-- **Attributes (all articles)**: `name`, `url`, `author`, `publishDate`,
-  `description`, `topics` (MultiString — array of strings)
-- **Attributes (career only)**: `company`, `startDate`, `endDate`,
-  `location`, `industry`, `seniority`, `technologies`
+Two Item Types — the Item Type alone discriminates career from blog. No
+`Include Rule = Category …` is needed on any Recipe.
+
+### `Article` Item Type (custom config — career experiences only)
+
+- **System attributes** (already on the Item Type by default): `name`,
+  `url`, `imageUrl`, `description`, `promotable`, `archived`,
+  `numRatings`, `rating`, `published`, `expiration`, `categories`.
+- **Custom attributes** we register: `company` (String), `startDate`
+  (Date), `endDate` (Date), `location` (String), `industry` (String),
+  `seniority` (String), `technologies` (String, CSV), `topics`
+  (MultiString — array of strings).
+- **Tags** (polymorphic `type: "t"`): free-form, from `data-article-tags`
+  CSV on the `<article>` element.
+- **Categories** (polymorphic `type: "c"`): no longer used — the legacy
+  `career` Category can be archived/deleted after migration.
+
+### `Blog` Item Type (native — `EVGBlog`, blog posts only)
+
+- **System attributes** (already on the native `Blog` Item Type):
+  - `name` — used as the **post title** ("Use Item `name` for title")
+  - `url`, `imageUrl`, `description`
+  - `subtitle` (Blog-specific), `modifiedTime` (Blog-specific)
+  - `publishedDate` — the Blog-native Date attr. Per MCP docs:
+    `publishedDate` "must be exclusively used for articles and blogs".
+  - `expiration`, `promotable`, `archived`, `numRatings`, `rating`,
+    `categories`
+- **Tags** (polymorphic `type: "t"`): comes with `Author` and `Keyword`
+  Tag Types natively, queryable from `tools.global.authors` and
+  `tools.global.keywords` in dynamic messages.
+- **Custom attributes** we register: ONLY `topics` (MultiString) — to
+  keep the curated PT-BR taxonomy from `_data/topics.yml` reportable in
+  segments. Everything else uses System attributes.
+
+### Why the migration from single-`Article` + categories
+
+The old layout (`Article` for everything, polymorphic `categories` =
+`career|blog`) collapsed both content types onto one Item Type and
+forced every Recipe to carry `Include Rule: Category = …`. On
+behavioral algorithms (Item Affinity, Co-View), the Include Rule is
+applied as a **post-rank filter** — career has ~3× more aggregated
+views than blog, so the top N comes back full of career items, the
+filter drops everything, and the engine falls back to a "popular items"
+bucket **that ignores the Include Rule**. Net effect: the blog Recipe
+silently returned career items.
+
+The split puts `restrictItemType("Blog")` on the Recipe and the bug
+disappears — the engine never ranks Articles to begin with.
 
 ## Sitemap architecture
 
@@ -211,71 +250,94 @@ an MCP Web Campaign injects items into the inner `.related-grid`
 
 ## Recipes & Campaigns (managed in MCP UI)
 
-| Recipe                       | Type    | Filter                  | Target Zone        |
-|------------------------------|---------|-------------------------|--------------------|
-| `Related Career Experiences` | Article | `categories._id=career` | `related_careers`  |
-| `Related Blog Articles`      | Article | `categories._id=blog`   | `related_blog`     |
+| Recipe                       | Item Type | Filters    | Target Zone        |
+|------------------------------|-----------|------------|--------------------|
+| `Related Career Experiences` | `Article` | none       | `related_careers`  |
+| `Related Blog Articles`      | `Blog`    | none       | `related_blog`     |
 
-Each recipe is consumed by a Web Campaign that:
+The Item Type IS the filter. No Include Rules are required (and adding
+one re-introduces the post-rank-filter footgun documented in the
+Catalog model section).
+
+Each Recipe is consumed by a Web Campaign that:
 1. Targets pages matching `career_detail` OR `blog_detail`
 2. Renders into its respective zone
-3. Uses a Handlebars template producing `.related-card` markup
-   (already styled in `assets/css/demo.css`)
+3. The site-side renderer (`assets/js/mcp-related-renderer.js`)
+   intercepts the response and renders `.related-card` markup
+   (styles in `assets/css/demo.css`)
 
-### Catalog Feed (`catalog/articles.csv`)
+### Catalog Feeds (`catalog/articles.csv` + `catalog/blogs.csv`)
 
-Beacon events update Article attributes and increment Category view
-counts, but they do **not** auto-populate the `Article.categories`
-relation. Without that relation, recipes filtering on `Category =
-career` (or `Category = blog`) return zero items, and any related-
-items campaign renders empty.
+Beacon events update item attributes and increment view counts, but
+they do **not** auto-populate the Item Types themselves — without an
+initial bulk load, recipes have no eligible pool and any related-items
+campaign renders empty.
 
-The fix is to bulk-load Articles via a CSV catalog feed. The feed is
-the **source of truth** for the relation between Articles and
-Categories; beacon events keep handling behavioral signals and
-attributes.
+We bulk-load via **two** CSV catalog feeds, one per Item Type. Beacon
+events keep handling behavioral signals and attribute updates on top.
 
 **Workflow**
 
 1. Edit posts in `career/_posts/` or `blog/_posts/` as usual.
-2. From the repo root, regenerate the CSV:
+2. From the repo root, regenerate both CSVs:
    ```bash
    python3 tools/generate_catalog_feed.py
    ```
-   Output: `catalog/articles.csv`, one row per post, 15 columns.
-3. Commit `catalog/articles.csv` (and any post edits).
-4. Push to GitHub Pages. Jekyll serves the CSV at
-   `https://www.bombonato.net/catalog/articles.csv`.
-5. In MCP UI → Feeds Dashboard → upload or point at the URL → ETL =
-   `Catalog Object ETL` → Validate → Commit.
+   Output:
+     - `catalog/articles.csv` — 28 career rows, 14 columns,
+       `catalogObjectType=Article`
+     - `catalog/blogs.csv` — 25 blog rows, 7 columns,
+       `catalogObjectType=Blog`
+3. Commit both CSVs (and any post edits).
+4. Push to GitHub Pages. Jekyll serves them at
+   `https://www.bombonato.net/catalog/articles.csv` and
+   `/catalog/blogs.csv`.
+5. In MCP UI → Feeds Dashboard:
+   - Create / update **two** feeds, one per CSV. Production filename
+     pattern MUST start with `catalog-object-` (e.g.
+     `catalog-object-articles-YYYYMMDD.csv`) to match the regex; the
+     Gear Editor /testing/ path is dry-run only and never persists.
+   - ETL = `Catalog Object ETL` on both.
+   - Validate → Commit.
 
-**CSV schema**
+**`articles.csv` schema** (Item Type `Article`, career)
 
-| Column                       | Notes                                             |
-|------------------------------|---------------------------------------------------|
-| `id`                         | `YYYYMM-slug`, matches the value the sitemap sends |
-| `categories`                 | `career` or `blog` (one value per Article)        |
-| `attribute:name`             | `[Carreira] …` or `[Blog] …` prefix               |
-| `attribute:url`              | Absolute URL                                      |
-| `attribute:author`           | Hardcoded to site author                          |
-| `attribute:publishDate`      | Post date (YYYY-MM-DD)                            |
-| `attribute:description`      | Front matter `description:` or first ~200 chars   |
-| `attribute:company`          | Career only                                       |
-| `attribute:startDate`        | Career only                                       |
-| `attribute:endDate`          | Career only — empty if "ATUAL"                    |
-| `attribute:location`         | Career only                                       |
-| `attribute:industry`         | Career only                                       |
-| `attribute:seniority`        | Career only                                       |
-| `attribute:topics`           | MultiString — pipe-separated (`a|b|c`)            |
-| `attribute:technologies`     | Career only — pipe-separated                      |
+| Column                       | Notes                                              |
+|------------------------------|----------------------------------------------------|
+| `id`                         | `YYYYMM-slug`, matches `data-article-id`           |
+| `catalogObjectType`          | Always `Article`                                   |
+| `attribute:name`             | Plain title — **no `[Carreira]` prefix**           |
+| `attribute:url`              | Absolute URL                                       |
+| `attribute:description`      | Front matter `description:` or first ~200 chars    |
+| `attribute:company`          | Custom String                                      |
+| `attribute:startDate`        | Custom Date — ISO `YYYY-MM-DD`                     |
+| `attribute:endDate`          | Custom Date — empty if "ATUAL"                     |
+| `attribute:location`         | Custom String                                      |
+| `attribute:industry`         | Custom String                                      |
+| `attribute:seniority`        | Custom String                                      |
+| `attribute:published`        | System Date — Article uses `published`             |
+| `attribute:topics`           | Custom MultiString — pipe-separated (`a|b|c`)      |
+| `attribute:technologies`     | Custom String — comma-separated                    |
+
+**`blogs.csv` schema** (Item Type `Blog`, native)
+
+| Column                       | Notes                                              |
+|------------------------------|----------------------------------------------------|
+| `id`                         | `YYYYMM-slug`, matches `data-article-id`           |
+| `catalogObjectType`          | Always `Blog`                                      |
+| `attribute:name`             | Plain title — **no `[Blog]` prefix** ("Use Item `name` for title") |
+| `attribute:url`              | Absolute URL                                       |
+| `attribute:description`      | Front matter `description:` or first ~200 chars    |
+| `attribute:publishedDate`    | System Date — Blog uses `publishedDate` (NOT `published`) |
+| `attribute:topics`           | Custom MultiString — pipe-separated (`a|b|c`). The only custom attr we register on `Blog`. |
 
 **Why no SFTP**
 
 MCP also supports SFTP-based feed delivery. We use the HTTP variant
-because GitHub Pages already hosts the site over HTTPS, so the CSV is
-deployed as part of the regular Jekyll build pipeline — no extra
-infrastructure required. If the feed grows or needs scheduling, swap
-to SFTP without changing the upstream generator.
+because GitHub Pages already hosts the site over HTTPS, so the CSVs
+ship with the regular Jekyll build pipeline — no extra infrastructure
+required. If a feed grows or needs scheduling, swap to SFTP without
+changing the upstream generator.
 
 ### Template Serverside Code (`recs` module)
 
@@ -335,14 +397,14 @@ Common triggers:
    "No options" because the Item Type was left as the default
    "Product" — see the previous bullet about `.restrictItemType`).
    Either way, `recommend()` has no `recipeId` to execute and throws.
-2. **Recipe filters on Categories before the CSV ETL has run.**
-   The beacon does not populate `Article.categories`. Without
-   `catalog/articles.csv` ingested, a Recipe filtering on
-   `Category = career` (or `blog`) finds no eligible items and
-   throws instead of returning empty.
+2. **Recipe pool empty because the CSV ETL hasn't run.** Without
+   `catalog/articles.csv` (and `catalog/blogs.csv`) ingested, the
+   Item Type has no eligible items and the Recipe throws instead of
+   returning empty. Bulk-load first, then publish the Recipe.
 3. **Recipe references an attribute that is not registered on the
-   Item Type** (e.g. `author`, `publishDate` — both unregistered;
-   use the System Attribute `published` instead).
+   Item Type** (e.g. `author`, `publishDate` on Article — both
+   unregistered; use the System Attribute `published` on Article and
+   `publishedDate` on Blog instead).
 4. **Strict Catalog Security is ON.** Toggle OFF at
    `Settings → Catalog and Profile Objects → Catalog Settings →
    Security → Enable Strict Catalog Security` — when ON the beacon
@@ -361,15 +423,16 @@ Diagnosis recipe:
 
 1. Open the Template Editor → **TEST** panel → check the
    **Recommendation Settings** card. `Item Type` should be locked to
-   `Article`; the `Recipe` dropdown must list at least one option.
-   If it shows "No options" the cause is almost always a missing
-   `.restrictItemType("Article")` in the Serverside Code.
+   `Article` (for `related_careers`) or `Blog` (for `related_blog`);
+   the `Recipe` dropdown must list at least one option. If it shows
+   "No options" the cause is almost always a missing
+   `.restrictItemType("Article" | "Blog")` in the Serverside Code.
 2. In MCP UI → Campaigns → the affected campaign → open the
    template settings → confirm a Recipe is selected.
 3. Open the page in an incognito window with the Chrome
    "Salesforce Interactions SDK Launcher" extension; check that
    `View Catalog Object` fires with the correct `catalogObject.id`
-   and `categories: [...]`.
+   and `catalogObject.type` (`Article` for career, `Blog` for blog).
 4. In MCP UI → Recipes → open that Recipe → run **Test/Preview**
    with a real Profile ID; if it errors here, the Recipe (not the
    template) is the cause.
