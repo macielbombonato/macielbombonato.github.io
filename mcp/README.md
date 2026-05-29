@@ -11,8 +11,10 @@ mcp/
 ├── sitemap.js                         ← Sitemap JS (paste into MCP Visual Editor → Sitemap)
 └── templates/
     ├── related_careers.hbs            ← Handlebars markup (paste into Handlebars tab)
+    ├── related_careers.js             ← Clientside Code (paste into Clientside Code tab)
     ├── related_careers.ts             ← Serverside Code (paste into Serverside Code tab)
     ├── related_blog.hbs               ← Handlebars markup (paste into Handlebars tab)
+    ├── related_blog.js                ← Clientside Code (paste into Clientside Code tab)
     └── related_blog.ts                ← Serverside Code (paste into Serverside Code tab)
 
 catalog/articles.csv                   ← Catalog feed (generated, served at /catalog/articles.csv)
@@ -20,12 +22,15 @@ tools/generate_catalog_feed.py         ← Regenerates the CSV from Jekyll _post
 ```
 
 Each Web Campaign template in MCP has 4 tabs (`Handlebars`, `CSS`,
-`Clientside Code`, `Serverside Code`). We only need the first and the
-last: the `.hbs` files carry the markup; the `.ts` files carry the
+`Clientside Code`, `Serverside Code`). We version three of them: the
+`.hbs` files carry the markup, the `.js` files carry browser-side
+tracking (impression + click), and the `.ts` files carry the
 recommendation binding (`RecommendationsConfig + recommend` from
-`recs`). The Recipe itself is **selected by the marketer in the Campaign
-editor**, not hardcoded — so the same template can power both the
-careers and the blog widget if you reassign the recipe.
+`recs`). We don't version `CSS` because the related-card styles live
+in `assets/css/demo.css` and are shipped with the site, not with the
+template. The Recipe itself is **selected by the marketer in the
+Campaign editor**, not hardcoded — so the same template can power both
+the careers and the blog widget if you reassign the recipe.
 
 ## Workflow
 
@@ -82,6 +87,17 @@ flowchart TD
 | `View Catalog Object`     | Career or blog detail pages                    | full catalogObject            |
 | `View Experience Details` | Click on "Mais detalhes" on home cards         | `role`, `company`             |
 | `Contact Click`           | Click on mailto / linkedin / github links      | `destination`, `kind`         |
+
+## Custom interactions sent by the template Clientside Code
+
+These fire from `mcp/templates/related_*.js`, **not** from the sitemap.
+They run inside the rendered Campaign so the impression is only counted
+when the template actually drew cards on the page.
+
+| Name                    | When                                          | Extra fields                                         |
+|-------------------------|-----------------------------------------------|------------------------------------------------------|
+| `View Recommendations`  | The recommendations widget rendered           | `widget` (`related_careers` \| `related_blog`)       |
+| `Click Recommendation`  | Visitor clicked a recommended card            | `widget`, `targetId`, `targetName`, `destination`    |
 
 ## Gotchas (lessons learned)
 
@@ -309,3 +325,57 @@ Diagnosis recipe:
 4. In MCP UI → Recipes → open that Recipe → run **Test/Preview**
    with a real Profile ID; if it errors here, the Recipe (not the
    template) is the cause.
+
+### Template Clientside Code
+
+Runs in the browser **after** Handlebars renders. Its job is to
+attribute the recipe to user behavior:
+
+```js
+(function () {
+    "use strict";
+
+    var WIDGET = "related_careers";
+    var SELECTOR = '[data-cy-track="related_career_click"]';
+
+    try {
+        SalesforceInteractions.sendEvent({
+            interaction: { name: "View Recommendations", widget: WIDGET },
+        });
+    } catch (e) {}
+
+    document.querySelectorAll(SELECTOR).forEach(function (card) {
+        card.addEventListener("click", function () {
+            try {
+                SalesforceInteractions.sendEvent({
+                    interaction: {
+                        name: "Click Recommendation",
+                        widget: WIDGET,
+                        targetId: card.getAttribute("data-cy-target-id") || "",
+                        destination: card.getAttribute("href") || "",
+                    },
+                });
+            } catch (e) {}
+        });
+    });
+})();
+```
+
+Key points:
+
+- The script reads the `data-cy-track` and `data-cy-target-id`
+  attributes from the rendered cards — `.hbs` and `.js` are
+  **coupled**, so if you rename one, rename the other.
+- All tracking is wrapped in `try/catch`. The Clientside Code must
+  never break the rendered widget or block the user's click — a
+  failed beacon is worse than no beacon.
+- Use **per-card** listeners, not a document-level delegated
+  listener. MCP can re-render a Campaign multiple times in one
+  session; per-card listeners die with the card when it leaves the
+  DOM, so we don't leak stale handlers.
+- The `widget` field distinguishes `related_careers` from
+  `related_blog` so reports can compute per-widget impressions and
+  CTR even when both render on the same detail page.
+- `Click Recommendation` is **not** the same as the page-level
+  `View Catalog Object` that the sitemap fires on the destination
+  page — both should be present for attribution to work.
