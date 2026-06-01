@@ -1,4 +1,4 @@
-id,catalogObjectType,attribute:name,attribute:url,attribute:description,attribute:publishedDate,attribute:topics
+id,catalogObjectType,attribute:name,attribute:url,attribute:description,attribute:date,attribute:topics
 201103-Instalacao-Diaspora-Desenvolvimento,Blog,Instalação/Preparação do Diaspora para desenvolvimento,https://www.bombonato.net/2011/03/Instalacao-Diaspora-Desenvolvimento/,"Passo a passo para instalar e preparar o ambiente de desenvolvimento da rede social Diaspora usando RVM, bundler e configuração de banco.",2011-03-29,tooling|development
 201103-Instalacao-Redis-MACOS-x-Linux,Blog,Instalação Redis MacOS X e Linux em 30s,https://www.bombonato.net/2011/03/Instalacao-Redis-MACOS-x-Linux/,"Como instalar o Redis em macOS e Linux em 30 segundos usando make install, com os pré-requisitos para cada sistema operacional.",2011-03-29,tooling|devops-cloud
 201104-Utilizando-Git,Blog,Utilizando Git na linha de comando,https://www.bombonato.net/2011/04/Utilizando-Git/,"Lista prática de comandos git essenciais para versionar diretórios locais, gerenciar branches, fazer merges e configurar repositórios remotos.",2011-04-04,tooling|development
