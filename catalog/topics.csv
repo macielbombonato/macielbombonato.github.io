@@ -1,0 +1,11 @@
+id,catalogObjectType,attribute:name
+architecture,Topics,Arquitetura
+development,Topics,Desenvolvimento
+devops-cloud,Topics,DevOps & Cloud
+security,Topics,Segurança
+marketing-tech,Topics,MarTech & CX
+data,Topics,Dados & Integração
+consulting,Topics,Consultoria
+teaching,Topics,Ensino & Mentoria
+tooling,Topics,Ferramentas & CLI
+troubleshooting,Topics,Suporte & Resolução

@@ -1,0 +1,172 @@
+id,catalogObjectType,attribute:name
+administrative,Tags,Administrative
+agile,Tags,Agile
+airline,Tags,Airline
+analysis,Tags,Analysis
+android,Tags,Android
+apache,Tags,Apache
+architect,Tags,Architect
+architecture,Tags,Architecture
+audit,Tags,Audit
+aws,Tags,AWS
+backoffice,Tags,Backoffice
+banking,Tags,Banking
+blog,Tags,Blog
+bootable-usb,Tags,Bootable Usb
+build,Tags,Build
+chosen,Tags,Chosen
+ci-cd,Tags,Ci Cd
+cli,Tags,Cli
+cloud,Tags,Cloud
+commerce,Tags,Commerce
+computer-basics,Tags,Computer Basics
+configuration,Tags,Configuration
+consulting,Tags,Consulting
+credit,Tags,Credit
+cronjob,Tags,Cronjob
+css,Tags,CSS
+custom-rom,Tags,Custom Rom
+customer-experience,Tags,Customer Experience
+cyanogenmod,Tags,Cyanogenmod
+data-cloud,Tags,Data Cloud
+data-extraction,Tags,Data Extraction
+database,Tags,Database
+debugging,Tags,Debugging
+delivery,Tags,Delivery
+dev,Tags,Dev
+development,Tags,Development
+devops,Tags,Devops
+di,Tags,Di
+diaspora,Tags,Diaspora
+display,Tags,Display
+docker,Tags,Docker
+dotnet-to-java,Tags,.NET to Java
+e-learning,Tags,E-Learning
+eclipse,Tags,Eclipse
+ecr,Tags,Ecr
+education,Tags,Education
+electron,Tags,Electron
+email,Tags,Email
+email-marketing,Tags,Email Marketing
+entrepreneurship,Tags,Entrepreneurship
+errands,Tags,Errands
+error-handling,Tags,Error Handling
+finance,Tags,Finance
+frontend,Tags,Frontend
+git,Tags,Git
+github,Tags,Github
+github-pages,Tags,Github Pages
+global-team,Tags,Global Team
+government,Tags,Government
+hardware,Tags,Hardware
+healthcare,Tags,Healthcare
+helpdesk,Tags,Helpdesk
+hibernate,Tags,Hibernate
+hybris,Tags,Hybris
+ibm,Tags,IBM
+ide,Tags,Ide
+infrastructure,Tags,Infrastructure
+installer,Tags,Installer
+instructor,Tags,Instructor
+insurance,Tags,Insurance
+integration,Tags,Integration
+intellij,Tags,Intellij
+internship,Tags,Internship
+jar,Tags,Jar
+java,Tags,Java
+java-web-start,Tags,Java Web Start
+jekyll,Tags,Jekyll
+jpa,Tags,JPA
+jquery,Tags,jQuery
+jsf,Tags,JSF
+jvm,Tags,Jvm
+keytool,Tags,Keytool
+kubernetes,Tags,Kubernetes
+lab,Tags,Lab
+large-files,Tags,Large Files
+latam,Tags,Latam
+leadership,Tags,Leadership
+legacy-systems,Tags,Legacy Systems
+lfs,Tags,Lfs
+liferay,Tags,Liferay
+linux,Tags,Linux
+listener,Tags,Listener
+loyalty,Tags,Loyalty
+macos,Tags,Macos
+management,Tags,Management
+manufacturing,Tags,Manufacturing
+marketing-cloud,Tags,Marketing Cloud
+martech,Tags,Martech
+materials,Tags,Materials
+maven,Tags,Maven
+methodology,Tags,Methodology
+migration,Tags,Migration
+mobile,Tags,Mobile
+monitor,Tags,Monitor
+motorola,Tags,Motorola
+multipart,Tags,Multipart
+navigation,Tags,Navigation
+network,Tags,Network
+notification,Tags,Notification
+office,Tags,Microsoft Office
+open-source,Tags,Open Source
+outsourcing,Tags,Outsourcing
+owner,Tags,Owner
+payments,Tags,Payments
+pension,Tags,Pension
+performance,Tags,Performance
+persistence,Tags,Persistence
+personalization,Tags,Personalization
+pharma,Tags,Pharma
+php,Tags,PHP
+port,Tags,Port
+portal,Tags,Portal
+pos,Tags,POS
+presales,Tags,Presales
+print,Tags,Print
+procurement,Tags,Procurement
+project-management,Tags,Project Management
+proxy,Tags,Proxy
+public-sector,Tags,Public Sector
+rancher,Tags,Rancher
+redirect,Tags,Redirect
+redis,Tags,Redis
+reporting,Tags,Reporting
+research,Tags,Research
+retail,Tags,Retail
+rocketchat,Tags,Rocketchat
+rooting,Tags,Rooting
+ruby,Tags,Ruby
+rvm,Tags,Rvm
+salesforce,Tags,Salesforce
+sap,Tags,Sap
+scrum,Tags,Scrum
+second-level-support,Tags,Second-Level Support
+security,Tags,Security
+session,Tags,Session
+setup,Tags,Setup
+signing,Tags,Signing
+skype,Tags,Skype
+software-factory,Tags,Software Factory
+spring,Tags,Spring
+spring-mvc,Tags,Spring MVC
+ssh,Tags,Ssh
+static-site,Tags,Static Site
+subversion,Tags,Subversion
+support,Tags,Support
+svn,Tags,Svn
+system,Tags,System
+teaching,Tags,Teaching
+tech-lead,Tags,Tech Lead
+technical-education,Tags,Technical Education
+telecom,Tags,Telecom
+terminal,Tags,Terminal
+tomcat,Tags,Apache Tomcat
+training,Tags,Training
+ubuntu,Tags,Ubuntu
+upload,Tags,Upload
+vcs,Tags,Vcs
+vehicle-financing,Tags,Vehicle Financing
+vendor-management,Tags,Vendor Management
+video-conference,Tags,Video Conference
+web,Tags,Web

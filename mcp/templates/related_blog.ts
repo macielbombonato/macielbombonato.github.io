@@ -30,6 +30,15 @@
  * Splitting blog into its own native Item Type removes the failure
  * mode at the root.
  *
+ * Recipe filtering — `Topics` and `Tags` are now their own Item Types
+ * connected to `Blog` via `relatedCatalogObjects` (see mcp/sitemap.js
+ * and the v3 catalog model in mcp/README.md). The Recipe's Include
+ * Rule should filter on "items that share at least one Topic with
+ * the currently viewed item" — a robust graph filter, NOT a string
+ * match on a MultiString attribute. Build the Include Rule in the
+ * Recipe editor; this template doesn't need to thread the filter
+ * through.
+ *
  * Defensive `try/catch`: even with the Item Type locked, the marketer
  * can still publish the Campaign before selecting a Recipe, the
  * selected Recipe can reference missing catalog data (e.g. the

@@ -217,7 +217,7 @@
         var company = readAttr(a.company);
         var startDate = readAttr(a.startDate);
         var endDate = readAttr(a.endDate);
-        var topics = readAttr(a.topics);
+        var topics = readRelated(item, "Topics", a.topics);
 
         var meta = formatMonth(startDate) +
             (endDate ? " \u2014 " + formatMonth(endDate) : " \u2014 ATUAL");
@@ -244,17 +244,16 @@
         var a = (item && item.attributes) || {};
         var url = readAttr(a.url);
         var name = readAttr(a.name);
-        // Blog uses the native System Attribute `publishedDate` (per MCP
-        // docs: "publishedDate must be exclusively used for articles
-        // and blogs"). We fall back to `published` and `publishDate`
-        // for any legacy payload still in flight from before the
-        // single-Article+categories layout was split into Article
-        // (career) and native Blog (blog). The fallbacks become dead
-        // code once the catalog feed and beacon are fully migrated.
+        // Blog uses the native System Attribute `publishedDate` (per
+        // MCP docs: "publishedDate must be exclusively used for
+        // articles and blogs"). We fall back to `published` and
+        // `publishDate` for any legacy payload still in flight from
+        // before the Article/Blog split. The fallbacks become dead
+        // code once the feed and beacon are fully migrated.
         var published = readAttr(a.publishedDate)
             || readAttr(a.published)
             || readAttr(a.publishDate);
-        var topics = readAttr(a.topics);
+        var topics = readRelated(item, "Topics", a.topics);
 
         var meta = formatDayMonthYear(published);
         var topicsHtml = buildTopicChips(topics);
@@ -285,6 +284,79 @@
         if (!attr) return null;
         if (typeof attr === "object" && "value" in attr) return attr.value;
         return attr;
+    }
+
+    /**
+     * Read a related-catalog-object set from a Recipe payload item.
+     *
+     * Background: in the current MCP architecture (v3), Topics /
+     * Technologies / Tags are their own Item Types connected to
+     * Article / Blog via `relatedCatalogObjects`. On the Recipe
+     * response side, those relations are surfaced as `item.dimensions`
+     * (per the official "Advanced Dynamic Message Content Cheatsheet"
+     * — `${item.dimensions}` is described as an Array of "All related
+     * Catalog Objects"). Different runtime contexts have historically
+     * exposed this either as a dict keyed by Item Type name or as a
+     * flat array of objects each carrying a `type`/`itemType`, so we
+     * probe both shapes defensively.
+     *
+     * Fallback (`legacyAttr`) handles any in-flight item from the v2
+     * architecture where `topics` was still a MultiString attribute
+     * inside `attributes`. Safe to remove once the catalog has been
+     * fully reingested under v3.
+     *
+     * Returns: array of human-readable label strings (e.g.
+     * ["Desenvolvimento", "Tooling"]). Empty array when no relation
+     * is found — caller decides whether to render the chip strip.
+     */
+    function readRelated(item, typeName, legacyAttr) {
+        if (!item) return readAttr(legacyAttr) || [];
+
+        var dims = item.dimensions || item.relatedCatalogObjects;
+        if (dims) {
+            // Shape A: { Topics: [...], Technologies: [...] }
+            if (typeof dims === "object" && !isArrayLike(dims)) {
+                var bucket = dims[typeName];
+                if (bucket && bucket.length) return mapToLabels(bucket);
+            }
+            // Shape B: [ { type: "Topics", _id, name }, { type: "Tags", ... } ]
+            if (isArrayLike(dims)) {
+                var bucketArr = [];
+                for (var i = 0; i < dims.length; i++) {
+                    var entry = dims[i];
+                    if (!entry) continue;
+                    var entryType = entry.type || entry.itemType
+                        || (entry.catalogObject && entry.catalogObject.type);
+                    if (entryType === typeName) bucketArr.push(entry);
+                }
+                if (bucketArr.length) return mapToLabels(bucketArr);
+            }
+        }
+
+        return readAttr(legacyAttr) || [];
+    }
+
+    function isArrayLike(v) {
+        return Object.prototype.toString.call(v) === "[object Array]";
+    }
+
+    function mapToLabels(bucket) {
+        var out = [];
+        for (var i = 0; i < bucket.length; i++) {
+            var entry = bucket[i];
+            if (entry === null || entry === undefined) continue;
+            // Each related-catalog-object entry can arrive as a plain
+            // ID string OR as an object with { name, _id, id }. Prefer
+            // the human-readable name; fall back to id; finally to the
+            // raw string itself.
+            if (typeof entry === "string") {
+                out.push(entry);
+            } else if (typeof entry === "object") {
+                var label = entry.name || entry._id || entry.id || "";
+                if (label) out.push(label);
+            }
+        }
+        return out;
     }
 
     function formatMonth(value) {

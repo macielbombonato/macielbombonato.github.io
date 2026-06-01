@@ -1,14 +1,24 @@
 {{!--
-  MCP Web Campaign — Related Blog Widget
-  --------------------------------------
-  Target zone: related_blog
-  Page types : career_detail, blog_detail
-  Recipe     : Related Blog Articles
-  Renders 1–3 blog post cards. The wrapper <aside class="related-articles">
-  has CSS that auto-hides when this grid is empty.
+  MCP Web Campaign — Related Blog Widget (DESIGN MIRROR ONLY)
+  -----------------------------------------------------------
+  This file is intentionally a design-only mirror. The MCP Template's
+  Clientside Code is a no-op (see related_blog.js) — actual rendering
+  is performed by assets/js/mcp-related-renderer.js, which intercepts
+  the MCP campaign response and writes cards directly into
+  <div id="mcp-related-blog">. Editing this .hbs in the MCP UI does
+  NOT affect the live widget; keep it here so designers can reason
+  about the markup shape that the renderer mirrors.
 
-  Cards reuse the .related-card styles but add the .is-blog modifier so the
-  topic chips render in purple (matching the blog detail layout's palette).
+  Card data contract (one row in `items`):
+    item._id                                 → catalog item ID
+    item.attributes.url           (.value)   → href
+    item.attributes.name          (.value)   → headline
+    item.attributes.publishedDate (.value)   → publish date (Date ms)
+    item.dimensions.Topics                   → related Topics items (label = `name`)
+
+  Renders 1–3 blog post cards. The wrapper <aside class="related-articles">
+  has CSS that auto-hides when this grid is empty. Cards add the
+  .is-blog modifier so the topic chips render in the blog palette.
 --}}
 {{#if items.length}}
   {{#each items}}
@@ -17,13 +27,13 @@
        data-cy-track="related_blog_click"
        data-cy-target-id="{{_id}}">
       <div class="related-card-meta">
-        {{formatDate attributes.publishDate "DD MMM YYYY"}}
+        {{formatDate attributes.publishedDate "DD MMM YYYY"}}
       </div>
       <h4 class="related-card-title">{{attributes.name}}</h4>
-      {{#if attributes.topics}}
+      {{#if dimensions.Topics.length}}
         <div class="related-card-topics">
-          {{#each attributes.topics}}
-            <span class="related-card-topic">{{this}}</span>
+          {{#each dimensions.Topics}}
+            <span class="related-card-topic">{{name}}</span>
           {{/each}}
         </div>
       {{/if}}

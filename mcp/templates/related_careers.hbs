@@ -1,14 +1,25 @@
 {{!--
-  MCP Web Campaign — Related Careers Widget
-  -----------------------------------------
-  Target zone: related_careers
-  Page types : career_detail, blog_detail
-  Recipe     : Related Career Experiences
+  MCP Web Campaign — Related Careers Widget (DESIGN MIRROR ONLY)
+  --------------------------------------------------------------
+  This file is intentionally a design-only mirror. The MCP Template's
+  Clientside Code is a no-op (see related_careers.js) — actual
+  rendering is performed by assets/js/mcp-related-renderer.js, which
+  intercepts the MCP campaign response and writes cards directly into
+  <div id="mcp-related-careers">. Editing this .hbs in the MCP UI does
+  NOT affect the live widget; keep it here so designers can reason
+  about the markup shape that the renderer mirrors.
+
+  Card data contract (one row in `items`):
+    item._id                              → catalog item ID
+    item.attributes.url       (.value)    → href
+    item.attributes.name      (.value)    → headline
+    item.attributes.company   (.value)    → subheading (optional)
+    item.attributes.startDate (.value)    → date range start (Date ms)
+    item.attributes.endDate   (.value)    → date range end (Date ms), optional
+    item.dimensions.Topics                → related Topics items (label = `name`)
+
   Renders 1–3 career-themed cards. The wrapper <aside class="related-articles">
   has CSS that auto-hides when this grid is empty.
-
-  Card markup must match the .related-card styles already deployed in
-  /assets/css/demo.css.
 --}}
 {{#if items.length}}
   {{#each items}}
@@ -24,10 +35,10 @@
       {{#if attributes.company}}
         <p class="related-card-company">{{attributes.company}}</p>
       {{/if}}
-      {{#if attributes.topics}}
+      {{#if dimensions.Topics.length}}
         <div class="related-card-topics">
-          {{#each attributes.topics}}
-            <span class="related-card-topic">{{this}}</span>
+          {{#each dimensions.Topics}}
+            <span class="related-card-topic">{{name}}</span>
           {{/each}}
         </div>
       {{/if}}

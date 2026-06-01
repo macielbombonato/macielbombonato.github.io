@@ -1,0 +1,97 @@
+id,catalogObjectType,attribute:name
+agentforce,Technologies,Agentforce
+ai,Technologies,AI
+android,Technologies,Android
+aws,Technologies,AWS
+awt,Technologies,AWT
+azure,Technologies,Azure
+azure-devops,Technologies,Azure DevOps
+bitbucket,Technologies,Bitbucket
+bizagi,Technologies,Bizagi
+bootstrap,Technologies,Bootstrap
+bpmn,Technologies,BPMN
+composer,Technologies,Composer
+css,Technologies,CSS
+data-cloud,Technologies,Data Cloud
+docker,Technologies,Docker
+doctrine,Technologies,Doctrine
+dotnet,Technologies,.NET
+dwr,Technologies,DWR
+ec2,Technologies,Amazon EC2
+eclipse,Technologies,Eclipse
+ecs,Technologies,Amazon ECS
+ejb,Technologies,EJB
+elastic-beanstalk,Technologies,Elastic Beanstalk
+enterprise-architect,Technologies,Enterprise Architect
+excel,Technologies,Excel
+foundation,Technologies,Foundation
+html,Technologies,HTML
+hybris,Technologies,Hybris
+ibm-mq,Technologies,IBM MQ
+internet,Technologies,Internet
+ios,Technologies,iOS
+itext,Technologies,iText
+j2ee,Technologies,Java EE
+j2se,Technologies,Java SE
+java,Technologies,Java
+java-web-start,Technologies,Java Web Start
+javaee,Technologies,Java EE
+javascript,Technologies,JavaScript
+jboss,Technologies,JBoss
+jdbc,Technologies,JDBC
+jenkins,Technologies,Jenkins
+jira,Technologies,Jira
+jms,Technologies,JMS
+jpa,Technologies,JPA
+jquery,Technologies,jQuery
+jsf,Technologies,JSF
+jsp,Technologies,JSP
+jstl,Technologies,JSTL
+jude,Technologies,JUDE
+jython,Technologies,Jython
+kyma,Technologies,Kyma
+liferay,Technologies,Liferay
+marketing-cloud,Technologies,Marketing Cloud
+marketing-cloud-personalization,Technologies,Marketing Cloud Personalization
+micro-services,Technologies,Microservices
+mq-series,Technologies,IBM MQ Series
+ms-project,Technologies,MS Project
+mysql,Technologies,MySQL
+nodejs,Technologies,Node.js
+office,Technologies,Microsoft Office
+oracle,Technologies,Oracle
+oracle-forms,Technologies,Oracle Forms
+oracle-reports,Technologies,Oracle Reports
+php,Technologies,PHP
+plsql,Technologies,PL/SQL
+pos,Technologies,POS
+python,Technologies,Python
+rad,Technologies,IBM RAD
+rds,Technologies,Amazon RDS
+rmi,Technologies,RMI
+s3,Technologies,Amazon S3
+salesforce,Technologies,Salesforce
+sap-commerce,Technologies,SAP Commerce
+scrum,Technologies,Scrum
+servlets,Technologies,Servlets
+sonarqube,Technologies,SonarQube
+spring,Technologies,Spring
+spring-batch,Technologies,Spring Batch
+spring-boot,Technologies,Spring Boot
+spring-config-server,Technologies,Spring Cloud Config
+spring-data,Technologies,Spring Data
+spring-mvc,Technologies,Spring MVC
+spring-security,Technologies,Spring Security
+struts,Technologies,Struts
+swing,Technologies,Swing
+symfony,Technologies,Symfony
+teamcity,Technologies,TeamCity
+tomcat,Technologies,Apache Tomcat
+udeploy,Technologies,uDeploy
+uml,Technologies,UML
+video-conference,Technologies,Video Conference
+websphere,Technologies,WebSphere
+windows,Technologies,Windows
+windows-98,Technologies,Windows 98
+wsad,Technologies,WSAD
+xmlbeans,Technologies,XMLBeans

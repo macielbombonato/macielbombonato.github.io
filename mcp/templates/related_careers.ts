@@ -18,12 +18,22 @@
  * Campaign editor so the Recipe dropdown lists only Recipes built on
  * the `Article` Item Type, and (2) at runtime it scopes `recommend()`
  * to candidates of type `Article` (which on this dataset means only
- * career experiences — blog posts now live in the native `Blog` Item
+ * career experiences — blog posts live in the native `Blog` Item
  * Type, see related_blog.ts). Without this restriction the picker
  * defaults to the placeholder "Product" Item Type, the Recipe
  * dropdown shows "No options", and at runtime `recommend()` is
  * called with `recipeId: null` and throws the "System service
  * exception".
+ *
+ * Recipe filtering — `Topics`, `Technologies`, and `Tags` are now
+ * their own Item Types connected to `Article` via
+ * `relatedCatalogObjects` (see mcp/sitemap.js and the v3 catalog
+ * model in mcp/README.md). That means the Recipe's Include Rule
+ * can filter on "related catalog object membership" — e.g. "items
+ * that share at least one Topic with the currently viewed item" —
+ * which is a robust graph filter, NOT a fragile string match on a
+ * MultiString attribute. Build the Include Rule in the Recipe
+ * editor; this template doesn't need to thread the filter through.
  *
  * Defensive `try/catch`: even with the Item Type locked, the marketer
  * can still publish the Campaign before selecting a Recipe, the

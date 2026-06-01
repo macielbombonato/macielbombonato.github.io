@@ -10,24 +10,49 @@
  *        MCP UI → Web → Sitemap → tab "Sitemap JS"
  *   3. SAVE → EXECUTE (dry-run) → PUBLISH
  *
- * Catalog model — TWO Item Types, the Item Type itself discriminates.
- *   - Item Type `Article` (custom)  →  career_detail pages
- *       System attrs : name, url, description, published
- *       Custom attrs : company, startDate, endDate, location, industry,
- *                      seniority, technologies, topics (MultiString)
- *       Tags         : polymorphic, type "t", from data-article-tags CSV
- *   - Item Type `Blog` (native EVGBlog)  →  blog_detail pages
- *       System attrs : name (=title), url, description, publishedDate
- *       Custom attrs : topics (MultiString) — the ONLY custom on Blog
- *       Tags         : polymorphic, type "t", from data-article-tags CSV
- *                      (Author/Keyword Tag types are also natively
- *                      supported on Blog but we don't populate them
- *                      from the beacon yet — see mcp/README.md)
+ * Catalog model — FIVE Item Types
+ * -------------------------------
+ *   Content types (the things users view):
+ *     - `Article` (custom)       → career experience pages
+ *         System attrs : name, url, description, published
+ *         Custom attrs : company, startDate, endDate, location,
+ *                        industry, seniority
+ *     - `Blog` (native EVGBlog)  → blog post pages
+ *         System attrs : name (=title), url, description, publishedDate
+ *         No custom attrs
  *
- * `categories` are no longer sent because the Item Type is the
- * discriminator. The legacy career/blog Category catalog objects can
- * be archived/deleted after migration; recipes no longer reference
- * them.
+ *   Reference types (describe & connect content):
+ *     - `Topics`        (custom) → curated taxonomy from _data/topics.yml
+ *     - `Technologies`  (custom) → stack/tools used in career experiences
+ *     - `Tags`          (custom) → free-form labels on both Article + Blog
+ *
+ * `Article` and `Blog` connect to `Topics`, `Technologies`, and `Tags`
+ * via `relatedCatalogObjects` (the SDK's relational primitive — see
+ * https://developer.salesforce.com/docs/marketing/personalization/guide/sitemap-implementation.html
+ * "CatalogConfig" section). Each entry is keyed by the related Item
+ * Type's exact name and carries an array of IDs into that type. The
+ * IDs must already exist in the target Item Type, so the CSV ETL
+ * order matters: load topics.csv / technologies.csv / tags.csv
+ * BEFORE articles.csv / blogs.csv (see tools/generate_catalog_feed.py).
+ *
+ * History — why we moved off custom attributes:
+ *   v1 had `topics` (MultiString) and `technologies` (String) inside
+ *   `attributes`. That made Recipes filter on string equality, which
+ *   is fragile, and prevented "more by this Topic" Recipes because
+ *   attribute values are not first-class catalog objects. Promoting
+ *   them to their own Item Types lets Recipes filter via "Related
+ *   Catalog Object membership", which is a graph query — robust and
+ *   reusable across many Recipes (Topic detail pages, Topic-based
+ *   recommendations, segmentation, etc.).
+ *
+ * `categories` (the built-in polymorphic slot) is also no longer sent
+ * because the Item Type itself now discriminates Article vs Blog.
+ *
+ * `tags` (the built-in polymorphic Tag slot — `type: "t"`) is no
+ * longer sent either. It used to coexist with `attributes.tags`, but
+ * with `Tags` promoted to its own Item Type we have ONE source of
+ * truth (`relatedCatalogObjects.Tags`). Legacy Tag polymorphic items
+ * can be archived in the MCP UI after the migration completes.
  *
  * Notes / gotchas
  *   - The pageType-level interaction key is `interaction:` (singular),
@@ -39,32 +64,23 @@
  *     send an event with `interaction: null`.
  *   - `isMatch` uses `matchWhenReady` for catalog pages to ensure the
  *     `<article>` element is in the DOM before testing.
- *   - `topics` is MultiString in the MCP catalog config, so we send
- *     it as an array (via `fromCsvAttr`). Do NOT switch to
- *     `fromSelectorAttribute` unless you also change the catalog
- *     attribute type back to String.
+ *   - `relatedCatalogObjects` keys are CASE-SENSITIVE and must match
+ *     the Item Type names in MCP UI exactly: `Topics`, `Technologies`,
+ *     `Tags`. Misspelling silently drops the relation.
  */
 
 SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
 
   SalesforceInteractions.log.level = "debug";
 
+  // Reads a comma-separated `data-*` attribute and returns an array
+  // of trimmed, non-empty values. Used for `relatedCatalogObjects.*`
+  // payloads which expect `string[]`.
   const fromCsvAttr = (selector, attr) => () => {
     const el = document.querySelector(selector);
     if (!el) return [];
     const raw = el.getAttribute(attr) || "";
     return raw.split(",").map((s) => s.trim()).filter(Boolean);
-  };
-
-  const fromCsvAttrAsTags = (selector, attr) => () => {
-    const el = document.querySelector(selector);
-    if (!el) return [];
-    const raw = el.getAttribute(attr) || "";
-    return raw
-      .split(",")
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .map((t) => ({ type: "t", _id: t, name: t }));
   };
 
   const matchWhenReady = (selector) => () => new Promise((resolve) => {
@@ -156,20 +172,22 @@ SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
           catalogObject: {
             type: "Article",
             id: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-id"),
-            tags: fromCsvAttrAsTags("article.post", "data-article-tags"),
             attributes: {
-              name:         SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-name"),
-              url:          SalesforceInteractions.resolvers.fromHref(),
-              description:  SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-description"),
-              published:    SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-publish-date"),
-              company:      SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-company"),
-              startDate:    SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-start-date"),
-              endDate:      SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-end-date"),
-              location:     SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-location"),
-              industry:     SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-industry"),
-              seniority:    SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-seniority"),
-              technologies: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-technologies"),
-              topics:       fromCsvAttr("article.post", "data-article-topics"),
+              name:        SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-name"),
+              url:         SalesforceInteractions.resolvers.fromHref(),
+              description: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-description"),
+              published:   SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-publish-date"),
+              company:     SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-company"),
+              startDate:   SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-start-date"),
+              endDate:     SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-end-date"),
+              location:    SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-location"),
+              industry:    SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-industry"),
+              seniority:   SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-seniority"),
+            },
+            relatedCatalogObjects: {
+              Topics:       fromCsvAttr("article.post", "data-article-topics"),
+              Technologies: fromCsvAttr("article.post", "data-article-technologies"),
+              Tags:         fromCsvAttr("article.post", "data-article-tags"),
             },
           },
         },
@@ -187,13 +205,15 @@ SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
           catalogObject: {
             type: "Blog",
             id: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-id"),
-            tags: fromCsvAttrAsTags("article.post", "data-article-tags"),
             attributes: {
               name:          SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-name"),
               url:           SalesforceInteractions.resolvers.fromHref(),
               description:   SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-description"),
               publishedDate: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-publish-date"),
-              topics:        fromCsvAttr("article.post", "data-article-topics"),
+            },
+            relatedCatalogObjects: {
+              Topics: fromCsvAttr("article.post", "data-article-topics"),
+              Tags:   fromCsvAttr("article.post", "data-article-tags"),
             },
           },
         },
