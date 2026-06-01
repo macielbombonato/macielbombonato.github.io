@@ -209,7 +209,7 @@ SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
               name:          SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-name"),
               url:           SalesforceInteractions.resolvers.fromHref(),
               description:   SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-description"),
-              publishedDate: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-publish-date"),
+              date: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-publish-date"),
             },
             relatedCatalogObjects: {
               Topics: fromCsvAttr("article.post", "data-article-topics"),
