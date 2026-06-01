@@ -24,9 +24,11 @@ assets/js/mcp-related-renderer.js      ← SITE-SIDE RENDERER (actual render pat
 catalog/articles.csv                   ← Article feed (career)         — served at /catalog/articles.csv
 catalog/blogs.csv                      ← Blog feed (native)             — served at /catalog/blogs.csv
 catalog/topics.csv                     ← Topics feed (reference items)  — served at /catalog/topics.csv
-catalog/technologies.csv               ← Technologies feed (reference)  — served at /catalog/technologies.csv
 catalog/tags.csv                       ← Tags feed (reference items)    — served at /catalog/tags.csv
+catalog/technologies.csv               ← DRAIN-only — all rows archived=true (v3 → v4 deprecation)
 tools/generate_catalog_feed.py         ← Regenerates ALL FIVE CSVs from Jekyll _posts
+tools/migrate_technologies_to_tags.py  ← One-shot v3 → v4 source migration (already executed)
+tools/audit_taxonomy.py                ← Vocabulary lint: cross-field collisions + near-duplicates
 ```
 
 Each Web Campaign template in MCP has 4 tabs (`Handlebars`, `CSS`,
@@ -97,18 +99,16 @@ it does on every detail page-load), we intercept and render.
 
 ## Catalog model
 
-**FIVE Item Types**, split into two roles:
+**FOUR Item Types** (v4), split into two roles:
 
 ```mermaid
 graph LR
     A[Article<br/>career, ~28 items]
     B[Blog<br/>posts, ~25 items]
     T[Topics<br/>~10 items]
-    TC[Technologies<br/>~96 items]
-    TG[Tags<br/>~171 items]
+    TG[Tags<br/>~240 items]
 
     A -. relatedCatalogObjects.Topics .-> T
-    A -. relatedCatalogObjects.Technologies .-> TC
     A -. relatedCatalogObjects.Tags .-> TG
     B -. relatedCatalogObjects.Topics .-> T
     B -. relatedCatalogObjects.Tags .-> TG
@@ -116,7 +116,6 @@ graph LR
     style A fill:#bfdbfe
     style B fill:#bfdbfe
     style T fill:#fef3c7
-    style TC fill:#fef3c7
     style TG fill:#fef3c7
 ```
 
@@ -127,8 +126,16 @@ graph LR
 - **Reference types** — describe content and let Recipes filter by
   related-catalog-object membership (a graph filter, NOT string match):
   - `Topics` (custom) — curated PT-BR taxonomy from `_data/topics.yml`
-  - `Technologies` (custom) — stack/tools used in career experiences
-  - `Tags` (custom) — free-form labels on both Article + Blog
+  - `Tags` (custom) — free-form flat vocabulary on both Article + Blog
+
+> **v3 → v4**: `Technologies` was a third reference Item Type until
+> v4. The audit (`tools/audit_taxonomy.py`) found that the same slug
+> (`java`, `aws`, `docker` …) was a Technology on career posts and a
+> Tag on blog posts — single concept split across two Item Types. v4
+> collapses Technologies into Tags. The Item Type is being drained
+> from MCP via `catalog/technologies.csv` (every row `archived=true`)
+> and the Item Type itself can be deleted from the MCP UI once the
+> ingest completes.
 
 ### `Article` Item Type (custom config — career experiences only)
 
@@ -138,11 +145,11 @@ graph LR
 - **Custom attributes** we register: `company` (String), `startDate`
   (Date), `endDate` (Date), `location` (String), `industry` (String),
   `seniority` (String).
-- **Related catalog objects** (multi-object relationships) — these were
-  attributes in earlier versions and are now their own Item Types:
+- **Related catalog objects** (multi-object relationships):
   - `Topics` — was the `topics` MultiString attribute (v2)
-  - `Technologies` — was the `technologies` String attribute (v2)
-  - `Tags` — was the built-in polymorphic Tag slot (`type: "t"`, v1+v2)
+  - `Tags` — built-in polymorphic Tag slot in v1+v2, dedicated Item
+    Type in v3+; in v4 it absorbed everything that was previously
+    in the `Technologies` Item Type.
 - **Categories** (polymorphic `type: "c"`): no longer used — the legacy
   `career` Category can be archived/deleted after migration.
 
@@ -165,9 +172,9 @@ graph LR
   - `Topics` — was the `topics` MultiString custom attribute (v2)
   - `Tags` — was the built-in polymorphic Tag slot (v1+v2)
 
-### `Topics`, `Technologies`, `Tags` (custom Item Types — reference)
+### `Topics`, `Tags` (custom Item Types — reference)
 
-All three are minimal — just the two system fields:
+Both are minimal — just the two system fields:
 
 - `id` — slug. Examples: `consulting`, `marketing-cloud`, `git`.
 - `name` — human-readable label. Examples: `Consultoria`,
@@ -176,6 +183,12 @@ All three are minimal — just the two system fields:
 
 No custom attributes are registered. They exist purely to anchor the
 relations from Article/Blog.
+
+> `Technologies` was a third reference Item Type in v3. It is being
+> retired in v4 — the CSV feed still emits it but every row is
+> `attribute:archived=true` so the MCP ETL archives all items on
+> upload. Delete the Item Type from the MCP UI (Settings → Catalog →
+> Item Types) once the drain ingest completes.
 
 ### How the relations are wired
 
@@ -187,9 +200,8 @@ catalogObject: {
   id: "202602-Salesforce",
   attributes: { /* name, url, ... */ },
   relatedCatalogObjects: {
-    Topics:       ["consulting", "marketing-tech"],
-    Technologies: ["salesforce", "marketing-cloud", "agentforce"],
-    Tags:         ["consulting", "agile", "tech-lead"]
+    Topics: ["consulting", "marketing-tech"],
+    Tags:   ["salesforce", "marketing-cloud", "agentforce", "consulting", "agile"]
   }
 }
 ```
@@ -201,23 +213,40 @@ Item Type — feed-ingestion order matters (see "Catalog Feeds" below).
 CSV ETL — `tools/generate_catalog_feed.py` emits:
 
 ```csv
-id,catalogObjectType,...,relatedCatalogObject:Topics,relatedCatalogObject:Technologies,relatedCatalogObject:Tags
-202602-Salesforce,Article,...,consulting|marketing-tech,salesforce|marketing-cloud|agentforce,consulting|agile|tech-lead
+id,catalogObjectType,...,relatedCatalogObject:Topics,relatedCatalogObject:Tags
+202602-Salesforce,Article,...,consulting|marketing-tech,salesforce|marketing-cloud|agentforce|consulting|agile
 ```
 
 Column prefix is `relatedCatalogObject:` (SINGULAR), values are
 PIPE-separated IDs. Same convention as the built-in `categories`
 column.
 
-### Why we promoted Topics / Technologies / Tags to Item Types
+### Vocabulary lint
 
-The codebase went through three architectures before landing here:
+`tools/audit_taxonomy.py` walks every career + blog post and reports:
+
+- **Cross-field collisions** — same slug used as `topics` and `tags`
+  on the same post, or as `topics` here / `tags` there. Exit code 1.
+- **Near-duplicates** — slugs likely meaning the same thing
+  (`micro-services` vs `microservices`). Warning only.
+- **Asymmetry** — slugs present only in career or only in blog. Info.
+
+Run before committing post edits:
+
+```bash
+python3 tools/audit_taxonomy.py
+```
+
+### Why we promoted Topics / Tags to Item Types — and collapsed Technologies
+
+The codebase went through four architectures before landing here:
 
 | Version | Layout                                | Failure mode |
 |---------|---------------------------------------|--------------|
 | **v1**  | One `Article` Item Type + polymorphic `categories=career\|blog` | Behavioral Recipes (Item Affinity / Co-View) apply Include Rules as a POST-rank filter; career has ~3× the views of blog, the top N comes back full of career, the filter drops everything, and the engine falls back to a "popular items" bucket that IGNORES the Include Rule. Net effect: blog Recipes silently returned career items. |
 | **v2**  | Split into `Article` (career) + native `Blog` (posts); `topics`/`technologies` still custom attributes | Item Type mismatch fixed, BUT Recipes filtering "by topic" still had to do string equality on a MultiString — fragile (any whitespace / casing difference broke it) and impossible to build "more by this Topic" landing pages because attribute values are not catalog objects. |
-| **v3** (current) | `Article` + `Blog` + `Topics` + `Technologies` + `Tags` all as Item Types; relations via `relatedCatalogObjects` | Recipes can now filter on "items sharing at least one Topic with the currently viewed item" via a first-class graph query. Same Item Type also unlocks "Most Popular Topic", "Browse by Technology", segments by Topic/Tag, etc. |
+| **v3**  | `Article` + `Blog` + `Topics` + `Technologies` + `Tags` all as Item Types; relations via `relatedCatalogObjects` | Recipes filter via first-class graph queries. BUT `Technologies` was career-only, while the SAME slug (`java`, `aws`, `docker` …) was a Tag on blog posts — split single concept across two Item Types, blocking cross-content affinity ranking. Caught by `audit_taxonomy.py`. |
+| **v4** (current) | `Article` + `Blog` + `Topics` + `Tags`. `Technologies` drained via CSV `archived=true` and removed from MCP UI manually. Source `technologies:` front-matter folded into `tags:` by `tools/migrate_technologies_to_tags.py` | Single flat vocabulary for free-form labels. Cross-content (career ↔ blog) affinity Recipes can now correlate on the SAME Tags Item Type. |
 
 The Item Type discriminator (`restrictItemType("Article")` /
 `restrictItemType("Blog")`) plus the new related-catalog filters
@@ -288,7 +317,7 @@ Without a `pageTypeDefault.interaction`, any page view that doesn't
 match a pageType ends up with `interaction: null`, triggering the
 same 400 + CORS pattern as above.
 
-### `topics` / `technologies` / `tags` are NOT attributes anymore
+### `topics` / `tags` are NOT attributes anymore
 
 They were custom attributes in v2 but are now full Item Types
 connected via `relatedCatalogObjects`. The sitemap MUST send them at
@@ -297,11 +326,10 @@ the top of `catalogObject`, NOT inside `attributes`:
 ```js
 catalogObject: {
   type: "Article",
-  attributes: { /* ... */ },              // ← NO topics/technologies/tags here
-  relatedCatalogObjects: {                // ← here, keyed by Item Type name
-    Topics:       [...],
-    Technologies: [...],
-    Tags:         [...]
+  attributes: { /* ... */ },           // ← NO topics/tags here
+  relatedCatalogObjects: {             // ← here, keyed by Item Type name
+    Topics: [...],
+    Tags:   [...]
   }
 }
 ```
@@ -311,6 +339,10 @@ Each value is `string[]` of IDs into the referenced Item Type. Use the
 attributes on the DOM into the right shape. If a value lands inside
 `attributes` instead of `relatedCatalogObjects` the MCP server stores
 it as a stringified opaque attribute and no Recipe filter will match.
+
+> v3 also had `Technologies` here. Removed in v4 — `tags` absorbed
+> it. Do not re-add `Technologies:` to `relatedCatalogObjects` even
+> if the Item Type still appears in the MCP UI during the drain.
 
 ### Handlebars helpers in MCP are limited — no `gt`, `lt`, `eq`, etc.
 
@@ -349,8 +381,14 @@ an MCP Web Campaign injects items into the inner `.related-grid`
 
 | Recipe                       | Item Type | Filters                                          | Target Zone        |
 |------------------------------|-----------|--------------------------------------------------|--------------------|
-| `Related Career Experiences` | `Article` | "Share ≥1 related Topic OR Technology with current item" (Include Rule on related catalog object membership — graph filter) | `related_careers`  |
-| `Related Blog Articles`      | `Blog`    | "Share ≥1 related Topic with current item" (same kind of Include Rule) | `related_blog`     |
+| `Related Career Experiences` | `Article` | "Share ≥1 related Topic OR Tag with current item" (Include Rule on related catalog object membership — graph filter) | `related_careers`  |
+| `Related Blog Articles`      | `Blog`    | "Share ≥1 related Topic OR Tag with current item" (same kind of Include Rule) | `related_blog`     |
+
+> **v4 migration note**: any Include Rule still referencing the
+> `Technologies` related catalog object will silently match zero items
+> once the drain ingest completes (every Technologies item becomes
+> `archived=true`). Edit each affected Recipe in MCP UI and replace
+> the Technologies filter with the equivalent Tags filter.
 
 The Item Type itself scopes the candidate pool. The Include Rule on
 **related catalog object membership** is the new way to refine the

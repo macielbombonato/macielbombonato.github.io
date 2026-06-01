@@ -6,8 +6,7 @@ end: 1997-10-31
 location: Carapicuíba, SP
 industry: education
 seniority: intern
-tags: [internship, support, education, lab]
+tags: [internship, support, education, lab, windows]
 topics: [troubleshooting, teaching]
-technologies: [windows]
 ---
 Apoio aos professores durante as aulas tirando dúvidas de alunos.

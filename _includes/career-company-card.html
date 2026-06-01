@@ -25,15 +25,6 @@
   {%- assign industry_label = site.data.career_labels.industries[latest.industry] | default: latest.industry -%}
   {%- assign seniority_label = site.data.career_labels.seniorities[latest.seniority] | default: latest.seniority -%}
 
-  {%- assign all_tech = "" | split: "" -%}
-  {%- for r in roles -%}
-    {%- if r.technologies -%}
-      {%- assign all_tech = all_tech | concat: r.technologies -%}
-    {%- endif -%}
-  {%- endfor -%}
-  {%- assign unique_tech = all_tech | uniq -%}
-  {%- assign max_chips = 6 -%}
-
   <div class="col-md-6 col-sm-12 career-card-col">
     <div class="career-card career-card-group">
       <div class="career-card-top">
@@ -63,18 +54,6 @@
             {% endif %}
             {% if industry_label and industry_label != "" %}
               <span class="career-badge career-badge-industry">{{ industry_label }}</span>
-            {% endif %}
-          </div>
-        {% endif %}
-
-        {% if unique_tech.size > 0 %}
-          <div class="career-card-tech">
-            {% for tech in unique_tech limit: max_chips %}
-              <span class="tech-chip">{{ tech }}</span>
-            {% endfor %}
-            {% if unique_tech.size > max_chips %}
-              {% assign more = unique_tech.size | minus: max_chips %}
-              <span class="tech-chip tech-chip-more">+{{ more }}</span>
             {% endif %}
           </div>
         {% endif %}

@@ -6,9 +6,8 @@ end: 2012-04-30
 location: São Paulo, SP
 industry: it-services
 seniority: tech-lead
-tags: [development, consulting, java, tech-lead, retail, banking, healthcare]
+tags: [java, tech-lead, retail, banking, healthcare, struts, jsf, jquery, dwr, tomcat, jboss, plsql, jenkins, bizagi, eclipse]
 topics: [development, consulting]
-technologies: [java, struts, jsf, jquery, dwr, tomcat, jboss, plsql, jenkins, bizagi, eclipse]
 ---
 
 Conquistas e contribuições:  

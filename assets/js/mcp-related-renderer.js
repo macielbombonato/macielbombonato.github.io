@@ -289,12 +289,14 @@
     /**
      * Read a related-catalog-object set from a Recipe payload item.
      *
-     * Background: in the current MCP architecture (v3), Topics /
-     * Technologies / Tags are their own Item Types connected to
-     * Article / Blog via `relatedCatalogObjects`. On the Recipe
-     * response side, those relations are surfaced as `item.dimensions`
-     * (per the official "Advanced Dynamic Message Content Cheatsheet"
-     * — `${item.dimensions}` is described as an Array of "All related
+     * Background: in the current MCP architecture (v4), Topics and
+     * Tags are their own Item Types connected to Article / Blog via
+     * `relatedCatalogObjects`. (`Technologies` was a third reference
+     * Item Type in v3 — collapsed into Tags in v4. See mcp/sitemap.js
+     * for the full migration history.) On the Recipe response side,
+     * those relations are surfaced as `item.dimensions` (per the
+     * official "Advanced Dynamic Message Content Cheatsheet" —
+     * `${item.dimensions}` is described as an Array of "All related
      * Catalog Objects"). Different runtime contexts have historically
      * exposed this either as a dict keyed by Item Type name or as a
      * flat array of objects each carrying a `type`/`itemType`, so we
@@ -303,7 +305,7 @@
      * Fallback (`legacyAttr`) handles any in-flight item from the v2
      * architecture where `topics` was still a MultiString attribute
      * inside `attributes`. Safe to remove once the catalog has been
-     * fully reingested under v3.
+     * fully reingested under v4.
      *
      * Returns: array of human-readable label strings (e.g.
      * ["Desenvolvimento", "Tooling"]). Empty array when no relation

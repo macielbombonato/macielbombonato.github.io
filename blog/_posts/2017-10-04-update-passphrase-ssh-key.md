@@ -3,7 +3,7 @@ layout: post
 title: Atualizando a passphrase da sua chave privada SSH
 author: Maciel Escudero Bombonato
 description: Como atualizar a passphrase de uma chave privada SSH sem precisar gerar uma nova chave, usando o comando ssh-keygen -p.
-tags: [ssh, security, cli, devops]
+tags: [ssh, cli, devops]
 topics: [security, tooling]
 ---
 

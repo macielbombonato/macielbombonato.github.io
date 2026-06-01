@@ -7,7 +7,6 @@
 {%- assign career = include.career -%}
 {%- assign industry_label = site.data.career_labels.industries[career.industry] | default: career.industry -%}
 {%- assign seniority_label = site.data.career_labels.seniorities[career.seniority] | default: career.seniority -%}
-{%- assign max_chips = 6 -%}
 
 <div class="col-md-6 col-sm-12 career-card-col">
   <a class="career-card" href="{{ site.baseurl }}{{ career.url }}">
@@ -46,18 +45,6 @@
           {% endif %}
           {% if industry_label and industry_label != "" %}
             <span class="career-badge career-badge-industry">{{ industry_label }}</span>
-          {% endif %}
-        </div>
-      {% endif %}
-
-      {% if career.technologies and career.technologies.size > 0 %}
-        <div class="career-card-tech">
-          {% for tech in career.technologies limit: max_chips %}
-            <span class="tech-chip">{{ tech }}</span>
-          {% endfor %}
-          {% if career.technologies.size > max_chips %}
-            {% assign more = career.technologies.size | minus: max_chips %}
-            <span class="tech-chip tech-chip-more">+{{ more }}</span>
           {% endif %}
         </div>
       {% endif %}

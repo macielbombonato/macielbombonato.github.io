@@ -19,8 +19,7 @@ layout: career-layout
          data-article-end-date="{% if page.end and page.end != '' %}{{ page.end | date: '%Y-%m-%d' | escape }}{% endif %}"
          data-article-location="{{ page.location | default: '' | escape }}"
          data-article-industry="{{ page.industry | default: '' | escape }}"
-         data-article-seniority="{{ page.seniority | default: '' | escape }}"
-         data-article-technologies="{{ page.technologies | join: ',' | escape }}">
+         data-article-seniority="{{ page.seniority | default: '' | escape }}">
 
   <header class="career-detail-header">
     <a class="career-detail-back" href="{{ site.baseurl }}/">
@@ -63,14 +62,6 @@ layout: career-layout
         {% for t in page.topics %}
           {%- assign topic_label = site.data.topics.topics[t] | default: t -%}
           <span class="topic-chip">{{ topic_label }}</span>
-        {% endfor %}
-      </div>
-    {% endif %}
-
-    {% if page.technologies and page.technologies.size > 0 %}
-      <div class="career-detail-tech">
-        {% for tech in page.technologies %}
-          <span class="tech-chip">{{ tech }}</span>
         {% endfor %}
       </div>
     {% endif %}

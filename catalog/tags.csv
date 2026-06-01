@@ -1,27 +1,35 @@
 id,catalogObjectType,attribute:name,attribute:archived
 administrative,Tags,Administrative,false
+agentforce,Tags,Agentforce,false
 agile,Tags,Agile,false
+ai,Tags,AI,false
 airline,Tags,Airline,false
 analysis,Tags,Analysis,false
 android,Tags,Android,false
 apache,Tags,Apache,false
 architect,Tags,Architect,false
-architecture,Tags,Architecture,false
 audit,Tags,Audit,false
 aws,Tags,AWS,false
+awt,Tags,AWT,false
+azure,Tags,Azure,false
+azure-devops,Tags,Azure DevOps,false
 backoffice,Tags,Backoffice,false
 banking,Tags,Banking,false
+bitbucket,Tags,Bitbucket,false
+bizagi,Tags,Bizagi,false
 blog,Tags,Blog,false
 bootable-usb,Tags,Bootable Usb,false
+bootstrap,Tags,Bootstrap,false
+bpmn,Tags,BPMN,false
 build,Tags,Build,false
 chosen,Tags,Chosen,false
 ci-cd,Tags,Ci Cd,false
 cli,Tags,Cli,false
 cloud,Tags,Cloud,false
 commerce,Tags,Commerce,false
+composer,Tags,Composer,false
 computer-basics,Tags,Computer Basics,false
 configuration,Tags,Configuration,false
-consulting,Tags,Consulting,false
 credit,Tags,Credit,false
 cronjob,Tags,Cronjob,false
 css,Tags,CSS,false
@@ -34,24 +42,33 @@ database,Tags,Database,false
 debugging,Tags,Debugging,false
 delivery,Tags,Delivery,false
 dev,Tags,Dev,false
-development,Tags,Development,false
 devops,Tags,Devops,false
 di,Tags,Di,false
 diaspora,Tags,Diaspora,false
 display,Tags,Display,false
 docker,Tags,Docker,false
+doctrine,Tags,Doctrine,false
+dotnet,Tags,.NET,false
 dotnet-to-java,Tags,.NET to Java,false
+dwr,Tags,DWR,false
 e-learning,Tags,E-Learning,false
+ec2,Tags,Amazon EC2,false
 eclipse,Tags,Eclipse,false
 ecr,Tags,Ecr,false
+ecs,Tags,Amazon ECS,false
 education,Tags,Education,false
+ejb,Tags,EJB,false
+elastic-beanstalk,Tags,Elastic Beanstalk,false
 electron,Tags,Electron,false
 email,Tags,Email,false
 email-marketing,Tags,Email Marketing,false
+enterprise-architect,Tags,Enterprise Architect,false
 entrepreneurship,Tags,Entrepreneurship,false
 errands,Tags,Errands,false
 error-handling,Tags,Error Handling,false
+excel,Tags,Excel,false
 finance,Tags,Finance,false
+foundation,Tags,Foundation,false
 frontend,Tags,Frontend,false
 git,Tags,Git,false
 github,Tags,Github,false
@@ -62,8 +79,10 @@ hardware,Tags,Hardware,false
 healthcare,Tags,Healthcare,false
 helpdesk,Tags,Helpdesk,false
 hibernate,Tags,Hibernate,false
+html,Tags,HTML,false
 hybris,Tags,Hybris,false
 ibm,Tags,IBM,false
+ibm-mq,Tags,IBM MQ,false
 ide,Tags,Ide,false
 infrastructure,Tags,Infrastructure,false
 installer,Tags,Installer,false
@@ -71,17 +90,34 @@ instructor,Tags,Instructor,false
 insurance,Tags,Insurance,false
 integration,Tags,Integration,false
 intellij,Tags,Intellij,false
+internet,Tags,Internet,false
 internship,Tags,Internship,false
+ios,Tags,iOS,false
+itext,Tags,iText,false
+j2ee,Tags,Java EE,false
+j2se,Tags,Java SE,false
 jar,Tags,Jar,false
 java,Tags,Java,false
 java-web-start,Tags,Java Web Start,false
+javaee,Tags,Java EE,false
+javascript,Tags,JavaScript,false
+jboss,Tags,JBoss,false
+jdbc,Tags,JDBC,false
 jekyll,Tags,Jekyll,false
+jenkins,Tags,Jenkins,false
+jira,Tags,Jira,false
+jms,Tags,JMS,false
 jpa,Tags,JPA,false
 jquery,Tags,jQuery,false
 jsf,Tags,JSF,false
+jsp,Tags,JSP,false
+jstl,Tags,JSTL,false
+jude,Tags,JUDE,false
 jvm,Tags,Jvm,false
+jython,Tags,Jython,false
 keytool,Tags,Keytool,false
 kubernetes,Tags,Kubernetes,false
+kyma,Tags,Kyma,false
 lab,Tags,Lab,false
 large-files,Tags,Large Files,false
 latam,Tags,Latam,false
@@ -96,20 +132,29 @@ macos,Tags,Macos,false
 management,Tags,Management,false
 manufacturing,Tags,Manufacturing,false
 marketing-cloud,Tags,Marketing Cloud,false
+marketing-cloud-personalization,Tags,Marketing Cloud Personalization,false
 martech,Tags,Martech,false
 materials,Tags,Materials,false
 maven,Tags,Maven,false
 methodology,Tags,Methodology,false
+micro-services,Tags,Microservices,false
 migration,Tags,Migration,false
 mobile,Tags,Mobile,false
 monitor,Tags,Monitor,false
 motorola,Tags,Motorola,false
+mq-series,Tags,IBM MQ Series,false
+ms-project,Tags,MS Project,false
 multipart,Tags,Multipart,false
+mysql,Tags,MySQL,false
 navigation,Tags,Navigation,false
 network,Tags,Network,false
+nodejs,Tags,Node.js,false
 notification,Tags,Notification,false
 office,Tags,Microsoft Office,false
 open-source,Tags,Open Source,false
+oracle,Tags,Oracle,false
+oracle-forms,Tags,Oracle Forms,false
+oracle-reports,Tags,Oracle Reports,false
 outsourcing,Tags,Outsourcing,false
 owner,Tags,Owner,false
 payments,Tags,Payments,false
@@ -119,6 +164,7 @@ persistence,Tags,Persistence,false
 personalization,Tags,Personalization,false
 pharma,Tags,Pharma,false
 php,Tags,PHP,false
+plsql,Tags,PL/SQL,false
 port,Tags,Port,false
 portal,Tags,Portal,false
 pos,Tags,POS,false
@@ -128,35 +174,50 @@ procurement,Tags,Procurement,false
 project-management,Tags,Project Management,false
 proxy,Tags,Proxy,false
 public-sector,Tags,Public Sector,false
+python,Tags,Python,false
+rad,Tags,IBM RAD,false
 rancher,Tags,Rancher,false
+rds,Tags,Amazon RDS,false
 redirect,Tags,Redirect,false
 redis,Tags,Redis,false
 reporting,Tags,Reporting,false
 research,Tags,Research,false
 retail,Tags,Retail,false
+rmi,Tags,RMI,false
 rocketchat,Tags,Rocketchat,false
 rooting,Tags,Rooting,false
 ruby,Tags,Ruby,false
 rvm,Tags,Rvm,false
+s3,Tags,Amazon S3,false
 salesforce,Tags,Salesforce,false
 sap,Tags,Sap,false
+sap-commerce,Tags,SAP Commerce,false
 scrum,Tags,Scrum,false
 second-level-support,Tags,Second-Level Support,false
-security,Tags,Security,false
+servlets,Tags,Servlets,false
 session,Tags,Session,false
 setup,Tags,Setup,false
 signing,Tags,Signing,false
 skype,Tags,Skype,false
 software-factory,Tags,Software Factory,false
+sonarqube,Tags,SonarQube,false
 spring,Tags,Spring,false
+spring-batch,Tags,Spring Batch,false
+spring-boot,Tags,Spring Boot,false
+spring-config-server,Tags,Spring Cloud Config,false
+spring-data,Tags,Spring Data,false
 spring-mvc,Tags,Spring MVC,false
+spring-security,Tags,Spring Security,false
 ssh,Tags,Ssh,false
 static-site,Tags,Static Site,false
+struts,Tags,Struts,false
 subversion,Tags,Subversion,false
 support,Tags,Support,false
 svn,Tags,Svn,false
+swing,Tags,Swing,false
+symfony,Tags,Symfony,false
 system,Tags,System,false
-teaching,Tags,Teaching,false
+teamcity,Tags,TeamCity,false
 tech-lead,Tags,Tech Lead,false
 technical-education,Tags,Technical Education,false
 telecom,Tags,Telecom,false
@@ -164,9 +225,21 @@ terminal,Tags,Terminal,false
 tomcat,Tags,Apache Tomcat,false
 training,Tags,Training,false
 ubuntu,Tags,Ubuntu,false
+udeploy,Tags,uDeploy,false
+uml,Tags,UML,false
 upload,Tags,Upload,false
 vcs,Tags,Vcs,false
 vehicle-financing,Tags,Vehicle Financing,false
 vendor-management,Tags,Vendor Management,false
 video-conference,Tags,Video Conference,false
 web,Tags,Web,false
+websphere,Tags,WebSphere,false
+windows,Tags,Windows,false
+windows-98,Tags,Windows 98,false
+wsad,Tags,WSAD,false
+xmlbeans,Tags,XMLBeans,false
+architecture,Tags,Architecture,true
+consulting,Tags,Consulting,true
+development,Tags,Development,true
+security,Tags,Security,true
+teaching,Tags,Teaching,true

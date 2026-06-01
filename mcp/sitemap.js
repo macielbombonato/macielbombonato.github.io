@@ -10,8 +10,8 @@
  *        MCP UI → Web → Sitemap → tab "Sitemap JS"
  *   3. SAVE → EXECUTE (dry-run) → PUBLISH
  *
- * Catalog model — FIVE Item Types
- * -------------------------------
+ * Catalog model — FOUR Item Types (v4)
+ * ------------------------------------
  *   Content types (the things users view):
  *     - `Article` (custom)       → career experience pages
  *         System attrs : name, url, description, published
@@ -22,37 +22,41 @@
  *         No custom attrs
  *
  *   Reference types (describe & connect content):
- *     - `Topics`        (custom) → curated taxonomy from _data/topics.yml
- *     - `Technologies`  (custom) → stack/tools used in career experiences
- *     - `Tags`          (custom) → free-form labels on both Article + Blog
+ *     - `Topics`  (custom) → curated taxonomy from _data/topics.yml
+ *     - `Tags`    (custom) → free-form labels on both Article + Blog
  *
- * `Article` and `Blog` connect to `Topics`, `Technologies`, and `Tags`
- * via `relatedCatalogObjects` (the SDK's relational primitive — see
+ * `Article` and `Blog` connect to `Topics` and `Tags` via
+ * `relatedCatalogObjects` (the SDK's relational primitive — see
  * https://developer.salesforce.com/docs/marketing/personalization/guide/sitemap-implementation.html
  * "CatalogConfig" section). Each entry is keyed by the related Item
  * Type's exact name and carries an array of IDs into that type. The
  * IDs must already exist in the target Item Type, so the CSV ETL
- * order matters: load topics.csv / technologies.csv / tags.csv
- * BEFORE articles.csv / blogs.csv (see tools/generate_catalog_feed.py).
+ * order matters: load topics.csv / tags.csv BEFORE articles.csv /
+ * blogs.csv (see tools/generate_catalog_feed.py).
  *
- * History — why we moved off custom attributes:
- *   v1 had `topics` (MultiString) and `technologies` (String) inside
- *   `attributes`. That made Recipes filter on string equality, which
- *   is fragile, and prevented "more by this Topic" Recipes because
- *   attribute values are not first-class catalog objects. Promoting
- *   them to their own Item Types lets Recipes filter via "Related
- *   Catalog Object membership", which is a graph query — robust and
- *   reusable across many Recipes (Topic detail pages, Topic-based
- *   recommendations, segmentation, etc.).
+ * History — why this is v4
+ *   v1  Single `Article` Item Type, polymorphic `categories` split
+ *       career vs blog. Behavioral Recipes silently bypassed Include
+ *       Rules — "Related Blog Articles" kept returning careers.
+ *   v2  Split into Article + native Blog. Topics/Technologies were
+ *       still String/MultiString attributes — fragile.
+ *   v3  Promoted Topics, Technologies, Tags to their own Item Types
+ *       with `relatedCatalogObjects`. Worked, but `technologies` was
+ *       career-only and the same slug (`java`, `aws`, `docker` …)
+ *       was a Tech on career posts and a Tag on blog posts — single
+ *       concept split across two Item Types. See audit_taxonomy.py.
+ *   v4  Collapsed Technologies into Tags. One flat free-form
+ *       vocabulary for both content types. `Technologies` is being
+ *       drained via the CSV feed and removed from MCP UI manually
+ *       once all rows ingest as archived=true.
  *
- * `categories` (the built-in polymorphic slot) is also no longer sent
- * because the Item Type itself now discriminates Article vs Blog.
+ * `categories` (the built-in polymorphic slot) is not sent — the
+ * Item Type itself now discriminates Article vs Blog.
  *
- * `tags` (the built-in polymorphic Tag slot — `type: "t"`) is no
- * longer sent either. It used to coexist with `attributes.tags`, but
- * with `Tags` promoted to its own Item Type we have ONE source of
- * truth (`relatedCatalogObjects.Tags`). Legacy Tag polymorphic items
- * can be archived in the MCP UI after the migration completes.
+ * `tags` (the built-in polymorphic Tag slot — `type: "t"`) is not
+ * sent either. `Tags` Item Type via `relatedCatalogObjects.Tags`
+ * is the single source of truth. Any legacy Tag polymorphic items
+ * can be archived in the MCP UI after v4 ingest completes.
  *
  * Notes / gotchas
  *   - The pageType-level interaction key is `interaction:` (singular),
@@ -65,8 +69,9 @@
  *   - `isMatch` uses `matchWhenReady` for catalog pages to ensure the
  *     `<article>` element is in the DOM before testing.
  *   - `relatedCatalogObjects` keys are CASE-SENSITIVE and must match
- *     the Item Type names in MCP UI exactly: `Topics`, `Technologies`,
- *     `Tags`. Misspelling silently drops the relation.
+ *     the Item Type names in MCP UI exactly: `Topics`, `Tags`.
+ *     Misspelling silently drops the relation. `Technologies` is
+ *     DEPRECATED in v4 — do not re-add it here.
  */
 
 SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
@@ -185,9 +190,8 @@ SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
               seniority:   SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-seniority"),
             },
             relatedCatalogObjects: {
-              Topics:       fromCsvAttr("article.post", "data-article-topics"),
-              Technologies: fromCsvAttr("article.post", "data-article-technologies"),
-              Tags:         fromCsvAttr("article.post", "data-article-tags"),
+              Topics: fromCsvAttr("article.post", "data-article-topics"),
+              Tags:   fromCsvAttr("article.post", "data-article-tags"),
             },
           },
         },

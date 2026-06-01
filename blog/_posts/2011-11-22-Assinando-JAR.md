@@ -3,7 +3,7 @@ layout: post
 title: Assinando um JAR (JAVA WEB START)
 author: Maciel Escudero Bombonato
 description: Tutorial para assinar arquivos JAR de aplicações Java Web Start com keytool e jarsigner para liberar permissões na máquina cliente.
-tags: [java, jar, java-web-start, security, signing, keytool]
+tags: [java, jar, java-web-start, signing, keytool]
 topics: [security, development]
 ---
 

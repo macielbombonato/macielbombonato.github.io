@@ -6,9 +6,8 @@ end:
 location: São Paulo, SP
 industry: it-services
 seniority: senior-manager
-tags: [management, delivery, project-management, salesforce, marketing-cloud, personalization, data-cloud, customer-experience, leadership, latam]
+tags: [management, delivery, project-management, salesforce, marketing-cloud, personalization, data-cloud, customer-experience, leadership, latam, marketing-cloud-personalization, agentforce, ai]
 topics: [consulting, marketing-tech]
-technologies: [salesforce, marketing-cloud, marketing-cloud-personalization, data-cloud, agentforce, ai]
 ---
 
 Conquistas e contribuições:

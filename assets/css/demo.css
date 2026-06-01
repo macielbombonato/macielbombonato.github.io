@@ -593,29 +593,6 @@ img[alt$="-fullwidth"]{
     color: #ef6c00;
 }
 
-.career-card-tech,
-.career-detail-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 14px;
-}
-.tech-chip {
-    display: inline-block;
-    padding: 3px 9px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 500;
-    background: #f1f3f5;
-    color: #495057;
-    font-family: "SFMono-Regular", Consolas, Menlo, monospace;
-    line-height: 1.5;
-}
-.tech-chip-more {
-    background: #e9ecef;
-    color: #868e96;
-}
-
 .career-card-footer {
     border-top: 1px solid #f1f3f5;
     padding-top: 12px;

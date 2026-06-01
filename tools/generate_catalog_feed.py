@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
 """
-Generate the five CSV catalog feeds for Marketing Cloud Personalization (MCP):
+Generate the four CSV catalog feeds for Marketing Cloud Personalization (MCP):
 
-    catalog/articles.csv      →  Item Type `Article`       (career experiences)
-    catalog/blogs.csv         →  Item Type `Blog`          (native Blog Post)
-    catalog/topics.csv        →  Item Type `Topics`        (custom, ~10 items)
-    catalog/technologies.csv  →  Item Type `Technologies`  (custom, ~100 items)
-    catalog/tags.csv          →  Item Type `Tags`          (custom, ~170 items)
+    catalog/articles.csv      →  Item Type `Article`  (career experiences)
+    catalog/blogs.csv         →  Item Type `Blog`     (native Blog Post)
+    catalog/topics.csv        →  Item Type `Topics`   (custom, curated taxonomy)
+    catalog/tags.csv          →  Item Type `Tags`     (custom, free-form labels)
 
-Why FIVE Item Types and not attributes?
----------------------------------------
-We migrated through three architectures before landing here:
+`catalog/technologies.csv` is ALSO emitted by this script but in
+DRAIN-ONLY mode: every previously-known Technologies id is written
+back as `archived=true`. This is how we retire the `Technologies`
+Item Type in v4 — upload the file once, the MCP UI archives all
+items, then the Item Type can be deleted manually.
+
+Why FOUR (was FIVE) Item Types and not attributes?
+--------------------------------------------------
+We migrated through four architectures before landing here:
 
   v1  →  one `Article` Item Type, blog vs career discriminated by the
          polymorphic `categories` column. Behavioral Recipes (Item
@@ -25,29 +30,52 @@ We migrated through three architectures before landing here:
          comparison on attribute values — fragile, no first-class
          relational filter.
 
-  v3 (current) →  promote `topics`, `technologies`, and `tags` to
-         their own Item Types and connect them to Article/Blog via
-         `relatedCatalogObjects` (the MCP-native relational primitive).
-         Recipes can now filter by membership in a related catalog
-         object set, which is a first-class graph query — robust and
-         no longer fooled by string equality on a MultiString.
+  v3  →  promote `topics`, `technologies`, and `tags` to their own
+         Item Types connected to Article/Blog via
+         `relatedCatalogObjects`. The audit_taxonomy.py tool then
+         showed 22 cross-field collisions between `technologies`
+         (career-only) and `tags` (career+blog) — the same slug
+         (`java`, `aws`, `docker` …) was a tech on career posts
+         and a tag on blog posts. That split a single concept
+         across two Item Types and prevented Recipes from
+         scoring blog↔career affinity correctly.
+
+  v4 (current) →  collapse `technologies` into `tags`. The catalog
+         now has FOUR Item Types — one flat free-form vocabulary
+         (`Tags`) for both content types, plus the curated `Topics`
+         set. `technologies.csv` is drained (all archived=true)
+         and the Item Type is retired from MCP. The v3 split is
+         documented as anti-pattern in AGENTS.md.
 
 Recipes become:
   - "Related Career Experiences" : restrictItemType("Article") with
-    an Include Rule filtering on related Topics/Technologies
+    an Include Rule filtering on related Topics/Tags
   - "Related Blog Articles"      : restrictItemType("Blog") with an
     Include Rule filtering on related Topics
 
+Lifecycle archive (the IMPORTANT new behavior)
+-----------------------------------------------
+The generator now diffs against the PREVIOUS run of each CSV. Any
+id that was present last time but is absent now (post deleted,
+topic removed from `_data/topics.yml`, slug dropped from front
+matter) is re-emitted with `attribute:archived=true`. The MCP ETL
+then archives that item on the next upload — no more manual
+archiving in the MCP UI to clean up after the source data shrinks.
+
+The current set of active ids stays at `attribute:archived=false`.
+This intentionally REACTIVATES any item that may have been manually
+archived in the MCP UI but still exists in the source — the feed is
+the source of truth.
+
+To intentionally retire an item permanently:
+  1. Remove it from source (post file, _data/topics.yml, etc.)
+  2. Run this script — lifecycle archive emits the row as archived
+  3. Upload the CSV — MCP archives the item
+  4. (optional) delete the row from the CSV on the run after that
+
 Schemas
 -------
-
-Every feed carries an `attribute:archived` column hard-coded to
-`false`. This forces items to be (re)activated on every ingest,
-which is what we want — if an item was manually archived in the
-MCP UI and then re-appears in the source data, the feed should
-flip it back to active rather than leaving it dormant.
-
-`articles.csv` (Item Type `Article`, ~28 career rows):
+`articles.csv` (Item Type `Article`, career rows):
 
     id, catalogObjectType,
     attribute:name, attribute:url, attribute:description,
@@ -55,10 +83,9 @@ flip it back to active rather than leaving it dormant.
     attribute:location, attribute:industry, attribute:seniority,
     attribute:published, attribute:archived,
     relatedCatalogObject:Topics,
-    relatedCatalogObject:Technologies,
     relatedCatalogObject:Tags
 
-`blogs.csv` (Item Type `Blog`, ~25 blog rows):
+`blogs.csv` (Item Type `Blog`, blog rows):
 
     id, catalogObjectType,
     attribute:name, attribute:url, attribute:description,
@@ -66,28 +93,20 @@ flip it back to active rather than leaving it dormant.
     relatedCatalogObject:Topics,
     relatedCatalogObject:Tags
 
-`topics.csv` (Item Type `Topics`, sourced from `_data/topics.yml`):
-
-    id, catalogObjectType, attribute:name, attribute:archived
-
-`technologies.csv` (Item Type `Technologies`, sourced from career
-front matter):
-
-    id, catalogObjectType, attribute:name, attribute:archived
-
-`tags.csv` (Item Type `Tags`, sourced from BOTH career and blog
-front matter):
+`topics.csv` (Item Type `Topics`, sourced from `_data/topics.yml`),
+`tags.csv` (Item Type `Tags`, sourced from career + blog `tags:`),
+`technologies.csv` (Item Type `Technologies`, drain-only):
 
     id, catalogObjectType, attribute:name, attribute:archived
 
 Conventions
 -----------
 * `id`                : `<YYYYMM>-<slug>` for Article/Blog. Slug for
-                        Topics/Technologies/Tags. Must match what the
+                        Topics/Tags/Technologies. Must match what the
                         sitemap sends in `data-article-id` (Article/
                         Blog) and in `relatedCatalogObjects.<Type>`
-                        (Topics/Technologies/Tags) so beacon-driven
-                        and feed-driven items reconcile.
+                        (Topics/Tags) so beacon-driven and feed-
+                        driven items reconcile.
 * `catalogObjectType` : Required by `CatalogObjectETL`. The Item Type
                         is the discriminator — feeds are leaf-typed,
                         so no Jackson `type` discriminator is needed.
@@ -95,22 +114,29 @@ Conventions
 * `attribute:published`     : System Date on Article. Career start date.
 * `attribute:date`          : System Date on Blog (per the current
                               Blog Item Type config in this dataset).
-* `attribute:archived`      : System Boolean — `false` for every row;
-                              see ARCHIVED_DEFAULT.
+* `attribute:archived`      : System Boolean — `false` for active rows;
+                              `true` for rows the lifecycle archive
+                              reincarnated for soft-deletion.
 * `relatedCatalogObject:<Type>` : pipe-separated IDs that already exist
                         in the referenced Item Type. The ETL REJECTS
                         rows referencing unknown IDs, so load the
-                        Topics/Technologies/Tags feeds BEFORE the
-                        Article/Blog feeds. Same convention as the
-                        built-in `categories` column.
+                        Topics/Tags feeds BEFORE the Article/Blog
+                        feeds. Same convention as the built-in
+                        `categories` column.
 
 Migration order (read the README — this matters!)
 -------------------------------------------------
-  1. Create the Item Types in MCP UI: `Topics`, `Technologies`, `Tags`
-     (no custom attributes — `id` and `name` are the system fields)
-  2. Upload `topics.csv`, `technologies.csv`, `tags.csv` (creates items)
+  1. (v4 one-time): create Item Types `Topics`, `Tags` in MCP UI
+     if not already present. `Technologies` was already in MCP
+     since v3 — keep it for the drain upload below.
+  2. Upload `topics.csv`, `tags.csv` (creates / reactivates items)
   3. Upload `articles.csv`, `blogs.csv` (creates the relations)
-  4. Paste `mcp/sitemap.js` into MCP UI → Save → Execute → Publish
+  4. Upload `technologies.csv` ONCE — this is the drain feed; every
+     row is `archived=true`. After ingest, manually delete the
+     `Technologies` Item Type from MCP UI (Settings → Catalog →
+     Item Types). Subsequent runs still emit the file but you can
+     skip the upload — content is identical (all archived).
+  5. Paste `mcp/sitemap.js` into MCP UI → Save → Execute → Publish
 
 Skipping step 2 will make every row in step 3 fail with "Related
 catalog object not found" and the feed will reject the entire batch.
@@ -123,7 +149,7 @@ Run from the repo root. Requires PyYAML (`pip install pyyaml`).
 
 Upload each CSV via MCP UI → Feeds Dashboard → Catalog Object ETL.
 Production filename pattern MUST start with `catalog-object-`
-(e.g. `catalog-object-technologies-YYYYMMDD.csv`).
+(e.g. `catalog-object-tags-YYYYMMDD.csv`).
 """
 
 from __future__ import annotations
@@ -173,7 +199,6 @@ ARTICLES_FIELDNAMES = [
     "attribute:published",
     "attribute:archived",
     "relatedCatalogObject:Topics",
-    "relatedCatalogObject:Technologies",
     "relatedCatalogObject:Tags",
 ]
 
@@ -196,15 +221,18 @@ REFERENCE_FIELDNAMES = [
     "attribute:archived",
 ]
 
-# Every row in every feed defaults to NOT archived. Sending the value
+# Active rows are emitted as `archived=false`. Sending the value
 # explicitly (instead of leaving the column out) is intentional: it
-# REACTIVATES any item that may have been manually archived in the MCP
-# Catalog UI in the past. Without the explicit `false` the ETL leaves
-# the existing `archived: true` flag intact and the item stays hidden
-# from Recipes — which is exactly the failure mode we hit when legacy
-# duplicate items had to be re-imported. To intentionally archive an
-# item, archive it in the MCP UI AND drop the row from the feed.
-ARCHIVED_DEFAULT = "false"
+# REACTIVATES any item that may have been manually archived in the
+# MCP Catalog UI in the past. The feed is the source of truth.
+ARCHIVED_FALSE = "false"
+
+# Lifecycle-archive rows are emitted as `archived=true`. The generator
+# diffs against the previous CSV and re-emits as archived any id that
+# was active last time but is absent now (post deleted, topic removed
+# from _data/topics.yml, slug dropped from front matter, etc.). The
+# MCP ETL then archives the item — no need to touch the MCP UI.
+ARCHIVED_TRUE = "true"
 
 # Slugs whose auto-humanized label looks wrong. Override to the
 # canonical industry spelling. Anything NOT in this map gets
@@ -442,9 +470,8 @@ def build_row_career(path: Path, fm: dict, body: str) -> dict | None:
         "attribute:industry": fm.get("industry", "") or "",
         "attribute:seniority": fm.get("seniority", "") or "",
         "attribute:published": start_date,
-        "attribute:archived": ARCHIVED_DEFAULT,
+        "attribute:archived": ARCHIVED_FALSE,
         "relatedCatalogObject:Topics": pipe(list_field(fm, "topics")),
-        "relatedCatalogObject:Technologies": pipe(list_field(fm, "technologies")),
         "relatedCatalogObject:Tags": pipe(list_field(fm, "tags")),
     }
 
@@ -468,10 +495,102 @@ def build_row_blog(path: Path, fm: dict, body: str) -> dict | None:
         "attribute:url": url,
         "attribute:description": description,
         "attribute:date": publish_date,
-        "attribute:archived": ARCHIVED_DEFAULT,
+        "attribute:archived": ARCHIVED_FALSE,
         "relatedCatalogObject:Topics": pipe(list_field(fm, "topics")),
         "relatedCatalogObject:Tags": pipe(list_field(fm, "tags")),
     }
+
+
+def read_existing_ids(path: Path) -> set[str]:
+    """Read the `id` column of an existing CSV. Returns an empty set
+    when the file does not exist yet (first run on this dataset).
+
+    Used by the lifecycle-archive layer to compute the set of items
+    that were active in the previous generation and need to be
+    re-emitted as `archived=true` because they no longer exist in
+    the source.
+    """
+    if not path.exists():
+        return set()
+    with path.open(encoding="utf-8") as fh:
+        reader = csv.DictReader(fh)
+        return {row["id"] for row in reader if row.get("id")}
+
+
+def with_lifecycle_archive(
+    active_rows: list[dict],
+    csv_path: Path,
+    archived_row_for,
+) -> list[dict]:
+    """Append archive-true rows for every id that disappeared since
+    the previous run of this CSV.
+
+    `archived_row_for(slug)` is a callable that knows how to build
+    a minimal valid row for a given slug — required because Article
+    and Blog rows need different placeholder columns than reference
+    Item Types (Topics/Tags/Technologies).
+    """
+    active_ids = {row["id"] for row in active_rows}
+    previous_ids = read_existing_ids(csv_path)
+    archived_ids = previous_ids - active_ids
+    if not archived_ids:
+        return active_rows
+    archived_rows = [archived_row_for(slug) for slug in sorted(archived_ids)]
+    return active_rows + archived_rows
+
+
+def empty_article_row(slug: str) -> dict:
+    """Placeholder Article row for lifecycle archive."""
+    return {
+        "id": slug,
+        "catalogObjectType": "Article",
+        "attribute:name": "",
+        "attribute:url": "",
+        "attribute:description": "",
+        "attribute:company": "",
+        "attribute:startDate": "",
+        "attribute:endDate": "",
+        "attribute:location": "",
+        "attribute:industry": "",
+        "attribute:seniority": "",
+        "attribute:published": "",
+        "attribute:archived": ARCHIVED_TRUE,
+        "relatedCatalogObject:Topics": "",
+        "relatedCatalogObject:Tags": "",
+    }
+
+
+def empty_blog_row(slug: str) -> dict:
+    """Placeholder Blog row for lifecycle archive."""
+    return {
+        "id": slug,
+        "catalogObjectType": "Blog",
+        "attribute:name": "",
+        "attribute:url": "",
+        "attribute:description": "",
+        "attribute:date": "",
+        "attribute:archived": ARCHIVED_TRUE,
+        "relatedCatalogObject:Topics": "",
+        "relatedCatalogObject:Tags": "",
+    }
+
+
+def empty_reference_row(object_type: str):
+    """Build an empty-row factory for a reference Item Type.
+
+    Returns a function `slug -> row` because each Item Type needs
+    its own `catalogObjectType` baked in, and `humanize_slug` is
+    used to give the archived row a sensible display name (handy
+    when browsing the MCP catalog during cleanup).
+    """
+    def _factory(slug: str) -> dict:
+        return {
+            "id": slug,
+            "catalogObjectType": object_type,
+            "attribute:name": humanize_slug(slug),
+            "attribute:archived": ARCHIVED_TRUE,
+        }
+    return _factory
 
 
 def load_topics_from_yaml() -> list[dict]:
@@ -493,7 +612,7 @@ def load_topics_from_yaml() -> list[dict]:
             "id": key,
             "catalogObjectType": "Topics",
             "attribute:name": label,
-            "attribute:archived": ARCHIVED_DEFAULT,
+            "attribute:archived": ARCHIVED_FALSE,
         }
         for key, label in raw.items()
     ]
@@ -502,20 +621,38 @@ def load_topics_from_yaml() -> list[dict]:
 def build_reference_rows(
     ids: set[str], object_type: str
 ) -> list[dict]:
-    """Build a Topics/Technologies/Tags CSV row set.
+    """Build a Topics/Tags CSV row set for ACTIVE items only.
 
     Sorted for stable diffs. `humanize_slug` provides the default
-    label, overridable per slug via `NAME_OVERRIDES`.
+    label, overridable per slug via `NAME_OVERRIDES`. Lifecycle
+    archive (with_lifecycle_archive) appends archived rows on top.
     """
     return [
         {
             "id": slug,
             "catalogObjectType": object_type,
             "attribute:name": humanize_slug(slug),
-            "attribute:archived": ARCHIVED_DEFAULT,
+            "attribute:archived": ARCHIVED_FALSE,
         }
         for slug in sorted(ids)
     ]
+
+
+def build_technologies_drain_rows() -> list[dict]:
+    """v3→v4 transition: re-emit every Technologies id from the
+    previous run as `archived=true`. Once this file is uploaded
+    once to MCP and the Item Type is manually deleted from the UI,
+    subsequent generations still produce the same file (idempotent)
+    but the upload becomes a no-op.
+
+    Returns [] on a brand-new dataset that never had a Technologies
+    Item Type — nothing to drain.
+    """
+    previous_ids = read_existing_ids(TECHNOLOGIES_OUT)
+    if not previous_ids:
+        return []
+    factory = empty_reference_row("Technologies")
+    return [factory(slug) for slug in sorted(previous_ids)]
 
 
 def write_csv(path: Path, fieldnames: list[str], rows: list[dict]) -> None:
@@ -533,7 +670,6 @@ def write_csv(path: Path, fieldnames: list[str], rows: list[dict]) -> None:
 def main() -> int:
     article_rows: list[dict] = []
     blog_rows: list[dict] = []
-    technologies_seen: set[str] = set()
     tags_seen: set[str] = set()
 
     for path in sorted(CAREER_DIR.glob("*.md")):
@@ -543,7 +679,6 @@ def main() -> int:
         row = build_row_career(path, fm, body or "")
         if row:
             article_rows.append(row)
-            technologies_seen.update(list_field(fm, "technologies"))
             tags_seen.update(list_field(fm, "tags"))
 
     for path in sorted(BLOG_DIR.glob("*.md")):
@@ -556,21 +691,39 @@ def main() -> int:
             tags_seen.update(list_field(fm, "tags"))
 
     topics_rows = load_topics_from_yaml()
-    technologies_rows = build_reference_rows(technologies_seen, "Technologies")
     tags_rows = build_reference_rows(tags_seen, "Tags")
+
+    article_rows = with_lifecycle_archive(
+        article_rows, ARTICLES_OUT, empty_article_row,
+    )
+    blog_rows = with_lifecycle_archive(
+        blog_rows, BLOGS_OUT, empty_blog_row,
+    )
+    topics_rows = with_lifecycle_archive(
+        topics_rows, TOPICS_OUT, empty_reference_row("Topics"),
+    )
+    tags_rows = with_lifecycle_archive(
+        tags_rows, TAGS_OUT, empty_reference_row("Tags"),
+    )
+    technologies_rows = build_technologies_drain_rows()
 
     write_csv(ARTICLES_OUT, ARTICLES_FIELDNAMES, article_rows)
     write_csv(BLOGS_OUT, BLOGS_FIELDNAMES, blog_rows)
     write_csv(TOPICS_OUT, REFERENCE_FIELDNAMES, topics_rows)
-    write_csv(TECHNOLOGIES_OUT, REFERENCE_FIELDNAMES, technologies_rows)
     write_csv(TAGS_OUT, REFERENCE_FIELDNAMES, tags_rows)
+    write_csv(TECHNOLOGIES_OUT, REFERENCE_FIELDNAMES, technologies_rows)
+
+    def summarize(rows: list[dict]) -> str:
+        active = sum(1 for r in rows if r.get("attribute:archived") == ARCHIVED_FALSE)
+        archived = sum(1 for r in rows if r.get("attribute:archived") == ARCHIVED_TRUE)
+        return f"{len(rows)} rows ({active} active, {archived} archived)"
 
     rel = lambda p: p.relative_to(REPO_ROOT)
-    print(f"Generated {rel(ARTICLES_OUT)}     ({len(article_rows)} career rows)")
-    print(f"Generated {rel(BLOGS_OUT)}        ({len(blog_rows)} blog rows)")
-    print(f"Generated {rel(TOPICS_OUT)}       ({len(topics_rows)} topic items)")
-    print(f"Generated {rel(TECHNOLOGIES_OUT)} ({len(technologies_rows)} technology items)")
-    print(f"Generated {rel(TAGS_OUT)}         ({len(tags_rows)} tag items)")
+    print(f"Generated {rel(ARTICLES_OUT)}      {summarize(article_rows)}")
+    print(f"Generated {rel(BLOGS_OUT)}         {summarize(blog_rows)}")
+    print(f"Generated {rel(TOPICS_OUT)}        {summarize(topics_rows)}")
+    print(f"Generated {rel(TAGS_OUT)}          {summarize(tags_rows)}")
+    print(f"Generated {rel(TECHNOLOGIES_OUT)}  {summarize(technologies_rows)} [DRAIN]")
     return 0
 
 

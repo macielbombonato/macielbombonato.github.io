@@ -6,9 +6,8 @@ end: 1999-06-30
 location: Carapicuíba, SP
 industry: education
 seniority: junior
-tags: [teaching, education, computer-basics, instructor]
+tags: [education, computer-basics, instructor, windows-98, office, internet]
 topics: [teaching]
-technologies: [windows-98, office, internet]
 ---
 Professor substituto (cobertura de férias) em turmas de informática básica e titular em turmas extra.
 
