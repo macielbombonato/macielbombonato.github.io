@@ -152,8 +152,11 @@ graph LR
   - `name` — used as the **post title** ("Use Item `name` for title")
   - `url`, `imageUrl`, `description`
   - `subtitle` (Blog-specific), `modifiedTime` (Blog-specific)
-  - `publishedDate` — the Blog-native Date attr. Per MCP docs:
-    `publishedDate` "must be exclusively used for articles and blogs".
+  - `date` — the Blog-native Date attr in this dataset's config. The
+    native attribute is `publishedDate` per MCP docs but the Item
+    Type in `bombonato_prd` registers it as `date`; keep both
+    `tools/generate_catalog_feed.py` and `mcp/sitemap.js` in sync
+    with whatever the MCP UI shows.
   - `expiration`, `promotable`, `archived`, `numRatings`, `rating`,
     `categories`
 - **No custom attributes**. `topics` and `tags` were attributes in v2
@@ -423,6 +426,7 @@ Three columns, identical layout — only `catalogObjectType` differs:
 | `id`                | Slug. Used as the relation key from Article/Blog.    |
 | `catalogObjectType` | `Topics`, `Technologies`, or `Tags`                  |
 | `attribute:name`    | Human-readable label (PT-BR for topics; humanized slug for technologies and tags). The generator applies a `NAME_OVERRIDES` table for known acronyms (`J2EE` → `Java EE`, `dotnet` → `.NET`, etc.); edit `tools/generate_catalog_feed.py` to add more. |
+| `attribute:archived` | System Boolean — always `false`. See "archived = false on every row" below. |
 
 **`articles.csv` schema** (Item Type `Article`, career)
 
@@ -440,6 +444,7 @@ Three columns, identical layout — only `catalogObjectType` differs:
 | `attribute:industry`                    | Custom String                                      |
 | `attribute:seniority`                   | Custom String                                      |
 | `attribute:published`                   | System Date — Article uses `published`             |
+| `attribute:archived`                    | System Boolean — always `false`. See "archived = false on every row" below. |
 | `relatedCatalogObject:Topics`           | Pipe-separated IDs into Item Type `Topics`         |
 | `relatedCatalogObject:Technologies`     | Pipe-separated IDs into Item Type `Technologies`   |
 | `relatedCatalogObject:Tags`             | Pipe-separated IDs into Item Type `Tags`           |
@@ -453,9 +458,24 @@ Three columns, identical layout — only `catalogObjectType` differs:
 | `attribute:name`                        | Plain title — **no `[Blog]` prefix** ("Use Item `name` for title") |
 | `attribute:url`                         | Absolute URL                                       |
 | `attribute:description`                 | Front matter `description:` or first ~200 chars    |
-| `attribute:publishedDate`               | System Date — Blog uses `publishedDate` (NOT `published`) |
+| `attribute:date`                        | System Date — the Blog Item Type in this dataset registers the publish date under the attribute name `date` (NOT `publishedDate`). Update both this column and `tools/generate_catalog_feed.py` if you rename it in the MCP UI. |
+| `attribute:archived`                    | System Boolean — always `false`. See "archived = false on every row" below. |
 | `relatedCatalogObject:Topics`           | Pipe-separated IDs into Item Type `Topics`         |
 | `relatedCatalogObject:Tags`             | Pipe-separated IDs into Item Type `Tags`           |
+
+**archived = false on every row**
+
+Every row in every feed carries `attribute:archived,false`. Sending
+this explicitly (rather than leaving the column out) is intentional:
+the ETL respects the `archived` flag as a per-row state and, without
+the column, items that were previously archived in the MCP UI stay
+archived and remain invisible to Recipes. With `false` hard-coded the
+feed always reactivates anything that appears in the source data,
+which matches our mental model — if a post exists in `_posts/`, it
+should be live in the catalog. To intentionally archive an item,
+archive it in the MCP UI AND drop the corresponding row from the
+source `_posts/` directory (or the generator will keep re-emitting
+it with `archived=false` and resurrect it on the next ingest).
 
 **Why no SFTP**
 
@@ -530,7 +550,9 @@ Common triggers:
 3. **Recipe references an attribute that is not registered on the
    Item Type** (e.g. `author`, `publishDate` on Article — both
    unregistered; use the System Attribute `published` on Article and
-   `publishedDate` on Blog instead).
+   `date` on Blog instead — this dataset registers the Blog publish
+   date under the attribute name `date`, not the doc-default
+   `publishedDate`).
 4. **Strict Catalog Security is ON.** Toggle OFF at
    `Settings → Catalog and Profile Objects → Catalog Settings →
    Security → Enable Strict Catalog Security` — when ON the beacon

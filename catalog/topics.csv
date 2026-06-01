@@ -1,11 +1,11 @@
-id,catalogObjectType,attribute:name
-architecture,Topics,Arquitetura
-development,Topics,Desenvolvimento
-devops-cloud,Topics,DevOps & Cloud
-security,Topics,Segurança
-marketing-tech,Topics,MarTech & CX
-data,Topics,Dados & Integração
-consulting,Topics,Consultoria
-teaching,Topics,Ensino & Mentoria
-tooling,Topics,Ferramentas & CLI
-troubleshooting,Topics,Suporte & Resolução
+id,catalogObjectType,attribute:name,attribute:archived
+architecture,Topics,Arquitetura,false
+development,Topics,Desenvolvimento,false
+devops-cloud,Topics,DevOps & Cloud,false
+security,Topics,Segurança,false
+marketing-tech,Topics,MarTech & CX,false
+data,Topics,Dados & Integração,false
+consulting,Topics,Consultoria,false
+teaching,Topics,Ensino & Mentoria,false
+tooling,Topics,Ferramentas & CLI,false
+troubleshooting,Topics,Suporte & Resolução,false

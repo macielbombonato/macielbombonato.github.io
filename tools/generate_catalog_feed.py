@@ -41,13 +41,19 @@ Recipes become:
 Schemas
 -------
 
+Every feed carries an `attribute:archived` column hard-coded to
+`false`. This forces items to be (re)activated on every ingest,
+which is what we want — if an item was manually archived in the
+MCP UI and then re-appears in the source data, the feed should
+flip it back to active rather than leaving it dormant.
+
 `articles.csv` (Item Type `Article`, ~28 career rows):
 
     id, catalogObjectType,
     attribute:name, attribute:url, attribute:description,
     attribute:company, attribute:startDate, attribute:endDate,
     attribute:location, attribute:industry, attribute:seniority,
-    attribute:published,
+    attribute:published, attribute:archived,
     relatedCatalogObject:Topics,
     relatedCatalogObject:Technologies,
     relatedCatalogObject:Tags
@@ -56,23 +62,23 @@ Schemas
 
     id, catalogObjectType,
     attribute:name, attribute:url, attribute:description,
-    attribute:publishedDate,
+    attribute:date, attribute:archived,
     relatedCatalogObject:Topics,
     relatedCatalogObject:Tags
 
 `topics.csv` (Item Type `Topics`, sourced from `_data/topics.yml`):
 
-    id, catalogObjectType, attribute:name
+    id, catalogObjectType, attribute:name, attribute:archived
 
 `technologies.csv` (Item Type `Technologies`, sourced from career
 front matter):
 
-    id, catalogObjectType, attribute:name
+    id, catalogObjectType, attribute:name, attribute:archived
 
 `tags.csv` (Item Type `Tags`, sourced from BOTH career and blog
 front matter):
 
-    id, catalogObjectType, attribute:name
+    id, catalogObjectType, attribute:name, attribute:archived
 
 Conventions
 -----------
@@ -87,7 +93,10 @@ Conventions
                         so no Jackson `type` discriminator is needed.
 * `attribute:name`    : NO prefix. The Item Type already discriminates.
 * `attribute:published`     : System Date on Article. Career start date.
-* `attribute:publishedDate` : System Date on Blog (per MCP docs).
+* `attribute:date`          : System Date on Blog (per the current
+                              Blog Item Type config in this dataset).
+* `attribute:archived`      : System Boolean — `false` for every row;
+                              see ARCHIVED_DEFAULT.
 * `relatedCatalogObject:<Type>` : pipe-separated IDs that already exist
                         in the referenced Item Type. The ETL REJECTS
                         rows referencing unknown IDs, so load the
@@ -162,6 +171,7 @@ ARTICLES_FIELDNAMES = [
     "attribute:industry",
     "attribute:seniority",
     "attribute:published",
+    "attribute:archived",
     "relatedCatalogObject:Topics",
     "relatedCatalogObject:Technologies",
     "relatedCatalogObject:Tags",
@@ -173,7 +183,8 @@ BLOGS_FIELDNAMES = [
     "attribute:name",
     "attribute:url",
     "attribute:description",
-    "attribute:publishedDate",
+    "attribute:date",
+    "attribute:archived",
     "relatedCatalogObject:Topics",
     "relatedCatalogObject:Tags",
 ]
@@ -182,7 +193,18 @@ REFERENCE_FIELDNAMES = [
     "id",
     "catalogObjectType",
     "attribute:name",
+    "attribute:archived",
 ]
+
+# Every row in every feed defaults to NOT archived. Sending the value
+# explicitly (instead of leaving the column out) is intentional: it
+# REACTIVATES any item that may have been manually archived in the MCP
+# Catalog UI in the past. Without the explicit `false` the ETL leaves
+# the existing `archived: true` flag intact and the item stays hidden
+# from Recipes — which is exactly the failure mode we hit when legacy
+# duplicate items had to be re-imported. To intentionally archive an
+# item, archive it in the MCP UI AND drop the row from the feed.
+ARCHIVED_DEFAULT = "false"
 
 # Slugs whose auto-humanized label looks wrong. Override to the
 # canonical industry spelling. Anything NOT in this map gets
@@ -420,6 +442,7 @@ def build_row_career(path: Path, fm: dict, body: str) -> dict | None:
         "attribute:industry": fm.get("industry", "") or "",
         "attribute:seniority": fm.get("seniority", "") or "",
         "attribute:published": start_date,
+        "attribute:archived": ARCHIVED_DEFAULT,
         "relatedCatalogObject:Topics": pipe(list_field(fm, "topics")),
         "relatedCatalogObject:Technologies": pipe(list_field(fm, "technologies")),
         "relatedCatalogObject:Tags": pipe(list_field(fm, "tags")),
@@ -444,7 +467,8 @@ def build_row_blog(path: Path, fm: dict, body: str) -> dict | None:
         "attribute:name": fm.get("title", "") or "",
         "attribute:url": url,
         "attribute:description": description,
-        "attribute:publishedDate": publish_date,
+        "attribute:date": publish_date,
+        "attribute:archived": ARCHIVED_DEFAULT,
         "relatedCatalogObject:Topics": pipe(list_field(fm, "topics")),
         "relatedCatalogObject:Tags": pipe(list_field(fm, "tags")),
     }
@@ -469,6 +493,7 @@ def load_topics_from_yaml() -> list[dict]:
             "id": key,
             "catalogObjectType": "Topics",
             "attribute:name": label,
+            "attribute:archived": ARCHIVED_DEFAULT,
         }
         for key, label in raw.items()
     ]
@@ -487,6 +512,7 @@ def build_reference_rows(
             "id": slug,
             "catalogObjectType": object_type,
             "attribute:name": humanize_slug(slug),
+            "attribute:archived": ARCHIVED_DEFAULT,
         }
         for slug in sorted(ids)
     ]

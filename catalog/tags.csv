@@ -1,172 +1,172 @@
-id,catalogObjectType,attribute:name
-administrative,Tags,Administrative
-agile,Tags,Agile
-airline,Tags,Airline
-analysis,Tags,Analysis
-android,Tags,Android
-apache,Tags,Apache
-architect,Tags,Architect
-architecture,Tags,Architecture
-audit,Tags,Audit
-aws,Tags,AWS
-backoffice,Tags,Backoffice
-banking,Tags,Banking
-blog,Tags,Blog
-bootable-usb,Tags,Bootable Usb
-build,Tags,Build
-chosen,Tags,Chosen
-ci-cd,Tags,Ci Cd
-cli,Tags,Cli
-cloud,Tags,Cloud
-commerce,Tags,Commerce
-computer-basics,Tags,Computer Basics
-configuration,Tags,Configuration
-consulting,Tags,Consulting
-credit,Tags,Credit
-cronjob,Tags,Cronjob
-css,Tags,CSS
-custom-rom,Tags,Custom Rom
-customer-experience,Tags,Customer Experience
-cyanogenmod,Tags,Cyanogenmod
-data-cloud,Tags,Data Cloud
-data-extraction,Tags,Data Extraction
-database,Tags,Database
-debugging,Tags,Debugging
-delivery,Tags,Delivery
-dev,Tags,Dev
-development,Tags,Development
-devops,Tags,Devops
-di,Tags,Di
-diaspora,Tags,Diaspora
-display,Tags,Display
-docker,Tags,Docker
-dotnet-to-java,Tags,.NET to Java
-e-learning,Tags,E-Learning
-eclipse,Tags,Eclipse
-ecr,Tags,Ecr
-education,Tags,Education
-electron,Tags,Electron
-email,Tags,Email
-email-marketing,Tags,Email Marketing
-entrepreneurship,Tags,Entrepreneurship
-errands,Tags,Errands
-error-handling,Tags,Error Handling
-finance,Tags,Finance
-frontend,Tags,Frontend
-git,Tags,Git
-github,Tags,Github
-github-pages,Tags,Github Pages
-global-team,Tags,Global Team
-government,Tags,Government
-hardware,Tags,Hardware
-healthcare,Tags,Healthcare
-helpdesk,Tags,Helpdesk
-hibernate,Tags,Hibernate
-hybris,Tags,Hybris
-ibm,Tags,IBM
-ide,Tags,Ide
-infrastructure,Tags,Infrastructure
-installer,Tags,Installer
-instructor,Tags,Instructor
-insurance,Tags,Insurance
-integration,Tags,Integration
-intellij,Tags,Intellij
-internship,Tags,Internship
-jar,Tags,Jar
-java,Tags,Java
-java-web-start,Tags,Java Web Start
-jekyll,Tags,Jekyll
-jpa,Tags,JPA
-jquery,Tags,jQuery
-jsf,Tags,JSF
-jvm,Tags,Jvm
-keytool,Tags,Keytool
-kubernetes,Tags,Kubernetes
-lab,Tags,Lab
-large-files,Tags,Large Files
-latam,Tags,Latam
-leadership,Tags,Leadership
-legacy-systems,Tags,Legacy Systems
-lfs,Tags,Lfs
-liferay,Tags,Liferay
-linux,Tags,Linux
-listener,Tags,Listener
-loyalty,Tags,Loyalty
-macos,Tags,Macos
-management,Tags,Management
-manufacturing,Tags,Manufacturing
-marketing-cloud,Tags,Marketing Cloud
-martech,Tags,Martech
-materials,Tags,Materials
-maven,Tags,Maven
-methodology,Tags,Methodology
-migration,Tags,Migration
-mobile,Tags,Mobile
-monitor,Tags,Monitor
-motorola,Tags,Motorola
-multipart,Tags,Multipart
-navigation,Tags,Navigation
-network,Tags,Network
-notification,Tags,Notification
-office,Tags,Microsoft Office
-open-source,Tags,Open Source
-outsourcing,Tags,Outsourcing
-owner,Tags,Owner
-payments,Tags,Payments
-pension,Tags,Pension
-performance,Tags,Performance
-persistence,Tags,Persistence
-personalization,Tags,Personalization
-pharma,Tags,Pharma
-php,Tags,PHP
-port,Tags,Port
-portal,Tags,Portal
-pos,Tags,POS
-presales,Tags,Presales
-print,Tags,Print
-procurement,Tags,Procurement
-project-management,Tags,Project Management
-proxy,Tags,Proxy
-public-sector,Tags,Public Sector
-rancher,Tags,Rancher
-redirect,Tags,Redirect
-redis,Tags,Redis
-reporting,Tags,Reporting
-research,Tags,Research
-retail,Tags,Retail
-rocketchat,Tags,Rocketchat
-rooting,Tags,Rooting
-ruby,Tags,Ruby
-rvm,Tags,Rvm
-salesforce,Tags,Salesforce
-sap,Tags,Sap
-scrum,Tags,Scrum
-second-level-support,Tags,Second-Level Support
-security,Tags,Security
-session,Tags,Session
-setup,Tags,Setup
-signing,Tags,Signing
-skype,Tags,Skype
-software-factory,Tags,Software Factory
-spring,Tags,Spring
-spring-mvc,Tags,Spring MVC
-ssh,Tags,Ssh
-static-site,Tags,Static Site
-subversion,Tags,Subversion
-support,Tags,Support
-svn,Tags,Svn
-system,Tags,System
-teaching,Tags,Teaching
-tech-lead,Tags,Tech Lead
-technical-education,Tags,Technical Education
-telecom,Tags,Telecom
-terminal,Tags,Terminal
-tomcat,Tags,Apache Tomcat
-training,Tags,Training
-ubuntu,Tags,Ubuntu
-upload,Tags,Upload
-vcs,Tags,Vcs
-vehicle-financing,Tags,Vehicle Financing
-vendor-management,Tags,Vendor Management
-video-conference,Tags,Video Conference
-web,Tags,Web
+id,catalogObjectType,attribute:name,attribute:archived
+administrative,Tags,Administrative,false
+agile,Tags,Agile,false
+airline,Tags,Airline,false
+analysis,Tags,Analysis,false
+android,Tags,Android,false
+apache,Tags,Apache,false
+architect,Tags,Architect,false
+architecture,Tags,Architecture,false
+audit,Tags,Audit,false
+aws,Tags,AWS,false
+backoffice,Tags,Backoffice,false
+banking,Tags,Banking,false
+blog,Tags,Blog,false
+bootable-usb,Tags,Bootable Usb,false
+build,Tags,Build,false
+chosen,Tags,Chosen,false
+ci-cd,Tags,Ci Cd,false
+cli,Tags,Cli,false
+cloud,Tags,Cloud,false
+commerce,Tags,Commerce,false
+computer-basics,Tags,Computer Basics,false
+configuration,Tags,Configuration,false
+consulting,Tags,Consulting,false
+credit,Tags,Credit,false
+cronjob,Tags,Cronjob,false
+css,Tags,CSS,false
+custom-rom,Tags,Custom Rom,false
+customer-experience,Tags,Customer Experience,false
+cyanogenmod,Tags,Cyanogenmod,false
+data-cloud,Tags,Data Cloud,false
+data-extraction,Tags,Data Extraction,false
+database,Tags,Database,false
+debugging,Tags,Debugging,false
+delivery,Tags,Delivery,false
+dev,Tags,Dev,false
+development,Tags,Development,false
+devops,Tags,Devops,false
+di,Tags,Di,false
+diaspora,Tags,Diaspora,false
+display,Tags,Display,false
+docker,Tags,Docker,false
+dotnet-to-java,Tags,.NET to Java,false
+e-learning,Tags,E-Learning,false
+eclipse,Tags,Eclipse,false
+ecr,Tags,Ecr,false
+education,Tags,Education,false
+electron,Tags,Electron,false
+email,Tags,Email,false
+email-marketing,Tags,Email Marketing,false
+entrepreneurship,Tags,Entrepreneurship,false
+errands,Tags,Errands,false
+error-handling,Tags,Error Handling,false
+finance,Tags,Finance,false
+frontend,Tags,Frontend,false
+git,Tags,Git,false
+github,Tags,Github,false
+github-pages,Tags,Github Pages,false
+global-team,Tags,Global Team,false
+government,Tags,Government,false
+hardware,Tags,Hardware,false
+healthcare,Tags,Healthcare,false
+helpdesk,Tags,Helpdesk,false
+hibernate,Tags,Hibernate,false
+hybris,Tags,Hybris,false
+ibm,Tags,IBM,false
+ide,Tags,Ide,false
+infrastructure,Tags,Infrastructure,false
+installer,Tags,Installer,false
+instructor,Tags,Instructor,false
+insurance,Tags,Insurance,false
+integration,Tags,Integration,false
+intellij,Tags,Intellij,false
+internship,Tags,Internship,false
+jar,Tags,Jar,false
+java,Tags,Java,false
+java-web-start,Tags,Java Web Start,false
+jekyll,Tags,Jekyll,false
+jpa,Tags,JPA,false
+jquery,Tags,jQuery,false
+jsf,Tags,JSF,false
+jvm,Tags,Jvm,false
+keytool,Tags,Keytool,false
+kubernetes,Tags,Kubernetes,false
+lab,Tags,Lab,false
+large-files,Tags,Large Files,false
+latam,Tags,Latam,false
+leadership,Tags,Leadership,false
+legacy-systems,Tags,Legacy Systems,false
+lfs,Tags,Lfs,false
+liferay,Tags,Liferay,false
+linux,Tags,Linux,false
+listener,Tags,Listener,false
+loyalty,Tags,Loyalty,false
+macos,Tags,Macos,false
+management,Tags,Management,false
+manufacturing,Tags,Manufacturing,false
+marketing-cloud,Tags,Marketing Cloud,false
+martech,Tags,Martech,false
+materials,Tags,Materials,false
+maven,Tags,Maven,false
+methodology,Tags,Methodology,false
+migration,Tags,Migration,false
+mobile,Tags,Mobile,false
+monitor,Tags,Monitor,false
+motorola,Tags,Motorola,false
+multipart,Tags,Multipart,false
+navigation,Tags,Navigation,false
+network,Tags,Network,false
+notification,Tags,Notification,false
+office,Tags,Microsoft Office,false
+open-source,Tags,Open Source,false
+outsourcing,Tags,Outsourcing,false
+owner,Tags,Owner,false
+payments,Tags,Payments,false
+pension,Tags,Pension,false
+performance,Tags,Performance,false
+persistence,Tags,Persistence,false
+personalization,Tags,Personalization,false
+pharma,Tags,Pharma,false
+php,Tags,PHP,false
+port,Tags,Port,false
+portal,Tags,Portal,false
+pos,Tags,POS,false
+presales,Tags,Presales,false
+print,Tags,Print,false
+procurement,Tags,Procurement,false
+project-management,Tags,Project Management,false
+proxy,Tags,Proxy,false
+public-sector,Tags,Public Sector,false
+rancher,Tags,Rancher,false
+redirect,Tags,Redirect,false
+redis,Tags,Redis,false
+reporting,Tags,Reporting,false
+research,Tags,Research,false
+retail,Tags,Retail,false
+rocketchat,Tags,Rocketchat,false
+rooting,Tags,Rooting,false
+ruby,Tags,Ruby,false
+rvm,Tags,Rvm,false
+salesforce,Tags,Salesforce,false
+sap,Tags,Sap,false
+scrum,Tags,Scrum,false
+second-level-support,Tags,Second-Level Support,false
+security,Tags,Security,false
+session,Tags,Session,false
+setup,Tags,Setup,false
+signing,Tags,Signing,false
+skype,Tags,Skype,false
+software-factory,Tags,Software Factory,false
+spring,Tags,Spring,false
+spring-mvc,Tags,Spring MVC,false
+ssh,Tags,Ssh,false
+static-site,Tags,Static Site,false
+subversion,Tags,Subversion,false
+support,Tags,Support,false
+svn,Tags,Svn,false
+system,Tags,System,false
+teaching,Tags,Teaching,false
+tech-lead,Tags,Tech Lead,false
+technical-education,Tags,Technical Education,false
+telecom,Tags,Telecom,false
+terminal,Tags,Terminal,false
+tomcat,Tags,Apache Tomcat,false
+training,Tags,Training,false
+ubuntu,Tags,Ubuntu,false
+upload,Tags,Upload,false
+vcs,Tags,Vcs,false
+vehicle-financing,Tags,Vehicle Financing,false
+vendor-management,Tags,Vendor Management,false
+video-conference,Tags,Video Conference,false
+web,Tags,Web,false

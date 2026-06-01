@@ -1,97 +1,97 @@
-id,catalogObjectType,attribute:name
-agentforce,Technologies,Agentforce
-ai,Technologies,AI
-android,Technologies,Android
-aws,Technologies,AWS
-awt,Technologies,AWT
-azure,Technologies,Azure
-azure-devops,Technologies,Azure DevOps
-bitbucket,Technologies,Bitbucket
-bizagi,Technologies,Bizagi
-bootstrap,Technologies,Bootstrap
-bpmn,Technologies,BPMN
-composer,Technologies,Composer
-css,Technologies,CSS
-data-cloud,Technologies,Data Cloud
-docker,Technologies,Docker
-doctrine,Technologies,Doctrine
-dotnet,Technologies,.NET
-dwr,Technologies,DWR
-ec2,Technologies,Amazon EC2
-eclipse,Technologies,Eclipse
-ecs,Technologies,Amazon ECS
-ejb,Technologies,EJB
-elastic-beanstalk,Technologies,Elastic Beanstalk
-enterprise-architect,Technologies,Enterprise Architect
-excel,Technologies,Excel
-foundation,Technologies,Foundation
-html,Technologies,HTML
-hybris,Technologies,Hybris
-ibm-mq,Technologies,IBM MQ
-internet,Technologies,Internet
-ios,Technologies,iOS
-itext,Technologies,iText
-j2ee,Technologies,Java EE
-j2se,Technologies,Java SE
-java,Technologies,Java
-java-web-start,Technologies,Java Web Start
-javaee,Technologies,Java EE
-javascript,Technologies,JavaScript
-jboss,Technologies,JBoss
-jdbc,Technologies,JDBC
-jenkins,Technologies,Jenkins
-jira,Technologies,Jira
-jms,Technologies,JMS
-jpa,Technologies,JPA
-jquery,Technologies,jQuery
-jsf,Technologies,JSF
-jsp,Technologies,JSP
-jstl,Technologies,JSTL
-jude,Technologies,JUDE
-jython,Technologies,Jython
-kyma,Technologies,Kyma
-liferay,Technologies,Liferay
-marketing-cloud,Technologies,Marketing Cloud
-marketing-cloud-personalization,Technologies,Marketing Cloud Personalization
-micro-services,Technologies,Microservices
-mq-series,Technologies,IBM MQ Series
-ms-project,Technologies,MS Project
-mysql,Technologies,MySQL
-nodejs,Technologies,Node.js
-office,Technologies,Microsoft Office
-oracle,Technologies,Oracle
-oracle-forms,Technologies,Oracle Forms
-oracle-reports,Technologies,Oracle Reports
-php,Technologies,PHP
-plsql,Technologies,PL/SQL
-pos,Technologies,POS
-python,Technologies,Python
-rad,Technologies,IBM RAD
-rds,Technologies,Amazon RDS
-rmi,Technologies,RMI
-s3,Technologies,Amazon S3
-salesforce,Technologies,Salesforce
-sap-commerce,Technologies,SAP Commerce
-scrum,Technologies,Scrum
-servlets,Technologies,Servlets
-sonarqube,Technologies,SonarQube
-spring,Technologies,Spring
-spring-batch,Technologies,Spring Batch
-spring-boot,Technologies,Spring Boot
-spring-config-server,Technologies,Spring Cloud Config
-spring-data,Technologies,Spring Data
-spring-mvc,Technologies,Spring MVC
-spring-security,Technologies,Spring Security
-struts,Technologies,Struts
-swing,Technologies,Swing
-symfony,Technologies,Symfony
-teamcity,Technologies,TeamCity
-tomcat,Technologies,Apache Tomcat
-udeploy,Technologies,uDeploy
-uml,Technologies,UML
-video-conference,Technologies,Video Conference
-websphere,Technologies,WebSphere
-windows,Technologies,Windows
-windows-98,Technologies,Windows 98
-wsad,Technologies,WSAD
-xmlbeans,Technologies,XMLBeans
+id,catalogObjectType,attribute:name,attribute:archived
+agentforce,Technologies,Agentforce,false
+ai,Technologies,AI,false
+android,Technologies,Android,false
+aws,Technologies,AWS,false
+awt,Technologies,AWT,false
+azure,Technologies,Azure,false
+azure-devops,Technologies,Azure DevOps,false
+bitbucket,Technologies,Bitbucket,false
+bizagi,Technologies,Bizagi,false
+bootstrap,Technologies,Bootstrap,false
+bpmn,Technologies,BPMN,false
+composer,Technologies,Composer,false
+css,Technologies,CSS,false
+data-cloud,Technologies,Data Cloud,false
+docker,Technologies,Docker,false
+doctrine,Technologies,Doctrine,false
+dotnet,Technologies,.NET,false
+dwr,Technologies,DWR,false
+ec2,Technologies,Amazon EC2,false
+eclipse,Technologies,Eclipse,false
+ecs,Technologies,Amazon ECS,false
+ejb,Technologies,EJB,false
+elastic-beanstalk,Technologies,Elastic Beanstalk,false
+enterprise-architect,Technologies,Enterprise Architect,false
+excel,Technologies,Excel,false
+foundation,Technologies,Foundation,false
+html,Technologies,HTML,false
+hybris,Technologies,Hybris,false
+ibm-mq,Technologies,IBM MQ,false
+internet,Technologies,Internet,false
+ios,Technologies,iOS,false
+itext,Technologies,iText,false
+j2ee,Technologies,Java EE,false
+j2se,Technologies,Java SE,false
+java,Technologies,Java,false
+java-web-start,Technologies,Java Web Start,false
+javaee,Technologies,Java EE,false
+javascript,Technologies,JavaScript,false
+jboss,Technologies,JBoss,false
+jdbc,Technologies,JDBC,false
+jenkins,Technologies,Jenkins,false
+jira,Technologies,Jira,false
+jms,Technologies,JMS,false
+jpa,Technologies,JPA,false
+jquery,Technologies,jQuery,false
+jsf,Technologies,JSF,false
+jsp,Technologies,JSP,false
+jstl,Technologies,JSTL,false
+jude,Technologies,JUDE,false
+jython,Technologies,Jython,false
+kyma,Technologies,Kyma,false
+liferay,Technologies,Liferay,false
+marketing-cloud,Technologies,Marketing Cloud,false
+marketing-cloud-personalization,Technologies,Marketing Cloud Personalization,false
+micro-services,Technologies,Microservices,false
+mq-series,Technologies,IBM MQ Series,false
+ms-project,Technologies,MS Project,false
+mysql,Technologies,MySQL,false
+nodejs,Technologies,Node.js,false
+office,Technologies,Microsoft Office,false
+oracle,Technologies,Oracle,false
+oracle-forms,Technologies,Oracle Forms,false
+oracle-reports,Technologies,Oracle Reports,false
+php,Technologies,PHP,false
+plsql,Technologies,PL/SQL,false
+pos,Technologies,POS,false
+python,Technologies,Python,false
+rad,Technologies,IBM RAD,false
+rds,Technologies,Amazon RDS,false
+rmi,Technologies,RMI,false
+s3,Technologies,Amazon S3,false
+salesforce,Technologies,Salesforce,false
+sap-commerce,Technologies,SAP Commerce,false
+scrum,Technologies,Scrum,false
+servlets,Technologies,Servlets,false
+sonarqube,Technologies,SonarQube,false
+spring,Technologies,Spring,false
+spring-batch,Technologies,Spring Batch,false
+spring-boot,Technologies,Spring Boot,false
+spring-config-server,Technologies,Spring Cloud Config,false
+spring-data,Technologies,Spring Data,false
+spring-mvc,Technologies,Spring MVC,false
+spring-security,Technologies,Spring Security,false
+struts,Technologies,Struts,false
+swing,Technologies,Swing,false
+symfony,Technologies,Symfony,false
+teamcity,Technologies,TeamCity,false
+tomcat,Technologies,Apache Tomcat,false
+udeploy,Technologies,uDeploy,false
+uml,Technologies,UML,false
+video-conference,Technologies,Video Conference,false
+websphere,Technologies,WebSphere,false
+windows,Technologies,Windows,false
+windows-98,Technologies,Windows 98,false
+wsad,Technologies,WSAD,false
+xmlbeans,Technologies,XMLBeans,false
