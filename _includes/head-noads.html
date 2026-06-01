@@ -19,6 +19,16 @@
 <link href="{{ site.baseurl }}/assets/css/material-kit.css" rel="stylesheet"/>
 <link href="{{ site.baseurl }}/assets/css/demo.css" rel="stylesheet" />
 
+  <!-- Salesforce Marketing Cloud Personalization Beacon -->
+  <script type="text/javascript">
+    (function(d, s, p, t) {
+      var script = d.createElement(s);
+      script.src = p + "//cdn.evgnet.com/beacon/mbombonato523014907/bombonato_prd/scripts/evergage.min.js";
+      script.async = true;
+      (d.getElementsByTagName(s)[0] || d.head).parentNode.insertBefore(script, null);
+    })(document, "script", document.location.protocol === "https:" ? "https:" : "http:");
+  </script>
+
   {%- comment -%}
     MCP Related-Items Renderer — site-side renderer that bypasses the MCP
     Template's Clientside Code and the MCP-managed apply() flow. Must load
@@ -30,15 +40,5 @@
   {% if page.layout == 'career' %}
   <script type="text/javascript" src="{{ site.baseurl }}/assets/js/mcp-related-renderer.js"></script>
   {% endif %}
-
-  <!-- Salesforce Marketing Cloud Personalization Beacon -->
-  <script type="text/javascript">
-    (function(d, s, p, t) {
-      var script = d.createElement(s);
-      script.src = p + "//cdn.evgnet.com/beacon/mbombonato523014907/bombonato_prd/scripts/evergage.min.js";
-      script.async = true;
-      (d.getElementsByTagName(s)[0] || d.head).parentNode.insertBefore(script, null);
-    })(document, "script", document.location.protocol === "https:" ? "https:" : "http:");
-  </script>
 
 {% include analytics.html %}
