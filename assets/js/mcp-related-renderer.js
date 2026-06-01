@@ -244,11 +244,16 @@
         var a = (item && item.attributes) || {};
         var url = readAttr(a.url);
         var name = readAttr(a.name);
-        // `published` is the registered System Attribute on the Article
-        // item type; `publishDate` is not registered (see AGENTS.md) but
-        // we accept it as a fallback for any legacy payload still in
-        // flight while the catalog feed catches up.
-        var published = readAttr(a.published) || readAttr(a.publishDate);
+        // Blog uses the native System Attribute `publishedDate` (per MCP
+        // docs: "publishedDate must be exclusively used for articles
+        // and blogs"). We fall back to `published` and `publishDate`
+        // for any legacy payload still in flight from before the
+        // single-Article+categories layout was split into Article
+        // (career) and native Blog (blog). The fallbacks become dead
+        // code once the catalog feed and beacon are fully migrated.
+        var published = readAttr(a.publishedDate)
+            || readAttr(a.published)
+            || readAttr(a.publishDate);
         var topics = readAttr(a.topics);
 
         var meta = formatDayMonthYear(published);

@@ -10,14 +10,24 @@
  *        MCP UI → Web → Sitemap → tab "Sitemap JS"
  *   3. SAVE → EXECUTE (dry-run) → PUBLISH
  *
- * Catalog model
- *   - Item Type: Article
- *   - Categories (polymorphic, type "c"): "career" or "blog"
- *   - Tags (polymorphic, type "t"): from data-article-tags CSV
- *   - Attributes (all articles): name, url, author, publishDate,
- *       description, topics (MultiString — array of strings)
- *   - Attributes (career only): company, startDate, endDate, location,
- *       industry, seniority, technologies
+ * Catalog model — TWO Item Types, the Item Type itself discriminates.
+ *   - Item Type `Article` (custom)  →  career_detail pages
+ *       System attrs : name, url, description, published
+ *       Custom attrs : company, startDate, endDate, location, industry,
+ *                      seniority, technologies, topics (MultiString)
+ *       Tags         : polymorphic, type "t", from data-article-tags CSV
+ *   - Item Type `Blog` (native EVGBlog)  →  blog_detail pages
+ *       System attrs : name (=title), url, description, publishedDate
+ *       Custom attrs : topics (MultiString) — the ONLY custom on Blog
+ *       Tags         : polymorphic, type "t", from data-article-tags CSV
+ *                      (Author/Keyword Tag types are also natively
+ *                      supported on Blog but we don't populate them
+ *                      from the beacon yet — see mcp/README.md)
+ *
+ * `categories` are no longer sent because the Item Type is the
+ * discriminator. The legacy career/blog Category catalog objects can
+ * be archived/deleted after migration; recipes no longer reference
+ * them.
  *
  * Notes / gotchas
  *   - The pageType-level interaction key is `interaction:` (singular),
@@ -146,14 +156,12 @@ SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
           catalogObject: {
             type: "Article",
             id: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-id"),
-            categories: [{ type: "c", _id: "career", name: "Carreira" }],
             tags: fromCsvAttrAsTags("article.post", "data-article-tags"),
             attributes: {
               name:         SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-name"),
               url:          SalesforceInteractions.resolvers.fromHref(),
-              author:       SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-author"),
-              publishDate:  SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-publish-date"),
               description:  SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-description"),
+              published:    SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-publish-date"),
               company:      SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-company"),
               startDate:    SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-start-date"),
               endDate:      SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-end-date"),
@@ -177,17 +185,15 @@ SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
         interaction: {
           name: SalesforceInteractions.CatalogObjectInteractionName.ViewCatalogObject,
           catalogObject: {
-            type: "Article",
+            type: "Blog",
             id: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-id"),
-            categories: [{ type: "c", _id: "blog", name: "Blog" }],
             tags: fromCsvAttrAsTags("article.post", "data-article-tags"),
             attributes: {
-              name:        SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-name"),
-              url:         SalesforceInteractions.resolvers.fromHref(),
-              author:      SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-author"),
-              publishDate: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-publish-date"),
-              description: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-description"),
-              topics:      fromCsvAttr("article.post", "data-article-topics"),
+              name:          SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-name"),
+              url:           SalesforceInteractions.resolvers.fromHref(),
+              description:   SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-description"),
+              publishedDate: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-publish-date"),
+              topics:        fromCsvAttr("article.post", "data-article-topics"),
             },
           },
         },
