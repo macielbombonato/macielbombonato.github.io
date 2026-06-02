@@ -355,7 +355,7 @@
 
     function deferRender(cfg, items) {
         // If DOM isn't ready yet, wait for it (DOMContentLoaded) then retry.
-        if (document.readyState === "loading") {
+        if (document.readyState === "loading" || document.readyState === "complete") {
             onDomReady(function () {
                 renderZone(cfg, items);
             });
