@@ -567,104 +567,101 @@
     }
 
     /* ----- fetch() hook ----- */
-    // wait 5 seconds to see if the page is empty
-    setTimeout(function() {
-        if (typeof window.fetch === "function") {
-            var origFetch = window.fetch;
-            window.fetch = function () {
-                var args = arguments;
-                var url = "";
+    if (typeof window.fetch === "function") {
+        var origFetch = window.fetch;
+        window.fetch = function () {
+            var args = arguments;
+            var url = "";
+            try {
+                url = (args[0] && (args[0].url || args[0])) || "";
+            } catch (e) { /* ignore */ }
+
+            var p = origFetch.apply(this, args);
+            if (!looksLikeMcpUrl(url)) return p;
+
+            // Capture enough to replay this request later. If arg0 is a
+            // Request, keep an unconsumed clone for re-cloning at replay time.
+            var arg0 = args[0];
+            var arg1 = args[1];
+            var reqClone = null;
+            try {
+                if (arg0 && typeof arg0 === "object" && typeof arg0.clone === "function") {
+                    reqClone = arg0.clone();
+                }
+            } catch (e) { /* clone unsupported, fall back to raw args */ }
+
+            return p.then(function (res) {
                 try {
-                    url = (args[0] && (args[0].url || args[0])) || "";
-                } catch (e) { /* ignore */ }
+                    res.clone().json().then(function (body) {
+                        try {
+                            if (isMcpResponse(body)) {
+                                rememberReplay(makeFetchReplay(origFetch, arg0, arg1, reqClone));
+                            }
+                            handlePayload(body);
+                        } catch (e) { logError(e); }
+                    }).catch(function () { /* not JSON, ignore */ });
+                } catch (e) { logError(e); }
+                return res;
+            });
+        };
+    }
 
-                var p = origFetch.apply(this, args);
-                if (!looksLikeMcpUrl(url)) return p;
+    /* ----- XMLHttpRequest hook ----- */
 
-                // Capture enough to replay this request later. If arg0 is a
-                // Request, keep an unconsumed clone for re-cloning at replay time.
-                var arg0 = args[0];
-                var arg1 = args[1];
-                var reqClone = null;
-                try {
-                    if (arg0 && typeof arg0 === "object" && typeof arg0.clone === "function") {
-                        reqClone = arg0.clone();
-                    }
-                } catch (e) { /* clone unsupported, fall back to raw args */ }
+    if (typeof window.XMLHttpRequest === "function") {
+        var XHR = window.XMLHttpRequest.prototype;
+        var origOpen = XHR.open;
+        var origSend = XHR.send;
+        var origSetRequestHeader = XHR.setRequestHeader;
 
-                return p.then(function (res) {
-                    try {
-                        res.clone().json().then(function (body) {
-                            try {
+        XHR.open = function (method, url) {
+            try {
+                this.__mcpUrl = url || "";
+                this.__mcpMethod = method || "GET";
+                this.__mcpHeaders = {};
+            } catch (e) { /* ignore */ }
+            return origOpen.apply(this, arguments);
+        };
+
+        // Capture request headers so a replay carries the same auth/content
+        // headers as the original campaign request.
+        XHR.setRequestHeader = function (name, value) {
+            try {
+                if (looksLikeMcpUrl(this.__mcpUrl)) {
+                    if (!this.__mcpHeaders) this.__mcpHeaders = {};
+                    this.__mcpHeaders[name] = value;
+                }
+            } catch (e) { /* ignore */ }
+            return origSetRequestHeader.apply(this, arguments);
+        };
+
+        XHR.send = function (sendBody) {
+            var xhr = this;
+            try {
+                if (looksLikeMcpUrl(xhr.__mcpUrl)) {
+                    xhr.addEventListener("load", function () {
+                        try {
+                            // responseType might be "json" (already parsed) or
+                            // "" / "text" (raw string we need to JSON.parse).
+                            var body = null;
+                            if (xhr.responseType === "json") {
+                                body = xhr.response;
+                            } else if (typeof xhr.responseText === "string" && xhr.responseText.charAt(0) === "{") {
+                                body = JSON.parse(xhr.responseText);
+                            }
+                            if (body) {
                                 if (isMcpResponse(body)) {
-                                    rememberReplay(makeFetchReplay(origFetch, arg0, arg1, reqClone));
+                                    rememberReplay(makeXhrReplay(xhr.__mcpMethod, xhr.__mcpUrl, xhr.__mcpHeaders, sendBody));
                                 }
                                 handlePayload(body);
-                            } catch (e) { logError(e); }
-                        }).catch(function () { /* not JSON, ignore */ });
-                    } catch (e) { logError(e); }
-                    return res;
-                });
-            };
-        }
-
-        /* ----- XMLHttpRequest hook ----- */
-
-        if (typeof window.XMLHttpRequest === "function") {
-            var XHR = window.XMLHttpRequest.prototype;
-            var origOpen = XHR.open;
-            var origSend = XHR.send;
-            var origSetRequestHeader = XHR.setRequestHeader;
-
-            XHR.open = function (method, url) {
-                try {
-                    this.__mcpUrl = url || "";
-                    this.__mcpMethod = method || "GET";
-                    this.__mcpHeaders = {};
-                } catch (e) { /* ignore */ }
-                return origOpen.apply(this, arguments);
-            };
-
-            // Capture request headers so a replay carries the same auth/content
-            // headers as the original campaign request.
-            XHR.setRequestHeader = function (name, value) {
-                try {
-                    if (looksLikeMcpUrl(this.__mcpUrl)) {
-                        if (!this.__mcpHeaders) this.__mcpHeaders = {};
-                        this.__mcpHeaders[name] = value;
-                    }
-                } catch (e) { /* ignore */ }
-                return origSetRequestHeader.apply(this, arguments);
-            };
-
-            XHR.send = function (sendBody) {
-                var xhr = this;
-                try {
-                    if (looksLikeMcpUrl(xhr.__mcpUrl)) {
-                        xhr.addEventListener("load", function () {
-                            try {
-                                // responseType might be "json" (already parsed) or
-                                // "" / "text" (raw string we need to JSON.parse).
-                                var body = null;
-                                if (xhr.responseType === "json") {
-                                    body = xhr.response;
-                                } else if (typeof xhr.responseText === "string" && xhr.responseText.charAt(0) === "{") {
-                                    body = JSON.parse(xhr.responseText);
-                                }
-                                if (body) {
-                                    if (isMcpResponse(body)) {
-                                        rememberReplay(makeXhrReplay(xhr.__mcpMethod, xhr.__mcpUrl, xhr.__mcpHeaders, sendBody));
-                                    }
-                                    handlePayload(body);
-                                }
-                            } catch (e) { logError(e); }
-                        });
-                    }
-                } catch (e) { logError(e); }
-                return origSend.apply(this, arguments);
-            };
-        }
-    }, 5000);
+                            }
+                        } catch (e) { logError(e); }
+                    });
+                }
+            } catch (e) { logError(e); }
+            return origSend.apply(this, arguments);
+        };
+    }
 
     /* ----- debug surface ----- */
 
@@ -765,11 +762,14 @@
         }, RETRY_INTERVAL_MS);
     }
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", startRetryPoll);
-    } else {
-        startRetryPoll();
-    }
+    // wait 5 seconds to see if the page is empty
+    setTimeout(function() {
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", startRetryPoll);
+        } else {
+            startRetryPoll();
+        }
+    }, 5000);
 
     // Expose for manual smoke-testing from the console:
     //   window.__mcpRender({ campaignResponses: [...] })
