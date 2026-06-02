@@ -151,14 +151,83 @@
 
     /* ----- detection: does this response look like an MCP campaign payload? ----- */
 
+    // Extract every campaign payload (each carrying `contentZone` + `items`)
+    // from whatever shape the MCP response arrives in. MCP does NOT use a
+    // single canonical envelope: the heavy bundle/apply endpoint wraps each
+    // decision in `{ campaignResponses: [ { payload: {...} } ] }`, but the
+    // lightweight `?event=` GET (the one that actually fires on a catalog
+    // view and returns the recommendation) surfaces the decision as a FLAT
+    // single-campaign object — `{ experienceId, state, userGroup,
+    // templateNames, payload: { contentZone, items } }` — with NO
+    // `campaignResponses` wrapper. The previous gate keyed exclusively on
+    // `body.campaignResponses` being an array, so the flat shape was silently
+    // dropped (`return 0`, no console error) even though `payload.items` was
+    // fully populated — exactly the "response is populated but no card
+    // renders, no error logged" symptom. This walker probes every shape we
+    // have observed and returns only payloads whose `contentZone` maps to a
+    // known widget, de-duplicated by reference.
+    //
+    // Shapes handled:
+    //   1. { campaignResponses: [ { payload: {...} }, ... ] }   (bundle/apply)
+    //   2. { payload: { contentZone, items } }                  (flat single — the live ?event= shape)
+    //   3. [ { payload: {...} }, ... ]                          (bare array of responses)
+    //   4. { contentZone, items }                               (payload promoted to top level)
+    //   5. { campaignResponses: [ { contentZone, items } ] }    (payload inlined in the element)
+    function collectPayloads(body) {
+        var out = [];
+        if (!body || typeof body !== "object") return out;
+
+        var list = body.campaignResponses;
+        if (isArrayLike(list)) {
+            for (var i = 0; i < list.length; i++) pushPayload(out, list[i]);
+        }
+
+        // The body may itself be (4) a payload or (2) a response wrapping one.
+        pushPayload(out, body);
+
+        // (3) the body is a bare array of response elements.
+        if (isArrayLike(body)) {
+            for (var j = 0; j < body.length; j++) pushPayload(out, body[j]);
+        }
+
+        return out;
+    }
+
+    // Given a "response-ish" node, pull out a usable payload and push it.
+    // A node may BE the payload (it has a `contentZone`) or WRAP it (it has a
+    // `.payload`). We only keep payloads whose zone maps to a known widget,
+    // and we de-dup by object identity so the same payload reached via two
+    // probes (e.g. top-level + array scan) is not rendered twice.
+    function pushPayload(out, node) {
+        if (!node || typeof node !== "object") return;
+        var payload = null;
+        if (typeof node.contentZone === "string") {
+            payload = node;
+        } else if (node.payload && typeof node.payload === "object") {
+            payload = node.payload;
+        }
+        if (!payload || typeof payload.contentZone !== "string") return;
+        if (!WIDGETS[payload.contentZone]) return;
+        for (var k = 0; k < out.length; k++) {
+            if (out[k] === payload) return;
+        }
+        out.push(payload);
+    }
+
     function isMcpResponse(body) {
-        return body && typeof body === "object" && body.campaignResponses
-            && Object.prototype.toString.call(body.campaignResponses) === "[object Array]";
+        return collectPayloads(body).length > 0;
     }
 
     function looksLikeMcpUrl(url) {
         if (!url || typeof url !== "string") return false;
-        return /evergage|evgnet|personalization|interactions/i.test(url);
+        // Host almost always matches `evgnet`/`evergage` (beacon CDN is
+        // cdn.evgnet.com and the data-collection host is on evgnet.com).
+        // `\/api2\/event` is added as belt-and-suspenders for the event
+        // endpoint specifically — it's an Evergage-only path token, so it
+        // widens coverage without matching unrelated analytics/ad requests.
+        // The real safety net is the body-shape check (collectPayloads): a
+        // hooked non-MCP response simply yields zero payloads and is ignored.
+        return /evergage|evgnet|personalization|interactions|\/api2\/event/i.test(url);
     }
 
     /* ----- main dispatcher ----- */
@@ -176,15 +245,13 @@
     if (!window.__mcpResponses) window.__mcpResponses = [];
 
     function handlePayload(body) {
-        if (!isMcpResponse(body)) return 0;
-        var list = body.campaignResponses;
+        var payloads = collectPayloads(body);
+        if (!payloads.length) return 0;
         var totalRendered = 0;
         var zonesSeen = [];
         var totalItems = 0;
-        for (var i = 0; i < list.length; i++) {
-            var resp = list[i];
-            var payload = resp && resp.payload;
-            if (!payload) continue;
+        for (var i = 0; i < payloads.length; i++) {
+            var payload = payloads[i];
             var zoneName = payload.contentZone;
             var items = payload.items || [];
             var cfg = WIDGETS[zoneName];
@@ -233,7 +300,6 @@
         // any subsequent MCP re-polls in the same page-load. This keeps
         // impressions de-duplicated and avoids the rate limiter.
         if (window[cfg.renderedFlag]) return 0;
-        window[cfg.renderedFlag] = true;
 
         // Trim to MAX_PER_ZONE — defense-in-depth in case the marketer
         // raised maxResults in the Campaign editor above the cap our
@@ -242,15 +308,30 @@
             ? items.slice(0, MAX_PER_ZONE)
             : items;
 
+        // Build FIRST, then lock. A throw inside one card build must not
+        // abort the whole zone, so each build is isolated in try/catch and a
+        // failing item is skipped. We only set the renderedFlag (the lock)
+        // AFTER we know we have at least one usable card — never on an empty
+        // or all-failed payload — so a later populated/healthy response can
+        // still paint the zone (preserves the cold-load "no lock until >=1
+        // card drawn" invariant).
         var html = [];
         for (var i = 0; i < cards.length; i++) {
-            html.push(cfg.build(cards[i]));
+            try {
+                var built = cfg.build(cards[i]);
+                if (built) html.push(built);
+            } catch (e) {
+                logError(e);
+            }
         }
+        if (html.length === 0) return 0;
+
+        window[cfg.renderedFlag] = true;
         target.innerHTML = html.join("");
 
         attachClickListeners(target, cfg);
-        fireImpression(cfg, cards.length);
-        return cards.length;
+        fireImpression(cfg, html.length);
+        return html.length;
     }
 
     // Single readiness helper. Every place that needs to wait for the DOM
@@ -312,21 +393,40 @@
         var endDate = readAttr(a.endDate);
         var topics = readRelated(item, "Topics", a.topics);
 
-        var meta = formatMonth(startDate) +
-            (endDate ? " \u2014 " + formatMonth(endDate) : " \u2014 ATUAL");
+        // Minimal items are real: recsConfig.includeNullCustomAttributes is
+        // false, so MCP strips any null attribute from the payload. The
+        // observed Brasilprev item carried ONLY { company } — no name, url
+        // or dates. Derive a printable title and a working href from
+        // whatever is present, falling back through company and finally the
+        // id, so the card always renders instead of producing an empty <h4>.
+        var title = name || company || id;
+        var href = url || reconstructUrl(id) || "#";
 
-        var companyHtml = company
+        // Meta is optional — only emit the period line when a start date is
+        // actually present (no date -> no empty meta box).
+        var meta = startDate
+            ? formatMonth(startDate) +
+                (endDate ? " \u2014 " + formatMonth(endDate) : " \u2014 ATUAL")
+            : "";
+        var metaHtml = meta
+            ? '<div class="related-card-meta">' + escapeHtml(meta) + "</div>"
+            : "";
+
+        // Only print the company line when it adds something the title isn't
+        // already showing (avoids "Brasilprev / Brasilprev" when company had
+        // to stand in as the title).
+        var companyHtml = (company && company !== title)
             ? '<p class="related-card-company">' + escapeHtml(company) + "</p>"
             : "";
 
         var topicsHtml = buildTopicChips(topics);
 
         return '<a class="related-card" ' +
-            'href="' + escapeAttr(url) + '" ' +
+            'href="' + escapeAttr(href) + '" ' +
             'data-cy-track="related_career_click" ' +
             'data-cy-target-id="' + escapeAttr(id) + '">' +
-            '<div class="related-card-meta">' + escapeHtml(meta) + "</div>" +
-            '<h4 class="related-card-title">' + escapeHtml(name) + "</h4>" +
+            metaHtml +
+            '<h4 class="related-card-title">' + escapeHtml(title) + "</h4>" +
             companyHtml +
             topicsHtml +
             "</a>";
@@ -348,17 +448,40 @@
             || readAttr(a.publishDate);
         var topics = readRelated(item, "Topics", a.topics);
 
+        // Same minimal-item defense as the career card: title falls back to
+        // the id, href reconstructs from the id when `url` was stripped.
+        var title = name || id;
+        var href = url || reconstructUrl(id) || "#";
+
         var meta = formatDayMonthYear(published);
+        var metaHtml = meta
+            ? '<div class="related-card-meta">' + escapeHtml(meta) + "</div>"
+            : "";
         var topicsHtml = buildTopicChips(topics);
 
         return '<a class="related-card is-blog" ' +
-            'href="' + escapeAttr(url) + '" ' +
+            'href="' + escapeAttr(href) + '" ' +
             'data-cy-track="related_blog_click" ' +
             'data-cy-target-id="' + escapeAttr(id) + '">' +
-            '<div class="related-card-meta">' + escapeHtml(meta) + "</div>" +
-            '<h4 class="related-card-title">' + escapeHtml(name) + "</h4>" +
+            metaHtml +
+            '<h4 class="related-card-title">' + escapeHtml(title) + "</h4>" +
             topicsHtml +
             "</a>";
+    }
+
+    // Reconstruct a detail-page URL from the catalog id when the item's
+    // `url` attribute is absent (includeNullCustomAttributes:false strips
+    // null system attributes from minimal payloads). Catalog ids are built
+    // as "{YYYYMM}-{slug}" (tools/generate_catalog_feed.py) and BOTH career
+    // and blog posts publish under the Jekyll permalink
+    // "/:year/:month/:title/" (see _config.yml). So "201901-Brasilprev"
+    // becomes "/2019/01/Brasilprev/". Returns "" when the id doesn't match
+    // that shape so the caller can fall back to "#".
+    function reconstructUrl(id) {
+        if (!id || typeof id !== "string") return "";
+        var m = /^(\d{4})(\d{2})-(.+)$/.exec(id);
+        if (!m) return "";
+        return "/" + m[1] + "/" + m[2] + "/" + m[3] + "/";
     }
 
     function buildTopicChips(topics) {
@@ -725,13 +848,10 @@
         for (var i = buf.length - 1; i >= 0; i--) {
             var entry = buf[i];
             var body = entry && entry.body;
-            if (!isMcpResponse(body)) continue;
-            var list = body.campaignResponses;
-            for (var j = 0; j < list.length; j++) {
-                var resp = list[j];
-                var payload = resp && resp.payload;
-                if (!payload || payload.contentZone !== zoneName) continue;
-                var items = payload.items || [];
+            var payloads = collectPayloads(body);
+            for (var j = 0; j < payloads.length; j++) {
+                if (payloads[j].contentZone !== zoneName) continue;
+                var items = payloads[j].items || [];
                 if (items.length > 0) return items;
             }
         }
