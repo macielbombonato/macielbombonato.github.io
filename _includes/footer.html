@@ -15,16 +15,3 @@
 
     </div>
 </footer>
-
-
-{%- comment -%}
-  MCP Related-Items Renderer — site-side renderer that bypasses the MCP
-  Template's Clientside Code and the MCP-managed apply() flow. Must load
-  SYNCHRONOUSLY and BEFORE the Personalization beacon so its fetch/XHR
-  hooks are armed when the beacon fires its first request. Only
-  blog posts (layout: post) have the #mcp-related-* zones, so we skip
-  the script on other pages to avoid global fetch/XHR mutation.
-{%- endcomment -%}
-{% if page.layout == 'post' %}
-<script type="text/javascript" src="{{ site.baseurl }}/assets/js/mcp-related-renderer.js"></script>
-{% endif %}
