@@ -70,15 +70,23 @@
     // first response is empty and the populated one arrives only AFTER the
     // page-view event fires from mcp/sitemap.js. That populated response can
     // land while document.readyState is "interactive" and the
-    // #mcp-related-* div hasn't been parsed into the DOM yet, so the reactive
-    // render misses it (deferRender only re-schedules while readyState is
-    // "loading"). It IS still buffered in window.__mcpResponses, though, so
-    // this poll re-evaluates the buffer after the DOM is ready and paints any
-    // zone that is still empty. RETRY_INTERVAL_MS * RETRY_MAX_ATTEMPTS sets
+    // #mcp-related-* div hasn't been parsed into the DOM yet. It IS still
+    // buffered in window.__mcpResponses, though, so this poll re-evaluates the
+    // buffer after the DOM is ready (via onDomReady, which fires immediately
+    // when readyState is already interactive/complete) and paints any zone
+    // that is still empty. RETRY_INTERVAL_MS * RETRY_MAX_ATTEMPTS sets
     // the ceiling (~5s) the user asked for, but we stop as soon as the
     // populated response lands and renders — we never blind-sleep the full 5s.
     var RETRY_INTERVAL_MS = 500;
     var RETRY_MAX_ATTEMPTS = 10;
+
+    // Bounded re-query budget for deferRender when the DOM is ALREADY
+    // interactive/complete but the target element wasn't found on the first
+    // try. A "complete" readyState means the element either exists now or
+    // never will, so a short re-query over a few ticks (covers a late layout
+    // pass / a zone injected by a slightly-later script) is the right
+    // behavior; after this many misses we give up quietly.
+    var DEFER_MAX_ATTEMPTS = 5;
 
     // Cold-load ACTIVE recovery (the part that actually fixes "first visit
     // empty / refresh works"). The bounded poll above can only re-read
@@ -245,17 +253,51 @@
         return cards.length;
     }
 
-    function deferRender(cfg, items) {
-        // If DOM isn't ready, wait for DOMContentLoaded then retry. We
-        // reset the renderedFlag so renderZone re-runs cleanly.
+    // Single readiness helper. Every place that needs to wait for the DOM
+    // routes through here so the already-ready states are handled uniformly:
+    //   - "loading"                  → wait for DOMContentLoaded
+    //   - "interactive" / "complete" → run fn asynchronously on the next tick
+    //     (setTimeout, not inline) so we never re-enter during script eval and
+    //     so callers behave the same whether the DOM was ready or not.
+    // This is the core of the "readyState already complete" fix: when an MCP
+    // campaign response is buffered while the DOM is already interactive or
+    // complete, the DOMContentLoaded listener would never fire again — so we
+    // must run the render path now instead of waiting for an event that has
+    // already passed.
+    function onDomReady(fn) {
         if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", fn);
+        } else {
+            setTimeout(fn, 0);
+        }
+    }
+
+    function deferRender(cfg, items) {
+        // If DOM isn't ready yet, wait for it (DOMContentLoaded) then retry.
+        if (document.readyState === "loading") {
+            onDomReady(function () {
                 renderZone(cfg, items);
             });
             return;
         }
-        // DOM is ready but our selector still wasn't there — page layout
-        // doesn't have the widget zone. Nothing to do.
+        // DOM is already interactive/complete but our selector wasn't found on
+        // the first pass. Rather than give up immediately, re-query on the
+        // next few ticks: the element may still be landing from a late parse /
+        // layout pass. We only call renderZone once the element is actually
+        // present, so this never recurses back into deferRender. After
+        // DEFER_MAX_ATTEMPTS misses we give up quietly — the page layout
+        // genuinely has no widget zone.
+        var attempts = 0;
+        function retry() {
+            if (document.querySelector(cfg.selector)) {
+                renderZone(cfg, items);
+                return;
+            }
+            attempts++;
+            if (attempts >= DEFER_MAX_ATTEMPTS) return;
+            setTimeout(retry, RETRY_INTERVAL_MS);
+        }
+        setTimeout(retry, 0);
     }
 
     /* ----- card builders (mirror the .hbs in mcp/templates/) ----- */
@@ -762,14 +804,25 @@
         }, RETRY_INTERVAL_MS);
     }
 
-    // wait 5 seconds to see if the page is empty
-    setTimeout(function() {
-        if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", startRetryPoll);
-        } else {
-            startRetryPoll();
-        }
-    }, 5000);
+    // Bootstrap. The reactive fetch/XHR hooks already render the moment a
+    // populated response arrives WHILE the DOM is ready. This bootstrap covers
+    // the other case the user hit: the DOM was already "interactive"/"complete"
+    // when the campaign response was buffered, so DOMContentLoaded never fires
+    // again and the in-memory data would otherwise never be drawn.
+    //
+    // onDomReady runs startRetryPoll immediately (next tick) when readyState is
+    // already interactive/complete, or on DOMContentLoaded when still loading.
+    // startRetryPoll's first action is renderFromBufferOnce(), which scans
+    // window.__mcpResponses newest-first and calls renderZone for any zone that
+    // is present in the DOM but still empty — i.e. it draws the cards straight
+    // from the in-memory buffer. It then polls (bounded) for any late populated
+    // response and fires the captured replay if the buffer stays empty.
+    //
+    // No double-render: renderZone keeps the existing __mcp_rendered_<zone>
+    // lock and the empty-response pass-through (the lock is only ever set
+    // AFTER drawing >=1 card), so the reactive path and this buffer replay are
+    // idempotent against each other.
+    onDomReady(startRetryPoll);
 
     // Expose for manual smoke-testing from the console:
     //   window.__mcpRender({ campaignResponses: [...] })
