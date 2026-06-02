@@ -64,6 +64,22 @@
     // the renderer still trims to this number. Bump in BOTH places.
     var MAX_PER_ZONE = 3;
 
+    // Bounded retry poll (cold-load fix, part 2). The reactive interceptor
+    // renders the moment a populated campaign response is seen — but on a
+    // FIRST click-navigation (no prior catalog view registered yet) the
+    // first response is empty and the populated one arrives only AFTER the
+    // page-view event fires from mcp/sitemap.js. That populated response can
+    // land while document.readyState is "interactive" and the
+    // #mcp-related-* div hasn't been parsed into the DOM yet, so the reactive
+    // render misses it (deferRender only re-schedules while readyState is
+    // "loading"). It IS still buffered in window.__mcpResponses, though, so
+    // this poll re-evaluates the buffer after the DOM is ready and paints any
+    // zone that is still empty. RETRY_INTERVAL_MS * RETRY_MAX_ATTEMPTS sets
+    // the ceiling (~5s) the user asked for, but we stop as soon as the
+    // populated response lands and renders — we never blind-sleep the full 5s.
+    var RETRY_INTERVAL_MS = 500;
+    var RETRY_MAX_ATTEMPTS = 10;
+
     var WIDGETS = {
         related_careers: {
             selector: "#mcp-related-careers",
@@ -311,6 +327,8 @@
      * ["Desenvolvimento", "Tooling"]). Empty array when no relation
      * is found — caller decides whether to render the chip strip.
      */
+
+    Sleep.sleep(5000);
     function readRelated(item, typeName, legacyAttr) {
         if (!item) return readAttr(legacyAttr) || [];
 
@@ -518,6 +536,80 @@
         if (window.console && window.console.error) {
             window.console.error("[mcp-related-renderer]", e);
         }
+    }
+
+    /* ----- bounded retry poll (re-renders from the buffered responses) ----- */
+
+    // Scan window.__mcpResponses newest-first and return the most recent
+    // POPULATED items array buffered for the given zone, or null. We read the
+    // buffer (not re-call handlePayload) so we don't re-push entries on every
+    // tick and don't disturb the reactive path.
+    function findBufferedItems(zoneName) {
+        var buf = window.__mcpResponses;
+        if (!buf || !buf.length) return null;
+        for (var i = buf.length - 1; i >= 0; i--) {
+            var entry = buf[i];
+            var body = entry && entry.body;
+            if (!isMcpResponse(body)) continue;
+            var list = body.campaignResponses;
+            for (var j = 0; j < list.length; j++) {
+                var resp = list[j];
+                var payload = resp && resp.payload;
+                if (!payload || payload.contentZone !== zoneName) continue;
+                var items = payload.items || [];
+                if (items.length > 0) return items;
+            }
+        }
+        return null;
+    }
+
+    function hasRenderedCards(target) {
+        return !!(target && target.children && target.children.length > 0);
+    }
+
+    // One poll pass. Returns the number of zones still PENDING — present on
+    // this page, not yet rendered, and with no populated response buffered
+    // yet (i.e. we're still waiting for MCP). When this hits 0 we can stop.
+    function renderFromBufferOnce() {
+        var pending = 0;
+        for (var key in WIDGETS) {
+            if (!WIDGETS.hasOwnProperty(key)) continue;
+            var cfg = WIDGETS[key];
+            var target = document.querySelector(cfg.selector);
+            // Zone not on this page → nothing to wait for.
+            if (!target) continue;
+            // Already drawn (reactive path or a prior tick) → done.
+            if (window[cfg.renderedFlag] || hasRenderedCards(target)) continue;
+            var items = findBufferedItems(key);
+            if (items && items.length) {
+                // renderZone re-applies the MAX_PER_ZONE cap, the renderedFlag
+                // lock, the impression de-dup and the click listeners.
+                renderZone(cfg, items);
+            } else {
+                pending++;
+            }
+        }
+        return pending;
+    }
+
+    function startRetryPoll() {
+        // Render whatever is already buffered right away, then poll for the
+        // late populated response on a bounded schedule.
+        if (renderFromBufferOnce() === 0) return;
+        var attempts = 0;
+        var timer = setInterval(function () {
+            attempts++;
+            var pending = renderFromBufferOnce();
+            if (pending === 0 || attempts >= RETRY_MAX_ATTEMPTS) {
+                clearInterval(timer);
+            }
+        }, RETRY_INTERVAL_MS);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", startRetryPoll);
+    } else {
+        startRetryPoll();
     }
 
     // Expose for manual smoke-testing from the console:
