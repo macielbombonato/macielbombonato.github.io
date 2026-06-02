@@ -567,7 +567,9 @@
     }
 
     /* ----- fetch() hook ----- */
-
+    // wait 5 seconds to see if the page is empty
+    Sleep.sleep(5000);
+    
     if (typeof window.fetch === "function") {
         var origFetch = window.fetch;
         window.fetch = function () {
