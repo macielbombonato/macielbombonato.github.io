@@ -33,6 +33,17 @@
     });
 </script>
 
+
+<!-- Salesforce Marketing Cloud Personalization Beacon -->
+<script type="text/javascript">
+  (function(d, s, p, t) {
+    var script = d.createElement(s);
+    script.src = p + "//cdn.evgnet.com/beacon/mbombonato523014907/bombonato_prd/scripts/evergage.min.js";
+    script.async = true;
+    (d.getElementsByTagName(s)[0] || d.head).parentNode.insertBefore(script, null);
+  })(document, "script", document.location.protocol === "https:" ? "https:" : "http:");
+</script>
+
 {%- comment -%}
   MCP Related-Items Renderer — site-side renderer that bypasses the MCP
   Template's Clientside Code and the MCP-managed apply() flow. Must load
