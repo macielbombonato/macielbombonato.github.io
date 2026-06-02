@@ -346,7 +346,7 @@
     // must run the render path now instead of waiting for an event that has
     // already passed.
     function onDomReady(fn) {
-        if (document.readyState === "loading") {
+        if (document.readyState === "loading" || document.readyState === "complete") {
             document.addEventListener("DOMContentLoaded", fn);
         } else {
             setTimeout(fn, 5000);
