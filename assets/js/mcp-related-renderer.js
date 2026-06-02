@@ -346,16 +346,18 @@
     // must run the render path now instead of waiting for an event that has
     // already passed.
     function onDomReady(fn) {
-        if (document.readyState === "loading" || document.readyState === "complete") {
+        if (document.readyState === "complete") {
+            setTimeout(fn, 5000);
+        }else if (document.readyState === "loading") {
             document.addEventListener("DOMContentLoaded", fn);
         } else {
-            setTimeout(fn, 5000);
+            setTimeout(fn, 0);
         }
     }
 
     function deferRender(cfg, items) {
         // If DOM isn't ready yet, wait for it (DOMContentLoaded) then retry.
-        if (document.readyState === "loading" || document.readyState === "complete") {
+        if (document.readyState === "loading") {
             onDomReady(function () {
                 renderZone(cfg, items);
             });
