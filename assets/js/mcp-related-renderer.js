@@ -80,6 +80,41 @@
     var RETRY_INTERVAL_MS = 500;
     var RETRY_MAX_ATTEMPTS = 10;
 
+    // Cold-load ACTIVE recovery (the part that actually fixes "first visit
+    // empty / refresh works"). The bounded poll above can only re-read
+    // responses that ALREADY landed in window.__mcpResponses. But on a TRUE
+    // first visit the related-items recipe ("Related Career Experiences" /
+    // "Related Blog") has no "current item" in the visitor profile yet — the
+    // ViewCatalogObject event for THIS page is still in flight — so the only
+    // campaign response of the load comes back with items: []. Unlike a
+    // refresh (where the prior view is already on the profile), NO populated
+    // follow-up response arrives on its own during the first load, so there
+    // is nothing for the poll to find. The fix: once we've captured the exact
+    // campaign request the beacon issued (URL + method + headers + body), we
+    // REPLAY it after a short delay. By then the ViewCatalogObject event has
+    // registered server-side, so the replayed request returns populated
+    // items, which handlePayload() renders straight into the zone — same
+    // load, no manual refresh. We deliberately do NOT invent an SDK re-trigger
+    // (e.g. a hypothetical reinit()): replaying the captured request is the
+    // only mechanism we can guarantee exists, because we observed it work.
+    //
+    // REPLAY_AFTER_ATTEMPTS: ticks to wait before the first replay (~1s) so
+    //   the view event has time to land server-side before we re-ask.
+    // REPLAY_SPACING: ticks between replays (~1.5s) in case the first replay
+    //   still raced the view registration.
+    // MAX_REPLAYS: hard cap on re-requests (defense against a recipe that is
+    //   genuinely empty — e.g. an item with no related siblings — so we don't
+    //   hammer the endpoint forever).
+    var REPLAY_AFTER_ATTEMPTS = 2;
+    var REPLAY_SPACING = 3;
+    var MAX_REPLAYS = 2;
+
+    // Set by the fetch/XHR hooks to a zero-arg function that re-issues the
+    // most recent request whose response was an MCP campaign payload, feeding
+    // the fresh response back through handlePayload(). Stays null until we've
+    // actually seen (and can reproduce) a campaign request.
+    var capturedReplay = null;
+
     var WIDGETS = {
         related_careers: {
             selector: "#mcp-related-careers",
@@ -469,6 +504,68 @@
         return cfg.impressionFlag.replace("__mcp_impressed_", "");
     }
 
+    /* ----- request replay (cold-load active recovery) ----- */
+
+    // Record the function that can reproduce the campaign request. Only the
+    // MOST RECENT campaign request is kept — that is the one whose response we
+    // want to refresh once the view event has registered. Exposed on
+    // window.__mcpReplay for console smoke-testing.
+    function rememberReplay(fn) {
+        capturedReplay = fn;
+        window.__mcpReplay = fn;
+    }
+
+    // Build a replay closure for a fetch() campaign request. `arg0`/`arg1`
+    // are the original fetch arguments. When arg0 is a Request object its body
+    // is single-use, so we keep an unconsumed clone and re-clone it per replay
+    // (a Request can be cloned repeatedly as long as the clone is never read).
+    // When arg0 is a string URL, arg1.body is a reusable string and we replay
+    // the args as-is. We call origFetch directly (not the wrapped fetch) and
+    // pump the result through handlePayload ourselves to avoid re-wrapping.
+    function makeFetchReplay(origFetch, arg0, arg1, reqClone) {
+        return function () {
+            var a0 = arg0;
+            try {
+                if (reqClone && typeof reqClone.clone === "function") {
+                    a0 = reqClone.clone();
+                }
+            } catch (e) { a0 = arg0; }
+            var pr;
+            try {
+                pr = origFetch(a0, arg1);
+            } catch (e) { logError(e); return; }
+            pr.then(function (res) {
+                try {
+                    res.clone().json().then(function (body) {
+                        try { handlePayload(body); } catch (e) { logError(e); }
+                    }).catch(function () { /* not JSON, ignore */ });
+                } catch (e) { logError(e); }
+            }).catch(function () { /* network error, ignore */ });
+        };
+    }
+
+    // Build a replay closure for an XHR campaign request. We issue a fresh
+    // XMLHttpRequest; because the prototype hook below is already installed,
+    // the new request's response is intercepted and routed through
+    // handlePayload automatically — so this closure only has to re-open with
+    // the captured method/url/headers and re-send the captured body.
+    function makeXhrReplay(method, url, headers, body) {
+        return function () {
+            try {
+                var x = new XMLHttpRequest();
+                x.open(method || "POST", url, true);
+                if (headers) {
+                    for (var h in headers) {
+                        if (headers.hasOwnProperty(h)) {
+                            try { x.setRequestHeader(h, headers[h]); } catch (e) { /* forbidden header, skip */ }
+                        }
+                    }
+                }
+                x.send(body);
+            } catch (e) { logError(e); }
+        };
+    }
+
     /* ----- fetch() hook ----- */
 
     if (typeof window.fetch === "function") {
@@ -483,10 +580,26 @@
             var p = origFetch.apply(this, args);
             if (!looksLikeMcpUrl(url)) return p;
 
+            // Capture enough to replay this request later. If arg0 is a
+            // Request, keep an unconsumed clone for re-cloning at replay time.
+            var arg0 = args[0];
+            var arg1 = args[1];
+            var reqClone = null;
+            try {
+                if (arg0 && typeof arg0 === "object" && typeof arg0.clone === "function") {
+                    reqClone = arg0.clone();
+                }
+            } catch (e) { /* clone unsupported, fall back to raw args */ }
+
             return p.then(function (res) {
                 try {
                     res.clone().json().then(function (body) {
-                        try { handlePayload(body); } catch (e) { logError(e); }
+                        try {
+                            if (isMcpResponse(body)) {
+                                rememberReplay(makeFetchReplay(origFetch, arg0, arg1, reqClone));
+                            }
+                            handlePayload(body);
+                        } catch (e) { logError(e); }
                     }).catch(function () { /* not JSON, ignore */ });
                 } catch (e) { logError(e); }
                 return res;
@@ -500,13 +613,30 @@
         var XHR = window.XMLHttpRequest.prototype;
         var origOpen = XHR.open;
         var origSend = XHR.send;
+        var origSetRequestHeader = XHR.setRequestHeader;
 
         XHR.open = function (method, url) {
-            try { this.__mcpUrl = url || ""; } catch (e) { /* ignore */ }
+            try {
+                this.__mcpUrl = url || "";
+                this.__mcpMethod = method || "GET";
+                this.__mcpHeaders = {};
+            } catch (e) { /* ignore */ }
             return origOpen.apply(this, arguments);
         };
 
-        XHR.send = function () {
+        // Capture request headers so a replay carries the same auth/content
+        // headers as the original campaign request.
+        XHR.setRequestHeader = function (name, value) {
+            try {
+                if (looksLikeMcpUrl(this.__mcpUrl)) {
+                    if (!this.__mcpHeaders) this.__mcpHeaders = {};
+                    this.__mcpHeaders[name] = value;
+                }
+            } catch (e) { /* ignore */ }
+            return origSetRequestHeader.apply(this, arguments);
+        };
+
+        XHR.send = function (sendBody) {
             var xhr = this;
             try {
                 if (looksLikeMcpUrl(xhr.__mcpUrl)) {
@@ -520,7 +650,12 @@
                             } else if (typeof xhr.responseText === "string" && xhr.responseText.charAt(0) === "{") {
                                 body = JSON.parse(xhr.responseText);
                             }
-                            if (body) handlePayload(body);
+                            if (body) {
+                                if (isMcpResponse(body)) {
+                                    rememberReplay(makeXhrReplay(xhr.__mcpMethod, xhr.__mcpUrl, xhr.__mcpHeaders, sendBody));
+                                }
+                                handlePayload(body);
+                            }
                         } catch (e) { logError(e); }
                     });
                 }
@@ -596,10 +731,33 @@
         // late populated response on a bounded schedule.
         if (renderFromBufferOnce() === 0) return;
         var attempts = 0;
+        var replaysFired = 0;
+        var lastReplayAttempt = -REPLAY_SPACING - 1;
         var timer = setInterval(function () {
             attempts++;
             var pending = renderFromBufferOnce();
-            if (pending === 0 || attempts >= RETRY_MAX_ATTEMPTS) {
+            if (pending === 0) {
+                clearInterval(timer);
+                return;
+            }
+
+            // ACTIVE recovery: a zone is still empty and we never got a
+            // populated response. If we captured the campaign request, replay
+            // it — by now the ViewCatalogObject event has registered so the
+            // recipe can recommend. handlePayload() renders the fresh response
+            // directly; the next poll tick confirms pending dropped to 0. We
+            // wait REPLAY_AFTER_ATTEMPTS ticks before the first replay (give
+            // the view event time to land) and cap at MAX_REPLAYS.
+            if (capturedReplay
+                && replaysFired < MAX_REPLAYS
+                && attempts >= REPLAY_AFTER_ATTEMPTS
+                && (attempts - lastReplayAttempt) >= REPLAY_SPACING) {
+                replaysFired++;
+                lastReplayAttempt = attempts;
+                try { capturedReplay(); } catch (e) { logError(e); }
+            }
+
+            if (attempts >= RETRY_MAX_ATTEMPTS) {
                 clearInterval(timer);
             }
         }, RETRY_INTERVAL_MS);
