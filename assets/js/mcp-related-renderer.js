@@ -328,7 +328,6 @@
      * is found — caller decides whether to render the chip strip.
      */
 
-    Sleep.sleep(5000);
     function readRelated(item, typeName, legacyAttr) {
         if (!item) return readAttr(legacyAttr) || [];
 
