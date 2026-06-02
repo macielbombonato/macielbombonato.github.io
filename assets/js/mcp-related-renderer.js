@@ -349,7 +349,7 @@
         if (document.readyState === "loading") {
             document.addEventListener("DOMContentLoaded", fn);
         } else {
-            setTimeout(fn, 0);
+            setTimeout(fn, 5000);
         }
     }
 
