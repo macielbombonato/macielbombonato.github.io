@@ -4,7 +4,10 @@
     {% include head.html %}
   </head>
 
-<body>
+<!-- data-no-turbolink: force full page loads on every navigation. See
+     _layouts/default.html for the rationale (turbolinks-classic body swaps
+     break the <head> MCP renderer/beacon ordering and race the sitemap). -->
+<body data-no-turbolink>
 
   {% include nav.html %}
 

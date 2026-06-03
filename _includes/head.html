@@ -24,4 +24,27 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3481908664466605"
      crossorigin="anonymous"></script>
 
+  {%- comment -%}
+    MCP Related-Items Renderer — site-side renderer that bypasses the MCP
+    Template's Clientside Code and the MCP-managed apply() flow. It MUST be
+    loaded SYNCHRONOUSLY (no async/defer) in <head> and BEFORE the
+    Personalization beacon so its window.fetch / XMLHttpRequest hooks are
+    armed before the beacon fires its first campaign request. Only blog
+    posts (layout: post) carry the #mcp-related-* zones, so we skip the
+    script on every other page to avoid mutating fetch/XHR globally.
+  {%- endcomment -%}
+  {% if page.layout == 'post' %}
+  <script type="text/javascript" src="{{ site.baseurl }}/assets/js/mcp-related-renderer.js"></script>
+  {% endif %}
+
+  <!-- Salesforce Marketing Cloud Personalization Beacon -->
+  <script type="text/javascript">
+    (function(d, s, p, t) {
+      var script = d.createElement(s);
+      script.src = p + "//cdn.evgnet.com/beacon/mbombonato523014907/bombonato_prd/scripts/evergage.min.js";
+      script.async = true;
+      (d.getElementsByTagName(s)[0] || d.head).parentNode.insertBefore(script, null);
+    })(document, "script", document.location.protocol === "https:" ? "https:" : "http:");
+  </script>
+
 {% include analytics.html %}

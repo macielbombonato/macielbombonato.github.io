@@ -4,7 +4,13 @@
     {% include head.html %}
   </head>
 
-  <body>
+  <!-- data-no-turbolink: force full page loads on every navigation. The
+       bundled turbolinks-classic (assets/js/application.js) otherwise swaps
+       the <body> in place on link clicks, which (a) never re-runs the
+       <head> MCP renderer/beacon and (b) races the MCP sitemap isMatch,
+       leaving #mcp-related-* empty until a manual refresh. A full load is
+       the known-good path. -->
+  <body data-no-turbolink>
 
   <!-- Navbar will come here -->
   {% include nav.html %}
