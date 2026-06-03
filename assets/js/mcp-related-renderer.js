@@ -120,8 +120,29 @@
     // Set by the fetch/XHR hooks to a zero-arg function that re-issues the
     // most recent request whose response was an MCP campaign payload, feeding
     // the fresh response back through handlePayload(). Stays null until we've
-    // actually seen (and can reproduce) a campaign request.
+    // actually seen (and can reproduce) a campaign request. Kept ONLY as the
+    // backward-compatible single-slot handle for window.__mcpReplay and as a
+    // last-resort fallback — the per-zone map below is the real recovery path.
     var capturedReplay = null;
+
+    // MULTI-ZONE REPLAY (the cross-zone fix). The two widgets are served by
+    // SEPARATE `?event=` campaign requests — one per contentZone/campaign.
+    // The old design kept a SINGLE capturedReplay slot that every MCP
+    // response overwrote, so cold-load active recovery could only ever
+    // replay the LAST-captured request. When the same-type zone returned
+    // populated immediately (rendered reactively) and the CROSS-type zone
+    // came back empty (needs the ViewCatalogObject event to register before
+    // its recipe can recommend), the only request the poll could replay was
+    // whatever happened to be in the slot — never reliably the cross zone's
+    // own request. Result: the cross-type zone (related_blog on a career
+    // page, related_careers on a blog page) stayed permanently empty while
+    // the same-type zone rendered — exactly the observed symptom.
+    //
+    // Fix: remember a replay closure keyed by EVERY zone a response served,
+    // so the poll can replay the SPECIFIC request that feeds each still-empty
+    // zone. If one request happens to serve both zones, both keys point at
+    // the same closure and replayPendingZones() de-dups so it fires once.
+    var capturedReplays = {};
 
     var WIDGETS = {
         related_careers: {
@@ -718,13 +739,37 @@ function handlePayload(rawOrEntry) {
 
     /* ----- request replay (cold-load active recovery) ----- */
 
-    // Record the function that can reproduce the campaign request. Only the
-    // MOST RECENT campaign request is kept — that is the one whose response we
-    // want to refresh once the view event has registered. Exposed on
-    // window.__mcpReplay for console smoke-testing.
-    function rememberReplay(fn) {
+    // Record the function that can reproduce the campaign request. `zones` is
+    // the list of contentZones the just-seen response served — we store the
+    // replay closure under EACH of those zone keys so cold-load recovery can
+    // replay the request that actually feeds a given empty zone (not just the
+    // last request seen across all zones). capturedReplay keeps the most
+    // recent closure for the window.__mcpReplay console handle and as a
+    // last-resort fallback in replayPendingZones().
+    function rememberReplay(fn, zones) {
         capturedReplay = fn;
         window.__mcpReplay = fn;
+        if (zones) {
+            for (var i = 0; i < zones.length; i++) {
+                if (zones[i]) capturedReplays[zones[i]] = fn;
+            }
+        }
+    }
+
+    // The distinct contentZone names a response served (de-duplicated). Used
+    // to key rememberReplay so each zone maps to the request that feeds it.
+    function zonesOf(body) {
+        var payloads = collectPayloads(body);
+        var zones = [];
+        for (var i = 0; i < payloads.length; i++) {
+            var z = payloads[i].contentZone;
+            var seen = false;
+            for (var j = 0; j < zones.length; j++) {
+                if (zones[j] === z) { seen = true; break; }
+            }
+            if (!seen) zones.push(z);
+        }
+        return zones;
     }
 
     // Build a replay closure for a fetch() campaign request. `arg0`/`arg1`
@@ -806,8 +851,9 @@ function handlePayload(rawOrEntry) {
                 try {
                     res.clone().json().then(function (body) {
                         try {
-                            if (isMcpResponse(body)) {
-                                rememberReplay(makeFetchReplay(origFetch, arg0, arg1, reqClone));
+                            var zones = zonesOf(body);
+                            if (zones.length) {
+                                rememberReplay(makeFetchReplay(origFetch, arg0, arg1, reqClone), zones);
                             }
                             handlePayload(body);
                         } catch (e) { logError(e); }
@@ -862,8 +908,9 @@ function handlePayload(rawOrEntry) {
                                 body = JSON.parse(xhr.responseText);
                             }
                             if (body) {
-                                if (isMcpResponse(body)) {
-                                    rememberReplay(makeXhrReplay(xhr.__mcpMethod, xhr.__mcpUrl, xhr.__mcpHeaders, sendBody));
+                                var zones = zonesOf(body);
+                                if (zones.length) {
+                                    rememberReplay(makeXhrReplay(xhr.__mcpMethod, xhr.__mcpUrl, xhr.__mcpHeaders, sendBody), zones);
                                 }
                                 handlePayload(body);
                             }
@@ -911,11 +958,15 @@ function handlePayload(rawOrEntry) {
         return !!(target && target.children && target.children.length > 0);
     }
 
-    // One poll pass. Returns the number of zones still PENDING — present on
+    // One poll pass. Returns the ARRAY of zone keys still PENDING — present on
     // this page, not yet rendered, and with no populated response buffered
-    // yet (i.e. we're still waiting for MCP). When this hits 0 we can stop.
+    // yet (i.e. we're still waiting for MCP). When this is empty we can stop.
+    // Returning the actual zone names (not just a count) lets the recovery
+    // path replay the SPECIFIC request that feeds each empty zone — the heart
+    // of the cross-zone fix. Each zone is independent: a populated buffered
+    // response for one zone renders it while the other stays pending.
     function renderFromBufferOnce() {
-        var pending = 0;
+        var pending = [];
         for (var key in WIDGETS) {
             if (!WIDGETS.hasOwnProperty(key)) continue;
             var cfg = WIDGETS[key];
@@ -930,41 +981,72 @@ function handlePayload(rawOrEntry) {
                 // lock, the impression de-dup and the click listeners.
                 renderZone(cfg, items);
             } else {
-                pending++;
+                pending.push(key);
             }
         }
         return pending;
     }
 
+    // Replay the captured request for EACH still-pending zone. Because the
+    // two zones are served by separate requests, replaying per-zone is what
+    // lets the cross-type zone recover independently of the same-type one. A
+    // single request that served both zones maps both keys to the same
+    // closure, so we de-dup by identity and fire it once. When no per-zone
+    // replay was captured for any pending zone yet, fall back to the last
+    // captured request so behavior is never worse than the old single slot.
+    // Returns true if at least one replay fired.
+    function replayPendingZones(pendingZones) {
+        var fired = [];
+        for (var i = 0; i < pendingZones.length; i++) {
+            var fn = capturedReplays[pendingZones[i]];
+            if (!fn) continue;
+            var dup = false;
+            for (var j = 0; j < fired.length; j++) {
+                if (fired[j] === fn) { dup = true; break; }
+            }
+            if (dup) continue;
+            fired.push(fn);
+            try { fn(); } catch (e) { logError(e); }
+        }
+        if (fired.length === 0 && capturedReplay) {
+            try { capturedReplay(); fired.push(capturedReplay); } catch (e) { logError(e); }
+        }
+        return fired.length > 0;
+    }
+
     function startRetryPoll() {
         // Render whatever is already buffered right away, then poll for the
         // late populated response on a bounded schedule.
-        if (renderFromBufferOnce() === 0) return;
+        if (renderFromBufferOnce().length === 0) return;
         var attempts = 0;
         var replaysFired = 0;
         var lastReplayAttempt = -REPLAY_SPACING - 1;
         var timer = setInterval(function () {
             attempts++;
             var pending = renderFromBufferOnce();
-            if (pending === 0) {
+            if (pending.length === 0) {
                 clearInterval(timer);
                 return;
             }
 
-            // ACTIVE recovery: a zone is still empty and we never got a
-            // populated response. If we captured the campaign request, replay
-            // it — by now the ViewCatalogObject event has registered so the
-            // recipe can recommend. handlePayload() renders the fresh response
-            // directly; the next poll tick confirms pending dropped to 0. We
-            // wait REPLAY_AFTER_ATTEMPTS ticks before the first replay (give
-            // the view event time to land) and cap at MAX_REPLAYS.
-            if (capturedReplay
-                && replaysFired < MAX_REPLAYS
+            // ACTIVE recovery: one or more zones are still empty and we never
+            // got a populated response for them. Replay the captured campaign
+            // request for EACH still-pending zone — by now the
+            // ViewCatalogObject event has registered so the recipe can
+            // recommend. handlePayload() renders the fresh response directly;
+            // the next poll tick confirms the zone dropped out of `pending`.
+            // We wait REPLAY_AFTER_ATTEMPTS ticks before the first replay
+            // (give the view event time to land) and cap replay CYCLES at
+            // MAX_REPLAYS. replayPendingZones fires the right request per
+            // zone, so the cross-type zone recovers even when the same-type
+            // zone already rendered reactively.
+            if (replaysFired < MAX_REPLAYS
                 && attempts >= REPLAY_AFTER_ATTEMPTS
                 && (attempts - lastReplayAttempt) >= REPLAY_SPACING) {
-                replaysFired++;
-                lastReplayAttempt = attempts;
-                try { capturedReplay(); } catch (e) { logError(e); }
+                if (replayPendingZones(pending)) {
+                    replaysFired++;
+                    lastReplayAttempt = attempts;
+                }
             }
 
             if (attempts >= RETRY_MAX_ATTEMPTS) {
