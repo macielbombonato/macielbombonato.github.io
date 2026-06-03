@@ -216,9 +216,48 @@
             out.push(payload);
         }
 
-        function isMcpResponse(body) {
-            return collectPayloads(body).length > 0;
+    function isMcpResponse(body) {
+        return collectPayloads(body).length > 0;
+    }
+
+    // SINGLE SOURCE OF TRUTH for "given a stored thing, hand back the raw MCP
+    // response body". window.__mcpResponses stores WRAPPER objects
+    // ({ ts, zonesSeen, totalItems, rendered, body }) whose raw response lives
+    // under `.body`. Every read/re-render path MUST feed collectPayloads the
+    // RAW body, never the wrapper: a wrapper has no contentZone / payload /
+    // campaignResponses, so collectPayloads(wrapper) returns [] and a fully
+    // populated buffered response yields ZERO items with no error — exactly
+    // the "data is in memory but nothing (re-)renders" symptom. Routing both
+    // the write-input (handlePayload / __mcpRender) and every buffer read
+    // through this one helper makes the extraction tolerant in BOTH
+    // directions:
+    //   - handed a WRAPPER  -> unwrap `.body`
+    //   - handed a RAW body -> return unchanged
+    // so it no longer matters which supported shape a caller passes, nor
+    // whether an entry was ever pushed as a raw body (older build, a manual
+    // __mcpResponses.push, or __mcpRender(window.__mcpResponses[0])).
+    //
+    // Detection: a wrapper is an object that carries an object `.body` but
+    // none of the fields a raw body keys on (contentZone / payload /
+    // campaignResponses). When the thing is already a usable raw body we must
+    // NOT unwrap, even if it happens to also carry a `.body` field.
+    function entryBody(thing) {
+        if (thing && typeof thing === "object"
+            && thing.body && typeof thing.body === "object"
+            && typeof thing.contentZone !== "string"
+            && !thing.payload
+            && !thing.campaignResponses) {
+            return thing.body;
         }
+        return thing;
+    }
+
+    // Given one stored buffer entry (wrapper OR raw body), return its payload
+    // list. The ONLY function the buffer-read path should call to turn a
+    // stored entry into payloads — keeps the unwrap in exactly one place.
+    function payloadsFromEntry(entry) {
+        return collectPayloads(entryBody(entry));
+    }
 
         function looksLikeMcpUrl(url) {
             if (!url || typeof url !== "string") return false;
@@ -237,18 +276,26 @@
         // Debug buffer — every intercepted MCP response is pushed here so it
         // can be inspected from the console:
         //
-        //     window.__mcpResponses
-        //         → array of { ts, zonesSeen, totalItems, body }
-        //
+    //     window.__mcpResponses
+    //         → array of { ts, zonesSeen, totalItems, rendered, body }
+    //           (the raw MCP response is under `.body`; the read path unwraps
+    //            it via entryBody/payloadsFromEntry — never read entry as a
+    //            body directly, a wrapper has no contentZone/payload)
+    //
         // Specifically useful for diagnosing the "first-load empty / cmd+r
         // populated" symptom: if window.__mcpResponses[0] has totalItems=0
         // but window.__mcpResponses[1] has totalItems>0, the cold-load fix
         // in renderZone() is what allows the second response to draw cards.
         if (!window.__mcpResponses) window.__mcpResponses = [];
 
-        function handlePayload(body) {
-            var payloads = collectPayloads(body);
-            if (!payloads.length) return 0;
+    function handlePayload(rawOrEntry) {
+        // Tolerate being handed a buffer WRAPPER (e.g. the documented console
+        // smoke test __mcpRender(window.__mcpResponses[0])) as well as a raw
+        // response. Unwrap once up front, then store the RAW body below so the
+        // buffer stays a single, consistent shape regardless of input.
+        var body = entryBody(rawOrEntry);
+        var payloads = collectPayloads(body);
+        if (!payloads.length) return 0;
             var totalRendered = 0;
             var zonesSeen = [];
             var totalItems = 0;
@@ -847,11 +894,13 @@
         function findBufferedItems(zoneName) {
             var buf = window.__mcpResponses;
             if (!buf || !buf.length) return null;
-            for (var i = buf.length - 1; i >= 0; i--) {
-                var entry = buf[i];
-                var body = entry && entry.body;
-                var payloads = collectPayloads(body);
-                for (var j = 0; j < payloads.length; j++) {
+        for (var i = buf.length - 1; i >= 0; i--) {
+            // payloadsFromEntry unwraps the wrapper's `.body` (or passes a raw
+            // body through) — the SINGLE place the read path resolves a stored
+            // entry to payloads, so a populated buffered response can never be
+            // missed because the wrapper, not its body, reached collectPayloads.
+            var payloads = payloadsFromEntry(buf[i]);
+            for (var j = 0; j < payloads.length; j++) {
                     if (payloads[j].contentZone !== zoneName) continue;
                     var items = payloads[j].items || [];
                     if (items.length > 0) return items;
