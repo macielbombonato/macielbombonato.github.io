@@ -3,8 +3,9 @@ layout: post
 title: Instalação Redis MacOS X e Linux em 30s
 author: Maciel Escudero Bombonato
 description: Como instalar o Redis em macOS e Linux em 30 segundos usando make install, com os pré-requisitos para cada sistema operacional.
+
 tags: [redis, macos, linux, devops, setup, database]
-topics: [tooling, devops-cloud]
+topics: [tooling, devops-cloud, development]
 ---
 
 Um daqueles posts relâmpago. :)

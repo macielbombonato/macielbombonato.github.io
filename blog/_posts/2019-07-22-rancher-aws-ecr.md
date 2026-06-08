@@ -3,8 +3,9 @@ layout: post
 title: Rancher - Registro privado AWS ECR
 author: Maciel Escudero Bombonato
 description: Como configurar o Rancher para usar o registro privado AWS ECR como source de imagens Docker, automatizando a renovação do token via CronJob no Kubernetes.
+
 tags: [aws, ecr, rancher, kubernetes, docker, devops, cloud, cronjob]
-topics: [devops-cloud]
+topics: [devops-cloud, development]
 ---
 
 Esse post descreve como atualizar a o token de autenticação do registro de imagens da AWS, o ECR.

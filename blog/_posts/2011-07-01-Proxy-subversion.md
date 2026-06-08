@@ -3,8 +3,9 @@ layout: post
 title: Configure Proxy para subversion
 author: Maciel Escudero Bombonato
 description: Como configurar proxy HTTP para o Subversion (SVN) no Windows, macOS e Linux para acessar repositórios atrás de firewalls.
+
 tags: [subversion, svn, proxy, vcs, network, devops]
-topics: [tooling, troubleshooting]
+topics: [tooling, troubleshooting, development]
 ---
 
 Mais um dos antigos migrados para cá.

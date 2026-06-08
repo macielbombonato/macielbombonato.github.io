@@ -3,6 +3,7 @@ layout: post
 title: Rocket.chat no Ubuntu 16 problemas nas notificações
 author: Maciel Escudero Bombonato
 description: Como corrigir notificações que aparecem como alerts clássicos no Rocket.chat após atualização do Ubuntu 16 criando o arquivo libunity-electron_notification_fix.
+
 tags: [linux, ubuntu, rocketchat, electron, notification, debugging]
 topics: [troubleshooting, tooling]
 ---

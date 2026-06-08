@@ -6,8 +6,9 @@ end: 2026-01-31
 location: São Paulo, SP
 industry: it-services
 seniority: manager
-tags: [management, salesforce, marketing-cloud, personalization, data-cloud, customer-experience, leadership, latam, marketing-cloud-personalization, agentforce, ai]
-topics: [consulting, marketing-tech]
+
+tags: [management, delivery, project-management, salesforce, presales, marketing-cloud, personalization, data-cloud, customer-experience, leadership, latam, marketing-cloud-personalization, agentforce, ai, people-leader, nodejs, javascript, docker, technical-leader, java]
+topics: [architecture, consulting, marketing-tech, people-leader, latam]
 ---
 
 Conquistas e contribuições:
