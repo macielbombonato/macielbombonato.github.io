@@ -409,6 +409,7 @@ function handlePayload(rawOrEntry) {
         window[cfg.renderedFlag] = true;
         target.innerHTML = html.join("");
 
+        hardenZoneLogos(target);
         attachClickListeners(target, cfg);
         fireImpression(cfg, html.length);
         return html.length;
@@ -581,6 +582,48 @@ function handlePayload(rawOrEntry) {
             'src="' + escapeAttr(src) + '" ' +
             'alt="" loading="lazy" ' +
             'onerror="this.onerror=null;this.src=\'' + FALLBACK_LOGO + '\';">';
+    }
+
+    // Defense-in-depth for a recommendation card logo. The inline onerror in
+    // buildLogoImg() only fires on a clean network error — it does NOT catch
+    // the "HTTP 200 but not a renderable image" case (a stale favicon URL, a
+    // redirect to an HTML page, an empty/corrupt body): the browser fires
+    // `load`, not `error`, and the broken-image glyph stays. hardenLogo wires
+    // BOTH paths so the FALLBACK_LOGO is applied whenever the image fails to
+    // RENDER:
+    //   - the `error` event (true network failure), AND
+    //   - a `load` event whose decoded image has naturalWidth === 0
+    //     (loaded-but-not-an-image / zero-dimension).
+    // The swap is guarded against the fallback itself (never swaps to the
+    // fallback twice) so a fallback that ever fails cannot loop. It also
+    // handles the ALREADY-resolved case: because cards are injected via
+    // innerHTML, the provided image can finish (and fail) BEFORE the listeners
+    // are attached, in which case `load`/`error` never fire again — so if the
+    // image is already complete with naturalWidth === 0 we swap immediately.
+    function hardenLogo(img) {
+        if (!img) return;
+        function swap() {
+            if (img.getAttribute("src") !== FALLBACK_LOGO) {
+                img.onerror = null;
+                img.src = FALLBACK_LOGO;
+            }
+        }
+        img.addEventListener("error", swap);
+        img.addEventListener("load", function () {
+            if (img.naturalWidth === 0) swap();
+        });
+        if (img.complete && img.naturalWidth === 0) swap();
+    }
+
+    // Apply hardenLogo to every recommendation logo inside a freshly-rendered
+    // zone. Idempotent: re-running on the same container only re-attaches
+    // listeners (the swap guard keeps it from ever looping to the fallback).
+    function hardenZoneLogos(target) {
+        if (!target) return;
+        var logos = target.querySelectorAll(".related-card-logo");
+        for (var i = 0; i < logos.length; i++) {
+            hardenLogo(logos[i]);
+        }
     }
 
     function buildTopicChips(topics) {
