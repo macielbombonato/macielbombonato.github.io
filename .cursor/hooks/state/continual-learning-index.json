@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastRunAtMs": 1780343340000,
+  "lastRunAtMs": 1781033393000,
   "transcripts": {
     "3e88cca3-f3ab-440f-8257-a57ae7573aa4": {
       "path": "agent-transcripts/3e88cca3-f3ab-440f-8257-a57ae7573aa4/3e88cca3-f3ab-440f-8257-a57ae7573aa4.jsonl",
@@ -8,7 +8,11 @@
     },
     "b55c5a0b-3520-4b4d-9817-ab91e7189da4": {
       "path": "agent-transcripts/b55c5a0b-3520-4b4d-9817-ab91e7189da4/b55c5a0b-3520-4b4d-9817-ab91e7189da4.jsonl",
-      "mtimeMs": 1780343388000
+      "mtimeMs": 1780346011000
+    },
+    "003cc7e0-c899-4554-ae14-aeb719f5bfa8": {
+      "path": "agent-transcripts/003cc7e0-c899-4554-ae14-aeb719f5bfa8/003cc7e0-c899-4554-ae14-aeb719f5bfa8.jsonl",
+      "mtimeMs": 1781033366000
     }
   }
 }
