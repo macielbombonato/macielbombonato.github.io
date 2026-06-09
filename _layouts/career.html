@@ -19,7 +19,8 @@ layout: career-layout
          data-article-end-date="{% if page.end and page.end != '' %}{{ page.end | date: '%Y-%m-%d' | escape }}{% endif %}"
          data-article-location="{{ page.location | default: '' | escape }}"
          data-article-industry="{{ page.industry | default: '' | escape }}"
-         data-article-seniority="{{ page.seniority | default: '' | escape }}">
+         data-article-seniority="{{ page.seniority | default: '' | escape }}"
+         data-article-image="{% if page.logo and page.logo != '' %}{{ page.logo | escape }}{% else %}{{ site.default_logo | prepend: site.url | escape }}{% endif %}">
 
   <header class="career-detail-header">
     <a class="career-detail-back" href="{{ site.baseurl }}/">
@@ -34,7 +35,10 @@ layout: career-layout
 
     <h1 class="career-detail-role">{{ page.title }}</h1>
     {% if page.company and page.company != '' %}
-      <h2 class="career-detail-company">{{ page.company }}</h2>
+      <div class="career-detail-company-row">
+        {% include logo-img.html logo=page.logo class="career-detail-logo" alt=page.company %}
+        <h2 class="career-detail-company">{{ page.company }}</h2>
+      </div>
     {% endif %}
 
     {% if page.location != '' or industry_label != '' or seniority_label != '' %}

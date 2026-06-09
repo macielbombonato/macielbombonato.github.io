@@ -865,6 +865,77 @@ img[alt$="-fullwidth"]{
     border-color: #ce93d8;
 }
 
+/* ---------------------------------------------------------------------------
+   Post / company logos. A single `.post-logo` base shared by the career and
+   blog cards, the detail-page headers and the MCP related-card builder, plus
+   the flex rows that pair a logo with the company name / post title. The
+   image is contained (object-fit: contain) on a soft neutral chip so mixed
+   aspect ratios and the SVG fallback both sit cleanly without distortion.
+   --------------------------------------------------------------------------- */
+.post-logo,
+.related-card-logo {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 auto;
+    object-fit: contain;
+    background: #f5f7f8;
+    border: 1px solid #eceff1;
+    border-radius: 8px;
+    padding: 3px;
+}
+
+.career-card-company-row,
+.blog-card-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+/* The paired heading keeps its own typography; clear its bottom margin so
+   the flex row controls vertical rhythm, and let it wrap/shrink gracefully. */
+.career-card-company-row .career-card-company,
+.career-card-company-row .career-card-company-name,
+.blog-card-title-row .blog-card-title {
+    margin: 0;
+    min-width: 0;
+}
+.career-card-company-row,
+.blog-card-title-row {
+    margin: 0 0 14px;
+}
+.blog-card-title-row {
+    margin-bottom: 10px;
+}
+
+/* Detail-page header logos sit a touch larger next to the H1/H2. */
+.career-detail-company-row,
+.blog-detail-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.career-detail-company-row .career-detail-company,
+.blog-detail-title-row .blog-detail-title {
+    margin: 0;
+    min-width: 0;
+}
+.career-detail-logo,
+.blog-detail-logo {
+    width: 48px;
+    height: 48px;
+}
+
+/* Related-card header: logo + clamped title share a row. align-items:start
+   keeps the logo pinned to the first line when the title wraps to 2–3 lines. */
+.related-card-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+.related-card-logo {
+    width: 32px;
+    height: 32px;
+}
+
 /* "Powered by" attribution at the foot of .related-articles. Sits as
    the last child of the aside so the parent's :has(.related-grid:not(:empty))
    reveal also takes it visible/hidden along with the rest of the

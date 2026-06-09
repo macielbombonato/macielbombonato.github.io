@@ -1,0 +1,18 @@
+{%- comment -%}
+  Renders a post/company logo with a default fallback. Used by career +
+  blog cards and the detail-page headers. The `onerror` handler swaps to
+  the fallback once and clears itself so a 404 on the fallback itself
+  cannot loop.
+
+  Params:
+    logo  — front-matter `logo:` URL (optional; falls back when empty)
+    class — extra CSS class(es) appended to `post-logo`
+    alt   — accessible alt text (company name / post title)
+{%- endcomment -%}
+{%- assign fallback = site.default_logo | prepend: site.baseurl -%}
+{%- if include.logo and include.logo != "" -%}
+  {%- assign logo_src = include.logo -%}
+{%- else -%}
+  {%- assign logo_src = fallback -%}
+{%- endif -%}
+<img class="post-logo {{ include.class }}" src="{{ logo_src }}" alt="{{ include.alt | default: '' | escape }}" loading="lazy" onerror="this.onerror=null;this.src='{{ fallback }}';">

@@ -38,7 +38,8 @@
             data-article-publish-date="{{ page.date | date: '%Y-%m-%d' }}"
             data-article-description="{% if page.description %}{{ page.description | escape }}{% else %}{{ page.content | strip_html | strip_newlines | strip | truncate: 200 | escape }}{% endif %}"
             data-article-tags="{{ page.tags | join: ',' | escape }}"
-            data-article-topics="{{ page.topics | join: ',' | escape }}">
+            data-article-topics="{{ page.topics | join: ',' | escape }}"
+            data-article-image="{% if page.logo and page.logo != '' %}{{ page.logo | escape }}{% else %}{{ site.default_logo | prepend: site.url | escape }}{% endif %}">
 
             <header class="blog-detail-header">
               <a class="blog-detail-back" href="{{ site.baseurl }}/blog/">
@@ -51,7 +52,10 @@
                 {{ page.date | date: "%d" }} {{ months_pt[mi] }} {{ page.date | date: "%Y" }}
               </div>
 
-              <h1 class="blog-detail-title">{{ page.title }}</h1>
+              <div class="blog-detail-title-row">
+                {% include logo-img.html logo=page.logo class="blog-detail-logo" alt=page.title %}
+                <h1 class="blog-detail-title">{{ page.title }}</h1>
+              </div>
 
               {% if page.author and page.author != '' %}
                 <div class="blog-detail-author">

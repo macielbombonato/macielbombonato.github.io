@@ -8,6 +8,12 @@ name: Maciel Escudero Bombonato
 # Short bio or description (displayed in the header)
 description: Desenvolvedor de software
 
+# Default fallback logo/image used on cards, detail headers and the MCP
+# catalog when a post does not set its own `logo:` front-matter URL.
+# On-page rendering prepends `site.baseurl`; the MCP feed/sitemap prepend
+# `site.url` so the catalog stores an absolute, resolvable URL.
+default_logo: /assets/img/logo-fallback.svg
+
 
 #
 # Flags below are optional

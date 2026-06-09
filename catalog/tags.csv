@@ -22,6 +22,7 @@ bootable-usb,Tags,Bootable Usb,false
 bootstrap,Tags,Bootstrap,false
 bpmn,Tags,BPMN,false
 build,Tags,Build,false
+buyer,Tags,Buyer,false
 chosen,Tags,Chosen,false
 ci-cd,Tags,Ci Cd,false
 cli,Tags,Cli,false
@@ -105,6 +106,7 @@ jboss,Tags,JBoss,false
 jdbc,Tags,JDBC,false
 jekyll,Tags,Jekyll,false
 jenkins,Tags,Jenkins,false
+jetbrains,Tags,Jetbrains,false
 jira,Tags,Jira,false
 jms,Tags,JMS,false
 jpa,Tags,JPA,false
@@ -133,11 +135,11 @@ management,Tags,Management,false
 manufacturing,Tags,Manufacturing,false
 marketing-cloud,Tags,Marketing Cloud,false
 marketing-cloud-personalization,Tags,Marketing Cloud Personalization,false
-martech,Tags,Martech,false
 materials,Tags,Materials,false
 maven,Tags,Maven,false
 methodology,Tags,Methodology,false
 micro-services,Tags,Microservices,false
+microsoft,Tags,Microsoft,false
 migration,Tags,Migration,false
 mobile,Tags,Mobile,false
 monitor,Tags,Monitor,false
@@ -157,8 +159,10 @@ oracle-forms,Tags,Oracle Forms,false
 oracle-reports,Tags,Oracle Reports,false
 outsourcing,Tags,Outsourcing,false
 owner,Tags,Owner,false
+payment,Tags,Payment,false
 payments,Tags,Payments,false
 pension,Tags,Pension,false
+people-leader,Tags,People Leader,false
 performance,Tags,Performance,false
 persistence,Tags,Persistence,false
 personalization,Tags,Personalization,false
@@ -220,6 +224,7 @@ system,Tags,System,false
 teamcity,Tags,TeamCity,false
 tech-lead,Tags,Tech Lead,false
 technical-education,Tags,Technical Education,false
+technical-leader,Tags,Technical Leader,false
 telecom,Tags,Telecom,false
 terminal,Tags,Terminal,false
 tomcat,Tags,Apache Tomcat,false
@@ -241,5 +246,6 @@ xmlbeans,Tags,XMLBeans,false
 architecture,Tags,Architecture,true
 consulting,Tags,Consulting,true
 development,Tags,Development,true
+martech,Tags,Martech,true
 security,Tags,Security,true
 teaching,Tags,Teaching,true

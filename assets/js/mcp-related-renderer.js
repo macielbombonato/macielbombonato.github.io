@@ -64,6 +64,14 @@
     // the renderer still trims to this number. Bump in BOTH places.
     var MAX_PER_ZONE = 3;
 
+    // Absolute fallback logo, mirrors `site.default_logo` resolved against
+    // `site.url` (see _config.yml + tools/generate_catalog_feed.py). Used
+    // when a recommended item carries no `imageUrl`, and as the onerror
+    // swap target when the item's own image fails to load. The onerror
+    // handler clears itself after the first swap so a 404 on the fallback
+    // itself cannot loop.
+    var FALLBACK_LOGO = "https://www.bombonato.net/assets/img/logo-fallback.svg";
+
     // Bounded retry poll (cold-load fix, part 2). The reactive interceptor
     // renders the moment a populated campaign response is seen — but on a
     // FIRST click-navigation (no prior catalog view registered yet) the
@@ -457,6 +465,7 @@ function handlePayload(rawOrEntry) {
         var url = readAttr(a.url);
         var name = readAttr(a.name);
         var company = readAttr(a.company);
+        var image = readAttr(a.imageUrl);
         var startDate = readAttr(a.startDate);
         var endDate = readAttr(a.endDate);
         var topics = readRelated(item, "Topics", a.topics);
@@ -494,7 +503,10 @@ function handlePayload(rawOrEntry) {
             'data-cy-track="related_career_click" ' +
             'data-cy-target-id="' + escapeAttr(id) + '">' +
             metaHtml +
-            '<h4 class="related-card-title">' + escapeHtml(title) + "</h4>" +
+            '<div class="related-card-head">' +
+                buildLogoImg(image) +
+                '<h4 class="related-card-title">' + escapeHtml(title) + "</h4>" +
+            "</div>" +
             companyHtml +
             topicsHtml +
             "</a>";
@@ -505,6 +517,7 @@ function handlePayload(rawOrEntry) {
         var a = (item && item.attributes) || {};
         var url = readAttr(a.url);
         var name = readAttr(a.name);
+        var image = readAttr(a.imageUrl);
         // Blog uses the native System Attribute `publishedDate` (per
         // MCP docs: "publishedDate must be exclusively used for
         // articles and blogs"). We fall back to `published` and
@@ -532,7 +545,10 @@ function handlePayload(rawOrEntry) {
             'data-cy-track="related_blog_click" ' +
             'data-cy-target-id="' + escapeAttr(id) + '">' +
             metaHtml +
-            '<h4 class="related-card-title">' + escapeHtml(title) + "</h4>" +
+            '<div class="related-card-head">' +
+                buildLogoImg(image) +
+                '<h4 class="related-card-title">' + escapeHtml(title) + "</h4>" +
+            "</div>" +
             topicsHtml +
             "</a>";
     }
@@ -550,6 +566,17 @@ function handlePayload(rawOrEntry) {
         var m = /^(\d{4})(\d{2})-(.+)$/.exec(id);
         if (!m) return "";
         return "/" + m[1] + "/" + m[2] + "/" + m[3] + "/";
+    }
+
+    // Build the logo <img> for a related card. Falls back to FALLBACK_LOGO
+    // when the item has no imageUrl, and swaps to it once via onerror if the
+    // provided image fails to load (onerror clears itself to avoid loops).
+    function buildLogoImg(imageUrl) {
+        var src = imageUrl || FALLBACK_LOGO;
+        return '<img class="related-card-logo" ' +
+            'src="' + escapeAttr(src) + '" ' +
+            'alt="" loading="lazy" ' +
+            'onerror="this.onerror=null;this.src=\'' + FALLBACK_LOGO + '\';">';
     }
 
     function buildTopicChips(topics) {

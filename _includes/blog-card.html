@@ -29,7 +29,10 @@
     </div>
 
     <div class="blog-card-body">
-      <h3 class="blog-card-title">{{ post.title }}</h3>
+      <div class="blog-card-title-row">
+        {% include logo-img.html logo=post.logo class="blog-card-logo" alt=post.title %}
+        <h3 class="blog-card-title">{{ post.title }}</h3>
+      </div>
       <p class="blog-card-description">{{ clean_description | truncate: 180 }}</p>
 
       {% if post.tags and post.tags.size > 0 %}

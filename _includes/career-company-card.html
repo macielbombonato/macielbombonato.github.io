@@ -41,7 +41,10 @@
       </div>
 
       <div class="career-card-body">
-        <h3 class="career-card-company-name">{{ company }}</h3>
+        <div class="career-card-company-row">
+          {% include logo-img.html logo=latest.logo class="career-card-logo" alt=company %}
+          <h3 class="career-card-company-name">{{ company }}</h3>
+        </div>
         <p class="career-card-positions-count">
           <i class="material-icons">timeline</i>
           {{ role_count }} posições nesta empresa

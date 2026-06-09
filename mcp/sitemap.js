@@ -180,6 +180,7 @@ SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
             attributes: {
               name:        SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-name"),
               url:         SalesforceInteractions.resolvers.fromHref(),
+              imageUrl:    SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-image"),
               description: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-description"),
               published:   SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-publish-date"),
               company:     SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-company"),
@@ -212,6 +213,7 @@ SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
             attributes: {
               name:          SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-name"),
               url:           SalesforceInteractions.resolvers.fromHref(),
+              imageUrl:      SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-image"),
               description:   SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-description"),
               date: SalesforceInteractions.resolvers.fromSelectorAttribute("article.post", "data-article-publish-date"),
             },

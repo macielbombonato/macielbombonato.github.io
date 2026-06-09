@@ -6,6 +6,7 @@ end:
 location: São Paulo, SP
 industry: it-services
 seniority: senior-manager
+logo: https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg
 
 tags: [management, delivery, project-management, salesforce, presales, marketing-cloud, personalization, data-cloud, customer-experience, leadership, latam, marketing-cloud-personalization, agentforce, ai, people-leader, nodejs, javascript, docker, technical-leader, java]
 topics: [architecture, consulting, marketing-tech, people-leader, latam]

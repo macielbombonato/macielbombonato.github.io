@@ -78,7 +78,7 @@ Schemas
 `articles.csv` (Item Type `Article`, career rows):
 
     id, catalogObjectType,
-    attribute:name, attribute:url, attribute:description,
+    attribute:name, attribute:url, attribute:imageUrl, attribute:description,
     attribute:company, attribute:startDate, attribute:endDate,
     attribute:location, attribute:industry, attribute:seniority,
     attribute:published, attribute:archived,
@@ -88,7 +88,7 @@ Schemas
 `blogs.csv` (Item Type `Blog`, blog rows):
 
     id, catalogObjectType,
-    attribute:name, attribute:url, attribute:description,
+    attribute:name, attribute:url, attribute:imageUrl, attribute:description,
     attribute:date, attribute:archived,
     relatedCatalogObject:Topics,
     relatedCatalogObject:Tags
@@ -180,6 +180,13 @@ TAGS_OUT = REPO_ROOT / "catalog" / "tags.csv"
 
 SITE_URL = "https://www.bombonato.net"
 
+# Absolute fallback logo, mirrors `site.default_logo` resolved against
+# `site.url` (see _config.yml). Used for `attribute:imageUrl` whenever a
+# post has no `logo:` front-matter URL, so MCP always stores an absolute,
+# resolvable image. Keep in sync with FALLBACK_LOGO in
+# assets/js/mcp-related-renderer.js and `data-article-image` in the layouts.
+DEFAULT_LOGO_URL = f"{SITE_URL}/assets/img/logo-fallback.svg"
+
 FRONT_MATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n(.*)$", re.DOTALL)
 FILENAME_RE = re.compile(r"^(\d{4})-(\d{2})-(\d{2})-(.+)\.md$")
 
@@ -189,6 +196,7 @@ ARTICLES_FIELDNAMES = [
     "catalogObjectType",
     "attribute:name",
     "attribute:url",
+    "attribute:imageUrl",
     "attribute:description",
     "attribute:company",
     "attribute:startDate",
@@ -207,6 +215,7 @@ BLOGS_FIELDNAMES = [
     "catalogObjectType",
     "attribute:name",
     "attribute:url",
+    "attribute:imageUrl",
     "attribute:description",
     "attribute:date",
     "attribute:archived",
@@ -462,6 +471,7 @@ def build_row_career(path: Path, fm: dict, body: str) -> dict | None:
         "catalogObjectType": "Article",
         "attribute:name": fm.get("title", "") or "",
         "attribute:url": url,
+        "attribute:imageUrl": fm.get("logo") or DEFAULT_LOGO_URL,
         "attribute:description": description,
         "attribute:company": fm.get("company", "") or "",
         "attribute:startDate": start_date,
@@ -493,6 +503,7 @@ def build_row_blog(path: Path, fm: dict, body: str) -> dict | None:
         "catalogObjectType": "Blog",
         "attribute:name": fm.get("title", "") or "",
         "attribute:url": url,
+        "attribute:imageUrl": fm.get("logo") or DEFAULT_LOGO_URL,
         "attribute:description": description,
         "attribute:date": publish_date,
         "attribute:archived": ARCHIVED_FALSE,
@@ -546,6 +557,7 @@ def empty_article_row(slug: str) -> dict:
         "catalogObjectType": "Article",
         "attribute:name": "",
         "attribute:url": "",
+        "attribute:imageUrl": "",
         "attribute:description": "",
         "attribute:company": "",
         "attribute:startDate": "",
@@ -567,6 +579,7 @@ def empty_blog_row(slug: str) -> dict:
         "catalogObjectType": "Blog",
         "attribute:name": "",
         "attribute:url": "",
+        "attribute:imageUrl": "",
         "attribute:description": "",
         "attribute:date": "",
         "attribute:archived": ARCHIVED_TRUE,
