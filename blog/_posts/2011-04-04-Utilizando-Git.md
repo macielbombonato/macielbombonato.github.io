@@ -3,6 +3,7 @@ layout: post
 title: Utilizando Git na linha de comando
 author: Maciel Escudero Bombonato
 description: Lista prática de comandos git essenciais para versionar diretórios locais, gerenciar branches, fazer merges e configurar repositórios remotos.
+logo: https://cdn.simpleicons.org/git
 
 tags: [git, cli, dev]
 topics: [tooling, development]

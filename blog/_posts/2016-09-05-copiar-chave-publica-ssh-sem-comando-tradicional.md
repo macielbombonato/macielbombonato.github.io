@@ -3,6 +3,7 @@ layout: post
 title: Copiar chave pública SSH sem precisar do tradicional copy/paste
 author: Maciel Escudero Bombonato
 description: Como copiar a chave pública SSH direto para o clipboard usando pbcopy no macOS e xclip no Linux, com configuração de alias no bashrc.
+logo: https://upload.wikimedia.org/wikipedia/commons/2/2d/Puffy.png
 
 tags: [ssh, macos, linux, devops, cli, terminal]
 topics: [tooling, security]

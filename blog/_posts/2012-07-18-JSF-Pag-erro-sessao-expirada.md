@@ -3,6 +3,7 @@ layout: post
 title: JSF - Página de erro após sessão expirada?
 author: Maciel Escudero Bombonato
 description: Como configurar uma página de erro customizada para sessão expirada em aplicações JSF usando ViewExpiredException no web.xml.
+logo: https://cdn.simpleicons.org/openjdk
 
 tags: [java, jsf, web, error-handling, session]
 topics: [development, troubleshooting]

@@ -6,6 +6,7 @@ end: 2019-08-31
 location: São Paulo, SP
 industry: pension
 seniority: architect
+logo: https://upload.wikimedia.org/wikipedia/commons/4/4b/Brasilprev_Logo.jpg
 
 tags: [pension, insurance, finance, java, devops, cloud, integration, spring-boot, spring-batch, spring-data, jenkins, azure-devops, docker, aws, ecs, ec2, rds, s3, elastic-beanstalk]
 topics: [architecture, devops-cloud]

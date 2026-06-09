@@ -3,6 +3,7 @@ layout: post
 title: JSF - URL não muda após redirect?
 author: Maciel Escudero Bombonato
 description: Dica para forçar a mudança da URL no browser após redirect no JSF usando o parâmetro faces-redirect=true no retorno da action.
+logo: https://cdn.simpleicons.org/openjdk
 
 tags: [java, jsf, web, navigation, redirect]
 topics: [development]

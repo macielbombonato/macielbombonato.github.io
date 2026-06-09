@@ -64,13 +64,17 @@
     // the renderer still trims to this number. Bump in BOTH places.
     var MAX_PER_ZONE = 3;
 
-    // Absolute fallback logo, mirrors `site.default_logo` resolved against
-    // `site.url` (see _config.yml + tools/generate_catalog_feed.py). Used
-    // when a recommended item carries no `imageUrl`, and as the onerror
-    // swap target when the item's own image fails to load. The onerror
+    // Root-relative fallback logo, mirrors `site.default_logo` (see
+    // _config.yml). Used when a recommended item carries no `imageUrl`
+    // (the common case until the CSV feeds are re-uploaded), and as the
+    // onerror swap target when the item's own image fails to load. It MUST
+    // be root-relative (not the absolute production URL) so it resolves on
+    // whatever origin the page is served from — localhost during `jekyll
+    // serve` AND www.bombonato.net in production. An absolute prod URL 404s
+    // locally, which is exactly why the cards showed no image. The onerror
     // handler clears itself after the first swap so a 404 on the fallback
     // itself cannot loop.
-    var FALLBACK_LOGO = "https://www.bombonato.net/assets/img/logo-fallback.svg";
+    var FALLBACK_LOGO = "/assets/img/logo-fallback.svg";
 
     // Bounded retry poll (cold-load fix, part 2). The reactive interceptor
     // renders the moment a populated campaign response is seen — but on a

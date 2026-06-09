@@ -6,6 +6,7 @@ end: 1999-06-30
 location: Carapicuíba, SP
 industry: education
 seniority: junior
+logo: https://upload.wikimedia.org/wikipedia/commons/4/4e/Logo_Microlins.jpg
 
 tags: [education, computer-basics, instructor, windows-98, office, internet, microsoft, windows]
 topics: [teaching]
