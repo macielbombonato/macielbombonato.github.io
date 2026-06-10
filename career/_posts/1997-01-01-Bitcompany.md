@@ -6,6 +6,7 @@ end: 1997-10-31
 location: Carapicuíba, SP
 industry: education
 seniority: intern
+logo: https://images.seeklogo.com/logo-png/1/1/bit-company-logo-png_seeklogo-19884.png
 
 tags: [internship, support, education, lab, windows, office]
 topics: [troubleshooting, teaching]
