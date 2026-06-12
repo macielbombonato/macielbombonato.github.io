@@ -264,8 +264,8 @@ flowchart TD
     C --> C2[listeners<br/>track clicks on contact links]
     D --> D1[Default Page View<br/>fallback so interaction is never null]
     E --> E1[home<br/>Home Page View + zones + listeners]
-    E --> E2[career_detail<br/>View Catalog Object]
-    E --> E3[blog_detail<br/>View Catalog Object]
+    E --> E2[career_detail<br/>View Catalog Object + View Career Detail]
+    E --> E3[blog_detail<br/>View Catalog Object + View Blog Detail]
 ```
 
 ## Custom interactions sent by the sitemap
@@ -275,6 +275,8 @@ flowchart TD
 | `Default Page View`       | Any page that doesn't match a defined pageType | —                             |
 | `Home Page View`          | URL is `/`                                     | —                             |
 | `View Catalog Object`     | Career or blog detail pages                    | full catalogObject            |
+| `View Career Detail`      | Career detail page load (once/page)            | —                             |
+| `View Blog Detail`        | Blog detail page load (once/page)              | —                             |
 | `View Experience Details` | Click on "Mais detalhes" on home cards         | `role`, `company`             |
 | `Contact Click`           | Click on mailto / linkedin / github links      | `destination`, `kind`         |
 

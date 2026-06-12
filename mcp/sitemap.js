@@ -230,4 +230,36 @@ SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
       },
     ],
   });
+
+  // Dedicated named actions on detail page-load so user-segments can
+  // target career vs blog interest by action NAME. The generic
+  // ViewCatalogObject interaction above only differs by
+  // catalogObject.type, which the segment Actions criteria cannot key
+  // off. The PageType API exposes no page-load callback (supported keys
+  // are name / isMatch / interaction / contentZones / listeners — there
+  // is NO `action`), so we fire these imperatively once the detail
+  // <article> is in the DOM, reusing the same ready-gate timing as the
+  // matchWhenReady helper. One-shot window flags guard against a
+  // double-fire; the names are distinct from each other and from
+  // ViewCatalogObject, so the client-side rate limiter (same-name <1s
+  // throttle) is not tripped. ViewCatalogObject is KEPT — the
+  // catalog/recommendations engine still needs it.
+  const fireDetailAction = () => {
+    if (!window.__mcp_action_career_detail &&
+        document.querySelector("article.post[data-article-category='career']")) {
+      window.__mcp_action_career_detail = true;
+      SalesforceInteractions.sendEvent({ interaction: { name: "View Career Detail" } });
+    }
+    if (!window.__mcp_action_blog_detail &&
+        document.querySelector("article.post[data-article-category='blog']")) {
+      window.__mcp_action_blog_detail = true;
+      SalesforceInteractions.sendEvent({ interaction: { name: "View Blog Detail" } });
+    }
+  };
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", fireDetailAction);
+    setTimeout(fireDetailAction, 1500);
+  } else {
+    fireDetailAction();
+  }
 });
