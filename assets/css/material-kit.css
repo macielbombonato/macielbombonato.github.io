@@ -2110,8 +2110,8 @@ legend {
   line-height: 1.42857;
 }
 .navbar, .navbar.navbar-default {
-  background-color: #9c27b0;
-  color: #ffffff;
+  background-color: var(--brand-header-bg, #9c27b0);
+  color: var(--brand-header-fg, #ffffff);
 }
 .navbar .navbar-form .form-group input.form-control::-moz-placeholder,
 .navbar .navbar-form input.form-control::-moz-placeholder, .navbar.navbar-default .navbar-form .form-group input.form-control::-moz-placeholder,

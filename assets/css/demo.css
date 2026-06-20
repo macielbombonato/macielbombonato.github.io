@@ -1,3 +1,46 @@
+/* ==========================================================================
+   Themeable header (top nav) + footer — MCP Personalization hook
+   --------------------------------------------------------------------------
+   These custom properties drive the header/footer colors. With NO body class
+   the var() fallbacks reproduce the original palette, so the default render is
+   pixel-identical to today (header solid bg #9c27b0/#fff in material-kit.css;
+   footer transparent, text inherited).
+
+   A Salesforce Marketing Cloud Personalization (MCP) Web Campaign toggles the
+   classes `theme-career` / `theme-blog` on <body> per behavior segment (e.g.
+   document.body.classList.add('theme-career')). The classes ONLY re-point the
+   variables below — no markup changes. If both classes are present, normal CSS
+   source order applies and `.theme-blog` (declared last) wins.
+   ========================================================================== */
+:root {
+    --brand-header-bg: #9c27b0; /* current solid navbar purple */
+    --brand-header-fg: #ffffff; /* current navbar text */
+    --brand-footer-bg: transparent; /* current footer (no background) */
+    --brand-footer-fg: inherit; /* current footer text (inherited) */
+}
+
+/* Footer consumes the variables. Defaults keep it identical to today. */
+.footer {
+    background-color: var(--brand-footer-bg, transparent);
+    color: var(--brand-footer-fg, inherit);
+}
+
+/* Career segment — teal/cyan family (aligns with the green career accent). */
+body.theme-career {
+    --brand-header-bg: #00796b; /* teal 700 — white text ~5:1 */
+    --brand-header-fg: #ffffff;
+    --brand-footer-bg: #004d40; /* teal 900 */
+    --brand-footer-fg: #ffffff;
+}
+
+/* Blog segment — deep purple family (aligns with the purple blog accent). */
+body.theme-blog {
+    --brand-header-bg: #5e35b1; /* deep purple 600 — white text ~7:1 */
+    --brand-header-fg: #ffffff;
+    --brand-footer-bg: #311b92; /* deep purple 900 */
+    --brand-footer-fg: #ffffff;
+}
+
 img[alt$="-fullwidth"]{
   width:  100%;
   display: block;
