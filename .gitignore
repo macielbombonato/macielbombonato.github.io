@@ -5,3 +5,10 @@ _site/
 .jekyll-cache/
 .jekyll-metadata
 mcp-warmup/
+
+.mc-build-tmp/**
+
+# Environment variables (local secrets)
+.env
+.env.*
+!.env.example

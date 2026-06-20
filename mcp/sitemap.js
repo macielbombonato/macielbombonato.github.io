@@ -108,6 +108,128 @@ SalesforceInteractions.init({ cookieDomain: "bombonato.net" }).then(() => {
         actionEvent.source.utmSource = params.get("utm_source") || undefined;
         actionEvent.source.utmMedium = params.get("utm_medium") || undefined;
         actionEvent.source.utmCampaign = params.get("utm_campaign") || undefined;
+
+        const normalize = (v) => (typeof v === "string" && v.trim() ? v.trim() : undefined);
+        const identityStorageKey = "mcp_customer_id";
+        const identityCookieName = "mcp_customer_id";
+        const identityCookieMaxAgeSeconds = 60 * 60 * 24 * 365 * 5;
+
+        const readCookie = (name) => {
+          try {
+            const cookiePrefix = `${name}=`;
+            const cookies = (document.cookie || "").split(";").map((item) => item.trim());
+            const cookieEntry = cookies.find((item) => item.startsWith(cookiePrefix));
+            if (!cookieEntry) return undefined;
+            return normalize(decodeURIComponent(cookieEntry.slice(cookiePrefix.length)));
+          } catch (_error) {
+            return undefined;
+          }
+        };
+
+        const writeCookie = (name, value) => {
+          const normalizedValue = normalize(value);
+          if (!normalizedValue) return undefined;
+          try {
+            const parts = [
+              `${name}=${encodeURIComponent(normalizedValue)}`,
+              `Max-Age=${identityCookieMaxAgeSeconds}`,
+              "Path=/",
+              "SameSite=Lax",
+            ];
+            if (location.protocol === "https:") {
+              parts.push("Secure");
+            }
+            document.cookie = parts.join("; ");
+            return normalizedValue;
+          } catch (_error) {
+            return undefined;
+          }
+        };
+
+        const syncLocalCustomerId = (value) => {
+          const normalizedValue = normalize(value);
+          if (!normalizedValue) return undefined;
+          try {
+            window.localStorage?.setItem(identityStorageKey, normalizedValue);
+          } catch (_error) {
+            // Ignore storage failures and keep cookie-first identity.
+          }
+          return normalizedValue;
+        };
+
+        const readSdkIdentityCookie = () => {
+          try {
+            const cookies = (document.cookie || "").split(";").map((item) => item.trim());
+            const cookieEntry = cookies.find((item) =>
+              item.startsWith("_evga_") || item.startsWith("_sfid_") || item.startsWith("evg_")
+            );
+            if (!cookieEntry) return undefined;
+            const separator = cookieEntry.indexOf("=");
+            if (separator < 0) return undefined;
+            return normalize(decodeURIComponent(cookieEntry.slice(separator + 1)));
+          } catch (_error) {
+            return undefined;
+          }
+        };
+
+        const generateCustomerId = () => {
+          try {
+            if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+            if (window.crypto?.getRandomValues) {
+              const bytes = new Uint8Array(16);
+              window.crypto.getRandomValues(bytes);
+              bytes[6] = (bytes[6] & 0x0f) | 0x40;
+              bytes[8] = (bytes[8] & 0x3f) | 0x80;
+              const hex = Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+              return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20, 32)}`;
+            }
+          } catch (_error) {
+            // Continue to deterministic fallback.
+          }
+          return `mcp-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+        };
+
+        const getOrCreateStableCustomerId = (seedValue) => {
+          const cookieId = readCookie(identityCookieName);
+          if (cookieId) return syncLocalCustomerId(cookieId);
+
+          let storageId;
+          try {
+            storageId = normalize(window.localStorage?.getItem(identityStorageKey));
+          } catch (_error) {
+            storageId = undefined;
+          }
+          if (storageId) return writeCookie(identityCookieName, storageId) || storageId;
+
+          const seededId = normalize(seedValue) || readSdkIdentityCookie();
+          const generatedId = seededId || generateCustomerId();
+          const persistedCookieId = writeCookie(identityCookieName, generatedId) || generatedId;
+          syncLocalCustomerId(persistedCookieId);
+          return persistedCookieId;
+        };
+
+        actionEvent.user = actionEvent.user || {};
+        actionEvent.user.identities = actionEvent.user.identities || {};
+
+        const identities = actionEvent.user.identities;
+        const existingCustomerId = normalize(identities.customerId);
+        const identitySeed =
+          existingCustomerId ||
+          normalize(identities.sfmcContactKey) ||
+          normalize(identities._sfUserId) ||
+          normalize(identities.profileId) ||
+          normalize(identities.anonymousId) ||
+          normalize(actionEvent.user.id) ||
+          normalize(actionEvent.user.anonymousId);
+        const stableCustomerId = getOrCreateStableCustomerId(identitySeed);
+
+        if (!existingCustomerId && stableCustomerId) {
+          identities.customerId = stableCustomerId;
+        }
+        if (!normalize(identities.sfmcContactKey) && stableCustomerId) {
+          identities.sfmcContactKey = stableCustomerId;
+        }
+
         return actionEvent;
       },
       listeners: [

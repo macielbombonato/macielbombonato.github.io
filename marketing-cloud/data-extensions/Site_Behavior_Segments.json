@@ -1,0 +1,47 @@
+{
+  "kind": "dataExtension",
+  "name": "Site_Behavior_Segments",
+  "key": "Site_Behavior_Segments",
+  "description": "Recebe os membros dos segmentos de comportamento do site bombonato.net (interesse em carreira vs blog), sincronizados a partir do Marketing Cloud Personalization para acionar Journeys.",
+  "folderId": 354805,
+  "isSendable": true,
+  "sendableSubscriberField": "ContactKey",
+  "sendableSubscriberKey": "Subscriber Key",
+  "fields": [
+    {
+      "name": "ContactKey",
+      "type": "Text",
+      "length": 254,
+      "isPrimaryKey": true,
+      "isNullable": false
+    },
+    {
+      "name": "EmailAddress",
+      "type": "EmailAddress",
+      "isNullable": true
+    },
+    {
+      "name": "SegmentName",
+      "type": "Text",
+      "length": 200,
+      "isNullable": true
+    },
+    {
+      "name": "InterestType",
+      "type": "Text",
+      "length": 20,
+      "isNullable": true
+    },
+    {
+      "name": "LastSeenDate",
+      "type": "Date",
+      "isNullable": true
+    },
+    {
+      "name": "SourceUrl",
+      "type": "Text",
+      "length": 500,
+      "isNullable": true
+    }
+  ]
+}

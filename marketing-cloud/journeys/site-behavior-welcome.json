@@ -1,0 +1,89 @@
+{
+  "key": "site-behavior-welcome",
+  "name": "Site Behavior - Welcome",
+  "description": "Journey minima com Entry Source e Wait para validar criacao via API.",
+  "version": 2,
+  "workflowApiVersion": 1.0,
+  "entryMode": "MultipleEntries",
+  "definitionType": "Multistep",
+  "channel": "",
+  "executionMode": "Production",
+  "triggers": [
+    {
+      "key": "TRIGGER",
+      "name": "Entrada via Site_Behavior_Segments",
+      "description": "",
+      "type": "APIEvent",
+      "outcomes": [],
+      "arguments": {},
+      "configurationArguments": {},
+      "metaData": {
+        "sourceInteractionId": "00000000-0000-0000-0000-000000000000",
+        "eventDefinitionId": "fe13139b-1ce8-4b1c-a6eb-7cd50768e6ff",
+        "eventDefinitionKey": "APIEvent-68a0a03d-463d-499e-2d68-003102e73365",
+        "chainType": "None",
+        "configurationRequired": false,
+        "iconUrl": "/images/icon_journeyBuilder-event-api-blue.svg",
+        "title": "",
+        "entrySourceGroupConfigUrl": "jb:///data/entry/api-event/entrysourcegroupconfig.json"
+      }
+    }
+  ],
+  "activities": [
+    {
+      "key": "RANDOMSPLITV2-1",
+      "name": "",
+      "description": "",
+      "type": "RANDOMSPLIT",
+      "outcomes": [
+        {
+          "key": "branchResult-1",
+          "arguments": {
+            "percentage": "50"
+          },
+          "metaData": {
+            "label": "50%",
+            "pathName": "Path 1",
+            "invalid": false
+          }
+        },
+        {
+          "key": "branchResult-2",
+          "arguments": {
+            "percentage": "50"
+          },
+          "metaData": {
+            "label": "50%",
+            "pathName": "Path 2",
+            "invalid": false
+          }
+        }
+      ],
+      "arguments": {},
+      "configurationArguments": {},
+      "metaData": {
+        "category": "flow",
+        "isConfigured": true
+      }
+    }
+  ],
+  "goals": [],
+  "exits": [],
+  "notifiers": [],
+  "defaults": {
+    "email": [
+      "{{Event.APIEvent-68a0a03d-463d-499e-2d68-003102e73365.\"EmailAddress\"}}"
+    ],
+    "properties": {
+      "analyticsTracking": {
+        "enabled": false,
+        "analyticsType": "google",
+        "urlDomainsToTrack": []
+      }
+    }
+  },
+  "metaData": {
+    "disableEndWait": true,
+    "dataSource": "ContactsModel"
+  }
+}
