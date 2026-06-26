@@ -40,8 +40,9 @@ Campo (`fields[]`): `name`, `type` (`Text`, `Number`, `Date`, `Boolean`,
 `EmailAddress`, `Phone`, `Decimal`, `Locale`), `length` (Text/Email/Phone),
 `scale` (Decimal), `isPrimaryKey`, `isNullable`, `defaultValue`.
 
-A DE `Site_Behavior_Segments` recebe os membros dos segmentos do Personalization
-(interesse **carreira** vs **blog**) para alimentar Journeys.
+A DE `Site_Behavior_Segments` é o destino para membros dos segmentos do
+Personalization (interesse **carreira** vs **blog**) e alimenta Journeys por meio
+de uma ponte de sincronização externa (não versionada neste repositório).
 
 ## Journeys
 
@@ -51,6 +52,18 @@ envelope: `key`, `name` e os blocos `triggers`/`activities`/`goals`/`defaults`).
 O arquivo `site-behavior-welcome.json` é um **esqueleto** — o caminho recomendado
 é construir a jornada na UI, exportá-la e versionar o JSON aqui, substituindo os
 placeholders (`PREENCHER_COM_...`).
+
+## Gap atual do fluxo ponta a ponta
+
+No estado atual deste repositório:
+
+- existe definição de **estrutura** (DE e Journey), mas não existe código/job para
+  ler membros de segmentos no MCP e gravar na DE automaticamente;
+- a Journey versionada `site-behavior-welcome.json` usa trigger `APIEvent`
+  (não Data Extension Entry Source), então depende de um produtor externo
+  chamando o endpoint de eventos da Journey;
+- `apply_journey` cria/atualiza definição, mas não publica automaticamente a
+  Journey (a publicação continua na UI do Journey Builder).
 
 ## Como aplicar
 

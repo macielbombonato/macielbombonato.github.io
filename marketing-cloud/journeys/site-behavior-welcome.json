@@ -1,7 +1,7 @@
 {
   "key": "site-behavior-welcome",
   "name": "Site Behavior - Welcome",
-  "description": "Journey minima com Entry Source e Wait para validar criacao via API.",
+  "description": "Journey de validacao com entrada via API Event; depende de produtor externo para disparar eventos a partir da DE.",
   "version": 2,
   "workflowApiVersion": 1.0,
   "entryMode": "MultipleEntries",
@@ -11,7 +11,7 @@
   "triggers": [
     {
       "key": "TRIGGER",
-      "name": "Entrada via Site_Behavior_Segments",
+      "name": "Entrada via API Event (bridge Site_Behavior_Segments)",
       "description": "",
       "type": "APIEvent",
       "outcomes": [],

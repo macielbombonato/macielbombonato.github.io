@@ -2,7 +2,7 @@
   "kind": "dataExtension",
   "name": "Site_Behavior_Segments",
   "key": "Site_Behavior_Segments",
-  "description": "Recebe os membros dos segmentos de comportamento do site bombonato.net (interesse em carreira vs blog), sincronizados a partir do Marketing Cloud Personalization para acionar Journeys.",
+  "description": "Destino para membros dos segmentos de comportamento do site bombonato.net (interesse em carreira vs blog), preenchida por ponte externa de sincronização entre MCP e MCE para acionar Journeys.",
   "folderId": 354805,
   "isSendable": true,
   "sendableSubscriberField": "ContactKey",

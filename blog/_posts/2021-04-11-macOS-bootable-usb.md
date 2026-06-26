@@ -36,3 +36,21 @@ Depois execute no terminal:
 ```
 sudo /Applications/Install\ macOS\ Mojave.app/Contents/Resources/createinstallmedia --volume /Volumes/MACIEL --nointeraction && say Hi boss, I\'m done here
 ```
+
+## `atualização em 20/06/2026`
+
+Caso vá tentar pegar um macOS antigo usando um mac novo pode ser que não consiga fazer o download pela apple store, nesse caso, o jeito mais fácil que encontrei de essas versões antigas foi usando o open core.
+
+### Os passos são os seguintes:
+
+1. Baixe o [OpenCore-Patcher.pkg](https://github.com/dortania/OpenCore-Legacy-Patcher/releases) no GitHub oficial (aqui deixei link para o site pra que você escolha a última versão disponível).
+
+2. Extraia, mova o app para a pasta Aplicativos e abra-o.
+
+3. Na tela inicial do programa, clique no botão Create macOS Installer (Criar Instalador do macOS).
+
+4. Escolha a opção Download macOS Installer. O programa vai puxar a lista de servidores da Apple.
+
+5. Escolha a versão que deseja.
+
+6. O próprio programa vai extrair o pacote e colocá-lo na pasta de Aplicativos do macOS. Aí é só seguir os passos indicados anteriormente substituindo para a versão do SO que você baixou.
